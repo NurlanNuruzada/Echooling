@@ -1,0 +1,15 @@
+.mainDiv {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background:black ;
+    border-radius: 50%;
+    text-align: center;
+    color: #ffffff;
+    z-index: 1;
+    cursor: pointer;
+    margin-top: 60px;
+}

@@ -1,0 +1,99 @@
+.FooterContainer {
+    width: 100%;
+    height: 100%;
+    padding:  100px 50px;
+    transform: scale(1);
+    opacity: 0.86;
+    background-attachment: scroll;
+    background-size: cover;
+    background-position: center center;
+    height: 100%;
+    width: 100%;
+    background-image: url("../Images/footer-v1-bg.jpg");
+}
+.MainContent{
+    padding:  100px 10px;
+    transform: scale(1);
+    opacity: 0.86;
+}
+.FooterContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Adjust opacity and color as needed */
+    mix-blend-mode: multiply; /* Adjust blend mode as needed */
+    z-index: -1; /* Place the pseudo-element behind the content */
+}
+.MainLogo {
+    padding: 20px !important;
+    transform: translate(0% , 8%);
+    background: url("../Images/footer-logo2.png") no-repeat left top / 150px; /* Adjust the size as needed */
+    border: none 1px transparent;
+}
+.ListHeader{
+    color: white !important;
+}
+.List{
+    border: 1px solid transparent;
+    width: 200px;
+    height: max-content;
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+.Line {
+    width: 100%;
+    border-top: 1px solid #3333;
+    margin-top: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap; /* Ensure items stay in one line */
+
+    /* Add a media query for small screens */
+    @media (max-width: 768px) {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: flex-start; /* Align items to the start of the column */
+    }
+}
+.Right{
+    text-align: center !important;
+    padding: auto;
+    color: #aeb2c2;
+    font-size: 15px;
+    line-height: 25px;
+    font-weight: 400;
+    padding-top: 60px;
+}
+.SocialMedia {
+    gap: 20px;
+    color: #aeb2c2;
+    display: flex;
+    align-items: baseline;
+
+    /* Add a media query for small screens */
+    @media (max-width: 768px) {
+        margin-top: 10px; /* Add margin to separate from the content above */
+    }
+}
+.InputEmail{
+    padding: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+}
+.SeacrhIcon{
+    background-color: #3270fc;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+.SeacContainer{
+    display: flex;
+}
