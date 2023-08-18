@@ -7,8 +7,6 @@
     background-attachment: scroll;
     background-size: cover;
     background-position: center center;
-    height: 100%;
-    width: 100%;
     background-image: url("../Images/footer-v1-bg.jpg");
 }
 .MainContent{
@@ -18,9 +16,9 @@
 }
 .FooterContainer::before {
     content: '';
-    position: absolute;
     top: 0;
     left: 0;
+    position: absolute;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8); /* Adjust opacity and color as needed */
@@ -66,7 +64,7 @@
     color: #aeb2c2;
     font-size: 15px;
     line-height: 25px;
-    font-weight: 400;
+    font-weight: 600;
     padding-top: 60px;
 }
 .SocialMedia {
