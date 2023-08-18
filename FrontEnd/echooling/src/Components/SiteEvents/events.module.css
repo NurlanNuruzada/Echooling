@@ -1,4 +1,63 @@
 .mainContainer{
-background-image: url("../../Images/BackgoundImage1.png");
-padding: 100px;
+  background-image: url("../../Images/BackgoundImage1.png");
+  background-repeat: no-repeat; /* Prevent the background image from repeating */
+  background-size: cover;
+padding: 120px 100px;
+min-height: min-content;
 }
+.Header{
+  color: white;
+  text-align: center;
+  font-size: 50px;
+  padding-bottom: 40px;
+  font-weight: 700;
+}
+.GridBox {
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+    grid-row-gap: 170px; /* Add this line to set padding between rows */
+  }
+  .GridItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .Conatiner{
+    width: 100%;
+    height: 100%;
+  }
+  
+  @media (max-width: 900px) {
+    /* Apply these styles for screens up to 768px wide (tablets and phones) */
+    .mainContainer {
+      padding: 60px 20px; /* Adjust the padding for tablet screens */
+    }
+    .GridBox {
+      grid-row-gap: 30px; /* Add this line to set padding between rows */
+    }
+  }
+@media (max-width: 768px) {
+  /* Apply these styles for screens up to 768px wide (tablets and phones) */
+  .mainContainer {
+    padding: 60px 20px; /* Adjust the padding for tablet screens */
+  }
+  .GridBox {
+    grid-row-gap: 30px; /* Add this line to set padding between rows */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Apply these styles for screens up to 480px wide (phones) */
+  .mainContainer {
+    padding: 40px 20px; /* Adjust the padding for phone screens */
+  }
+  .GridBox {
+    grid-row-gap: 0px; /* Add this line to set padding between rows */
+  }
+}
+
+
+
+
+

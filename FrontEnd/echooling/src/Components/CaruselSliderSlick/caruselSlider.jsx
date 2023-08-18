@@ -59,7 +59,8 @@ const SynchronizedSlider = () => {
   };
 
   return (
-    <div>
+    <div  className={Style.SliderConatiner} >
+      <p className={Style.about}>Our graduates</p>
       <Slider {...settings} className={Style.CustomSlider}>
         <div>
           <img className={Style.customSlide} src={image1} alt="Slide 1" />

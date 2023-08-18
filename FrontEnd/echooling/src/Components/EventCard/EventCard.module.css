@@ -1,0 +1,62 @@
+.Down{
+    display: flex;
+}
+.day{
+    font-size: 29px;
+    font-weight: 600;
+}
+.monunt{
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.Up{
+    max-width: 100%;
+    height: 100%;
+}
+.EventCard{
+    max-width: 356px;
+    height: max-content;
+    transition: 300ms;
+    cursor: pointer;
+}
+.EventCard:hover{
+   transform: scale(1.05);
+
+}
+.date{
+    line-height: 25px;
+}
+.EventDetail{
+    padding-left: 20px;
+    color: white;
+    font-weight: 500;
+}
+.DownCOntainer{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+.InfoContainer{
+    display: flex;
+    padding: 30px 0 ;
+    align-items: center;
+    justify-content: space-between;
+}
+.Info1{
+    width: 35px;
+    height: 4px;
+    background-color:#3270fc ;
+}
+.Info2{
+    padding-left: 20px;
+    color: white;
+    font-weight: 300;
+    padding-left:15px ;
+}
+.Info3{
+    padding-left: 20px;
+    color: white;
+    font-weight: 300;
+    padding-left:15px ;
+}

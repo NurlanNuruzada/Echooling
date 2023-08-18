@@ -1,7 +1,7 @@
 /* Testimonial.module.css */
 .VideoContainer {
   position: relative;
-  height: 500px;
+  height: max-content;
   padding: 150px;
 }
 
