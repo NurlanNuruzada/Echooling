@@ -19,6 +19,10 @@ export default function Routes(){
           element: <Home />,
         },
         {
+          path: "/Home",
+          element: <Home />,
+        },
+        {
           path: "/about",
           element: <About />,
         },

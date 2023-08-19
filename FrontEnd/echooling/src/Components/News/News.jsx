@@ -25,7 +25,7 @@ const News = () => {
         </div>
         <div className={Styles.right}>
           <GridItem>
-           <SearchInputCom  width={"100%"} />
+           <SearchInputCom  width={"100%"} placeholder={"Enter your email adress"} />
            <h2 className={Styles.rightContent}>Get the latest Echooling news delivered to you inbox</h2>
           </GridItem>
         </div>

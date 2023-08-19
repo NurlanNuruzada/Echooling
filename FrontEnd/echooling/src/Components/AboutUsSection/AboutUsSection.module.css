@@ -12,45 +12,45 @@
 .bakcgoundItem1{
     position: absolute;
     z-index: 2;
-    top: 190px;
-    left: 150px;
-    animation: BlueBakgound 5000ms linear infinite alternate-reverse;
+    left: 55px;
+    animation: BlueBakgound 7000ms linear infinite alternate-reverse 1000ms;
 }
 .bakcgoundItem2{
     position: absolute;
     z-index: 2;
     top: 90px;
-    left: 650px;
-    animation: redBakgound 5000ms linear infinite alternate-reverse;
+    left: 616px;
+    animation: redBakgound 7000ms linear infinite alternate-reverse;
 }
 .bakcgoundItem3{
     position: absolute;
-    top: 260px;
-    left: 300px;
-
+    top: 266px;
+    left: 259px;
+    width: 387px;
 }
 .bakcgoundItem4{
-    top: 80px;
+    top: 10px;
     left: 150px;
     position: relative;
     z-index: -2;
 }
 @keyframes redBakgound {
-    0% { top: 80px;}
-    50% {top:120px}
-    100%{ top: 80px;}
+    0% { top: 230px;}
+    50% {top:380px}
+    100%{ top: 230px;}
 }
 @keyframes BlueBakgound {
-    0% { top: 190px;}
-    50% {top:220px}
-    100%{ top: 190px;}
+    0% { top: 230px;}
+    50% {top:333px}
+    100%{ top: 233px;}
 }
 .MainContainer{
     width: 100%;
     height: 500px;
     display: flex;
-    padding: 100px 0;
+    padding: 150px 0;
     justify-content: center;
+    margin-top: 100px !important;
 }
 .LeftSideContainer{
     width: 800px;
@@ -90,16 +90,19 @@
     .BackgroundVideoContainer{
         width: 355px !important; 
     }
+    .bakcgoundItem1{
+        left: 55px;
+    }
     .bakcgoundItem2{
-        left: 350px;
+        left: 450px;
     }
     .bakcgoundItem3{
         position: absolute;
-        top: 220px;
+        top: 250px;
         left: 120px;
     }
     .bakcgoundItem4{
-        left: 50px;
+        left: 10px;
     }
     .LeftSideContainer{
         width: 600px;
@@ -110,15 +113,25 @@
         width: 255px !important; 
         left: 50px;
     }
+    @keyframes BlueBakgound {
+        0% { top: 130px;}
+        50% {top:233px}
+        100%{ top: 133px;}
+    }
+    @keyframes redBakgound {
+        0% { top: 130px;}
+        50% {top:280px}
+        100%{ top: 130px;}
+    }
     .bakcgoundItem1{
-        left: 50px;
+        left: 0px;
     }
     .bakcgoundItem2{
-        left: 150px;
+        left: 250px;
     }
     .bakcgoundItem3{
-        top: 220px;
-        left: 20px;
+        top: 224px;
+        left: 127px;
         width: 200px;
     }
     .bakcgoundItem4{
@@ -165,19 +178,21 @@
 @media (max-width:734px) {
     .BackgroundVideoContainer{
         width: 355px !important; 
-        left: 00px;
-    }
-    .bakcgoundItem1{
         left: 0px;
     }
+    .bakcgoundItem1{
+        left: -40px;
+    }
     .bakcgoundItem2{
-        left: 150px;
+        left: 300px;
     }
     .bakcgoundItem3{
-        top: 290px;
+        top: 192px;
+        width: 312px;
+        z-index: -9;
     }
     .bakcgoundItem4{
-        left: 10px;
+           left: 0px;
         top: 20px;
     }
     .LeftSideContainer{
@@ -195,5 +210,10 @@
     }
     .rightSideContainer{
         width: 320px;
+    }
+    @keyframes BlueBakgound {
+        0% { top: 130px;}
+        50% {top:233px}
+        100%{ top: 133px;}
     }
 }

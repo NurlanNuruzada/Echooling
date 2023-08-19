@@ -2,7 +2,11 @@
     padding: 20px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-
+    color: black;
+    border: 1px solid  rgba(0, 0, 0, 0.10);
+}
+.InputEmail:focus,.SeacrhIcon:active {
+    outline: none;
 }
 .SeacrhIcon{
     background-color: #3270fc;
@@ -11,6 +15,7 @@
     display: flex;
     align-items: center;
     padding: 20px;
+    transition: 300ms;
 }
 .SeacContainer{
     display: flex;

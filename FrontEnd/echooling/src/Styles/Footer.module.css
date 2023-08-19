@@ -13,6 +13,7 @@
     padding:  100px 10px;
     transform: scale(1);
     opacity: 0.86;
+    
 }
 .FooterContainer::before {
     content: '';

@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import Styles from "./Seach.module.css";
-const SearchInputCom = ({width}) => {
+const SearchInputCom = ({width, placeholder , height}) => {
   return (
     <div className={Styles.SeacContainer}>
       <input style={{width:width}}
-        placeholder="Enter your email"
+        placeholder={placeholder}
         className={Styles.InputEmail}
         type="text"
       />
