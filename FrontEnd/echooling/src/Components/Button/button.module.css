@@ -1,0 +1,31 @@
+.button:hover{
+    color: white;
+    background-color: #3270fc;
+}
+.button{
+    transition: 300ms;
+    color: #5B5F64;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    text-transform: capitalize;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 7px;
+}
+@media (max-width: 480px) {
+    .button{
+        padding: 5px 5px;
+        height: 60px;
+        font-size: 15px;
+    }
+}
+.Clicked{
+    transition: 300ms;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    text-transform: capitalize;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 7px;
+    color: white;
+    background-color: #3270fc;
+}

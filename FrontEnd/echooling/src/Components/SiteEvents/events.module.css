@@ -29,31 +29,28 @@ min-height: min-content;
   }
   
   @media (max-width: 900px) {
-    /* Apply these styles for screens up to 768px wide (tablets and phones) */
     .mainContainer {
-      padding: 60px 20px; /* Adjust the padding for tablet screens */
+      padding: 60px 20px; 
     }
     .GridBox {
-      grid-row-gap: 30px; /* Add this line to set padding between rows */
+      grid-row-gap: 30px; 
     }
   }
 @media (max-width: 768px) {
-  /* Apply these styles for screens up to 768px wide (tablets and phones) */
   .mainContainer {
-    padding: 60px 20px; /* Adjust the padding for tablet screens */
+    padding: 60px 20px; 
   }
   .GridBox {
-    grid-row-gap: 30px; /* Add this line to set padding between rows */
+    grid-row-gap: 30px; 
   }
 }
 
 @media (max-width: 480px) {
-  /* Apply these styles for screens up to 480px wide (phones) */
   .mainContainer {
-    padding: 40px 20px; /* Adjust the padding for phone screens */
+    padding: 40px 20px; 
   }
   .GridBox {
-    grid-row-gap: 0px; /* Add this line to set padding between rows */
+    grid-row-gap: 0px; 
   }
 }
 

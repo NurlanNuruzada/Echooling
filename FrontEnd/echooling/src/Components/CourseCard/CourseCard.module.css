@@ -1,10 +1,35 @@
 .MainContainer {
     background-color: white;
-    width: 250px;
+    width: 245px;
     height: max-content;
     border-radius: 10px;
     padding-bottom: 5px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+       cursor: pointer;
+}
+@media (max-width: 480px) {
+    .MainContainer {
+        width: 300px;
+    }
+    .ImageContainer {
+        height: 179px !important;
+    }
+}
+@media (max-width: 770px) {
+    .MainContainer {
+        width: 330px !important;
+    }
+    .ImageContainer {
+        height: 220px !important;
+    }
+}
+@media (max-width: 767px) {
+    .ImageContainer {
+        height: 179px ;
+    }
+    .MainContainer {
+        width: 300px;
+    }
 }
 .down{
     padding: 5px;
@@ -25,6 +50,11 @@
     border: 1px solid #d1d7dc;
 }
 
+  .Image:hover {
+    filter: brightness(0.8); /* Apply the darker effect on hover */
+    cursor: pointer;
+
+  }
 .Category {
     position: absolute;
     top: 15%;
