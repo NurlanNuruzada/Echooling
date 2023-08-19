@@ -2,6 +2,7 @@
   background-color: #f5f5f5;
   width: 100%;
   height: max-content;
+  padding: 40px 0;
 }
 .GridBox {
   row-gap: 20px;
