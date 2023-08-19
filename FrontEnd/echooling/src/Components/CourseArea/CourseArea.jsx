@@ -64,14 +64,7 @@ const CourseArea = () => {
               image={image1}
             />
           </GridItem>
-          <GridItem>
-            <CourseCard
-              CreatorImage={image8}
-              price={Price}
-              title={courseTitle}
-              image={image3}
-            />
-          </GridItem>
+       
           <GridItem>
             <CourseCard
               CreatorImage={image9}
