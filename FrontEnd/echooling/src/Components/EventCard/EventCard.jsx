@@ -23,7 +23,8 @@ const loaction = " New York, USA"
   const month = date.toLocaleString("en-US", { month: "short" });
   return (
     <>
-    <div className={Styles.EventCard}>
+    <div   data-aos-duration="3000"
+                data-aos="fade-down" className={Styles.EventCard}>
       <div className={Styles.Up}>
         <img className={Styles.Up} src={image} alt="" />
       </div>

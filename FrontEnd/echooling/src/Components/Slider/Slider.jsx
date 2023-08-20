@@ -42,7 +42,6 @@ const SliderCom = () => {
   const handleNextClick = () => {
     sliderRef.current.slickNext();
   };
-
   return (
     <div className={Styles.SliderContainer}>
       <Slider ref={sliderRef} {...settings} className={Styles.CustomSlider}>
@@ -55,15 +54,36 @@ const SliderCom = () => {
             />
             <div className={`${Styles.slideText} ${Styles.fadeInAnimation}`}>
               <h2>Slide {index + 1}</h2>
-              <div className={Styles.TextContainer}>
-                <h1 className={Styles.MainTitle}>EDUCATION MAKES </h1>
-                <h1 className={Styles.SeccondTitle}>PROPER HUMANITY </h1>
-                <p className={Styles.Desctiption}>
+              <div
+            
+                className={Styles.TextContainer}
+              >
+                <h1
+               
+                  className={Styles.MainTitle}
+                >
+                  EDUCATION MAKES{" "}
+                </h1>
+                <h1
+              
+                  className={Styles.SeccondTitle}
+                >
+                  PROPER HUMANITY{" "}
+                </h1>
+                <p
+                  
+                  className={Styles.Desctiption}
+                >
                   I must explain to you how all this mistaken idea of denouncing
                   pleasure and prsing pain was born and I will give you a
                   complete account of the system{" "}
                 </p>
-                <Button  onClick={handleGoAbout} className={Styles.Button}>Learn More</Button>
+                <Button
+                  onClick={handleGoAbout}
+                  className={Styles.Button}
+                >
+                  Learn More
+                </Button>
               </div>
             </div>
           </div>
@@ -73,7 +93,7 @@ const SliderCom = () => {
         <Button className={Styles.CustomButton} onClick={handlePrevClick}>
           <FontAwesomeIcon icon={faChevronLeft} style={{ color: "#1a212e" }} />
         </Button>
-        <Button  className={Styles.CustomButton} onClick={handleNextClick}>
+        <Button className={Styles.CustomButton} onClick={handleNextClick}>
           <FontAwesomeIcon icon={faChevronRight} style={{ color: "#1a212e" }} />
         </Button>
       </div>

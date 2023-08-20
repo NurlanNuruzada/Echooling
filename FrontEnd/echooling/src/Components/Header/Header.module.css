@@ -45,11 +45,14 @@
     display: none;
   }
   
-  @media (max-width: 480px) {
+  @media (max-width: 786px) {
     .pages {
       display: none;
     }
-    
+    .MainContainer {
+    justify-content: space-between;
+    padding: 0px 10px;
+    }
     .BurgerMenu {
       display: block;
       margin-left: auto;

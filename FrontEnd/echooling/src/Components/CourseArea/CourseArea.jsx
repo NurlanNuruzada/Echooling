@@ -56,8 +56,8 @@ const CourseArea = () => {
             xl: "repeat(5, 0fr)",
           }}
         >
-          <GridItem>
-            <CourseCard
+          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
+            <CourseCard 
               CreatorImage={image7}
               price={Price}
               title={courseTitle}
@@ -65,39 +65,43 @@ const CourseArea = () => {
             />
           </GridItem>
        
-          <GridItem>
+          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
             <CourseCard
+            
               CreatorImage={image9}
               price={Price}
               title={courseTitle}
               image={image2}
             />
           </GridItem>
-          <GridItem>
+          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
             <CourseCard
+            
               CreatorImage={image7}
               price={Price}
               title={courseTitle}
               image={image4}
             />
           </GridItem>
-          <GridItem>
+          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
             <CourseCard
+            
               CreatorImage={image8}
               price={Price}
               title={courseTitle}
               image={image5}
             />
           </GridItem>
-          <GridItem>
+          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
             <CourseCard
+            
               CreatorImage={image9}
               price={Price}
               title={courseTitle}
               image={image6}
             />
           </GridItem>
-          <GridItem>
+          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
             <CourseCard
               CreatorImage={image7}
               price={Price}
@@ -105,7 +109,7 @@ const CourseArea = () => {
               image={image2}
             />
           </GridItem>
-          <GridItem>
+          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
             <CourseCard
               CreatorImage={image8}
               price={Price}
@@ -113,7 +117,7 @@ const CourseArea = () => {
               image={image4}
             />
           </GridItem>
-          <GridItem>
+          <GridItem   data-aos="zoom-in-down"  data-aos-duration="800">
             <CourseCard
               CreatorImage={image7}
               price={Price}

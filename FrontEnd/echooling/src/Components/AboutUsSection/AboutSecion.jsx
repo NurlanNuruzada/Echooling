@@ -15,9 +15,9 @@ const AboutSecion = () => {
     navigate("/about");
   };
   return (
-    <div className={Styles.MainContainer1}>
+    <div data-aos="fade-down" data-aos-duration="3000"  className={Styles.MainContainer1}>
       <div className={Styles.MainContainer}>
-        <div className={Styles.LeftSideContainer}>
+        <div      className={Styles.LeftSideContainer}>
           <div className={Styles.BackgroundVideoContainer}>
             <video className={Styles.BackgroundVideo} autoPlay muted loop>
               <source src={BackgoundVideo} type="video/mp4" />
@@ -44,7 +44,7 @@ const AboutSecion = () => {
             alt=""
           />
         </div>
-        <div className={Styles.rightSideContainer}>
+        <div   className={Styles.rightSideContainer}>
           <h1 className={Styles.title1}>One of The Largest,</h1>
           <h1 className={Styles.title2}>Most Online Course</h1>
           <p className={Styles.title3}>
