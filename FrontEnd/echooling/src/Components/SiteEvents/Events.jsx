@@ -8,7 +8,7 @@ import image3 from "../../Images/event3.png";
 const Events = () => {
   return (
     <div className={Styles.mainContainer}>
-      <p className={Styles.Header}> Recent Events</p>
+      <p className={Styles.Header}>Upcoming Events</p>
       <div className={Styles.Conatiner}>
         <Grid
           className={Styles.GridBox}
