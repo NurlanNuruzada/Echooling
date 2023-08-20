@@ -1,0 +1,81 @@
+.ParallaxContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 550px;
+  transition: background-position 220ms;
+}
+
+.TransparentImage {
+  width: 100%;
+  min-height: 1000px !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  position: absolute;
+  top: -180px;
+  left: 0;
+  z-index: -1;
+  transition: transform 220ms;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1100px) {
+  .ParallaxContainer {
+    height: 440px; /* Adjust the height for smaller screens */
+  }
+
+  .TransparentImage {
+    min-height: 900px; /* Adjust the minimum height for smaller screens */
+    top: -140px; /* Adjust the top position for smaller screens */
+    background-size:190%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .ParallaxContainer {
+    height: 400px; /* Adjust the height for smaller screens */
+  }
+
+  .TransparentImage {
+    min-height: 800px; /* Adjust the minimum height for smaller screens */
+    top: -150px; /* Adjust the top position for smaller screens */
+  }
+}
+@media screen and (max-width: 460px) {
+  .ParallaxContainer {
+    height: 320px; /* Adjust the height for smaller screens */
+  }
+
+  .TransparentImage {
+    min-height: 800px; /* Adjust the minimum height for smaller screens */
+    top: -50px; /* Adjust the top position for smaller screens */
+  }
+  .UpText {
+    margin-top: 46px !important;
+  }
+}
+
+.UpText {
+  margin-top: 100px ;
+  z-index: 2;
+  text-align: center;
+  font-weight: 500;
+  font-size: 24px;
+}
+.Text1 {
+  text-decoration: none;
+  color: #3270fc;
+}
+.Text1:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.UpText span {
+    color: #868e96 !important;
+    padding-left: 10px;
+}
+.UpText h1 {
+  font-size: 50px;
+  font-weight: 600;
+  margin: 20px !important;
+}

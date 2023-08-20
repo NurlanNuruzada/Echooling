@@ -1,0 +1,74 @@
+.MainContent {
+  padding: 80px 40px;
+  display: flex;
+}
+.GridBoxMain{
+    justify-items: center;
+    margin: auto;
+}
+.GridItemMain{
+    width: max-content;
+}
+.SeachArea {
+  max-width: max-content;
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 3px;
+}
+.SeachArea input {
+  margin: 5px 0;
+}
+.Input {
+  width: 250px;
+}
+.titleSeach {
+  font-size: 25px;
+  color: #3270fc;
+}
+.Poster {
+  background-image: url("../Images/basketball.jpeg");
+  background-position: center;
+  background-size: 120%;
+  background-repeat: no-repeat;
+  max-width: 290px;
+  height: 330px;
+
+}
+
+.Poster h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+  backdrop-filter: brightness(70%);
+  height: 100%;
+  padding: 160px 20px 20px 20px;
+  text-transform: uppercase;
+}
+.list h1 {
+  font-size: 20px;
+  color: #303030;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 35px;
+  line-height: 26px;
+}
+.list  ul li  {
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  list-style: none;
+  color: #606060;
+  transition: all 0.5s ease 0s;
+    padding: 10px 0px;
+}
+.list{
+    max-width: 290px;
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 3px;
+}
+.Rightside{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}

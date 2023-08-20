@@ -11,7 +11,6 @@ export default function MyFunctionalComponent() {
     <div
       data-aos="fade-left" //Here you can use any of the AOS animations
     >
-  
     </div>
   );
 }

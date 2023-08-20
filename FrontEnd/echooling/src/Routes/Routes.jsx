@@ -1,7 +1,7 @@
 import React from "react";
 import Home from "../Pages/Home";
 import Course from "../Pages/Course";
-import Blog from "../Pages/Blog";
+import Events from "../Pages/Events";
 import Contact from "../Pages/Contact";
 import { useRoutes } from "react-router-dom";
 import { MainLayout } from "../Layouts/MainLayout";
@@ -31,8 +31,8 @@ export default function Routes(){
           element: <Course />,
         },
         {
-          path: "/blogs",
-          element: <Blog />,
+          path: "/Events",
+          element: <Events />,
         },
         {
           path: "/contact",
