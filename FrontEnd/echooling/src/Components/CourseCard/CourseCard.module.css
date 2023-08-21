@@ -7,28 +7,25 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
        cursor: pointer;
 }
-@media (max-width: 480px) {
+@media (max-width: 490px) {
     .MainContainer {
-        width: 300px;
+        width: 320px  !important;
     }
     .ImageContainer {
-        height: 179px !important;
+        height: 179px !important  ;
     }
 }
 @media (max-width: 770px) {
     .MainContainer {
-        width: 330px !important;
+        width: 325px ;
     }
     .ImageContainer {
-        height: 220px !important;
+        height: 130px ;
     }
 }
-@media (max-width: 767px) {
-    .ImageContainer {
-        height: 179px ;
-    }
+@media (max-width: 1023px) {
     .MainContainer {
-        width: 300px;
+        width: 220px ;
     }
 }
 .down{

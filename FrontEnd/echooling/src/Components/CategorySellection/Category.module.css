@@ -1,0 +1,87 @@
+.MainGridItem {
+  width: max-content;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  height: 100%;
+}
+.Rightside {
+  padding: 20px;
+}
+.list li {
+  list-style: none !important;
+  cursor: pointer;
+}
+.Rightside > div {
+  padding: 0px 10px;
+  margin: 20px 0;
+}
+.Rightside h1 {
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+}
+
+.Poster {
+  background-image: url("../../Images/basketball.jpeg");
+  background-position: center;
+  background-size: 120%;
+  background-repeat: no-repeat;
+  max-width: 290px;
+  height: 330px;
+  padding: 0px 0px !important;
+}
+
+.Poster h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+  backdrop-filter: brightness(70%);
+  height: 100%;
+  width: 100%;
+  padding: 160px 20px 20px 10px;
+  text-transform: uppercase;
+}
+@media (max-width: 1180px) {
+  .Poster {
+    display: none;
+  }
+  .Rightside > div {
+    padding: 0px;
+    padding-right: 20px;
+  }
+  .MainGridItem {
+    box-shadow: none;
+  }
+  .Rightside {
+    width: 100%;
+  }
+  .MainGridItem{
+    justify-items: start;
+    padding-right: 20px;
+  }
+  .list{
+    width: 200px !important;
+  }
+  .Input{
+    width: 200px;
+  }
+}
+@media (max-width: 480px) {
+  .Rightside > div {
+    padding: 0px 0px !important;
+    width: 100%;
+  }
+  .Rightside {
+    padding: 0px;
+    width: 100%;
+  }
+  .MainGridItem{
+    width: max-content !important;
+    padding: 0px;
+  }
+  .list{
+    width: 300px !important;
+  }
+  .Input{
+    width: 300px;
+  }
+}

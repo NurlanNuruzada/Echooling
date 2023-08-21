@@ -22,7 +22,7 @@ import theme from "../Images/basketball.jpeg";
 import SearchInput from "../Components/SeacthInput/SearchInput2";
 import EffectImage from "../Components/TransparantEffect/EffectImage";
 import { Grid, GridItem } from "@chakra-ui/react";
-import News from '../Components/News/News'
+import News from "../Components/News/News";
 const Blog = () => {
   const Categorylist = [
     "  CSS Engineering (10)",
@@ -61,79 +61,128 @@ const Blog = () => {
           templateColumns={{
             base: "repeat(1, 1fr)",
             sm: "repeat(1, 0fr)",
-            md: "repeat(2, 0fr)",
-            lg: "repeat(2, 0fr)",
+            md: "repeat(1, 0fr)",
+            lg: "repeat(1, 0fr)",
             xl: "repeat(2, 0fr)",
           }}
           gap={5} // Adjust gap as needed
         >
-          <div className={Styles.Leftside}>
-            <Grid
-              className={Styles.GridBox}
-              templateColumns={{
-                base: "repeat(1, 1fr)",
-                sm: "repeat(1, 1fr)",
-                md: "repeat(3, 1fr)",
-                lg: "repeat(3, 1fr)",
-                xl: "repeat(3, 1fr)",
-              }}
-              gap={5} // Adjust gap as needed
-            >
-              {images.map((image, index) => (
-                <GridItem className={Styles.GridItemMain} key={index}>
-                  <EventCard
-                    IsShadow={true}
-                    ColorTitle={"#28292b"}
-                    ColorDetail={"gray"}
-                    image={image}
+          <GridItem className={Styles.TopSideContainer}>
+            <div className={Styles.TopSide}>
+              <div className={Styles.SeachArea}>
+                <h1 className={Styles.titleSeach}> Search Event</h1>
+                <div className={Styles.Input}>
+                  <label htmlFor="search">Search by name</label>
+                  <Input name="search" placeholder="Enter name" />
+                </div>
+                <div className={Styles.Input}>
+                  <label htmlFor="start">Start Date</label>
+                  <Input
+                    type="datetime-local"
+                    id="start"
+                    placeholder="Select start date..."
                   />
-                </GridItem>
-              ))}
-            </Grid>
-          </div>
-          <div className={Styles.Rightside}>
-            <div className={Styles.SeachArea}>
-              <h1 className={Styles.titleSeach}> Search Event</h1>
-              <div className={Styles.Input}>
-                <label htmlFor="search">Search by name</label>
-                <Input name="search" placeholder="Enter name" />
+                </div>
+                <div className={Styles.Input}>
+                  <label htmlFor="end">End Date</label>
+                  <Input
+                    type="datetime-local"
+                    id="end"
+                    placeholder="Select end date..."
+                  />
+                </div>
+                <div className={Styles.Input}>
+                  <label htmlFor="city">City</label>
+                  <Input name="city" placeholder="Enter city" />
+                </div>
+                <Button color={"white"} backgroundColor={"#3270fc"}>
+                  Seacrh
+                </Button>
               </div>
-              <div className={Styles.Input}>
-                <label htmlFor="start">Start Date</label>
-                <Input
-                  type="datetime-local"
-                  id="start"
-                  placeholder="Select start date..."
-                />
+              <div className={Styles.list}>
+                <h1>Categories</h1>
+                <ul>
+                  {Categorylist.map((category, index) => (
+                    <li key={index}>{category}</li>
+                  ))}
+                </ul>
               </div>
-              <div className={Styles.Input}>
-                <label htmlFor="end">End Date</label>
-                <Input
-                  type="datetime-local"
-                  id="end"
-                  placeholder="Select end date..."
-                />
+              <div className={Styles.Poster}>
+                <h1>Best Education theme</h1>
               </div>
-              <div className={Styles.Input}>
-                <label htmlFor="city">City</label>
-                <Input name="city" placeholder="Enter city" />
-              </div>
-              <Button color={"white"} backgroundColor={"#3270fc"}>
-                Seacrh
-              </Button>
             </div>
-            <div className={Styles.list}>
-              <h1>Categories</h1>
-              <ul>
-                {Categorylist.map((category, index) => (
-                  <li key={index}>{category}</li>
+          </GridItem>
+          <GridItem className={Styles.MainGridItem}>
+            <div className={Styles.Leftside}>
+              <Grid
+                className={Styles.GridBox}
+                templateColumns={{
+                  base: "repeat(1, 1fr)",
+                  sm: "repeat(1, 1fr)",
+                  md: "repeat(2, 0fr)",
+                  lg: "repeat(2, 0fr)",
+                  xl: "repeat(3, 0fr)",
+                }}
+                gap={5} // Adjust gap as needed
+              >
+                {images.map((image, index) => (
+                  <GridItem className={Styles.GridItemMain} key={index}>
+                    <EventCard
+                      IsShadow={true}
+                      ColorTitle={"#28292b"}
+                      ColorDetail={"gray"}
+                      image={image}
+                    />
+                  </GridItem>
                 ))}
-              </ul>
+              </Grid>
             </div>
-            <div className={Styles.Poster}>
-              <h1>Best Education theme</h1>
+          </GridItem>
+          <GridItem className={Styles.MainGridItem}>
+            <div className={Styles.Rightside}>
+              <div className={Styles.SeachArea}>
+                <h1 className={Styles.titleSeach}> Search Event</h1>
+                <div className={Styles.Input}>
+                  <label htmlFor="search">Search by name</label>
+                  <Input name="search" placeholder="Enter name" />
+                </div>
+                <div className={Styles.Input}>
+                  <label htmlFor="start">Start Date</label>
+                  <Input
+                    type="datetime-local"
+                    id="start"
+                    placeholder="Select start date..."
+                  />
+                </div>
+                <div className={Styles.Input}>
+                  <label htmlFor="end">End Date</label>
+                  <Input
+                    type="datetime-local"
+                    id="end"
+                    placeholder="Select end date..."
+                  />
+                </div>
+                <div className={Styles.Input}>
+                  <label htmlFor="city">City</label>
+                  <Input name="city" placeholder="Enter city" />
+                </div>
+                <Button color={"white"} backgroundColor={"#3270fc"}>
+                  Seacrh
+                </Button>
+              </div>
+              <div className={Styles.list}>
+                <h1>Categories</h1>
+                <ul>
+                  {Categorylist.map((category, index) => (
+                    <li key={index}>{category}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className={Styles.Poster}>
+                <h1>Best Education theme</h1>
+              </div>
             </div>
-          </div>
+          </GridItem>
         </Grid>
       </div>
       <News />

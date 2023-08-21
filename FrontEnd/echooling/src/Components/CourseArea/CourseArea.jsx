@@ -12,22 +12,22 @@ import image7 from "../../Images/Teacher1.png";
 import image8 from "../../Images/Teacher2.png";
 import image9 from "../../Images/teacher3.png";
 import Button from "../Button/Button";
+import Courses from "../Courses/Courses";
 const CourseArea = () => {
-  const courseTitle =
-    "C# .NET Core 7 with MS SQL Complete Beginner to Master 2023";
-  const Price = "$60.99";
   const categoryies = [
     "See All",
     "Trending",
     "Most Recomented",
     "Most Popular",
   ];
-  const defaultClickedIndex = categoryies.findIndex(category => category === "Most Popular");
+  const defaultClickedIndex = categoryies.findIndex(
+    (category) => category === "Most Popular"
+  );
 
   const [clickedIndex, setClickedIndex] = useState(defaultClickedIndex);
-  
+
   const handleButtonClick = (index) => {
-      setClickedIndex(index);
+    setClickedIndex(index);
   };
   return (
     <div className={Styles.MainContainer}>
@@ -37,96 +37,17 @@ const CourseArea = () => {
           <h1 className={Styles.SecondTitle}>What you will learn next </h1>
         </div>
         <div className={Styles.buttons}>
-        {categoryies.map((category, index) => (
-            <Button   key={index}
-            category={category}
-            isClicked={index === clickedIndex}
-            onClick={() => handleButtonClick(index)} />
+          {categoryies.map((category, index) => (
+            <Button
+              key={index}
+              category={category}
+              isClicked={index === clickedIndex}
+              onClick={() => handleButtonClick(index)}
+            />
           ))}
         </div>
       </div>
-      <div className={Styles.Conatiner}>
-        <Grid
-          className={Styles.GridBox}
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            sm: "repeat(1, 0fr)",
-            md: "repeat(2, 0fr)",
-            lg: "repeat(3, 0fr)",
-            xl: "repeat(5, 0fr)",
-          }}
-        >
-          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
-            <CourseCard 
-              CreatorImage={image7}
-              price={Price}
-              title={courseTitle}
-              image={image1}
-            />
-          </GridItem>
-       
-          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
-            <CourseCard
-            
-              CreatorImage={image9}
-              price={Price}
-              title={courseTitle}
-              image={image2}
-            />
-          </GridItem>
-          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
-            <CourseCard
-            
-              CreatorImage={image7}
-              price={Price}
-              title={courseTitle}
-              image={image4}
-            />
-          </GridItem>
-          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
-            <CourseCard
-            
-              CreatorImage={image8}
-              price={Price}
-              title={courseTitle}
-              image={image5}
-            />
-          </GridItem>
-          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
-            <CourseCard
-            
-              CreatorImage={image9}
-              price={Price}
-              title={courseTitle}
-              image={image6}
-            />
-          </GridItem>
-          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
-            <CourseCard
-              CreatorImage={image7}
-              price={Price}
-              title={courseTitle}
-              image={image2}
-            />
-          </GridItem>
-          <GridItem data-aos="zoom-in-down"  data-aos-duration="800">
-            <CourseCard
-              CreatorImage={image8}
-              price={Price}
-              title={courseTitle}
-              image={image4}
-            />
-          </GridItem>
-          <GridItem   data-aos="zoom-in-down"  data-aos-duration="800">
-            <CourseCard
-              CreatorImage={image7}
-              price={Price}
-              title={courseTitle}
-              image={image5}
-            />
-          </GridItem>
-        </Grid>
-      </div>
+      <Courses />
     </div>
   );
 };

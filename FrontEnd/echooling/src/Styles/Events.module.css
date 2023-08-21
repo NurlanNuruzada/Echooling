@@ -2,12 +2,9 @@
   padding: 80px 40px;
   display: flex;
 }
-.GridBoxMain{
-    justify-items: center;
-    margin: auto;
-}
-.GridItemMain{
-    width: max-content;
+.GridBoxMain {
+  justify-items: center;
+  margin: auto;
 }
 .SeachArea {
   max-width: max-content;
@@ -32,7 +29,6 @@
   background-repeat: no-repeat;
   max-width: 290px;
   height: 330px;
-
 }
 
 .Poster h1 {
@@ -52,23 +48,78 @@
   margin-bottom: 35px;
   line-height: 26px;
 }
-.list  ul li  {
+.list ul li {
   font-size: 16px;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   list-style: none;
   color: #606060;
   transition: all 0.5s ease 0s;
-    padding: 10px 0px;
+  padding: 10px 0px;
 }
-.list{
-    max-width: 290px;
+.list {
+  max-width: 290px;
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 3px;
+}
+.Rightside {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.GridItemMain {
+  width: max-content;
+}
+.TopSideContainer {
+  display: none;
+}
+@media (max-width: 1180px) {
+  .Rightside {
+    display: none;
+  }
+  .TopSideContainer {
+    display: flex;
+  }
+  .TopSide {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  .list {
+    width: 390px;
     padding: 20px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 3px;
+  }
+  .Poster {
+    display: none;
+  }
 }
-.Rightside{
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-}
+@media (max-width: 480px) {
+    .MainContent {
+        padding: 0px 20px;
+        display: flex;
+      }
+    .Rightside {
+      display: none;
+    }
+    .TopSideContainer {
+      display: flex;
+    }
+    .TopSide {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .list {
+      width: 390px;
+      padding: 20px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      border-radius: 3px;
+    }
+    .Poster {
+      display: none;
+    }
+  }
+  

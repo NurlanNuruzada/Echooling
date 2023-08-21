@@ -45,7 +45,6 @@ const Header = () => {
         <div className={Styles.icons}>
           <SearchInputCom
             height={"20px"}
-            width={"184px"}
             placeholder={"Search"}
           />
         </div>

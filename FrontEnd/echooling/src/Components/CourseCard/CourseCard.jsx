@@ -11,7 +11,7 @@ const CourseCard = ({ image, title, price,CreatorImage }) => {
       return title.slice(0, maxLength) + "...";
     }
     return title;
-  }
+  }  
 
   return (
     <div className={Styles.MainContainer}>

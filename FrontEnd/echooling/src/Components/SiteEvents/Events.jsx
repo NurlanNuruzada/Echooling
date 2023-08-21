@@ -21,16 +21,16 @@ const Events = () => {
           }}
         >
           <GridItem className={Styles.GridItem}>
-            <EventCard image={image1} />
+            <EventCard IsShadow={false} image={image1} />
           </GridItem>
           <GridItem className={Styles.GridItem}>
-            <EventCard image={image2} />
+            <EventCard  IsShadow={false} image={image2} />
           </GridItem>
           <GridItem className={Styles.GridItem}>
-            <EventCard image={image3} />
+            <EventCard  IsShadow={false} image={image3} />
           </GridItem>
-          <GridItem className={Styles.GridItem}>
-            <EventCard image={image1} />
+          <GridItem   className={Styles.GridItem}>
+            <EventCard IsShadow={false} image={image1} />
           </GridItem>
         </Grid>
       </div>
