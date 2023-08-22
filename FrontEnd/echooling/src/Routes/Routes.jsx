@@ -1,12 +1,12 @@
 import React from "react";
-import Home from "../Pages/Home";
-import Course from "../Pages/Course";
-import Events from "../Pages/Events";
-import Contact from "../Pages/Contact";
 import { useRoutes } from "react-router-dom";
 import { MainLayout } from "../Layouts/MainLayout";
-import About from "../Pages/About";
 import NotFound from "../Pages/NotFound";
+import Home from "../Pages/Home/Home";
+import About from "../Pages/About/About";
+import Course from "../Pages/Course/Course";
+import Events from "../Pages/Events/Events";
+import Contact from "../Pages/Contact";
 
 export default function Routes(){
   let routes = [

@@ -1,0 +1,77 @@
+.CounterContainer {
+  padding: 20px;
+}
+.ContainerImage {
+  position: relative;
+}
+.SeccondImage {
+  position: absolute;
+  top: 150px;
+  width: 160px;
+  right: 200px;
+  animation: imageobj 5000ms infinite linear;
+}
+@keyframes imageobj {
+  0% {
+    top: 150px;
+  }
+  50% {
+    top: 200px;
+  }
+  100% {
+    top: 150px;
+  }
+}
+.GridBox {
+  padding: 100px 20px;
+}
+.LeftGridItems {
+  padding: 40px;
+}
+.LeftGridItems > h1 {
+  left: 10px;
+  color: rgba(0, 0, 0, 0.05);
+  z-index: -1;
+  font-weight: 800;
+  line-height: 0px;
+  font-size: 40px;
+}
+.LeftGridItems > h2 {
+  color: #000;
+  line-height: 40px;
+  font-weight: 500;
+  margin: 0 0 20px 0;
+  font-size: 28px;
+}
+.LeftGridItems > h3 {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #181818;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+.Enchooling {
+  color: #4586ff;
+}
+@media (max-width: 1366px) {
+  .SeccondImage {
+    right: 60px;
+  }
+}
+@media (max-width: 993px) {
+  .SeccondImage {
+    right: calc(30vw); /* Adjust the multiplier as needed */
+  }
+}
+.CounterContainer{
+    justify-items: center;
+}
+.Header{
+    display: flex;
+    flex-direction: column;
+align-items: center;
+}
+.Header h1{
+    font-size: 30px;
+    padding: 20px 0;
+}

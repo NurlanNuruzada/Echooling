@@ -1,0 +1,14 @@
+.MainConatiner {
+  width: 220px;
+  height: 310px;
+  border: 1px solid black;
+}
+.CounterContainer {
+}
+@media (max-width: 480px) {
+  .MainConatiner {
+    width: 310px;
+    height: 370px;
+    margin-top: 30px;
+  }
+}

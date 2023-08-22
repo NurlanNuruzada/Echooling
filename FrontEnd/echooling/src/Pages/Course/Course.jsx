@@ -1,16 +1,20 @@
 import React from "react";
-import Courses from "../Components/Courses/Courses";
-import Category from "../Components/CategorySellection/Category";
+import Courses from "../../Components/Courses/Courses";
+import Category from "../../Components/CategorySellection/Category";
 import { Grid, GridItem } from "@chakra-ui/react";
-import SearchInputCom from "../Components/SeacthInput/SearchInput2";
-import News from '../../src/Components/News/News'
-import Styles from '../Styles/course.module.css'
-import image from '../../src/Images/Courses.jpeg'
-import EffectImage from "../Components/TransparantEffect/EffectImage";
+import News from '../../Components/News/News'
+import Styles from '../Course/course.module.css'
+import image from '../../Images/Courses.jpeg'
+import EffectImage from "../../Components/TransparantEffect/EffectImage";
 const Course = () => {
   return (
     <div>
-   
+     <EffectImage
+        showCenter={false}
+        imageLink={image}
+        pageName="Contact"
+        to="/"
+      />
       <Grid
          className={Styles.GridBox}
         templateColumns={{

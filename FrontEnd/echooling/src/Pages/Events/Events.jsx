@@ -1,7 +1,7 @@
 import React from "react";
-import EventCard from "../Components/EventCard/EventCard";
-import Styles from "../../src/Styles/Events.module.css";
-import EventImage from "../Images/UpcomingEvents.jpeg";
+import EventCard from "../../Components/EventCard/EventCard";
+import Styles from "../Events/Events.module.css";
+import EventImage from "../../Images/UpcomingEvents.jpeg";
 import {
   Input,
   InputGroup,
@@ -9,20 +9,20 @@ import {
   styled,
   Button,
 } from "@chakra-ui/react";
-import image1 from "../Images/Course1.jpg";
-import image2 from "../Images/Course2.jpg";
-import image3 from "../Images/Course3.jpg";
-import image4 from "../Images/Course4.jpg";
-import image5 from "../Images/Course5.jpg";
-import image6 from "../Images/Course6.jpg";
-import image7 from "../Images/Teacher1.png";
-import image8 from "../Images/Teacher2.png";
-import image9 from "../Images/teacher3.png";
-import theme from "../Images/basketball.jpeg";
-import SearchInput from "../Components/SeacthInput/SearchInput2";
-import EffectImage from "../Components/TransparantEffect/EffectImage";
+import image1 from "../../Images/Course1.jpg";
+import image2 from "../../Images/Course2.jpg";
+import image3 from "../../Images/Course3.jpg";
+import image4 from "../../Images/Course4.jpg";
+import image5 from "../../Images/Course5.jpg";
+import image6 from "../../Images/Course6.jpg";
+import image7 from "../../Images/Teacher1.png";
+import image8 from "../../Images/Teacher2.png";
+import image9 from "../../Images/teacher3.png";
+import theme from "../../Images/basketball.jpeg";
+import SearchInput from "../../Components/SeacthInput/SearchInput2";
+import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import { Grid, GridItem } from "@chakra-ui/react";
-import News from "../Components/News/News";
+import News from "../../Components/News/News";
 const Blog = () => {
   const Categorylist = [
     "  CSS Engineering (10)",

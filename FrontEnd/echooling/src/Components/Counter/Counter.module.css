@@ -1,0 +1,26 @@
+.Container{
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 5px;
+}
+.Container > div :not(h1){
+    font-size: 39px;
+    display: block;
+    color: #4586ff;
+    font-family: "Rubik", Arial, sans-serif;
+    width: 100%;
+    font-weight: 600;
+    margin-bottom: 0;
+    transform: scaleY(0.7);
+    transform: scaleX(1.1);
+}
+.Container h1{
+    margin: 0;
+    font-size: 15px;
+    line-height: 19px;
+    color: #5B5F64;
+    font-weight: 500;
+    text-transform: uppercase;
+}
