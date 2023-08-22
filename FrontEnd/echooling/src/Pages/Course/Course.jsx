@@ -10,9 +10,9 @@ const Course = () => {
   return (
     <div>
      <EffectImage
-        showCenter={false}
+        showCenter={true}
         imageLink={image}
-        pageName="Contact"
+        pageName="Courses"
         to="/"
       />
       <Grid

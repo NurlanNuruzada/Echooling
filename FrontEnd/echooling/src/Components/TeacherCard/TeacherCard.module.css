@@ -1,14 +1,115 @@
 .MainConatiner {
   width: 220px;
   height: 310px;
-  border: 1px solid black;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
 }
-.CounterContainer {
+.down {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: 170px;
+  position: absolute;
+  width: 100%;
+  top: 220px;
+  background-color: white;
+  animation: Info 300ms forwards;
 }
+.MainConatiner:hover .up {
+  background: rgba(231, 231, 231, 0.84);
+  opacity: 0.5;
+}
+.MainConatiner:hover .down {
+  animation: return 300ms forwards;
+  transition: none;
+}
+
+.up {
+  height: 230px;
+  transition: all 0.5s ease 0s;
+}
+.up img {
+  height: 100%;
+  width: 100%;
+}
+@keyframes return {
+  0% {
+    top: 230px;
+  }
+  100% {
+    top: 150px;
+  }
+}
+@keyframes Info {
+  0% {
+    top: 150px;
+  }
+  100% {
+    top: 230px;
+  }
+}
+
 @media (max-width: 480px) {
+  .up {
+    height: 320px;
+    transition: all 0.5s ease 0s;
+  }
   .MainConatiner {
     width: 310px;
-    height: 370px;
+    height: 390px;
     margin-top: 30px;
   }
+  @keyframes return {
+    0% {
+      top: 310px;
+    }
+    100% {
+      top: 250px;
+    }
+  }
+  @keyframes Info {
+    0% {
+      top: 250px;
+    }
+    100% {
+      top: 310px;
+    }
+  }
+}
+.down2 {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 17px;
+}
+.down2 h1 {
+  text-transform: uppercase;
+  font-size: large;
+  font-weight: 600;
+}
+.down2 h2 {
+  color: #929292;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Open Sans", sans-serif;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+}
+.down2 h1:hover {
+  color: #3270fc;
+  transition: all 0.5s ease 0s;
+}
+.icon {
+  color: #3270fc;
+  transition: all 0.3s ease 0s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 10px;
+  border-radius: 3px;
+}
+.down3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

@@ -52,7 +52,7 @@ const Blog = () => {
       <EffectImage
         showCenter={false}
         imageLink={EventImage}
-        pageName="Contact"
+        pageName="Events"
         to="/"
       />
       <div className={Styles.MainContent}>

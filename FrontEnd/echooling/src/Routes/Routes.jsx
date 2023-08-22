@@ -6,7 +6,7 @@ import Home from "../Pages/Home/Home";
 import About from "../Pages/About/About";
 import Course from "../Pages/Course/Course";
 import Events from "../Pages/Events/Events";
-import Contact from "../Pages/Contact";
+import Contact from "../Pages/Contact/Contact";
 
 export default function Routes(){
   let routes = [

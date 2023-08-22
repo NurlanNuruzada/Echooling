@@ -2,7 +2,8 @@ import React from "react";
 import Image from "../../Images/AboutUs.jpeg";
 import Image2 from "../../Images/AboutSection1.png";
 import Image3 from "../../Images/AboutSection2.png";
-import logo from '../../Images/logo2.png'
+import teacher1 from "../../Images/teacher/teacher1.jpg";
+import logo from "../../Images/logo2.png";
 import { Grid, GridItem, Button } from "@chakra-ui/react";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import Styles from "../About/about.module.css";
@@ -10,6 +11,7 @@ import Couter from "../../Components/Counter/Couter";
 import News from "../../Components/News/News";
 import { useNavigate } from "react-router";
 import TeacherCard from "../../Components/TeacherCard/TeacherCard";
+import SynchronizedSlider from "../../Components/CaruselSliderSlick/caruselSlider";
 const About = () => {
   const navigator = useNavigate();
   const handleNavigate = (link) => {
@@ -24,7 +26,7 @@ const About = () => {
   return (
     <>
       <div>
-        <EffectImage pageName="ABOUT US" imageLink={Image} />
+        <EffectImage  to="/" pageName="ABOUT US" imageLink={Image} />
       </div>
       <div>
         <Grid
@@ -84,27 +86,52 @@ const About = () => {
         </Grid>
       </div>
       <div className={Styles.teachers}>
-        <div className={Styles.Header}>
-          <img src={logo} alt="" />
-          <h1>MEET OUR TEACHERS</h1>
-        </div>
-        <div>
-          <Grid
-            className={Styles.CounterContainer}
-            templateColumns={{
-              base: "repeat(1, 1fr)",
-              sm: "repeat(2, 1fr)",
-              lg: "repeat(3, 1fr)",
-              xl: "repeat(4, 1fr)",
-            }}
-          >
-            <TeacherCard />
-            <TeacherCard />
-            <TeacherCard />
-            <TeacherCard />
-          </Grid>
+          <div className={Styles.Header}>
+            <img src={logo} alt="" />
+            <h1>MEET OUR TEACHERS</h1>
+          </div>
+          <div>
+            <Grid
+              className={Styles.TeacherContainer}
+              templateColumns={{
+                base: "repeat(1, 0fr)",
+                sm: "repeat(2, 0fr)",
+                md: "repeat(3,0fr)",
+                lg: "repeat(4, 0fr)",
+                xl: "repeat(5, 0fr)",
+              }}
+              rowGap={10}
+              columnGap={3}
+            >
+              <TeacherCard
+                Profession={"assosiate math professor"}
+                teacherName={"Andrew William"}
+                image={teacher1}
+              />
+              <TeacherCard
+                Profession={"assosiate math professor"}
+                teacherName={"Andrew William"}
+                image={teacher1}
+              />
+              <TeacherCard
+                Profession={"assosiate math professor"}
+                teacherName={"Andrew William"}
+                image={teacher1}
+              />
+              <TeacherCard
+                Profession={"assosiate math professor"}
+                teacherName={"Andrew William"}
+                image={teacher1}
+              />
+              <TeacherCard
+                Profession={"assosiate math professor"}
+                teacherName={"Andrew William"}
+                image={teacher1}
+              />
+            </Grid>
         </div>
       </div>
+      <SynchronizedSlider />
       <News />
     </>
   );
