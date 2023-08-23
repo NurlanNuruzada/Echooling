@@ -1,0 +1,20 @@
+.ContentData {
+  font-weight: 400;
+  font-size: 15px;
+}
+.ContentData h2 {
+  font-size: 16px;
+  line-height: 17px;
+  font-weight: 600;
+}
+.mainContainer {
+  display: flex;
+  align-items: center;
+}
+.leftImage {
+  width: 150px;
+  padding: 5px;
+}
+.ContentData{
+  width: 170px;
+}

@@ -10,59 +10,105 @@
   padding: 20px;
   transition: all linear 300ms;
 }
-
-.Button{
-    color: white;
-    background-color: #3270fc;
-    width: 100%;
-    margin-top: 35px;
+.Button {
+  color: white;
+  background-color: #3270fc;
+  width: 100%;
+  margin-top: 35px;
 }
 .Button:hover {
-  color: #3270fc ;
+  color: #3270fc;
   background-color: white;
   border: #3270fc 1px solid;
 }
-.Button:hover .arrow{
-    margin-left: 5px;
-    color: #3270fc;
+.Button:hover .arrow {
+  margin-left: 5px;
+  color: #3270fc;
 }
-.arrow{
-    padding: 5px;
+.arrow {
+  padding: 5px;
 }
-.MainInfoContainer h3{
-    color: #3270fc;
-    font-size:  25px;
-    font-weight: 600;
+.MainInfoContainer h3 {
+  color: #3270fc;
+  font-size: 25px;
+  font-weight: 600;
 }
-.MainInfoContainer h4{
-    font-size: 15px;
-    font-weight: 400;
-    color: #5B5F64;
+.MainInfoContainer h4 {
+  font-size: 15px;
+  font-weight: 400;
+  color: #5b5f64;
 }
-.MainInfoContainer h5{
-    font-size: 17px;
-    font-weight:500;
-    color: #5B5F64;
+.MainInfoContainer h5 {
+  font-size: 17px;
+  font-weight: 500;
+  color: #5b5f64;
 }
-.share{
-    padding-top: 10px;
+.share {
+  padding-top: 10px;
 }
-.DetatilsContainer{
-    max-width: 300px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 20px;
-    transition: all linear 300ms;
-    margin-top: 20px;
+.DetatilsContainer {
+  max-width: 300px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 20px;
+  transition: all linear 300ms;
+  margin-top: 20px;
 }
-.DetatilsContainer h1{
-    font-size: 16px;
-    font-weight:500;
+.DetatilsContainer h1 {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  padding-top: 7.5px;
+}
+.DetatilsContainer p {
+  font-size: 15px;
+  font-weight: 400;
+  color: #5b5f64;
+  padding-bottom: 7.5px;
+}
+.LastestEvents {
+  max-width: 300px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 20px;
+}
+.LastestEvents h1 {
+  padding: 20px 0;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: black;
+}
+.Contentitem1 {
+  flex-direction: column;
+  gap: 20px;
+}
+.LastestEvents {
+  margin: 20px 0;
+}
+.GridItem{
+width: max-content;
+}
+.right {
+    width: max-content;
+}
+.left {
+    max-width: max-content;
+}
+.EventImage {
+  width: 100%;
+  height: 450px;
+}
+.ImageConatainer {
+  padding: 20px;
+  width: 800px;
+}
+.GridContainer {
+  max-width: fit-content;
+  margin: auto;
+}
+.AtendanceList h1{
+    padding: 30px 0;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 500;
     color: black;
-    padding-top: 7.5px;
-}
-.DetatilsContainer p{
-    font-size: 15px;
-    font-weight: 400;
-    color: #5B5F64;
-    padding-bottom: 7.5px;
 }
