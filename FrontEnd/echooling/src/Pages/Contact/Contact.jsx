@@ -18,7 +18,15 @@ const Contact = () => {
         Mobile={"Mobile: (+88) - 1990 - 6886"}
         Mail={"Mail: contact@echooling.com"}
       />
-      <News />
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9356.910404735041!2d-118.45815454596611!3d33.98823375432028!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2ba95d4200dd1%3A0x2fd876de791d2bc5!2sPonut%20Organics%20Pvt%20Ltd!5e0!3m2!1sen!2saz!4v1692740168328!5m2!1sen!2saz"
+        width="100%"
+        height="550" 
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+      <News></News>
     </>
   );
 };

@@ -4,6 +4,7 @@
   width: 100%;
   height: 550px;
   transition: background-position 220ms;
+  object-fit: cover;
 }
 
 .TransparentImage {
@@ -37,18 +38,16 @@
   }
 
   .TransparentImage {
-    min-height: 800px; /* Adjust the minimum height for smaller screens */
-    top: -150px; /* Adjust the top position for smaller screens */
+    min-height: 800px; 
+    top: -150px; 
   }
 }
 @media screen and (max-width: 460px) {
   .ParallaxContainer {
-    height: 320px; /* Adjust the height for smaller screens */
+    height: 267px; 
   }
-
   .TransparentImage {
-    min-height: 800px; /* Adjust the minimum height for smaller screens */
-    top: -50px; /* Adjust the top position for smaller screens */
+    top: -50px ; 
   }
   .UpText {
     margin-top: 46px !important;

@@ -25,7 +25,7 @@ const Header = () => {
     console.log("Navigation triggered");
   };
 
-  const Routes = ["Home", "About", "Courses", "contact","Events"];
+  const Routes = ["Home", "About", "Courses", "contact","Events","staff"];
 
   return (
     <div className={Styles.MainContainer}>
