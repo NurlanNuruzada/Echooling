@@ -1,0 +1,68 @@
+.MainInfoContainer p {
+  padding-left: 10px;
+}
+.Icon {
+  padding: 7px;
+}
+.MainInfoContainer {
+  max-width: 300px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 20px;
+  transition: all linear 300ms;
+}
+
+.Button{
+    color: white;
+    background-color: #3270fc;
+    width: 100%;
+    margin-top: 35px;
+}
+.Button:hover {
+  color: #3270fc ;
+  background-color: white;
+  border: #3270fc 1px solid;
+}
+.Button:hover .arrow{
+    margin-left: 5px;
+    color: #3270fc;
+}
+.arrow{
+    padding: 5px;
+}
+.MainInfoContainer h3{
+    color: #3270fc;
+    font-size:  25px;
+    font-weight: 600;
+}
+.MainInfoContainer h4{
+    font-size: 15px;
+    font-weight: 400;
+    color: #5B5F64;
+}
+.MainInfoContainer h5{
+    font-size: 17px;
+    font-weight:500;
+    color: #5B5F64;
+}
+.share{
+    padding-top: 10px;
+}
+.DetatilsContainer{
+    max-width: 300px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 20px;
+    transition: all linear 300ms;
+    margin-top: 20px;
+}
+.DetatilsContainer h1{
+    font-size: 16px;
+    font-weight:500;
+    color: black;
+    padding-top: 7.5px;
+}
+.DetatilsContainer p{
+    font-size: 15px;
+    font-weight: 400;
+    color: #5B5F64;
+    padding-bottom: 7.5px;
+}
