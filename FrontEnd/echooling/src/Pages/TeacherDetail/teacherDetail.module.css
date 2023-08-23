@@ -66,9 +66,13 @@
   border-radius: 3px;
 }
 .ContactInformation{
-    padding: 40px;
+    padding-right: 140px;
 }
-
+.ContactContainer{
+    align-items: center;
+    justify-items: center;
+    padding: 80px 0;
+}
 @media (max-width:1100px) {
     .Image {
         width: 100%;

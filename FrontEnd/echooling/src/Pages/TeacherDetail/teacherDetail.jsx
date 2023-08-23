@@ -89,7 +89,7 @@ const TeacherDetail = () => {
           </div>
         </div>
         <div>
-          <Flex className={Styles.flex} gap={4} pt={10} flexWrap={"wrap"}>
+          <Flex className={Styles.flex} gap={4}  flexWrap={"wrap"}>
             <Counter MaxNumber={50} InlineText={"total Students"} />
             <Counter MaxNumber={100} InlineText={"total Experiance"} />
             <Counter MaxNumber={10} InlineText={"total online Courses"} />

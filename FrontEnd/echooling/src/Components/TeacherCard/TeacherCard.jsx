@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons";
 const TeacherCard = ({image,teacherName,Profession}) => {
     return (
-        <div className={Styles.MainConatiner}> 
+        <div   data-aos="zoom-in" className={Styles.MainConatiner}> 
             <div className={Styles.up}><img src={image} alt="" /></div>
             <div className={Styles.down}>
                 <div className={Styles.down2}>

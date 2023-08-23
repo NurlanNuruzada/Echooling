@@ -9,6 +9,7 @@ import Events from "../Pages/Events/Events";
 import Contact from "../Pages/Contact/Contact";
 import Staf from "../Pages/Teachers/Staf";
 import TeacherDetail from "../Pages/TeacherDetail/teacherDetail";
+import EventDetails from "../Pages/Eventdetail/EventDetails";
 export default function Routes(){
   let routes = [
     {
@@ -46,6 +47,10 @@ export default function Routes(){
         {
           path: "/TeacherDeatils",
           element: <TeacherDetail />,
+        },
+        {
+          path: "/EventDetail",
+          element: <EventDetails />,
         },
         {
           path: "/*",

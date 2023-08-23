@@ -7,9 +7,10 @@ import logo from "../../Images/logo2.png";
 import Banner from "../../Images/teacher/teachersImage3.jpeg";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import News from "../../Components/News/News";
+import { Link } from "react-router-dom";
 const Staf = () => {
   return (
-    <div >
+    <div>
       <EffectImage
         showCenter={true}
         imageLink={Banner}
@@ -31,43 +32,65 @@ const Staf = () => {
         }}
         rowGap={5}
       >
-        <TeacherCard
-          image={image}
-          teacherName={"Kamran Jabiyev"}
-          Profession={"Profesional Programing teacher"}
-        />
-        <TeacherCard
-          image={image}
-          teacherName={"Kamran Jabiyev"}
-          Profession={"Profesional Programing teacher"}
-        />
-        <TeacherCard
-          image={image}
-          teacherName={"Kamran Jabiyev"}
-          Profession={"Profesional Programing teacher"}
-        />
-        <TeacherCard
-          image={image}
-          teacherName={"Kamran Jabiyev"}
-          Profession={"Profesional Programing teacher"}
-        />
-        <TeacherCard
-          image={image}
-          teacherName={"Kamran Jabiyev"}
-          Profession={"Profesional Programing teacher"}
-        />
-        <TeacherCard
-          image={image}
-          teacherName={"Kamran Jabiyev"}
-          Profession={"Profesional Programing teacher"}
-        />
-        <TeacherCard
-          image={image}
-          teacherName={"Kamran Jabiyev"}
-          Profession={"Profesional Programing teacher"}
-        />
+        <Link  to={"/TeacherDeatils"}>
+          <TeacherCard
+          
+            image={image}
+            teacherName={"Kamran Jabiyev"}
+            Profession={"Profesional Programing teacher"}
+          />
+        </Link>
+        <Link  to={"/TeacherDeatils"}>
+          <TeacherCard
+          
+            image={image}
+            teacherName={"Kamran Jabiyev"}
+            Profession={"Profesional Programing teacher"}
+          />
+        </Link>
+        <Link  to={"/TeacherDeatils"}>
+          <TeacherCard
+          
+            image={image}
+            teacherName={"Kamran Jabiyev"}
+            Profession={"Profesional Programing teacher"}
+          />
+        </Link>
+        <Link  to={"/TeacherDeatils"}>
+          <TeacherCard
+          
+            image={image}
+            teacherName={"Kamran Jabiyev"}
+            Profession={"Profesional Programing teacher"}
+          />
+        </Link>
+        <Link  to={"/TeacherDeatils"}>
+          <TeacherCard
+          
+            image={image}
+            teacherName={"Kamran Jabiyev"}
+            Profession={"Profesional Programing teacher"}
+          />
+        </Link>
+        <Link  to={"/TeacherDeatils"}>
+          <TeacherCard
+          
+            image={image}
+            teacherName={"Kamran Jabiyev"}
+            Profession={"Profesional Programing teacher"}
+          />
+        </Link>
+        <Link  to={"/TeacherDeatils"}>
+          <TeacherCard
+          
+            image={image}
+            teacherName={"Kamran Jabiyev"}
+            Profession={"Profesional Programing teacher"}
+          />
+        </Link>
+       
       </Grid>
-      <News/>
+      <News />
     </div>
   );
 };
