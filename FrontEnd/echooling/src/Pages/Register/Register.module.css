@@ -1,0 +1,35 @@
+.BackgrounImage{
+    background: url('../../Images/BakgroundSignIn.jpg');
+    height: 300px;
+}
+.Main{
+    position: absolute !important;
+    margin-top: -100px;
+    background: hsla(0, 0%, 100%, 0.8);
+    backdrop-filter: blur(30px);
+}
+.MainContainer{
+    text-align: center ;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    position: relative;
+    margin-bottom: 200px;
+    border: ;
+}
+.Input{
+    padding:20px 100px ;
+    gap: 20px;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+.MainFlex{
+    justify-content: center;
+    align-items: center;
+    padding:100px
+}
+.MainContainer h1{
+    margin-top: 20px;
+    font-size: 35px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.534);
+}

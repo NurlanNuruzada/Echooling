@@ -10,6 +10,8 @@ import Contact from "../Pages/Contact/Contact";
 import Staf from "../Pages/Teachers/Staf";
 import TeacherDetail from "../Pages/TeacherDetail/teacherDetail";
 import EventDetails from "../Pages/Eventdetail/EventDetails";
+import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/register";
 export default function Routes(){
   let routes = [
     {
@@ -23,6 +25,14 @@ export default function Routes(){
         {
           path: "/Home",
           element: <Home />,
+        },
+        {
+          path: "/Auth/Login",
+          element: <Login />,
+        },
+        {
+          path: "/Auth/Register",
+          element: <Register />,
         },
         {
           path: "/about",
