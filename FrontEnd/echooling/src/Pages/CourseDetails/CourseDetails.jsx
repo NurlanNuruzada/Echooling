@@ -38,7 +38,7 @@ const CourseDetails = () => {
           base: "repeat(1, 1fr)",
           sm: "repeat(1, 0fr)",
           md: "repeat(1, 0fr)",
-          lg: "repeat(1, 0fr)",
+          lg: "repeat(2, 0fr)",
           xl: "repeat(2, 0fr)",
         }}
         rowGap={5}
@@ -60,34 +60,12 @@ const CourseDetails = () => {
               </p>
             </div>
             <div className={Styles.AtendanceList}>
-              <h1 className={Styles.AtendanceHeader}>Atendances</h1>
-              <Grid
-                className={Styles.AtendaceGrid}
-                templateColumns={{
-                  base: "repeat(1, 1fr)",
-                  sm: "repeat(1, 1fr)",
-                  md: "repeat(2, 1fr)",
-                  lg: "repeat(3, 1fr)",
-                  xl: "repeat(3, 1fr)",
-                }}
-                rowGap={5}
-              >
-                <Atendee
-                  image={AtendeeImage}
-                  title={"Nurlan Nuruzada"}
-                  Profesion={"Student"}
-                />
-                <Atendee
-                  image={AtendeeImage}
-                  title={"Nurlan Nuruzada"}
-                  Profesion={"Student"}
-                />
-                <Atendee
-                  image={AtendeeImage}
-                  title={"Nurlan Nuruzada"}
-                  Profesion={"Student"}
-                />
-              </Grid>
+              <h1 className={Styles.AtendanceHeader}>Teacher</h1>
+              <Atendee
+                image={AtendeeImage}
+                title={"Nurlan Nuruzada"}
+                Profesion={"Student"}
+              />
             </div>
           </div>
         </div>
@@ -97,7 +75,7 @@ const CourseDetails = () => {
             base: "repeat(1, 1fr)",
             sm: "repeat(1, 1fr)",
             md: "repeat(2, 1fr)",
-            lg: "repeat(2, 1fr)",
+            lg: "repeat(1, 1fr)",
             xl: "repeat(1, 1fr)",
           }}
         >
@@ -234,7 +212,12 @@ const CourseDetails = () => {
           </div>
         </Grid>
       </Grid>
-      <ContactUs title={"Write a Review"} secondTitle={"Your email address will not be published. Required fields are marked *"} />
+      <ContactUs
+        title={"Write a Review"}
+        secondTitle={
+          "Your email address will not be published. Required fields are marked *"
+        }
+      />
     </div>
   );
 };
