@@ -1,20 +1,25 @@
-.BackgrounImage{
+.BackgrounImage {
     background: url('../../Images/BakgroundSignIn.jpg');
-    height: 300px;
+    background-position: center center; 
+    background-size: cover;
+    height: 400px;
+    top: 50%;
 }
 .Main{
     position: absolute !important;
     margin-top: -100px;
     background: hsla(0, 0%, 100%, 0.8);
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(8px);
+    border-radius:10px;
+    box-shadow: rgba(0, 0, 0, 0.76) 0px 5px 15px;
+    width: 50%;
+    min-height: 200px;
 }
 .MainContainer{
     text-align: center ;
-    padding-right: 3rem;
-    padding-left: 3rem;
+    padding: 3rem;
     position: relative;
     margin-bottom: 200px;
-    border: ;
 }
 .Input{
     padding:20px 100px ;
@@ -32,4 +37,21 @@
     font-size: 35px;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.534);
+}
+.Button:hover{
+    color: #3270fc;
+    background-color: white;
+    border: 1px solid #3270fc ;
+}
+.Button{
+    transition: all linear 300ms;
+}
+.Icon{
+    background-color: #3270fc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+    color: white;
+    margin: auto;
 }
