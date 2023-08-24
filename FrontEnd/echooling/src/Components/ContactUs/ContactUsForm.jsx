@@ -110,10 +110,8 @@ const ContactUsForm = ({
               className={Styles.Input}
               placeholder="Message"
             />
-            <Flex>
-
-
-              <h1>rate this Course</h1>
+            <Flex p={5} gap={10} alignItems={"center"}>
+              <h1>rate this Course:</h1>
               <Starts size={30} isEditable={true} />
             </Flex>
             <Button m={5} className={Styles.Button}>
