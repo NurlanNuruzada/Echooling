@@ -86,7 +86,6 @@ const CourseDetails = () => {
                 <TabPanels>
                   <TabPanel>
                     <div className={Styles.AtendanceList}>
-                      <h1 className={Styles.AtendanceHeader}>Teacher</h1>
                       <Atendee
                         image={AtendeeImage}
                         title={"Nurlan Nuruzada"}
@@ -294,6 +293,7 @@ const CourseDetails = () => {
           "Your email address will not be published. Required fields are marked *"
         }
       />
+      <News/>
     </div>
   );
 };
