@@ -80,14 +80,16 @@ const EventDetails = () => {
             </div>
           </div>
         </div>
-        <Grid className={Styles.left}
-         templateColumns={{
-          base: "repeat(1, 1fr)",
-          sm: "repeat(1, 1fr)",
-          md: "repeat(2, 1fr)",
-          lg: "repeat(2, 1fr)",
-          xl: "repeat(1, 1fr)",
-        }}>
+        <Grid
+          className={Styles.left}
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(2, 1fr)",
+            xl: "repeat(1, 1fr)",
+          }}
+        >
           <div className={Styles.MainInfoContainer}>
             <Flex
               className={Styles.Icon}

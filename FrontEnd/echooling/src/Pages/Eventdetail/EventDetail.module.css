@@ -91,7 +91,7 @@
   width: max-content;
 }
 .right {
-  width: max-content;
+ width: 100%;
 }
 .left {
   max-width: max-content;
@@ -102,7 +102,7 @@
 }
 .ImageConatainer {
   padding: 20px;
-  width: 800px;
+  width: 100%;
 }
 .GridContainer {
   max-width: fit-content;
@@ -124,6 +124,12 @@
 }
 .AtendaceGrid{
     justify-items: center;
+}
+@media (max-width: 480px) {
+    .EventImage{
+        height: 320px !important;
+        margin: auto;
+    }
 }
 @media (max-width: 1250px) {
     .left >div {
