@@ -143,7 +143,6 @@ const CourseDetails = () => {
               <h4>2 weeks</h4>
             </Flex>
             <Divider />
-
             <Flex
               className={Styles.Icon}
               alignItems={"center"}
@@ -235,6 +234,7 @@ const CourseDetails = () => {
           </div>
         </Grid>
       </Grid>
+      <ContactUs title={"Write a Review"} secondTitle={"Your email address will not be published. Required fields are marked *"} />
     </div>
   );
 };

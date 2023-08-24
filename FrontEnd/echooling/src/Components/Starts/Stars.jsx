@@ -8,11 +8,11 @@ import Styles from "./stars.module.css";
 
 library.add(faStar, faStarHalfAlt, farStar); // Add the icons to the library
 
-function Stars({ isEditable, initialRating, RaitingPerson }) {
+function Stars({ size, isEditable, initialRating, RaitingPerson }) {
   const [rating, setRating] = useState(initialRating || 0);
 
   const ratingExample = {
-    size: 10,
+    size: size,
     count: 5,
     color: "lightgray",
     activeColor: "orange",

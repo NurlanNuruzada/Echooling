@@ -2,12 +2,14 @@ import React from "react";
 import Styles from "./Contactus.module.css";
 import {
   Grid,
+  Flex,
   GridItem,
   Input,
   Textarea,
   Button,
   ColorModeContext,
 } from "@chakra-ui/react";
+import Starts from "../../Components/Starts/Stars";
 import image1 from "../../Images/FormImage1.png";
 import image2 from "../../Images/FormImage2.png";
 import image3 from "../../Images/FormImage3.png";
@@ -30,7 +32,7 @@ const ContactUsForm = ({
         }}
       >
         <div className={Styles.left}>
-          <ul >
+          <ul>
             <li className={Styles.leftList}>
               <div>
                 <img src={image1} alt="" />
@@ -63,8 +65,8 @@ const ContactUsForm = ({
         </div>
         <div className={Styles.right}>
           <div className={Styles.formTitleContainer}>
-            <h1>Questions?</h1>
-            <h2>Feel free to contact uo.</h2>
+            <h1>{title}</h1>
+            <h2>{secondTitle}</h2>
           </div>
           <div className={Styles.formContainer}>
             <Grid
@@ -108,6 +110,12 @@ const ContactUsForm = ({
               className={Styles.Input}
               placeholder="Message"
             />
+            <Flex>
+
+
+              <h1>rate this Course</h1>
+              <Starts size={30} isEditable={true} />
+            </Flex>
             <Button m={5} className={Styles.Button}>
               Send Message
             </Button>
