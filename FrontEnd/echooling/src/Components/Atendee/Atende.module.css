@@ -4,10 +4,11 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 50%;
   position: relative; /* Added */
-  width: 200px; /* Set the width of the container */
-  height: 200px; /* Set the height of the container */
+  width: 130px; /* Set the width of the container */
+  height: 130px; /* Set the height of the container */
   overflow: hidden; /* Hide any overflow */
   text-align: center;
+  margin: auto;
 }
 .Profesion {
   display: block;
@@ -17,12 +18,15 @@
   text-align: center;
 }
 .title {
-    text-align: center;
+  text-align: center;
   display: block;
-  font-size: 20px;
+  font-size: 15px ;
   font-weight: 700;
-  color: #0f1216;
   line-height: 25px;
+  padding: 20px 0;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: black;
 }
 .Image {
   padding: 10px;
@@ -34,6 +38,38 @@
   height: 100%;
   object-fit: cover;
 }
-.MainConatiner{
-    width: max-content;
+.MainConatiner {
+  width: max-content;
+  padding: 20px;
+}
+@media (max-width: 1280px) {
+  .ImageContainer {
+    width: 200px; /* Set the width of the container */
+    height: 200px; /* Set the height of the container */
+  }
+  .Profesion {
+    display: block;
+    color: #5b5f64;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+  }
+  .title {
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f1216;
+    line-height: 25px;
+  }
+  .Image {
+    padding: 10px;
+    border-radius: 50%;
+    position: absolute; /* Added */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }

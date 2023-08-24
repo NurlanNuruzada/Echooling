@@ -18,9 +18,17 @@ import Atendee from "../../Components/Atendee/Atendee";
 import AtendeeImage from "../../Images/teacher/teacher1.jpg";
 import News from "../../Components/News/News";
 import ContactUs from "../../Components/ContactUs/ContactUsForm";
+import EventImage from "../../Images/UpcomingEvents.jpeg";
+import EffectImage from "../../Components/TransparantEffect/EffectImage";
 const EventDetails = () => {
   return (
     <div className={Styles.MainContainer}>
+       <EffectImage
+        showCenter={false}
+        imageLink={EventImage}
+        pageName="Events"
+        to="/"
+      />
       <Grid
         className={Styles.GridContainer}
         templateColumns={{
@@ -49,12 +57,12 @@ const EventDetails = () => {
               </p>
             </div>
             <div className={Styles.AtendanceList}>
-              <h1>Atendances</h1>
+              <h1 className={Styles.AtendanceHeader}>Atendances</h1>
               <Grid
                 className={Styles.AtendaceGrid}
                 templateColumns={{
                   base: "repeat(1, 1fr)",
-                  sm: "repeat(1, 0fr)",
+                  sm: "repeat(1, 1fr)",
                   md: "repeat(2, 1fr)",
                   lg: "repeat(3, 1fr)",
                   xl: "repeat(3, 1fr)",
