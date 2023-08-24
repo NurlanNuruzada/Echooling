@@ -1,6 +1,13 @@
 import React from "react";
 import Styles from "./CourseDetails.module.css";
 import {
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
+} from "@chakra-ui/react";
+import {
   faTicket,
   faPerson,
   faArrowRight,
@@ -10,10 +17,18 @@ import {
   faLanguage,
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CheckIcon } from "@chakra-ui/icons";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { Button, Center, GridItem } from "@chakra-ui/react";
-import { Divider, Drawer, Flex, Grid } from "@chakra-ui/react";
+import { Divider, Drawer, Flex, Grid, Box } from "@chakra-ui/react";
 import Poster from "../../Components/poster/poster";
 import image from "../../Images/event 1.png";
 import Lastestpost from "../../Components/LastestPost/Lastestpost";
@@ -23,6 +38,7 @@ import News from "../../Components/News/News";
 import ContactUs from "../../Components/ContactUs/ContactUsForm";
 import EventImage from "../../Images/UpcomingEvents.jpeg";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 const CourseDetails = () => {
   return (
     <div className={Styles.MainContainer}>
@@ -59,13 +75,73 @@ const CourseDetails = () => {
                 eos qui
               </p>
             </div>
-            <div className={Styles.AtendanceList}>
-              <h1 className={Styles.AtendanceHeader}>Teacher</h1>
-              <Atendee
-                image={AtendeeImage}
-                title={"Nurlan Nuruzada"}
-                Profesion={"Student"}
-              />
+
+            <div>
+              <Tabs className={Styles.tabs} isManual variant="enclosed">
+                <TabList>
+                  <Tab>Teacher</Tab>
+                  <Tab>What you will learn</Tab>
+                  <Tab>Course Content</Tab>
+                </TabList>
+                <TabPanels>
+                  <TabPanel>
+                    <div className={Styles.AtendanceList}>
+                      <h1 className={Styles.AtendanceHeader}>Teacher</h1>
+                      <Atendee
+                        image={AtendeeImage}
+                        title={"Nurlan Nuruzada"}
+                        Profesion={"Student"}
+                      />
+                    </div>
+                  </TabPanel>
+                  <TabPanel>
+                    <List spacing={3}>
+                      <ListItem>
+                        <ListIcon as={CheckIcon} color="green.500" />
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                      </ListItem>
+                      <ListItem>
+                        <ListIcon as={CheckIcon} color="green.500" />
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                      </ListItem>
+                      <ListItem>
+                        <ListIcon as={CheckIcon} color="green.500" />
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                      </ListItem>
+                      <ListItem>
+                        <ListIcon as={CheckIcon} color="green.500" />
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                      </ListItem>
+                      <ListItem>
+                        <ListIcon as={CheckIcon} color="green.500" />
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                      </ListItem>
+                    </List>
+                  </TabPanel>
+                  <TabPanel>
+                    <Accordion defaultIndex={[0]} allowMultiple>
+                      <AccordionItem>
+                        <h2>
+                          <AccordionButton>
+                            <Box as="span" flex="1" textAlign="left">
+                              Section 1 title
+                            </Box>
+                            <AccordionIcon />
+                          </AccordionButton>
+                        </h2>
+                        <AccordionPanel pb={4}>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua. Ut enim ad minim veniam, quis
+                          nostrud exercitation ullamco laboris nisi ut aliquip
+                          ex ea commodo consequat.
+                        </AccordionPanel>
+                      </AccordionItem>
+
+                    </Accordion>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
             </div>
           </div>
         </div>
