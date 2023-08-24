@@ -1,10 +1,16 @@
 import React from "react";
 import Styles from "./EventCard.module.css";
-import { Button, ButtonGroup } from '@chakra-ui/react'
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/react";
 import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router";
 
 const EventCard = ({ image, ColorTitle, ColorDetail, IsShadow }) => {
+  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const handleNavigate = () => {
+    navigate("/EventDetail");
+  };
   const date = new Date("2023-12-05T12:00:00.000Z"); // Correct the date format
 
   const startTime = "00:00.000".slice(0, -4); // "00:00"
@@ -46,7 +52,7 @@ const EventCard = ({ image, ColorTitle, ColorDetail, IsShadow }) => {
           <div style={{ color: ColorDetail }} className={Styles.InfoContainer}>
             <div className={Styles.Info1}></div>
             <div className={Styles.Info2}>
-              <FontAwesomeIcon icon={faClock}  style={{ color: ColorDetail }}/>{" "}
+              <FontAwesomeIcon icon={faClock} style={{ color: ColorDetail }} />{" "}
               {formatTime(startTime)} - {formatTime(endTime)}
             </div>
             <div className={Styles.Info3}>
@@ -57,7 +63,9 @@ const EventCard = ({ image, ColorTitle, ColorDetail, IsShadow }) => {
               {loaction}
             </div>
           </div>
-            <Button width={28} color="#3270fc">Join Now</Button>
+          <Button onClick={handleNavigate} width={28} color="#3270fc">
+            Join Now
+          </Button>
         </div>
       </div>
     </div>

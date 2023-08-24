@@ -21,7 +21,7 @@ import image9 from "../../Images/teacher3.png";
 import theme from "../../Images/basketball.jpeg";
 import SearchInput from "../../Components/SeacthInput/SearchInput2";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Link } from "@chakra-ui/react";
 import News from "../../Components/News/News";
 const Blog = () => {
   const Categorylist = [
@@ -127,12 +127,12 @@ const Blog = () => {
               >
                 {images.map((image, index) => (
                   <GridItem className={Styles.GridItemMain} key={index}>
-                    <EventCard
-                      IsShadow={true}
-                      ColorTitle={"#28292b"}
-                      ColorDetail={"gray"}
-                      image={image}
-                    />
+                      <EventCard
+                        IsShadow={true}
+                        ColorTitle={"#28292b"}
+                        ColorDetail={"gray"}
+                        image={image}
+                      />
                   </GridItem>
                 ))}
               </Grid>

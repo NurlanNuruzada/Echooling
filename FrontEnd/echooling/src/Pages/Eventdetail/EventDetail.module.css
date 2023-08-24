@@ -11,14 +11,14 @@
   transition: all linear 300ms;
 }
 .Button {
-  color: white;
-  background-color: #3270fc;
+  color: white !important;
+  background-color: #3270fc !important;
   width: 100%;
   margin-top: 35px;
 }
 .Button:hover {
-  color: #3270fc;
-  background-color: white;
+  color: #3270fc !important;
+  background-color: white !important;
   border: #3270fc 1px solid;
 }
 .Button:hover .arrow {
@@ -84,14 +84,17 @@
 .LastestEvents {
   margin: 20px 0;
 }
-.GridItem{
-width: max-content;
+.MainContainer {
+  padding-top: 80px;
+}
+.GridItem {
+  width: max-content;
 }
 .right {
-    width: max-content;
+  width: max-content;
 }
 .left {
-    max-width: max-content;
+  max-width: max-content;
 }
 .EventImage {
   width: 100%;
@@ -105,10 +108,35 @@ width: max-content;
   max-width: fit-content;
   margin: auto;
 }
-.AtendanceList h1{
-    padding: 30px 0;
-    font-size: 20px;
-    text-transform: uppercase;
-    font-weight: 500;
-    color: black;
+.AtendanceList h1 {
+  padding: 30px 0;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: black;
 }
+.EventTitle {
+  padding: 20px 0;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: black;
+}
+@media (max-width: 1250px) {
+    .left >div {
+      width: 100%;
+      height: 320px ;
+      padding: 18px;
+      margin: 0;
+    }
+    .left{
+      gap: 50px;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      padding: 20px;
+    }
+    .LastestEvents h1{
+      padding: 10px;
+    }
+  }
