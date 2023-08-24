@@ -1,31 +1,20 @@
 import React from "react";
 import Styles from "./Header.module.css";
 import MainLogo from "../../Images/logo2.png";
-import { Select } from "@chakra-ui/react";
-import { AddIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { Navigate, useNavigate } from "react-router-dom";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  IconButton,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+import { Menu, MenuButton, MenuList, MenuItem, IconButton } from "@chakra-ui/react";
 import SearchInputCom from "../SeacthInput/SearchInput2.jsx";
 
 const Header = () => {
   const navigate = useNavigate();
-  
+
   const handleNavigate = (route) => {
     navigate(`./${route}`);
     console.log("Navigation triggered");
   };
 
-  const Routes = ["Home", "About", "Courses", "contact","Events","staff"];
+  const Routes = ["Home", "About", "Courses", "contact", "Events", "staff"];
 
   return (
     <div className={Styles.MainContainer}>
@@ -43,12 +32,8 @@ const Header = () => {
           ))}
         </div>
         <div className={Styles.icons}>
-          <SearchInputCom
-            height={"20px"}
-            placeholder={"Search"}
-          />
+          <SearchInputCom height={"20px"} placeholder={"Search"} />
         </div>
-        {/* This part handles the burger menu */}
         <div className={Styles.BurgerMenu}>
           <Menu isLazy>
             <MenuButton
