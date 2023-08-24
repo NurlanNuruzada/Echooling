@@ -12,6 +12,7 @@ import TeacherDetail from "../Pages/TeacherDetail/teacherDetail";
 import EventDetails from "../Pages/Eventdetail/EventDetails";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/register";
+import CourseDetails from "../Pages/CourseDetails/CourseDetails";
 export default function Routes(){
   let routes = [
     {
@@ -53,6 +54,10 @@ export default function Routes(){
         {
           path: "/Staff",
           element: <Staf />,
+        },
+        {
+          path: "/CourseDetails",
+          element: <CourseDetails />,
         },
         {
           path: "/TeacherDeatils",

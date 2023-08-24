@@ -1,11 +1,14 @@
 import React from "react";
-import Styles from "../../Pages/Eventdetail/EventDetail.module.css";
+import Styles from "./CourseDetails.module.css";
 import {
   faTicket,
   faPerson,
   faArrowRight,
   faUser,
+  faTag,
   faShareNodes,
+  faLanguage,
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
@@ -20,7 +23,7 @@ import News from "../../Components/News/News";
 import ContactUs from "../../Components/ContactUs/ContactUsForm";
 import EventImage from "../../Images/UpcomingEvents.jpeg";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
-const EventDetails = () => {
+const CourseDetails = () => {
   return (
     <div className={Styles.MainContainer}>
       <EffectImage
@@ -122,11 +125,51 @@ const EventDetails = () => {
             >
               <Flex alignItems={"center"}>
                 <FontAwesomeIcon className={Styles.Icon} icon={faUser} />
-                <p>organizer : </p>
+                <p>Instructor : </p>
               </Flex>
               <h4>Penny Tool</h4>
             </Flex>
             <Divider />
+
+            <Flex
+              className={Styles.Icon}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <Flex alignItems={"center"}>
+                <FontAwesomeIcon icon={faClock} />
+                <p>Duration : </p>
+              </Flex>
+              <h4>2 weeks</h4>
+            </Flex>
+            <Divider />
+
+            <Flex
+              className={Styles.Icon}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <Flex alignItems={"center"}>
+                <FontAwesomeIcon icon={faLanguage} />
+                <p>Languge : </p>
+              </Flex>
+              <h4>English</h4>
+            </Flex>
+            <Divider />
+
+            <Flex
+              className={Styles.Icon}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <Flex alignItems={"center"}>
+                <FontAwesomeIcon className={Styles.Icon} icon={faTag} />
+                <p>Subject : </p>
+              </Flex>
+              <h4>IT & Software</h4>
+            </Flex>
+            <Divider />
+
             <Flex
               className={Styles.Icon}
               alignItems={"center"}
@@ -134,10 +177,11 @@ const EventDetails = () => {
             >
               <Flex alignItems={"center"}>
                 <FontAwesomeIcon className={Styles.Icon} icon={faPerson} />
-                <p>Total Slot :</p>
+                <p>Enrolled :</p>
               </Flex>
-              <h4>250</h4>
+              <h4>250 Student</h4>
             </Flex>
+
             <Divider />
             <Button className={Styles.Button}>
               Join Now!{" "}
@@ -167,7 +211,7 @@ const EventDetails = () => {
             <Poster className={Styles.poster} />
           </div>
           <div className={Styles.LastestEvents}>
-            <h1>Lastest post</h1>
+            <h1>Lastest Courses</h1>
             <Flex className={Styles.Contentitem1}>
               <Lastestpost
                 image={image}
@@ -191,10 +235,8 @@ const EventDetails = () => {
           </div>
         </Grid>
       </Grid>
-      <ContactUs />
-      <News />
     </div>
   );
 };
 
-export default EventDetails;
+export default CourseDetails;

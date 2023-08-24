@@ -1,101 +1,101 @@
 .BackgrounImage {
-    background: url('../../Images/BakgroundSignIn.jpg');
-    background-position: center center; 
-    background-size: cover;
-    height: 400px;
-    top: 50%;
+  background: url("../../Images/BakgroundSignIn.jpg");
+  background-position: center center;
+  background-size: cover;
+  height: 400px;
+  top: 50%;
 }
-.Main{
-    position: absolute !important;
+.Main {
+  position: absolute !important;
+  margin-top: -100px;
+  background: hsla(0, 0%, 100%, 0.8);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.76) 0px 5px 15px;
+  width: 50%;
+  min-height: 200px;
+  transition: all linear 300ms;
+  backdrop-filter: blur(15px);
+}
+@media (max-width: 1200px) {
+  .Main {
+    backdrop-filter: none;
+    background: hsla(0, 10%, 100%, 0.9);
+    min-width: 489px;
+  }
+  .Input {
+    padding: 0 !important;
     margin-top: -100px;
-    background: hsla(0, 0%, 100%, 0.8);
-    border-radius:10px;
-    box-shadow: rgba(0, 0, 0, 0.76) 0px 5px 15px;
-    width: 50%;
-    min-height: 200px;
-    transition: all linear 300ms;
-    backdrop-filter: blur(15px);
-}
-@media (max-width:1200px) {
-    .Main{
-        backdrop-filter: none; /* Disable backdrop filter on mobile */
-        background: hsla(0, 10%, 100%, 0.9); 
-        min-width: 489px;
-    }
-    .Input{
-        padding: 0 !important;
-        margin-top: -100px;
-    }
-    .MainContainer{
-        padding: 0 !important;
-    }
-    .MainContainer h1{
-        margin-top: 60px;
-        top: -190px;
-        color: white !important;
-        position: relative;
-    }
-    .BackgrounImage{
-        height: 490px;
-    }
-}
-@media (max-width:480px) {
-    .Main{
-        min-width: 389px;
-    }
-    .Input{
-        padding: 0 !important;
-        margin-top: -100px;
-    }
-    .MainContainer{
-        padding: 0 !important;
-    }
-    .MainContainer h1{
-        margin-top: 60px;
-        top: -190px;
-        color: white !important;
-        position: relative;
-    }
-    .BackgrounImage{
-        height: 490px;
-    }
-}
-.MainContainer{
-    text-align: center ;
+  }
+  .MainContainer {
+    padding: 0 !important;
+  }
+  .MainContainer h1 {
+    margin-top: 60px;
+    top: -190px;
+    color: white !important;
     position: relative;
-    margin-bottom: 300px;
+  }
+  .BackgrounImage {
+    height: 490px;
+  }
 }
-.Input{
-    padding:20px 100px ;
-    gap: 20px;
-    flex-direction: column;
-    padding-bottom: 20px;
+@media (max-width: 480px) {
+  .Main {
+    min-width: 389px;
+  }
+  .Input {
+    padding: 0 !important;
+    margin-top: -100px;
+  }
+  .MainContainer {
+    padding: 0 !important;
+  }
+  .MainContainer h1 {
+    margin-top: 60px;
+    top: -190px;
+    color: white !important;
+    position: relative;
+  }
+  .BackgrounImage {
+    height: 490px;
+  }
 }
-.MainFlex{
-    justify-content: center;
-    align-items: center;
-    padding:100px
+.MainContainer {
+  text-align: center;
+  position: relative;
+  margin-bottom: 300px;
 }
-.MainContainer h1{
-    margin-top: 20px;
-    font-size: 35px;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.534);
+.Input {
+  padding: 20px 100px;
+  gap: 20px;
+  flex-direction: column;
+  padding-bottom: 20px;
 }
-.Button:hover{
-    color: #3270fc;
-    background-color: white;
-    border: 1px solid #3270fc ;
+.MainFlex {
+  justify-content: center;
+  align-items: center;
+  padding: 100px;
 }
-.Button{
-    transition: all linear 300ms;
+.MainContainer h1 {
+  margin-top: 20px;
+  font-size: 35px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.534);
 }
-.Icon{
-    background-color: #3270fc;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    padding: 10px;
-    color: white;
-    margin: auto;
+.Button:hover {
+  color: #3270fc;
+  background-color: white;
+  border: 1px solid #3270fc;
+}
+.Button {
+  transition: all linear 300ms;
+}
+.Icon {
+  background-color: #3270fc;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  color: white;
+  margin: auto;
 }

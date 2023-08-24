@@ -17,11 +17,9 @@
   color: #3270fc;
   font-weight: 500;
 }
-
 .signIn {
   display: flex;
-  gap: 10px
-  ;
+  gap: 10px;
   color: #3270fc;
   transition: 300ms;
   font-size: 17px;
