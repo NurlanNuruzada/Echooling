@@ -63,7 +63,7 @@ const CourseDetails = () => {
           <div className={Styles.ImageConatainer}>
             <img className={Styles.EventImage} src={image} alt="" />
             <div>
-              <h1 className={Styles.EventTitle}>Event title</h1>
+              <h1 className={Styles.EventTitle}>Course title</h1>
               <p>
                 I must explain to you how all this a mistaken idea of denouncing
                 great explorer of the rut the is lder of human happiness pcias
@@ -250,7 +250,7 @@ const CourseDetails = () => {
             </Flex>
           </div>
           <div className={Styles.DetatilsContainer}>
-            <h1>date:</h1>
+            <h1>This Course icludes</h1>
             <p>15 January, 2022 - December 14, 2022</p>
             <h1>time:</h1>
             <p>10:00 AM - 11:30PM</p>
