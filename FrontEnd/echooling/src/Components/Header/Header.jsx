@@ -12,8 +12,6 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import SearchInputCom from "../SeacthInput/SearchInput2.jsx";
-import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -41,12 +39,17 @@ const Header = () => {
           ))}
         </div>
         <Flex flexDirection={"row"} alignItems={"center"}>
-            <div className={Styles.signIn}>
-              <p onClick={() => handleNavigate("auth/register")}>Sign In</p>
-            </div>
-            <div className={Styles.icons}>
-              <SearchInputCom height={"20px"} placeholder={"Search"} />
-            </div>
+          <div className={Styles.signIn}>
+            <p
+              onClick={() => handleNavigate("auth/register")}
+              className={Styles.page}
+            >
+              Sign In
+            </p>
+          </div>
+          <div className={Styles.icons}>
+            <SearchInputCom height={"20px"} placeholder={"Search"} />
+          </div>
           <div className={Styles.BurgerMenu}>
             <Menu isLazy>
               <MenuButton
