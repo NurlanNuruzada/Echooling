@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "fd2vmK3VSLHl5ciS3euhPwZO8ekMHKZWhs5uMqzJqNB9UbWSaOly0wNFXH0lLFm0CoxxkCn9rumbKFm7IM92cA==",
+  "dgSpecHash": "xXq5CmPGIQBhCES4W5QDBBMLZiYNhJXrmEmBOjJvDc/VKcKaCCqJPGA2aM1eUQjQVszq4OLW4qV1toAPTv0qYw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Core\\Echooling.Aplication\\Echooling.Aplication.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Nurlan\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
+    "C:\\Users\\Nurlan\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\Nurlan\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.7.1\\fluentvalidation.dependencyinjectionextensions.11.7.1.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.21\\microsoft.entityframeworkcore.6.0.21.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.21\\microsoft.entityframeworkcore.abstractions.6.0.21.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.21\\microsoft.entityframeworkcore.analyzers.6.0.21.nupkg.sha512",
