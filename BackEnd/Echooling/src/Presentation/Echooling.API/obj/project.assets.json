@@ -88,6 +88,42 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "Echooling.Aplication/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Ecooling.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Echooling.Aplication.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Echooling.Aplication.dll": {}
+        }
+      },
+      "Echooling.Persistance/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Echooling.Aplication": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Echooling.Persistance.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Echooling.Persistance.dll": {}
+        }
+      },
+      "Ecooling.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Ecooling.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ecooling.Domain.dll": {}
+        }
       }
     }
   },
@@ -429,10 +465,26 @@
         "swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "Echooling.Aplication/1.0.0": {
+      "type": "project",
+      "path": "../../Core/Echooling.Aplication/Echooling.Aplication.csproj",
+      "msbuildProject": "../../Core/Echooling.Aplication/Echooling.Aplication.csproj"
+    },
+    "Echooling.Persistance/1.0.0": {
+      "type": "project",
+      "path": "../../Infrastructure/Echooling.Persistance/Echooling.Persistance.csproj",
+      "msbuildProject": "../../Infrastructure/Echooling.Persistance/Echooling.Persistance.csproj"
+    },
+    "Ecooling.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../Core/Ecooling.Domain/Ecooling.Domain.csproj",
+      "msbuildProject": "../../Core/Ecooling.Domain/Ecooling.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Echooling.Persistance >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
@@ -463,7 +515,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj": {
+              "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

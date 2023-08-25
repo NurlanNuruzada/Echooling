@@ -1,0 +1,49 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Echooling.Persistance/1.0.0": {
+        "dependencies": {
+          "Echooling.Aplication": "1.0.0"
+        },
+        "runtime": {
+          "Echooling.Persistance.dll": {}
+        }
+      },
+      "Echooling.Aplication/1.0.0": {
+        "dependencies": {
+          "Ecooling.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Echooling.Aplication.dll": {}
+        }
+      },
+      "Ecooling.Domain/1.0.0": {
+        "runtime": {
+          "Ecooling.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Echooling.Persistance/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Echooling.Aplication/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ecooling.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

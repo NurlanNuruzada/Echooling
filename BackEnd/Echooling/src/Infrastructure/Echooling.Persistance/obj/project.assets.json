@@ -1,11 +1,48 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "Echooling.Aplication/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Ecooling.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Echooling.Aplication.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Echooling.Aplication.dll": {}
+        }
+      },
+      "Ecooling.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Ecooling.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ecooling.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Echooling.Aplication/1.0.0": {
+      "type": "project",
+      "path": "../../Core/Echooling.Aplication/Echooling.Aplication.csproj",
+      "msbuildProject": "../../Core/Echooling.Aplication/Echooling.Aplication.csproj"
+    },
+    "Ecooling.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../Core/Ecooling.Domain/Ecooling.Domain.csproj",
+      "msbuildProject": "../../Core/Ecooling.Domain/Ecooling.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "Echooling.Aplication >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Nurlan\\.nuget\\packages\\": {}
@@ -33,7 +70,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Core\\Echooling.Aplication\\Echooling.Aplication.csproj": {
+              "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Core\\Echooling.Aplication\\Echooling.Aplication.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
