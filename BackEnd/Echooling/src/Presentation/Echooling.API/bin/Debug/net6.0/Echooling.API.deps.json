@@ -494,7 +494,8 @@
       },
       "Echooling.Aplication/1.0.0": {
         "dependencies": {
-          "Ecooling.Domain": "1.0.0"
+          "Ecooling.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "6.0.21"
         },
         "runtime": {
           "Echooling.Aplication.dll": {}

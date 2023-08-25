@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Abstraction\Services\" />
-    <Folder Include="DTOs\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.21" />
   </ItemGroup>
 
 </Project>

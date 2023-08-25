@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Echooling.Persistance.Implementations.Repositories
 {
-    internal class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
+    public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
     {
         public readonly AppDbContext _context;
         public ReadRepository(AppDbContext context)
@@ -68,3 +68,4 @@ namespace Echooling.Persistance.Implementations.Repositories
         }
         public async Task<T?> GetByIdAsync(Guid Id) => await Table.FindAsync(Id);
     }
+}

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Echooling.Aplication.Abstraction.Repository
 {
-    internal interface IWriteRepository<T> : IRepository<T> where T : BaseEntity, new()
+    public interface IWriteRepository<T> : IRepository<T> where T : BaseEntity, new()
     {
         Task addAsync(T entity);
         Task addRangeAsync(ICollection<T> enitites);

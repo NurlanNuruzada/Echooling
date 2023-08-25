@@ -1,12 +1,25 @@
-﻿using System;
+﻿using Ecooling.Domain.Entites;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Echooling.Aplication.Abstraction.Repository
 {
-    public class IReadRepository
+    public interface IReadRepository<T> : IRepository<T> where T : BaseEntity, new()
     {
+        IQueryable<T> GetAll(bool IsTracking = true, params string[] includes);
+        IQueryable<T> GetAllExpression(Expression<Func<T, bool>> expression, int take, int Skip, bool IsTracking = true, params string[] includes);
+        IQueryable<T> GetAllExpressionOrderBy(Expression<Func<T, bool>> expression,
+                                              int take,
+                                              int Skip,
+                                              Expression<Func<T, object>> expressionOrder,
+                                              bool IsOrder = true,
+                                              bool IsTracking = true,
+                                              params string[] includes);
+        Task<T?> GetByIdAsync(Guid Id);
+        Task<T?> GetByExpressionAsync(Expression<Func<T, bool>> expression, bool IsTracking = true);
     }
 }
