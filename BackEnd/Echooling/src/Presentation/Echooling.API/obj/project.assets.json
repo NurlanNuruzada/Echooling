@@ -874,7 +874,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Ecooling.Domain": "1.0.0"
+          "Ecooling.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "6.0.21"
         },
         "compile": {
           "bin/placeholder/Echooling.Aplication.dll": {}
