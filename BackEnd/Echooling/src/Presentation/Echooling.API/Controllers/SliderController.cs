@@ -1,0 +1,47 @@
+﻿using Echooling.Aplication.Abstraction.Services;
+using Echooling.Aplication.DTOs.SliderDTOs;
+using Ecooling.Domain.Entites;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
+
+namespace Echooling.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SliderController : ControllerBase
+    {
+        private readonly ISliderService _sliderService;
+
+        public SliderController(ISliderService sliderService)
+        {
+            _sliderService = sliderService;
+        }
+        [HttpGet("id")]
+        public async Task<IActionResult> get(Guid id)
+        {
+            SliderGetDto slider = await _sliderService.getById(id);
+            return Ok(slider);
+        }
+        public async Task<IActionResult> getAll()
+        {
+            List<SliderGetDto> List = await _sliderService.GetAllAsync();
+            return Ok(List);
+        }
+        public async Task<IActionResult> delete(Guid id)
+        {
+            var slider = _sliderService.Remove(id);
+            return Ok(new { message = "Category deleted successfully." });
+        }
+        public async Task<IActionResult> Create(SliderCreateDto sliderCreateDto)
+        {
+           await _sliderService.CreateAsync(sliderCreateDto);
+            return StatusCode((int)HttpStatusCode.Created);
+        }
+        public async Task<IActionResult> update([FromBody] SldierUpdateDto sldierUpdateDto,Guid id)
+        {
+            await _sliderService.UpdateAsync(sldierUpdateDto, id);
+            return Ok(new { message = "Slider Updated successfully." + sldierUpdateDto });
+        }
+    }
+}
