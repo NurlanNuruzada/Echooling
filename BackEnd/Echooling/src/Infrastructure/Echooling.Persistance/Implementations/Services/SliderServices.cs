@@ -67,7 +67,7 @@ namespace Echooling.Persistance.Implementations.Services
 
         public async Task UpdateAsync(SldierUpdateDto sldierUpdateDto, Guid id)
         {
-            var Slider = _readRepository.GetByIdAsync(id);
+            var Slider = await _readRepository.GetByIdAsync(id);
             if (Slider is null)
             {
                 throw new notFoundException("Slider not found!");

@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 
 namespace Echooling.Aplication.DTOs.SliderDTOs
 {
-    public record SliderGetDto(string Title, string SeccondTile, string Description, string ImageRoutue);
+    public record SliderGetDto(Guid GuId, string Title, string SeccondTile, string Description, string ImageRoutue);
 }
+

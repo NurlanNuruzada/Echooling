@@ -23,22 +23,26 @@ namespace Echooling.API.Controllers
             SliderGetDto slider = await _sliderService.getById(id);
             return Ok(slider);
         }
+        [HttpGet]
         public async Task<IActionResult> getAll()
         {
             List<SliderGetDto> List = await _sliderService.GetAllAsync();
             return Ok(List);
         }
+        [HttpDelete("id")]
         public async Task<IActionResult> delete(Guid id)
         {
-            var slider = _sliderService.Remove(id);
+            await _sliderService.Remove(id);
             return Ok(new { message = "Category deleted successfully." });
         }
+        [HttpPost]
         public async Task<IActionResult> Create(SliderCreateDto sliderCreateDto)
         {
-           await _sliderService.CreateAsync(sliderCreateDto);
+            await _sliderService.CreateAsync(sliderCreateDto);
             return StatusCode((int)HttpStatusCode.Created);
         }
-        public async Task<IActionResult> update([FromBody] SldierUpdateDto sldierUpdateDto,Guid id)
+        [HttpPut("id")]
+        public async Task<IActionResult> update([FromBody] SldierUpdateDto sldierUpdateDto, Guid id)
         {
             await _sliderService.UpdateAsync(sldierUpdateDto, id);
             return Ok(new { message = "Slider Updated successfully." + sldierUpdateDto });
