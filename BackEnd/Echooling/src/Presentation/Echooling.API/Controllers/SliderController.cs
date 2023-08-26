@@ -1,5 +1,6 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.SliderDTOs;
+using Echooling.Persistance.Exceptions;
 using Ecooling.Domain.Entites;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,14 @@ namespace Echooling.API.Controllers
         [HttpDelete("id")]
         public async Task<IActionResult> delete(Guid id)
         {
-            await _sliderService.Remove(id);
+            try
+            {
+                await _sliderService.Remove(id);
+            }
+            catch (notFoundException ex)
+            {
+                return StatusCode((int)HttpStatusCode.Conflict, new { message = ex.Message });
+            }
             return Ok(new { message = "Category deleted successfully." });
         }
         [HttpPost]

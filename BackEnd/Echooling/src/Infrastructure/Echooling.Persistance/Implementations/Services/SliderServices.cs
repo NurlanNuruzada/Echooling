@@ -53,7 +53,6 @@ namespace Echooling.Persistance.Implementations.Services
                 return sliderGetDto;
             }
         }
-
         public async Task Remove(Guid id)
         {
             Slider slider = await _readRepository.GetByIdAsync(id);
