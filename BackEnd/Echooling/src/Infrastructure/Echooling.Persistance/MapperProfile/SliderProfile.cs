@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AutoMapper;
+using Echooling.Aplication.DTOs.SliderDTOs;
+using Ecooling.Domain.Entites;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +9,13 @@ using System.Threading.Tasks;
 
 namespace Echooling.Persistance.MapperProfile
 {
-    internal class SliderProfile
+    public class SliderProfile : Profile
     {
+        public SliderProfile()
+        {
+            CreateMap<Slider, SliderCreateDto>().ReverseMap();
+            CreateMap<Slider, SliderGetDto>().ReverseMap();
+            CreateMap<Slider, SldierUpdateDto>().ReverseMap();
+        }
     }
 }
