@@ -22,11 +22,10 @@ namespace Echooling.Persistance.Implementations.Services
             int randomNumber = random.Next(100000, 999999);
             AppUser appUser = new()
             {
-                Fullname=registerDto.Fullname,
-                PhoneNumber=registerDto.phoneNumber,
-                UserName =registerDto.name,
-                Email =registerDto.email,
-                BadgeNumber = randomNumber,
+                Fullname = registerDto.Fullname,
+                PhoneNumber = registerDto.phoneNumber,
+                UserName = registerDto.UserName, 
+                Email = registerDto.email, 
                 isActive = true
             };
             IdentityResult identityResult = await _userManager.CreateAsync(appUser,registerDto.password);

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Echooling.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230827111202_addedRoles")]
-    partial class addedRoles
+    [Migration("20230827133452_addedCoumnToRegister")]
+    partial class addedCoumnToRegister
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,9 +30,6 @@ namespace Echooling.Persistance.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BadgeNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -81,6 +78,7 @@ namespace Echooling.Persistance.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 

@@ -47,6 +47,7 @@ public static class ServiceRegistration
             options.Password.RequiredLength = 8;
             options.Password.RequireDigit = true;
             options.Password.RequireUppercase = true;
+            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
         })
         .AddDefaultTokenProviders()
         .AddEntityFrameworkStores<AppDbContext>();

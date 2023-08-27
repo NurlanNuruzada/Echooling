@@ -45,7 +45,6 @@ public class AppDbContextInitializer
             Fullname = _configuration["SuperAdminSetting:Fullname"],
             Email = _configuration["SuperAdminSetting:email"],
             PhoneNumber = _configuration["SuperAdminSetting:PhoneNumber"],
-            BadgeNumber = int.Parse(_configuration["SuperAdminSetting:BadgeNumber"]),
         };
         await _userManager.CreateAsync(user, _configuration["SuperAdminSetting:password"]);
         await _userManager.AddToRoleAsync(user, Roles.SuperAdmin.ToString());
