@@ -1,6 +1,7 @@
 ﻿using Ecooling.Domain.Entites;
 using Ecooling.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Echooling.Persistance.Contexts;
@@ -22,26 +23,28 @@ public class AppDbContextInitializer
         _roleManager = roleManager;
         _configuration = configuration;
     }
+    public async Task AppInitializer()
+    {
+        await _context.Database.MigrateAsync();
+    }
     public async Task RoleSeedAsync()
     {
         foreach (var role in Enum.GetValues(typeof(Roles)))
         {
-            if (await _roleManager.RoleExistsAsync(Roles.SuperAdmin.ToString()))
+            if (!await _roleManager.RoleExistsAsync(Roles.SuperAdmin.ToString()))
             {
-                await _roleManager.CreateAsync(new() { Name = Roles.SuperAdmin.ToString() });
+                await _roleManager.CreateAsync(new IdentityRole  { Name = Roles.SuperAdmin.ToString() });
             }
         }
-
     }
     public async Task CreateUserSeed()
     {
         AppUser user = new()
         {
             UserName = _configuration["SuperAdminSetting:superadmin"],
-        Email = _configuration["SuperAdminSetting:email"],
-       
+            Email = _configuration["SuperAdminSetting:email"],
         };
         await _userManager.CreateAsync(user, _configuration["SuperAdminSetting:password"]);
-        await _userManager.AddToRoleAsync(user,Roles.SuperAdmin.ToString());
+        await _userManager.AddToRoleAsync(user, Roles.SuperAdmin.ToString());
     }
 }

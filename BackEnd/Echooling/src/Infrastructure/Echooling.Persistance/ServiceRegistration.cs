@@ -19,7 +19,6 @@ public static class ServiceRegistration
 {
     public static void addPersistanceServices(this IServiceCollection services)
     {
-    
         //fluet valudations
         services.AddControllers();
         services.AddFluentValidationAutoValidation();
@@ -41,16 +40,16 @@ public static class ServiceRegistration
         services.AddScoped<ISliderService, SliderServices>();
 
         //Idenitity
-        services.AddIdentity<AppUser, AppDbContext>(options =>
+        services.AddIdentity<AppUser, IdentityRole>(options =>
         {
             options.User.RequireUniqueEmail = true;
             options.Password.RequireNonAlphanumeric = true;
             options.Password.RequiredLength = 8;
-            options.Password.RequireUppercase = true;
-            options.Password.RequireLowercase = true;
             options.Password.RequireDigit = true;
-
-        }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
+            options.Password.RequireUppercase = true;
+        })
+        .AddDefaultTokenProviders()
+        .AddEntityFrameworkStores<AppDbContext>();
     }
     private static void AddReadRepositories(this IServiceCollection services)
     {
