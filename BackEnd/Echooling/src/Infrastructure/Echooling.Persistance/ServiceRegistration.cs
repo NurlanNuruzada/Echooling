@@ -41,7 +41,6 @@ public static class ServiceRegistration
         services.AddScoped<ISliderService, SliderServices>();
 
         //Idenitity
-
         services.AddIdentity<AppUser, AppDbContext>(options =>
         {
             options.User.RequireUniqueEmail = true;

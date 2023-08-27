@@ -9,7 +9,9 @@ namespace Ecooling.Domain.Entites
 {
     public class AppUser:IdentityUser
     {
-        public string fullname { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Fullname { get; set; }
+        public int BadgeNumber { get; set; }
         public bool isActive { get; set; }
     }
 }
