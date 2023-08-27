@@ -1,5 +1,6 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
+using Echooling.Aplication.DTOs.ResponseDTOs;
 using Echooling.Persistance.Exceptions;
 using Ecooling.Domain.Entites;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +15,11 @@ namespace Echooling.Persistance.Implementations.Services
         public AuthService(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
+        }
+
+        public Task<TokenResponseDto> Login(SignInDto signInDto)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task Register(RegisterDto registerDto)
