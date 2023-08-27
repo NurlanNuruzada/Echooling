@@ -1,7 +1,9 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
+using Echooling.Persistance.Exceptions;
 using Ecooling.Domain.Entites;
 using Microsoft.AspNetCore.Identity;
+using System.Text;
 
 namespace Echooling.Persistance.Implementations.Services
 {
@@ -28,6 +30,16 @@ namespace Echooling.Persistance.Implementations.Services
                 isActive = true
             };
             IdentityResult identityResult = await _userManager.CreateAsync(appUser,registerDto.password);
+            if (!identityResult.Succeeded)
+            {
+                StringBuilder err = new();
+                foreach (var error in identityResult.Errors)
+                {
+                    err.AppendLine(error.Description);
+                }
+                throw new UserRegistrationException(err.ToString());
+            }
+
         }
     }
 }

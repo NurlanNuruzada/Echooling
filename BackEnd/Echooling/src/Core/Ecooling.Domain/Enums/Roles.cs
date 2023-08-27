@@ -10,7 +10,7 @@ namespace Ecooling.Domain.Enums
     {
         Member,
         SuperAdmin,
-        Moderator,
+        Admin,
         Teacher,
         Student
     }
