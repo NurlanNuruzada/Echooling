@@ -6,8 +6,10 @@ using Echooling.Persistance.Helper;
 using Echooling.Persistance.Implementations.Repositories.SliderRepositories;
 using Echooling.Persistance.Implementations.Services;
 using Echooling.Persistance.MapperProfile;
+using Ecooling.Domain.Entites;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +39,19 @@ public static class ServiceRegistration
 
         //services
         services.AddScoped<ISliderService, SliderServices>();
+
+        //Idenitity
+
+        services.AddIdentity<AppUser, AppDbContext>(options =>
+        {
+            options.User.RequireUniqueEmail = true;
+            options.Password.RequireNonAlphanumeric = true;
+            options.Password.RequiredLength = 8;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireDigit = true;
+
+        }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
     }
     private static void AddReadRepositories(this IServiceCollection services)
     {
