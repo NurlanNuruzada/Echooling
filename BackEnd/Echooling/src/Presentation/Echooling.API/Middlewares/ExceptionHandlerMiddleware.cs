@@ -32,7 +32,6 @@ namespace Echooling.API.Middlewares
                 });
             });
             return app;
-            //Itendity Start
         }
     }
 }
