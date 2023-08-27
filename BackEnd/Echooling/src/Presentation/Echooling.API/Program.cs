@@ -10,7 +10,6 @@ builder.Services.AddScoped<AppDbContextInitializer>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 var app = builder.Build();
 using (var init = app.Services.CreateScope())
 {
@@ -19,7 +18,6 @@ using (var init = app.Services.CreateScope())
     await instance.RoleSeedAsync();
     await instance.CreateUserSeed();
 }
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

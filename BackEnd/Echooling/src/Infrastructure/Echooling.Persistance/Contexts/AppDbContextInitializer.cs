@@ -31,9 +31,9 @@ public class AppDbContextInitializer
     {
         foreach (var role in Enum.GetValues(typeof(Roles)))
         {
-            if (!await _roleManager.RoleExistsAsync(Roles.SuperAdmin.ToString()))
+            if (!await _roleManager.RoleExistsAsync(role.ToString()))
             {
-                await _roleManager.CreateAsync(new IdentityRole  { Name = Roles.SuperAdmin.ToString() });
+                await _roleManager.CreateAsync(new() { Name = role.ToString() });
             }
         }
     }
@@ -41,8 +41,11 @@ public class AppDbContextInitializer
     {
         AppUser user = new()
         {
-            UserName = _configuration["SuperAdminSetting:superadmin"],
+            UserName = _configuration["SuperAdminSetting:username"],
+            Fullname = _configuration["SuperAdminSetting:Fullname"],
             Email = _configuration["SuperAdminSetting:email"],
+            PhoneNumber = _configuration["SuperAdminSetting:PhoneNumber"],
+            BadgeNumber = int.Parse(_configuration["SuperAdminSetting:BadgeNumber"]),
         };
         await _userManager.CreateAsync(user, _configuration["SuperAdminSetting:password"]);
         await _userManager.AddToRoleAsync(user, Roles.SuperAdmin.ToString());
