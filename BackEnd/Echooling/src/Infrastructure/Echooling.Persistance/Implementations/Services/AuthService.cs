@@ -64,8 +64,6 @@ namespace Echooling.Persistance.Implementations.Services
 
         public async Task Register(RegisterDto registerDto)
         {
-            Random random = new Random();
-            int randomNumber = random.Next(100000, 999999);
             AppUser appUser = new()
             {
                 Fullname = registerDto.Fullname,
@@ -118,5 +116,6 @@ namespace Echooling.Persistance.Implementations.Services
             await _userManager.UpdateAsync(user);
             return tokenResponse;
         }
+
     }
 }

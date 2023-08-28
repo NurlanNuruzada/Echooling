@@ -1,6 +1,7 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
 using Echooling.Aplication.DTOs.ResponseDTOs;
+using Echooling.Persistance.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,12 @@ namespace Echooling.API.Controllers
         {
             var response = await _authService.ValidateRefreshToken(token);
             return Ok(response);
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Register(RegisterDto registerDto)
+        {
+                await _authService.Register(registerDto);
+                return Ok("User registered successfully");
         }
     }
 }
