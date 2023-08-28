@@ -22,8 +22,8 @@ namespace Echooling.API.Controllers
             var response = await _authService.Login(signInDto); 
             return Ok(response);    
         }
-        [HttpGet("[action]/token")]
-        public async Task<IActionResult> RefreshToken([FromRoute]string token)
+        [HttpGet("[action]")]
+        public async Task<IActionResult> RefreshToken([FromQuery]string token)
         {
             var response = await _authService.ValidateRefreshToken(token);
             return Ok(response);
