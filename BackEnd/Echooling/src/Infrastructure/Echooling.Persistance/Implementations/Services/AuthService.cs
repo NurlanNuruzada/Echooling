@@ -1,10 +1,12 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
 using Echooling.Aplication.DTOs.ResponseDTOs;
+using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Ecooling.Domain.Entites;
 using Ecooling.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,16 +21,19 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IConfiguration _configuration;
         private readonly ITokenHandler _tokenHandler;
+        private readonly AppDbContext _context;
         public AuthService(UserManager<AppUser> userManager,
                            SignInManager<AppUser> signInManager,
                            RoleManager<IdentityRole> roleManager,
                            IConfiguration configuration,
-                           ITokenHandler tokenHandler)
+                           ITokenHandler tokenHandler,
+                           AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _tokenHandler = tokenHandler;
+            _context = context;
         }
 
         public async Task<TokenResponseDto> Login(SignInDto signInDto)
@@ -50,7 +55,11 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new UserNotActiveException("Your accound is Blocked!");
             }
 
-            return await _tokenHandler.CreateAccessToken(120, appUser);
+            var tokenResponse =  await _tokenHandler.CreateAccessToken(1 ,2, appUser);
+            appUser.RefrestToken = tokenResponse.RefreshToken;
+            appUser.RefrestTokenExpiration = tokenResponse.RefreshTokenExpiration;
+            await _userManager.UpdateAsync(appUser);
+            return tokenResponse;
         }
 
         public async Task Register(RegisterDto registerDto)
@@ -85,6 +94,29 @@ namespace Echooling.Persistance.Implementations.Services
                 }
                 throw new UserRegistrationException(err.ToString());
             }
+        }
+
+        public async Task<TokenResponseDto> ValidateRefreshToken(string refreshToken)
+        {
+            if(refreshToken is null)
+            {
+                throw new ArgumentNullException("Refrest token does not exist");
+            }
+            var user =await _context.Users.Where(u=>u.RefrestToken == (refreshToken)).FirstOrDefaultAsync();
+            if (user is null)
+            {
+                throw new notFoundException("user not found!");
+            }
+            if (user.RefrestTokenExpiration < DateTime.UtcNow)
+            {
+                 throw new ArgumentNullException("Refrest token does not exist");
+            }
+
+            var tokenResponse = await _tokenHandler.CreateAccessToken(2,1, user);
+            user.RefrestToken = tokenResponse.RefreshToken;
+            user.RefrestTokenExpiration = tokenResponse.RefreshTokenExpiration;
+            await _userManager.UpdateAsync(user);
+            return tokenResponse;
         }
     }
 }

@@ -69,6 +69,12 @@ namespace Echooling.Persistance.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("RefrestToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RefrestTokenExpiration")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 

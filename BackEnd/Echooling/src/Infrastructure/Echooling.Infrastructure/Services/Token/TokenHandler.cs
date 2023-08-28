@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace Echooling.Infrastructure.Services.Token
             _userManager = userManager;
             _configuration = configuration;
         }
-        public async Task<TokenResponseDto> CreateAccessToken(int addminutes, AppUser user)
+        public async Task<TokenResponseDto> CreateAccessToken(int addminutes,int refrestTokenMinutes, AppUser user)
         {
             List<Claim> claims = new()
         {
@@ -49,7 +50,15 @@ namespace Echooling.Infrastructure.Services.Token
                  signingCredentials: Credentials
                  );
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
-            return new TokenResponseDto(token, ExpireDate);
+            var refrestToken = GenerateRefreshToken();
+            return new TokenResponseDto(token, ExpireDate,DateTime.UtcNow.AddMinutes(refrestTokenMinutes), refrestToken);
+        }
+        private string GenerateRefreshToken()
+        {
+            byte[] bytes =new byte[64];
+            var randomNumber = RandomNumberGenerator.Create();
+            randomNumber.GetBytes(bytes);
+            return Convert.ToBase64String(bytes);
         }
     }
 }

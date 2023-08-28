@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Echooling.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230827141058_addedUserPassword")]
-    partial class addedUserPassword
+    [Migration("20230828025248_ModifiedAppUser")]
+    partial class ModifiedAppUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,6 +70,12 @@ namespace Echooling.Persistance.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("RefrestToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RefrestTokenExpiration")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

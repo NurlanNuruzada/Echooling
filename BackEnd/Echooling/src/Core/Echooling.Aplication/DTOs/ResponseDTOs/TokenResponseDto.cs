@@ -1,3 +1,4 @@
-﻿namespace Echooling.Aplication.DTOs.ResponseDTOs;
-
-public record TokenResponseDto(string token,DateTime expireDate) { }
+﻿namespace Echooling.Aplication.DTOs.ResponseDTOs
+{
+    public record TokenResponseDto(string token, DateTime expireDate, DateTime RefreshTokenExpiration, string RefreshToken) { }
+}

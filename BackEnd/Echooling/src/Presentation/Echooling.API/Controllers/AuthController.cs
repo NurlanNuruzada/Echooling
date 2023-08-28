@@ -1,5 +1,6 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
+using Echooling.Aplication.DTOs.ResponseDTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,12 @@ namespace Echooling.API.Controllers
         {
             var response = await _authService.Login(signInDto); 
             return Ok(response);    
+        }
+        [HttpGet("[action]/token")]
+        public async Task<IActionResult> RefreshToken([FromRoute]string token)
+        {
+            var response = await _authService.ValidateRefreshToken(token);
+            return Ok(response);
         }
     }
 }
