@@ -90,3 +90,7 @@ C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.AP
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\en-US\Echooling.Persistance.resources.dll
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\es-ES\Echooling.Persistance.resources.dll
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\ru-RU\Echooling.Persistance.resources.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\System.Web.Http.Cors.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

@@ -10,6 +10,7 @@ using Echooling.Infrastructure.Services.Storage.Local;
 using Echooling.Infrastructure.Services.Storage.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors();
 builder.Services.addStorage<LocalStorage>();
 //builder.Services.addStorage<AzureStorage>();
 builder.Services.addPersistanceServices();
@@ -67,6 +68,13 @@ if (app.Environment.IsDevelopment())
 }
 app.useCustomExceptionHandler();
 app.UseHttpsRedirection();
+
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+);
+
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -3,6 +3,8 @@ import Styles from "./Register.module.css";
 import BakgroundImage from "../../Images/BakgroundSignIn.jpg";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useFormik } from "formik";
+
 import {
   Input,
   InputGroup,
@@ -19,7 +21,37 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { PhoneIcon, AtSignIcon, UnlockIcon } from "@chakra-ui/icons";
 import News from "../../Components/News/News";
 import ContactUsForm from "../../Components/ContactUs/ContactUsForm";
+import RegisterScema from "../../Valudations/RegisterScema";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { registerAction } from "../../Redux/Slices/AuthSlice";
+import { register } from "../../Services/AuthService";
 const Register = () => {
+  const dispatch = useDispatch(); 
+  const { mutate, isLoading, error } = useMutation((values)=>register(values),
+    {
+      onSuccess: (resp) => {
+        dispatch(registerAction(resp.data))
+        console.log(resp);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+  const formik = useFormik({
+    initialValues: {
+      phoneNumber: "",
+      email: "",
+      name: "",
+      surname: "",
+      password: "",
+      userName: "",
+    },
+    onSubmit: (values) => mutate(values),
+    validationSchema: RegisterScema,
+  });
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   return (
@@ -37,16 +69,46 @@ const Register = () => {
                 <TabPanel>
                   <h1>Sign up now</h1>
                   <Flex className={Styles.Input}>
-                    <Input borderColor={"#5555"} placeholder="Name" />
-                    <Input borderColor={"#5555"} placeholder="Surname" />
+                    <Input
+                      name="name"
+                      onChange={formik.handleChange}
+                      value={formik.values.name}
+                      isInvalid={formik.touched.name && formik.errors.name}
+                      borderColor={"#5555"}
+                      placeholder="Name"
+                    />
+                    <Input
+                      name="surname"
+                      onChange={formik.handleChange}
+                      value={formik.values.surname}
+                      isInvalid={
+                        formik.touched.surname && formik.errors.surname
+                      }
+                      borderColor={"#5555"}
+                      placeholder="surname"
+                    />
+                    <Input
+                      name="userName"
+                      onChange={formik.handleChange}
+                      value={formik.values.userName}
+                      isInvalid={
+                        formik.touched.userName && formik.errors.userName
+                      }
+                      borderColor={"#5555"}
+                      placeholder="username"
+                    />
                     <InputGroup>
                       <InputLeftElement pointerEvents="none">
                         <AtSignIcon color="gray.300" />
                       </InputLeftElement>
                       <Input
+                        isInvalid={formik.touched.email && formik.errors.email}
                         borderColor={"#5555"}
                         type="mail"
                         placeholder="mail"
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                        name="email"
                       />
                     </InputGroup>
 
@@ -55,9 +117,16 @@ const Register = () => {
                         <PhoneIcon color="gray.300" />
                       </InputLeftElement>
                       <Input
+                        isInvalid={
+                          formik.touched.phoneNumber &&
+                          formik.errors.phoneNumber
+                        }
                         borderColor={"#5555"}
                         type="tel"
-                        placeholder="Phone number"
+                        placeholder="Phone number(optional)"
+                        name="phoneNumber"
+                        onChange={formik.handleChange}
+                        value={formik.values.phoneNumber}
                       />
                     </InputGroup>
 
@@ -66,10 +135,16 @@ const Register = () => {
                         <UnlockIcon color="gray.300" />
                       </InputLeftElement>
                       <Input
+                        isInvalid={
+                          formik.touched.password && formik.errors.password
+                        }
                         borderColor={"#5555"}
                         pr="4.5rem"
                         type={show ? "text" : "password"}
                         placeholder="Enter password"
+                        onChange={formik.handleChange}
+                        name="password"
+                        value={formik.values.password}
                       />
                       <InputRightElement width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -95,6 +170,7 @@ const Register = () => {
                       </InputRightElement>
                     </InputGroup>
                     <Button
+                      onClick={formik.handleSubmit}
                       className={Styles.Button}
                       backgroundColor={"#3270fc"}
                       color={"white"}
@@ -172,7 +248,7 @@ const Register = () => {
           </div>
         </Flex>
       </div>
-      <ContactUsForm/>
+      <ContactUsForm />
       <News />
     </Box>
   );

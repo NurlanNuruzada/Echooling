@@ -1,11 +1,6 @@
-﻿using AutoMapper.Execution;
-using Echooling.Aplication.Abstraction.Services;
+﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
-using Echooling.Aplication.DTOs.ResponseDTOs;
-using Echooling.Persistance.Exceptions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Numerics;
 
 namespace Echooling.API.Controllers
 {
