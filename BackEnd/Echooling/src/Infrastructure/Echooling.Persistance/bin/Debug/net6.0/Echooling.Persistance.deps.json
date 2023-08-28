@@ -16,6 +16,17 @@
         },
         "runtime": {
           "Echooling.Persistance.dll": {}
+        },
+        "resources": {
+          "en-US/Echooling.Persistance.resources.dll": {
+            "locale": "en-US"
+          },
+          "es-ES/Echooling.Persistance.resources.dll": {
+            "locale": "es-ES"
+          },
+          "ru-RU/Echooling.Persistance.resources.dll": {
+            "locale": "ru-RU"
+          }
         }
       },
       "AutoMapper/12.0.1": {

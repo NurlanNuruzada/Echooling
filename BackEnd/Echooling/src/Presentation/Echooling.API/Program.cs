@@ -4,12 +4,26 @@ using Echooling.Persistance.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Echooling.Infrastructure;
+using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.addPersistanceServices();
 builder.Services.AddScoped<AppDbContextInitializer>();
-
+builder.Services.AddLocalization();
+List<CultureInfo> cultures = new() {
+    new CultureInfo("es-ES"),
+    new CultureInfo("eN-US"),
+    new CultureInfo("ru-RU"),
+};
+RequestLocalizationOptions localizationOptions = new()
+{
+    ApplyCurrentCultureToResponseHeaders = true,
+    SupportedCultures = cultures,
+    SupportedUICultures = cultures
+};
+localizationOptions.SetDefaultCulture("en-US");
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -35,6 +49,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.UseRequestLocalization(localizationOptions);
 using (var init = app.Services.CreateScope())
 {
     var instance = init.ServiceProvider.GetRequiredService<AppDbContextInitializer>();

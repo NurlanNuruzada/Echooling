@@ -87,3 +87,6 @@ C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.AP
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Echooling.Infrastructure.dll
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Echooling.Infrastructure.pdb
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\en-US\Echooling.Persistance.resources.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\es-ES\Echooling.Persistance.resources.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\ru-RU\Echooling.Persistance.resources.dll

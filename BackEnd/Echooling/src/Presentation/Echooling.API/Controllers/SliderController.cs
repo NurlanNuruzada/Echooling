@@ -11,7 +11,6 @@ namespace Echooling.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class SliderController : ControllerBase
     {
         private readonly ISliderService _sliderService;
