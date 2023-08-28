@@ -6,6 +6,7 @@ using Echooling.Persistance.Exceptions;
 using Ecooling.Domain.Entites;
 using Ecooling.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -35,7 +36,6 @@ namespace Echooling.Persistance.Implementations.Services
             _tokenHandler = tokenHandler;
             _context = context;
         }
-
         public async Task<TokenResponseDto> Login(SignInDto signInDto)
         {
             AppUser appUser = await _userManager.FindByEmailAsync(signInDto.EmailOrUsername);
@@ -66,7 +66,7 @@ namespace Echooling.Persistance.Implementations.Services
         {
             AppUser appUser = new()
             {
-                Fullname = registerDto.Fullname,
+                Fullname = registerDto.surname + registerDto.name,
                 PhoneNumber = registerDto.phoneNumber,
                 UserName = registerDto.UserName,
                 Email = registerDto.email,
@@ -92,6 +92,11 @@ namespace Echooling.Persistance.Implementations.Services
                 }
                 throw new UserRegistrationException(err.ToString());
             }
+        }
+
+        public Task SignOut()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<TokenResponseDto> ValidateRefreshToken(string refreshToken)

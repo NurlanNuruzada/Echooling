@@ -11,7 +11,6 @@ namespace Echooling.Aplication.Valudators.AuthValudators
             RuleFor(X => X.email).NotNull().NotEmpty().MaximumLength(255);
             RuleFor(x => x.surname).NotNull().NotEmpty().MaximumLength(100);
             RuleFor(x => x.name).NotNull().NotEmpty().MaximumLength(55);
-            RuleFor(x => x.Fullname).NotNull().NotEmpty().MaximumLength(255);
             RuleFor(x=>x.password).NotNull().NotEmpty().MaximumLength(255); 
             RuleFor(x => x.UserName) // Add validation rules for UserName
          .NotNull()

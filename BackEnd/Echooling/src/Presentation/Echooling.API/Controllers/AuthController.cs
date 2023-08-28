@@ -1,9 +1,11 @@
-﻿using Echooling.Aplication.Abstraction.Services;
+﻿using AutoMapper.Execution;
+using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
 using Echooling.Aplication.DTOs.ResponseDTOs;
 using Echooling.Persistance.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 
 namespace Echooling.API.Controllers
 {
@@ -17,14 +19,14 @@ namespace Echooling.API.Controllers
         {
             _authService = authService;
         }
-        [HttpPost("[action]")] 
+        [HttpPost("[action]")]
         public async Task<IActionResult> Login(SignInDto signInDto)
         {
-            var response = await _authService.Login(signInDto); 
-            return Ok(response);    
+            var response = await _authService.Login(signInDto);
+            return Ok(response);
         }
         [HttpGet("[action]")]
-        public async Task<IActionResult> RefreshToken([FromQuery]string token)
+        public async Task<IActionResult> RefreshToken([FromQuery] string token)
         {
             var response = await _authService.ValidateRefreshToken(token);
             return Ok(response);
@@ -32,8 +34,15 @@ namespace Echooling.API.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
-                await _authService.Register(registerDto);
-                return Ok("User registered successfully");
+            await _authService.Register(registerDto);
+            return Ok("User registered successfully");
         }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SignOut()
+        {
+            await _authService.SignOut();
+            return Ok("Sign-out successful");
+        }
+
     }
 }

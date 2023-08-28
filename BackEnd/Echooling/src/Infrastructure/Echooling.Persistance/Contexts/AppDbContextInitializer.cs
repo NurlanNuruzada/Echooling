@@ -42,7 +42,6 @@ public class AppDbContextInitializer
         AppUser user = new()
         {
             UserName = _configuration["SuperAdminSetting:username"],
-            Fullname = _configuration["SuperAdminSetting:Fullname"],
             Email = _configuration["SuperAdminSetting:email"],
             PhoneNumber = _configuration["SuperAdminSetting:PhoneNumber"],
             isActive = true

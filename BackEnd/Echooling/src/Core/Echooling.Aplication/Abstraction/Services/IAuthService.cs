@@ -7,7 +7,7 @@ namespace Echooling.Aplication.Abstraction.Services
     {
         Task Register(RegisterDto registerDto);
         Task<TokenResponseDto> Login(SignInDto signInDto);
-
+        Task SignOut();
         Task<TokenResponseDto> ValidateRefreshToken(string refreshToken);
     }
 }
