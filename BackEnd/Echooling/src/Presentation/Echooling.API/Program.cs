@@ -6,9 +6,12 @@ using Microsoft.IdentityModel.Tokens;
 using Echooling.Infrastructure;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
+using Echooling.Infrastructure.Services.Storage.Local;
+using Echooling.Infrastructure.Services.Storage.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.addStorage<LocalStorage>();
+//builder.Services.addStorage<AzureStorage>();
 builder.Services.addPersistanceServices();
 builder.Services.AddScoped<AppDbContextInitializer>();
 builder.Services.AddLocalization();
