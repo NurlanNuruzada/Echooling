@@ -2,6 +2,7 @@
 using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Persistance.Exceptions;
 using Ecooling.Domain.Entites;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -10,6 +11,7 @@ namespace Echooling.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SliderController : ControllerBase
     {
         private readonly ISliderService _sliderService;

@@ -19,6 +19,7 @@ public static class ServiceRegistration
 {
     public static void addPersistanceServices(this IServiceCollection services)
     {
+        services.AddScoped<IAuthService, AuthService>();
         //fluet valudations
         services.AddControllers();
         services.AddFluentValidationAutoValidation();

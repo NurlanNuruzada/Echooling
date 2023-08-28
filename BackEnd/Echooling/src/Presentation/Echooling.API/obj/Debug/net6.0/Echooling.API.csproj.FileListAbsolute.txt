@@ -84,3 +84,6 @@ C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.AP
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Echooling.Infrastructure.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Echooling.Infrastructure.pdb
