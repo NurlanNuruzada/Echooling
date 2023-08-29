@@ -1,13 +1,13 @@
 using Echooling.API.Middlewares;
+using Echooling.Aplication.Abstraction.Services;
+using Echooling.Infrastructure;
+using Echooling.Infrastructure.Services.Storage.Local;
 using Echooling.Persistance;
 using Echooling.Persistance.Contexts;
+using Echooling.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Echooling.Infrastructure;
-using Microsoft.Extensions.Localization;
 using System.Globalization;
-using Echooling.Infrastructure.Services.Storage.Local;
-using Echooling.Infrastructure.Services.Storage.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
@@ -15,6 +15,8 @@ builder.Services.addStorage<LocalStorage>();
 //builder.Services.addStorage<AzureStorage>();
 builder.Services.addPersistanceServices();
 builder.Services.AddScoped<AppDbContextInitializer>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services.AddLocalization();
 List<CultureInfo> cultures = new() {
     new CultureInfo("es-ES"),

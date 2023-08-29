@@ -1,7 +1,6 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.Abstraction.Storage;
 using Echooling.Infrastructure.Services.Storage;
-using Echooling.Infrastructure.Services.Storage.Local;
 using Echooling.Infrastructure.Services.Token;
 using Microsoft.Extensions.DependencyInjection;
 namespace Echooling.Infrastructure
