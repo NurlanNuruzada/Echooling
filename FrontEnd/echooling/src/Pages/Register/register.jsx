@@ -4,7 +4,13 @@ import BakgroundImage from "../../Images/BakgroundSignIn.jpg";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
-
+import {
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
+} from "@chakra-ui/react";
 import {
   Input,
   InputGroup,
@@ -28,11 +34,17 @@ import { useDispatch } from "react-redux";
 import { registerAction } from "../../Redux/Slices/AuthSlice";
 import { register } from "../../Services/AuthService";
 const Register = () => {
-  const dispatch = useDispatch(); 
-  const { mutate, isLoading, error } = useMutation((values)=>register(values),
+  const dispatch = useDispatch();
+  const getErrorMessage = (fieldName) => {
+    return  formik.errors[fieldName]
+      ? formik.errors[fieldName]
+      : "";
+  };
+  const { mutate, isLoading, error } = useMutation(
+    (values) => register(values),
     {
       onSuccess: (resp) => {
-        dispatch(registerAction(resp.data))
+        dispatch(registerAction(resp.data));
         console.log(resp);
       },
       onError: (error) => {
@@ -77,6 +89,7 @@ const Register = () => {
                       borderColor={"#5555"}
                       placeholder="Name"
                     />
+              
                     <Input
                       name="surname"
                       onChange={formik.handleChange}
@@ -169,6 +182,15 @@ const Register = () => {
                         </Button>
                       </InputRightElement>
                     </InputGroup>
+                    <UnorderedList>
+                      {Object.keys(formik.errors).map((fieldName) => (
+                        <ListItem key={fieldName}>
+                          <div style={{ color: "red" ,textAlign: "start"}}>
+                            {getErrorMessage(fieldName)}
+                          </div>
+                        </ListItem>
+                      ))}
+                    </UnorderedList>
                     <Button
                       onClick={formik.handleSubmit}
                       className={Styles.Button}
