@@ -12,6 +12,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import SearchInputCom from "../SeacthInput/SearchInput2.jsx";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -22,6 +23,9 @@ const Header = () => {
   };
 
   const Routes = ["Home", "About", "Courses", "contact", "Events", "staff"];
+  const { token, fullname, userName, email, refreshToken, expireDate } = useSelector(state => state.auth); // Update the selector
+
+  const userGreeting = fullname ? `${fullname}` : "Sign In"; // Determine the user greeting
 
   return (
     <div className={Styles.MainContainer}>
@@ -44,7 +48,7 @@ const Header = () => {
               onClick={() => handleNavigate("auth/register")}
               className={Styles.page}
             >
-              Sign In
+              {userGreeting}
             </p>
           </div>
           <div className={Styles.icons}>

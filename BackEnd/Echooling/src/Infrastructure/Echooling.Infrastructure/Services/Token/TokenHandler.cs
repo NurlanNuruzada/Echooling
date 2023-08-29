@@ -51,7 +51,7 @@ namespace Echooling.Infrastructure.Services.Token
                  );
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
             var refrestToken = GenerateRefreshToken();
-            return new TokenResponseDto(token, ExpireDate,DateTime.UtcNow.AddMinutes(refrestTokenMinutes), refrestToken);
+            return new TokenResponseDto(token, ExpireDate,DateTime.UtcNow.AddMinutes(refrestTokenMinutes), refrestToken,user.UserName,user.Fullname,user.Email);
         }
         private string GenerateRefreshToken()
         {

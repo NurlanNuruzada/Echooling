@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XBDqad0HBU7ASnnPlr4aQm6xLkBaE+s5qSJ43iHJeiVU+1EovpuA/I3NzjNY8zKqXGlggvu5bsDiLUCp59WEhw==",
+  "dgSpecHash": "yt5J9AxNRWK6qY/3z7g0PuU+QfeKNw8XuAL89RUSA+JUUKMMdawx+PiJWBTPXOVlxfpUEhJgeaJn+6byMO88DA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Presentation\\Echooling.API\\Echooling.API.csproj",
+  "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Presentation\\Echooling.API\\Echooling.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nurlan\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

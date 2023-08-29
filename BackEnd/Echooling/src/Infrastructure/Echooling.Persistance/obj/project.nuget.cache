@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cXSgAUQlqzrGuqb9I0gN70wWKEwblQPiv2oyLQNH9hGeqimqNFeJS7JJflu3OxJt8z7lLL3bcArGl+sUxjiRaA==",
+  "dgSpecHash": "IMJrDLI8hSGZMCxuTHc8V5D0Awe3kzP4sqZuufMpU4t04kTGL7y5yyVBQwMHWpWsYwPLFG1x/2YjaA3YojL8rg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj",
+  "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nurlan\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

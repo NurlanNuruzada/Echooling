@@ -66,7 +66,7 @@ namespace Echooling.Persistance.Implementations.Services
         {
             AppUser appUser = new()
             {
-                Fullname = registerDto.surname + registerDto.name,
+                Fullname = registerDto.surname +" "+ registerDto.name,
                 PhoneNumber = registerDto.phoneNumber,
                 UserName = registerDto.UserName,
                 Email = registerDto.email,

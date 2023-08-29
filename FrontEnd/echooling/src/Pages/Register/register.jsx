@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Styles from "./Register.module.css";
 import BakgroundImage from "../../Images/BakgroundSignIn.jpg";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
@@ -37,8 +37,9 @@ import { useNavigate } from "react-router";
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {token} = useSelector(x=>x.AuthReducer)
-  console.log(token)
+  const { token, fullname, userName, email, refreshToken, expireDate } = useSelector(x => x.auth);
+  console.log("Token:", token);
+
   const getErrorMessage = (fieldName) => {
     return  formik.errors[fieldName]
       ? formik.errors[fieldName]
@@ -54,16 +55,14 @@ const Register = () => {
   const {mutate:LoginMutate, isLoading:Loginloading , error :Loginerror} =useMutation(
     (values)=>login(values),{
       onSuccess: (resp)=>{
-        dispatch(loginAction(resp.data));
-        console.log("success");
-        navigate("/")
+        dispatch(loginAction(resp));
+        // navigate("/")
       },
       onError: (error) => {
         console.log("error")
       },
     }
     )
-
   const { mutate, isLoading, error } = useMutation(
     (values) => register(values),
     {

@@ -7545,11 +7545,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Presentation\\Echooling.API\\Echooling.API.csproj",
+      "projectUniqueName": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Presentation\\Echooling.API\\Echooling.API.csproj",
       "projectName": "Echooling.API",
-      "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Presentation\\Echooling.API\\Echooling.API.csproj",
+      "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Presentation\\Echooling.API\\Echooling.API.csproj",
       "packagesPath": "C:\\Users\\Nurlan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Presentation\\Echooling.API\\obj\\",
+      "outputPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Presentation\\Echooling.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Nurlan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7567,11 +7567,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Infrastructure\\Echooling.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Infrastructure\\Echooling.Infrastructure.csproj"
+            "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Infrastructure\\Echooling.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Infrastructure\\Echooling.Infrastructure.csproj"
             },
-            "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj": {
-              "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj"
+            "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj": {
+              "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj"
             }
           }
         }
