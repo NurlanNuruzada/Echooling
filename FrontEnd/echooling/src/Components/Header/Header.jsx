@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./Header.module.css";
 import MainLogo from "../../Images/logo2.png";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import {
   Menu,
@@ -10,9 +10,11 @@ import {
   MenuItem,
   IconButton,
   Flex,
+  Button,
 } from "@chakra-ui/react";
 import SearchInputCom from "../SeacthInput/SearchInput2.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutAction } from "../../Redux/Slices/AuthSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -21,12 +23,28 @@ const Header = () => {
     navigate(`./${route}`);
     console.log("Navigation triggered");
   };
-
+  const dispatch  = useDispatch()
   const Routes = ["Home", "About", "Courses", "contact", "Events", "staff"];
-  const { token, userName } = useSelector(state => state.auth); // Update the selector
+  const { token, userName } = useSelector((state) => state.auth); // Update the selector
 
-  const userGreeting = userName ? `${userName}` : "Sign In"; 
-
+  const userGreeting = userName ? (
+    <Menu>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+        {userName}
+      </MenuButton>
+      <MenuList>
+        <MenuItem onClick={()=> dispatch(logoutAction())}>Log out</MenuItem>
+        <MenuItem>Me</MenuItem>
+      </MenuList>
+    </Menu>
+  ) : (
+    <p
+      onClick={() => !userName && handleNavigate("auth/register")} 
+      className={Styles.page}
+    >
+      Sign In
+    </p>
+  );
   return (
     <div className={Styles.MainContainer}>
       <div className={Styles.LeftSideLogo}>
@@ -45,7 +63,6 @@ const Header = () => {
         <Flex flexDirection={"row"} alignItems={"center"}>
           <div className={Styles.signIn}>
             <p
-              onClick={() => handleNavigate("auth/register")}
               className={Styles.page}
             >
               {userGreeting}
