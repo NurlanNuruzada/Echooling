@@ -4,7 +4,7 @@ const api = Axios.create({
     baseURL: process.env.REACT_APP_API_HOST,
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json", // Fixed header value
+      "Content-Type": "application/json", 
     },
   });
 

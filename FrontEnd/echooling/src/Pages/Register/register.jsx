@@ -83,8 +83,12 @@ const Register = () => {
       surname: "",
       password: "",
       userName: "",
+      confirmPassword :""
     },
-    onSubmit: (values) => mutate(values),
+    onSubmit: (values) => {
+      const { confirmPassword, ...valuesWithoutConfirmPassword } = values;
+      mutate(valuesWithoutConfirmPassword);
+    },
     validationSchema: RegisterScema,
   });
   const [show, setShow] = React.useState(false);
@@ -197,7 +201,10 @@ const Register = () => {
                         borderColor={"#5555"}
                         pr="4.5rem"
                         type={show ? "text" : "password"}
-                        placeholder="Confirm password"
+                        placeholder="Confirm password" 
+                        onChange={formik.handleChange}
+                        name="confirmPassword"
+                        value={formik.values.confirmPassword}
                       />
                       <InputRightElement width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleClick}>

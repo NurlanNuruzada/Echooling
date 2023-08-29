@@ -1,5 +1,3 @@
-// Services/AuthService.js
-
 import { httpClient } from "../Utils/HttpClient";
 
 export const login = async (data) => {
