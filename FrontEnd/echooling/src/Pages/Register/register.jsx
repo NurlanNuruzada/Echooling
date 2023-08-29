@@ -33,7 +33,9 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { registerAction } from "../../Redux/Slices/AuthSlice";
 import { register } from "../../Services/AuthService";
+import { useNavigate } from "react-router";
 const Register = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const getErrorMessage = (fieldName) => {
     return  formik.errors[fieldName]
@@ -45,7 +47,7 @@ const Register = () => {
     {
       onSuccess: (resp) => {
         dispatch(registerAction(resp.data));
-        console.log(resp);
+        navigate("/")
       },
       onError: (error) => {
         console.log(error);
@@ -182,7 +184,7 @@ const Register = () => {
                         </Button>
                       </InputRightElement>
                     </InputGroup>
-                    <UnorderedList>
+                    <List>
                       {Object.keys(formik.errors).map((fieldName) => (
                         <ListItem key={fieldName}>
                           <div style={{ color: "red" ,textAlign: "start"}}>
@@ -190,7 +192,7 @@ const Register = () => {
                           </div>
                         </ListItem>
                       ))}
-                    </UnorderedList>
+                    </List>
                     <Button
                       onClick={formik.handleSubmit}
                       className={Styles.Button}
