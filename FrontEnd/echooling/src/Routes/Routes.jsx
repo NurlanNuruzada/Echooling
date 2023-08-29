@@ -1,5 +1,5 @@
 import React from "react";
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import { MainLayout } from "../Layouts/MainLayout";
 import NotFound from "../Pages/NotFound";
 import Home from "../Pages/Home/Home";
@@ -12,7 +12,9 @@ import TeacherDetail from "../Pages/TeacherDetail/teacherDetail";
 import EventDetails from "../Pages/Eventdetail/EventDetails";
 import Register from "../Pages/Register/register";
 import CourseDetails from "../Pages/CourseDetails/CourseDetails";
-export default function Routes(){
+import { useSelector } from "react-redux";
+export default function Routes() {
+  const { token } = useSelector((x) => x.auth);
   let routes = [
     {
       path: "/",
@@ -28,7 +30,7 @@ export default function Routes(){
         },
         {
           path: "/Auth/Register",
-          element: <Register />,
+          element: token ? <Navigate to={"/"}/> : <Register />,
         },
         {
           path: "/about",
@@ -67,8 +69,7 @@ export default function Routes(){
           element: <NotFound />,
         },
       ],
-    }
+    },
   ];
-   return  useRoutes(routes);
-};
-
+  return useRoutes(routes);
+}

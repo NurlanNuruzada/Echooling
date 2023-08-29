@@ -23,9 +23,9 @@ const Header = () => {
   };
 
   const Routes = ["Home", "About", "Courses", "contact", "Events", "staff"];
-  const { token, fullname, userName, email, refreshToken, expireDate } = useSelector(state => state.auth); // Update the selector
+  const { token, userName } = useSelector(state => state.auth); // Update the selector
 
-  const userGreeting = fullname ? `${fullname}` : "Sign In"; 
+  const userGreeting = userName ? `${userName}` : "Sign In"; 
 
   return (
     <div className={Styles.MainContainer}>

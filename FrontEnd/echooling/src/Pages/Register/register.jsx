@@ -23,6 +23,12 @@ import {
   Box,
   AbsoluteCenter,
 } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { PhoneIcon, AtSignIcon, UnlockIcon } from "@chakra-ui/icons";
 import News from "../../Components/News/News";
@@ -34,43 +40,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction, registerAction } from "../../Redux/Slices/AuthSlice";
 import { login, register } from "../../Services/AuthService";
 import { useNavigate } from "react-router";
+import { useState } from "react";
+import Done from "../../Components/DoneModal/Done";
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, fullname, userName, email, refreshToken, expireDate } = useSelector(x => x.auth);
-  console.log("Token:", token);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+ 
 
   const getErrorMessage = (fieldName) => {
-    return  formik.errors[fieldName]
-      ? formik.errors[fieldName]
-      : "";
+    return formik.errors[fieldName] ? formik.errors[fieldName] : "";
   };
-  const LoginFormik=useFormik({
-    initialValues:{
-      emailOrUsername:"",
-      password:""
+  const LoginFormik = useFormik({
+    initialValues: {
+      emailOrUsername: "",
+      password: "",
     },
-    onSubmit: (values) => LoginMutate(values)
+    onSubmit: (values) => LoginMutate(values),
   });
-  const {mutate:LoginMutate, isLoading:Loginloading , error :Loginerror} =useMutation(
-    (values)=>login(values),{
-      onSuccess: (resp)=>{
-        dispatch(loginAction(resp));
-        // navigate("/")
-      },
-      onError: (error) => {
-        console.log("error")
-      },
-    }
-    )
+  const { mutate: LoginMutate,isLoading: Loginloading, error: Loginerror,} =
+   useMutation((values) => login(values), {
+    onSuccess: (resp) => {
+      dispatch(loginAction(resp));
+    },
+    onError: (error) => {
+      console.log("error");
+    },
+  });
   const { mutate, isLoading, error } = useMutation(
     (values) => register(values),
     {
       onSuccess: (resp) => {
+        setRegistrationSuccess(true);
         dispatch(registerAction(resp.data));
-        navigate("/")
       },
       onError: (error) => {
+        setRegistrationSuccess(false);
         console.log(error);
       },
     }
@@ -83,7 +88,7 @@ const Register = () => {
       surname: "",
       password: "",
       userName: "",
-      confirmPassword :""
+      confirmPassword: "",
     },
     onSubmit: (values) => {
       const { confirmPassword, ...valuesWithoutConfirmPassword } = values;
@@ -96,10 +101,13 @@ const Register = () => {
   return (
     <Box>
       <div className={Styles.MainContainer}>
+      {registrationSuccess  && (
+          <Done/>)}
         <div className={Styles.BackgrounImage}></div>
         <Flex className={Styles.MainFlex} flexDirection={"column"}>
           <div className={Styles.Main}>
             <Tabs isFitted variant="enclosed">
+              
               <TabList mb="1em">
                 <Tab>Register</Tab>
                 <Tab>Login</Tab>
@@ -201,7 +209,7 @@ const Register = () => {
                         borderColor={"#5555"}
                         pr="4.5rem"
                         type={show ? "text" : "password"}
-                        placeholder="Confirm password" 
+                        placeholder="Confirm password"
                         onChange={formik.handleChange}
                         name="confirmPassword"
                         value={formik.values.confirmPassword}
@@ -215,7 +223,7 @@ const Register = () => {
                     <List>
                       {Object.keys(formik.errors).map((fieldName) => (
                         <ListItem key={fieldName}>
-                          <div style={{ color: "red" ,textAlign: "start"}}>
+                          <div style={{ color: "red", textAlign: "start" }}>
                             {getErrorMessage(fieldName)}
                           </div>
                         </ListItem>
@@ -256,7 +264,10 @@ const Register = () => {
                         name="emailOrUsername"
                         onChange={LoginFormik.handleChange}
                         value={LoginFormik.values.emailOrUsername}
-                        isInvalid={LoginFormik.touched.emailOrUsername && LoginFormik.errors.emailOrUsername}
+                        isInvalid={
+                          LoginFormik.touched.emailOrUsername &&
+                          LoginFormik.errors.emailOrUsername
+                        }
                         borderColor={"#5555"}
                       />
                     </InputGroup>
@@ -273,7 +284,10 @@ const Register = () => {
                         name="password"
                         onChange={LoginFormik.handleChange}
                         value={LoginFormik.values.password}
-                        isInvalid={LoginFormik.touched.password && LoginFormik.errors.password}
+                        isInvalid={
+                          LoginFormik.touched.password &&
+                          LoginFormik.errors.password
+                        }
                       />
                       <InputRightElement width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleClick}>
