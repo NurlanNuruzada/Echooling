@@ -30,18 +30,40 @@ import ContactUsForm from "../../Components/ContactUs/ContactUsForm";
 import RegisterScema from "../../Valudations/RegisterScema";
 import { useMutation } from "react-query";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { registerAction } from "../../Redux/Slices/AuthSlice";
-import { register } from "../../Services/AuthService";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction, registerAction } from "../../Redux/Slices/AuthSlice";
+import { login, register } from "../../Services/AuthService";
 import { useNavigate } from "react-router";
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {token} = useSelector(x=>x.AuthReducer)
+  console.log(token)
   const getErrorMessage = (fieldName) => {
     return  formik.errors[fieldName]
       ? formik.errors[fieldName]
       : "";
   };
+  const LoginFormik=useFormik({
+    initialValues:{
+      emailOrUsername:"",
+      password:""
+    },
+    onSubmit: (values) => LoginMutate(values)
+  });
+  const {mutate:LoginMutate, isLoading:Loginloading , error :Loginerror} =useMutation(
+    (values)=>login(values),{
+      onSuccess: (resp)=>{
+        dispatch(loginAction(resp.data));
+        console.log("success");
+        navigate("/")
+      },
+      onError: (error) => {
+        console.log("error")
+      },
+    }
+    )
+
   const { mutate, isLoading, error } = useMutation(
     (values) => register(values),
     {
@@ -91,7 +113,7 @@ const Register = () => {
                       borderColor={"#5555"}
                       placeholder="Name"
                     />
-              
+
                     <Input
                       name="surname"
                       onChange={formik.handleChange}
@@ -223,9 +245,13 @@ const Register = () => {
                         <AtSignIcon color="gray.300" />
                       </InputLeftElement>
                       <Input
-                        borderColor={"#5555"}
-                        type="mail"
+                        type="text"
                         placeholder="mail or phonenumber"
+                        name="emailOrUsername"
+                        onChange={LoginFormik.handleChange}
+                        value={LoginFormik.values.emailOrUsername}
+                        isInvalid={LoginFormik.touched.emailOrUsername && LoginFormik.errors.emailOrUsername}
+                        borderColor={"#5555"}
                       />
                     </InputGroup>
 
@@ -238,6 +264,10 @@ const Register = () => {
                         pr="4.5rem"
                         type={show ? "text" : "password"}
                         placeholder="Enter password"
+                        name="password"
+                        onChange={LoginFormik.handleChange}
+                        value={LoginFormik.values.password}
+                        isInvalid={LoginFormik.touched.password && LoginFormik.errors.password}
                       />
                       <InputRightElement width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -250,6 +280,7 @@ const Register = () => {
                       className={Styles.Button}
                       backgroundColor={"#3270fc"}
                       color={"white"}
+                      onClick={LoginFormik.handleSubmit}
                     >
                       SIGN IN
                     </Button>
