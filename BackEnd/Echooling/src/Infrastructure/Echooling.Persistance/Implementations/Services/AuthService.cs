@@ -110,8 +110,7 @@ namespace Echooling.Persistance.Implementations.Services
                 {
                     To = appUser.Email,
                     Subject = "Confirm Email Address",
-                    body = $"<h1>Confirm Your Email</h1><p>Please confirm your email address by clicking <a href='{confirmationUrl}'>here</a>.</p>" +
-                    $"<h1>{appUser.Id}</h1> <br/> <h1>{token.ToString()}</h1>"
+                    body = $"<h1>Confirm Your Email</h1><p>Please confirm your email address by clicking <a href='{confirmationUrl}'>here</a>.</p>" 
                 }; 
                 _emailService.SendEmail(ConfirmLetter);
             }

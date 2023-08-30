@@ -66,13 +66,14 @@ export default function Routes() {
           element: <EventDetails />,
         },
         {
+          path: "/Auth/ConfirmEmail",
+          search: '?userId=value&token=value',
+          element: <ConfirmEmail/>
+      },
+        {
           path: "/*",
           element: <NotFound />,
         },
-        {
-          path:"/Account/ConfirmEmail"
-        ,element:<ConfirmEmail/>
-        }
       ],
     },
   ];
