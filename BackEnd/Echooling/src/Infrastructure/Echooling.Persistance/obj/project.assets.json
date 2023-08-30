@@ -2590,11 +2590,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj",
+      "projectUniqueName": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj",
       "projectName": "Echooling.Persistance",
-      "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj",
+      "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Persistance\\Echooling.Persistance.csproj",
       "packagesPath": "C:\\Users\\Nurlan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Persistance\\obj\\",
+      "outputPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Persistance\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Nurlan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2611,8 +2611,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Core\\Echooling.Aplication\\Echooling.Aplication.csproj": {
-              "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Core\\Echooling.Aplication\\Echooling.Aplication.csproj"
+            "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Core\\Echooling.Aplication\\Echooling.Aplication.csproj": {
+              "projectPath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Core\\Echooling.Aplication\\Echooling.Aplication.csproj"
             }
           }
         }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "97OZMvFMAjwKjItHanrJuCWzfYPe97XfH2KleaYvSpQb1VrKolPYJmrEszZ7ZA7MCX92mHdAHQMANAdv68q2Lw==",
+  "dgSpecHash": "aYJ9bV067Tn7F3yVQz5ZldLDHGonF7jpIzweex0QBB93LgzlRDPnQdHUw5adNCbLDMzS9xBq8L/lpJxmtBET9w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Core\\Echooling.Aplication\\Echooling.Aplication.csproj",
+  "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Core\\Echooling.Aplication\\Echooling.Aplication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nurlan\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",

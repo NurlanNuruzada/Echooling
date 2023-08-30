@@ -1,18 +1,24 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
+using Echooling.Aplication.DTOs.EmailDTOs;
 using Echooling.Aplication.DTOs.ResponseDTOs;
 using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Ecooling.Domain.Entites;
 using Ecooling.Domain.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text.Encodings.Web;
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Encodings.Web;
 
 namespace Echooling.Persistance.Implementations.Services
 {
@@ -23,18 +29,22 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly IConfiguration _configuration;
         private readonly ITokenHandler _tokenHandler;
         private readonly AppDbContext _context;
+        private readonly IEmailService _emailService;
+
         public AuthService(UserManager<AppUser> userManager,
                            SignInManager<AppUser> signInManager,
                            RoleManager<IdentityRole> roleManager,
                            IConfiguration configuration,
                            ITokenHandler tokenHandler,
-                           AppDbContext context)
+                           AppDbContext context,
+                           IEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _tokenHandler = tokenHandler;
             _context = context;
+            _emailService = emailService;
         }
         public async Task<TokenResponseDto> Login(SignInDto signInDto)
         {
@@ -70,7 +80,7 @@ namespace Echooling.Persistance.Implementations.Services
                 PhoneNumber = registerDto.phoneNumber,
                 UserName = registerDto.UserName,
                 Email = registerDto.email,
-                isActive = true
+                isActive = true,
             };
             IdentityResult identityResult = await _userManager.CreateAsync(appUser, registerDto.password);
             if (!identityResult.Succeeded)
@@ -92,6 +102,23 @@ namespace Echooling.Persistance.Implementations.Services
                 }
                 throw new UserRegistrationException(err.ToString());
             }
+            if (result.Succeeded)
+            {
+                var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+                var FrontEndBase = "http://localhost:3000/";
+                var confirmationLink = $"{FrontEndBase}/confirm-email?userId={appUser.Id}&token={UrlEncoder.Default.Encode(emailConfirmationToken)}";
+
+
+                SentEmailDto ConfirmLetter = new SentEmailDto
+                {
+                    To = appUser.Email,
+                    Subject = "Confirm Email Address",
+                    body = $"<h1>Confirm Your Email</h1><p>Please confirm your email address by clicking <a href='{confirmationLink}'>here</a>.</p>"
+                };
+
+                _emailService.SendEmail(ConfirmLetter);
+            }
+
         }
 
         public Task SignOut()

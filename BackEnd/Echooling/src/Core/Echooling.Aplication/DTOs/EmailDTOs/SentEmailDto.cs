@@ -6,5 +6,10 @@ using System.Threading.Tasks;
 
 namespace Echooling.Aplication.DTOs.EmailDTOs
 {
-    public record SentEmailDto(string To,string Subject,string body);
+    public class SentEmailDto
+    {
+        public string To { get; set; }
+        public string Subject { get; set; }
+        public string body { get; set; }
+    };
 }

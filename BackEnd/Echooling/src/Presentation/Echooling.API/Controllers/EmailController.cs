@@ -9,7 +9,6 @@ namespace Echooling.API.Controllers
     public class EmailController : ControllerBase
     {
         private readonly IEmailService _emailService;
-
         public EmailController(IEmailService emailService)
         {
             _emailService = emailService;
