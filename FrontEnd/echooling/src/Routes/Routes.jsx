@@ -13,6 +13,7 @@ import EventDetails from "../Pages/Eventdetail/EventDetails";
 import Register from "../Pages/Register/register";
 import CourseDetails from "../Pages/CourseDetails/CourseDetails";
 import { useSelector } from "react-redux";
+import ConfirmEmail from "../Pages/ConfirmEmail/ConfirmEmail";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -68,6 +69,10 @@ export default function Routes() {
           path: "/*",
           element: <NotFound />,
         },
+        {
+          path:"/Account/ConfirmEmail"
+        ,element:<ConfirmEmail/>
+        }
       ],
     },
   ];

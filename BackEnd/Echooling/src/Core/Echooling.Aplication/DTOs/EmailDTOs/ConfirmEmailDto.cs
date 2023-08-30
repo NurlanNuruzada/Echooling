@@ -6,9 +6,5 @@ using System.Threading.Tasks;
 
 namespace Echooling.Aplication.DTOs.EmailDTOs
 {
-    public class ConfirmEmailDto
-    {
-        public string userId { get; set; }  
-        public string token { get; set; }
-    }
+    public record ConfirmEmailDto(string userId , string token);
 }

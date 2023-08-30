@@ -6,19 +6,12 @@ using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Ecooling.Domain.Entites;
 using Ecooling.Domain.Enums;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Text.Encodings.Web;
-
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System.Text;
-using System.Text.Encodings.Web;
 
 namespace Echooling.Persistance.Implementations.Services
 {
@@ -30,14 +23,15 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly ITokenHandler _tokenHandler;
         private readonly AppDbContext _context;
         private readonly IEmailService _emailService;
-
+        private readonly IConfirmEmail _confirmEmail;
         public AuthService(UserManager<AppUser> userManager,
                            SignInManager<AppUser> signInManager,
                            RoleManager<IdentityRole> roleManager,
                            IConfiguration configuration,
                            ITokenHandler tokenHandler,
                            AppDbContext context,
-                           IEmailService emailService)
+                           IEmailService emailService,
+                           IConfirmEmail confirmEmail)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -45,6 +39,7 @@ namespace Echooling.Persistance.Implementations.Services
             _tokenHandler = tokenHandler;
             _context = context;
             _emailService = emailService;
+            _confirmEmail = confirmEmail;
         }
         public async Task<TokenResponseDto> Login(SignInDto signInDto)
         {
@@ -104,23 +99,25 @@ namespace Echooling.Persistance.Implementations.Services
             }
             if (result.Succeeded)
             {
-                var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
-                var FrontEndBase = "http://localhost:3000/";
-                var confirmationLink = $"{FrontEndBase}/confirm-email?userId={appUser.Id}&token={UrlEncoder.Default.Encode(emailConfirmationToken)}";
-
-
+                var FrontEndBase = "http://localhost:3000";
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+                var confirmationUrl = $"{FrontEndBase}/Auth/ConfirmEmail?userId={appUser.Id}&token={token}";
+                //var confirmationLink = $"{FrontEndBase}/confirm-email?userId={appUser.Id}&token={UrlEncoder.Default.Encode(codeHtmlVersion)}";
+                //var time = DateTime.Now.ToString();
+                //var userIp = GetUserIP().ToString();
+                //var username = user.UserName.ToString();
                 SentEmailDto ConfirmLetter = new SentEmailDto
                 {
                     To = appUser.Email,
                     Subject = "Confirm Email Address",
-                    body = $"<h1>Confirm Your Email</h1><p>Please confirm your email address by clicking <a href='{confirmationLink}'>here</a>.</p>"
-                };
-
+                    body = $"<h1>Confirm Your Email</h1><p>Please confirm your email address by clicking <a href='{confirmationUrl}'>here</a>.</p>" +
+                    $"<h1>{appUser.Id}</h1> <br/> <h1>{token.ToString()}</h1>"
+                }; 
                 _emailService.SendEmail(ConfirmLetter);
             }
 
         }
-
+                                                        
         public Task SignOut()
         {
             throw new NotImplementedException();
@@ -141,13 +138,19 @@ namespace Echooling.Persistance.Implementations.Services
             {
                  throw new ArgumentNullException("Refrest token does not exist");
             }
-
             var tokenResponse = await _tokenHandler.CreateAccessToken(2,1, user);
             user.RefrestToken = tokenResponse.RefreshToken;
             user.RefrestTokenExpiration = tokenResponse.RefreshTokenExpiration;
             await _userManager.UpdateAsync(user);
             return tokenResponse;
         }
-
     }
 }
+//{
+//    "phoneNumber": "string",
+//  "email": "nurlan.nuruzade205@gmail.com",
+//  "name": "string",
+//  "surname": "string",
+//  "password": "Admin123!",
+//  "userName": "string"eeeee
+//}

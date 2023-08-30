@@ -34,9 +34,14 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new notFoundException("user not found!");
             }
             var result = await _userManager.ConfirmEmailAsync(user, Token);
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                throw new Exception("couldt Update!");
+                foreach (var error in result.Errors)
+                {
+                    Console.WriteLine($"UserId: {UserId}, Token: {Token}");
+                    Console.WriteLine($"Error: {error.Code}, Description: {error.Description}");
+                }
+                throw new Exception("Email confirmation failed.");
             }
         }
     }

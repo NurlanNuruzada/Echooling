@@ -52,6 +52,8 @@ public static class ServiceRegistration
         })
         .AddDefaultTokenProviders()
         .AddEntityFrameworkStores<AppDbContext>();
+        services.Configure<DataProtectionTokenProviderOptions>(opt =>
+        opt.TokenLifespan = TimeSpan.FromHours(2));
     }
     private static void AddReadRepositories(this IServiceCollection services)
     {
