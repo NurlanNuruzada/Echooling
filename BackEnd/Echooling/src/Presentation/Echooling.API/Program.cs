@@ -16,7 +16,7 @@ builder.Services.addStorage<LocalStorage>();
 builder.Services.addPersistanceServices();
 builder.Services.AddScoped<AppDbContextInitializer>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-
+builder.Services.AddScoped<IConfirmEmail, ConfirmEmail>();
 builder.Services.AddLocalization();
 List<CultureInfo> cultures = new() {
     new CultureInfo("es-ES"),
