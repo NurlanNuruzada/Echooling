@@ -9,6 +9,5 @@ namespace Echooling.Aplication.DTOs.EmailDTOs
     public class ResetPasswordLetterDto
     {
         public string userId { get; set; } = null!;
-        public string Password { get; set; } = null!;
     }
 }

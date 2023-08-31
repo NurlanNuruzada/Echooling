@@ -175,7 +175,7 @@ namespace Echooling.Persistance.Implementations.Services
             var FrontEndBase = "http://localhost:3000";
             var codeHtmlVersion = HttpUtility.UrlEncode(token);
             var userIp = EmailConfigurations.GetUserIP().ToString();
-            var resetPasswordUrl = $"{FrontEndBase}/Auth/ResetPassword?userId={userId}&token={codeHtmlVersion}";
+            var resetPasswordUrl = $"{FrontEndBase}/Auth/ResetPassword?userId={userId}&token={token}";
 
             TimeSpan tokenExpiration = _securityStampOptions.Value.ValidationInterval;
 
