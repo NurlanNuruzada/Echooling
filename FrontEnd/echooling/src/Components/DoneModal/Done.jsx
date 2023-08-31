@@ -12,11 +12,19 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import image from "../../Images/Animations/checkGreen.mp4";
-const Done = () => {
+import { useNavigate } from "react-router";
+
+const Done = ({ buttonsAndNagivage }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   React.useEffect(() => {
     onOpen();
   }, []);
+
+  const navigate = useNavigate();
+
+  const handleHomeButtonClick = () => {
+    navigate(`${buttonsAndNagivage.button1?.navigate}`); // Navigate to the home page
+  };
 
   const cancelRef = React.useRef();
 
@@ -50,15 +58,27 @@ const Done = () => {
               </Flex>
             </AlertDialogBody>
             <AlertDialogFooter>
-              <Button
-              padding={"0 40px"}
-                width={"100%"}
-                colorScheme="green"
-                ref={cancelRef}
-                onClick={onClose}
-              >
-                Done
-              </Button>
+              <Flex gap={10}>
+                  <Button
+                    padding={"0 40px"}
+                    width={"100%"}
+                    colorScheme={buttonsAndNagivage.button1.color}
+                    onClick={handleHomeButtonClick} // Use the custom handler
+                    >
+                    {buttonsAndNagivage.button1.name}
+                  </Button>
+                    {buttonsAndNagivage.button2?.name && (
+                      <Button
+                      padding={"0 40px"}
+                      width={"100%"}
+                      colorScheme={buttonsAndNagivage.button2?.color}
+                      ref={cancelRef}
+                      onClick={onClose}
+                      >
+                  {buttonsAndNagivage.button2?.name}
+                </Button>
+                  )}
+              </Flex>
             </AlertDialogFooter>
           </Flex>
         </AlertDialogContent>

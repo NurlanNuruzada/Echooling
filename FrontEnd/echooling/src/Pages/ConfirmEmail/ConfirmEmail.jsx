@@ -9,7 +9,14 @@ const ConfirmEmail = () => {
   const queryParams = new URLSearchParams(location.search);
   const userId = queryParams.get("userId");
   const token = queryParams.get("token");
-
+const buttonsAndRoute = {
+    button1:{
+        navigate:"/",
+        name:"Home",
+        color:"green"
+    },
+ 
+}
   const values = {
     token: token,
     userId: userId,
@@ -31,7 +38,7 @@ const ConfirmEmail = () => {
 
   return (
     <div className={Styles.MainContainer}>
-      {success && <Done />}
+      {success && <Done buttonsAndNagivage={buttonsAndRoute}/>}
     </div>
   );
 };

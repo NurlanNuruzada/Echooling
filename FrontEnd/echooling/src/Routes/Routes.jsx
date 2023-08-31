@@ -18,6 +18,11 @@ export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
     {
+      path: "/Auth/ConfirmEmail",
+      search: "?userId=value&token=value",
+      element: <ConfirmEmail />,
+    },
+    {
       path: "/",
       element: <MainLayout />,
       children: [
@@ -31,7 +36,7 @@ export default function Routes() {
         },
         {
           path: "/Auth/Register",
-          element: token ? <Navigate to={"/"}/> : <Register />,
+          element: token ? <Navigate to={"/"} /> : <Register />,
         },
         {
           path: "/about",
@@ -65,11 +70,7 @@ export default function Routes() {
           path: "/EventDetail",
           element: <EventDetails />,
         },
-        {
-          path: "/Auth/ConfirmEmail",
-          search: '?userId=value&token=value',
-          element: <ConfirmEmail/>
-      },
+
         {
           path: "/*",
           element: <NotFound />,

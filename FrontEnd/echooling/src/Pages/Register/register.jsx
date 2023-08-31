@@ -46,7 +46,18 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
- 
+  const buttonsAndRoute = {
+    button1:{
+        navigate:"/",
+        name:"Home",
+        color:"gray"
+    },
+    button2:{
+        navigate:"/",
+        name:"Done",
+        color:"green"
+    }
+}
 
   const getErrorMessage = (fieldName) => {
     return formik.errors[fieldName] ? formik.errors[fieldName] : "";
@@ -102,7 +113,7 @@ const Register = () => {
     <Box>
       <div className={Styles.MainContainer}>
       {registrationSuccess  && (
-          <Done/>)}
+          <Done buttonsAndNagivage={buttonsAndRoute} />)}
         <div className={Styles.BackgrounImage}></div>
         <Flex className={Styles.MainFlex} flexDirection={"column"}>
           <div className={Styles.Main}>
