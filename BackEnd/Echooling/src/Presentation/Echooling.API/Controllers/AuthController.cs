@@ -32,12 +32,5 @@ namespace Echooling.API.Controllers
             await _authService.Register(registerDto);
             return Ok("User registered successfully");
         }
-        [HttpPost("[action]")]
-        public async Task<IActionResult> SignOut()
-        {
-            await _authService.SignOut();
-            return Ok("Sign-out successful");
-        }
-
     }
 }

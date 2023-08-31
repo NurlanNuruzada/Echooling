@@ -1,4 +1,5 @@
 ﻿using Echooling.Aplication.DTOs.AuthDTOs;
+using Echooling.Aplication.DTOs.EmailDTOs;
 using Echooling.Aplication.DTOs.ResponseDTOs;
 
 namespace Echooling.Aplication.Abstraction.Services
@@ -7,7 +8,8 @@ namespace Echooling.Aplication.Abstraction.Services
     {
         Task Register(RegisterDto registerDto);
         Task<TokenResponseDto> Login(SignInDto signInDto);
-        Task SignOut();
         Task<TokenResponseDto> ValidateRefreshToken(string refreshToken);
+        Task ResetPassword(ResetPasswordDto resetPasswordDto);
+        Task ResetPasswordLetter(ResetPasswordLetterDto resetPasswordLetterDto);
     }
 }
