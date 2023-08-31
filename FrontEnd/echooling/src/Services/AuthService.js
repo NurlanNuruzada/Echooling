@@ -19,7 +19,7 @@ export const register = async (data) => {
     throw error;
   }
 };
-export const ConfirmEmail = async(data) =>{
+export const ConfirmEmailSend = async(data) =>{
   const response = await httpClient.post('api/ConfirmEmail/ConfirmEmai',data)
   console.log('Response:', response);
 }

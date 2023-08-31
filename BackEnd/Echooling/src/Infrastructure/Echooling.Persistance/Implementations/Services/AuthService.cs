@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.Text;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
+using System.Web;
 
 namespace Echooling.Persistance.Implementations.Services
 {
@@ -101,7 +103,8 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 var FrontEndBase = "http://localhost:3000";
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
-                var confirmationUrl = $"{FrontEndBase}/Auth/ConfirmEmail?userId={appUser.Id}&token={token}";
+                string codeHtmlVersion = HttpUtility.UrlEncode(token);
+                var confirmationUrl = $"{FrontEndBase}/Auth/ConfirmEmail?userId={appUser.Id}&token={codeHtmlVersion.ToString()}";
                 //var confirmationLink = $"{FrontEndBase}/confirm-email?userId={appUser.Id}&token={UrlEncoder.Default.Encode(codeHtmlVersion)}";
                 //var time = DateTime.Now.ToString();
                 //var userIp = GetUserIP().ToString();

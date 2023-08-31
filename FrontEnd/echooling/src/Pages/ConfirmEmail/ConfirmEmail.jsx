@@ -2,39 +2,38 @@ import React, { useEffect, useState } from "react";
 import Styles from "./ConfirmEmail.module.css";
 import Done from "../../Components/DoneModal/Done";
 import { useLocation } from "react-router";
-import { useSearchParams } from "react-router-dom";
 import { useMutation } from "react-query";
+import { ConfirmEmailSend } from "../../Services/AuthService";
 const ConfirmEmail = () => {
   const location = useLocation();
-  const [searchParams] = useSearchParams();
-  const QueryParams = new URLSearchParams(location.search);
-  const UserId = QueryParams.get("userId");
-  const token = QueryParams.get("token");
-  useEffect(() => {}, [location.search]);
-  console.log(QueryParams.get("userId"));
-  console.log(QueryParams.get("token")   );
-  const [Success, SetSuccess] = useState(false);
-  const { mutate, isLoading, Error } = useMutation(
-    (values) => ConfirmEmail(values),
-    {
-      onSuccess: (resp) => {
-        SetSuccess(true);
-      },
-      onError: (error) => {
-        console.log("error");
-      },
-    }
-  );
-  const value = {
-    initialValues: {
-      token: token,
-      UserId: UserId,
-    },
+  const queryParams = new URLSearchParams(location.search);
+  const userId = queryParams.get("userId");
+  const token = queryParams.get("token");
+
+  const values = {
+    token: token,
+    userId: userId,
   };
+  const [success, setSuccess] = useState(false);
+  const { mutate, isLoading, error } = useMutation(ConfirmEmailSend, {
+    onSuccess: (resp) => {
+      setSuccess(true);
+    },
+    onError: (error) => {
+      // Handle error if needed
+    },
+  });
+
   useEffect(() => {
-    mutate();
-  }, []);
-  return <div className={Styles.MainContainer}>{Success && <Done />}</div>;
+    console.log(values);
+    mutate(values);
+  }, []); 
+
+  return (
+    <div className={Styles.MainContainer}>
+      {success && <Done />}
+    </div>
+  );
 };
 
 export default ConfirmEmail;
