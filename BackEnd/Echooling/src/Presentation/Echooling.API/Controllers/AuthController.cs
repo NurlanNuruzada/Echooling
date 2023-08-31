@@ -1,5 +1,6 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
+using Echooling.Aplication.DTOs.EmailDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Echooling.API.Controllers
@@ -31,6 +32,18 @@ namespace Echooling.API.Controllers
         {
             await _authService.Register(registerDto);
             return Ok("User registered successfully");
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ResetPasswordLetter(ResetPasswordLetterDto resetPasswordLetterDto)
+        {
+            await _authService.ResetPasswordLetter(resetPasswordLetterDto);
+            return Ok("Lettter sent!");
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            await _authService.ResetPassword(resetPasswordDto);
+            return Ok("password Changed!");
         }
     }
 }

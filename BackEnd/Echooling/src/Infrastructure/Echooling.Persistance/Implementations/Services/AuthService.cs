@@ -136,9 +136,25 @@ namespace Echooling.Persistance.Implementations.Services
 
         }
 
-        public Task ResetPassword(ResetPasswordDto resetPasswordDto)
+        public async Task ResetPassword(ResetPasswordDto resetPasswordDto)
         {
-            throw new NotImplementedException();
+            var userId = resetPasswordDto.userId;
+            var token = resetPasswordDto.token;
+            var user = await _userManager.FindByIdAsync(userId);
+            var password = resetPasswordDto.password;
+            if (user is null )
+            {
+                throw new notFoundException("User not found!");
+            }
+            if (password is null || token is null)
+            {
+                throw new notFoundException("token or password is null!");
+            }
+            var resetPassResult = await _userManager.ResetPasswordAsync(user, token, password);
+            if (!resetPassResult.Succeeded)
+            {
+                throw new CouldntResetPasswordException("someting went wrong in token,user or password!");
+            }
         }
 
         public async Task ResetPasswordLetter(ResetPasswordLetterDto resetPasswordLetterDto)
