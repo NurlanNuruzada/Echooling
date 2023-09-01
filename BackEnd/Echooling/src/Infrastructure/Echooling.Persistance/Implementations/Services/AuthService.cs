@@ -188,27 +188,28 @@ namespace Echooling.Persistance.Implementations.Services
             _emailService.SendEmail(resetPasswordEmail);
         }
 
-        public async Task ForgetPasswordLetter(string mailAdress)
+        public async Task ForgetPasswordLetter(string Identifier)
         {
-            var user = await _userManager.FindByEmailAsync(mailAdress);
-            if (user is null)
+            AppUser appUser = await _userManager.FindByEmailAsync(Identifier);
+            if (appUser is null)
             {
-                throw new notFoundException("User not found!");
+                appUser = await _userManager.FindByNameAsync(Identifier);
+                if (appUser is null) { throw new SignInFailureException("sign-in Identifier or Password is Wrong!"); }
             }
 
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user); // Await the token generation
+            var token = await _userManager.GeneratePasswordResetTokenAsync(appUser); 
             var FrontEndBase = "http://localhost:3000";
             var codeHtmlVersion = HttpUtility.UrlEncode(token);
             var userIp = EmailConfigurations.GetUserIP().ToString();
-            var resetPasswordUrl = $"{FrontEndBase}/Auth/ResetPassword?userId={user.Id}&token={codeHtmlVersion.ToString()}";
+            var resetPasswordUrl = $"{FrontEndBase}/Auth/ResetPassword?userId={appUser.Id}&token={codeHtmlVersion.ToString()}";
 
             TimeSpan tokenExpiration = _securityStampOptions.Value.ValidationInterval;
             SentEmailDto resetPasswordEmail = new SentEmailDto
             {
-                To = user.Email,
+                To = appUser.Email,
                 Subject = "Reset Password",
                 body = $"<html><body>" +
-                       $"<h1  style='color: #3270fc;'>Hi,{user.Fullname}</h1>" +
+                       $"<h1  style='color: #3270fc;'>Hi,{appUser.Fullname}</h1>" +
                        $"<h1>There was a request to change your password!</h1>" +
                        $"<p>Please click <a href='{resetPasswordUrl}'>here</a> to reset your password.If you did not forget your password, please disregard this email</p>" +
                        $"<br/>" +

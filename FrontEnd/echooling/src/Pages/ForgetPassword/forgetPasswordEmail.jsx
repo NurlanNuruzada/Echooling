@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Styles from "./resetPassword.module.css";
+import Styles from "../../Pages/ForgetPassword/ForgetPassord.module.css";
 import {
   Heading,
   Box,
@@ -15,13 +15,24 @@ import { useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import { useMutation } from "react-query";
 import { logoutAction } from "../../Redux/Slices/AuthSlice";
-import { ResetPassword } from "../../Services/AuthService";
+import { ForgetPasswordSend, ResetPassword } from "../../Services/AuthService";
 import Done from "../../Components/DoneModal/Done";
 const ForgetPasswordEmail = () => {
   const [succsess,Setsuccsess] = useState(false)
-    // const handleSendReset = () => {
-    //     mutate(mail);
-    //   };
+  const buttonsAndRoute = {
+    button1:{
+        navigate:"/",
+        name:"Home",
+        color:"gray",
+        isOpen:"false"
+    },
+    button2:{
+      navigate:"/auth/register",
+        name:"login",
+        color:"green"
+    },
+    title:"Succesfully registered!"
+}
       const { mutate:forgetPass } = useMutation((mail) => ForgetPasswordSend(mail), {
         onSuccess: (resp) => {
          Setsuccsess(true);
@@ -48,7 +59,7 @@ const ForgetPasswordEmail = () => {
           <Flex p={"40px 0"} justifyContent={"center"}>
             <Box minW="0rem">
               <Heading color={"#3270fc"} mb={4}>
-                Create New Password
+                Enter mail or username for helping you
               </Heading>
               <Flex p={"20px 0"} gap={5} flexFlow={"column"}>
                 <Box>

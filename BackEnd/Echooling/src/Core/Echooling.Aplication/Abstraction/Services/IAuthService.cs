@@ -11,6 +11,6 @@ namespace Echooling.Aplication.Abstraction.Services
         Task<TokenResponseDto> ValidateRefreshToken(string refreshToken);
         Task ResetPassword(ResetPasswordDto resetPasswordDto);
         Task ResetPasswordLetter(Guid id);
-        Task ForgetPasswordLetter(string mailAddress);
+        Task ForgetPasswordLetter(string Identifier);
     }
 }
