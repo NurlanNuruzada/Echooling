@@ -14,6 +14,7 @@ import Register from "../Pages/Register/register";
 import CourseDetails from "../Pages/CourseDetails/CourseDetails";
 import { useSelector } from "react-redux";
 import ConfirmEmail from "../Pages/ConfirmEmail/ConfirmEmail";
+import ForgetPassword from "../Pages/ResetPassword/ForgetPassword";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -26,6 +27,7 @@ export default function Routes() {
       path: "/",
       element: <MainLayout />,
       children: [
+
         {
           path: "/",
           element: <Home />,
@@ -70,10 +72,14 @@ export default function Routes() {
           path: "/EventDetail",
           element: <EventDetails />,
         },
-
         {
           path: "/*",
           element: <NotFound />,
+        },
+        {
+          path:"/Auth/ResetPassword",
+          search: "?userId=value&token=value",
+          element: <ForgetPassword/>
         },
       ],
     },

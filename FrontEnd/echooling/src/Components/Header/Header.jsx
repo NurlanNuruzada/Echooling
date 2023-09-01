@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./Header.module.css";
 import MainLogo from "../../Images/logo2.png";
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import {
   Menu,
   MenuButton,
@@ -15,17 +16,39 @@ import {
 import SearchInputCom from "../SeacthInput/SearchInput2.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../../Redux/Slices/AuthSlice";
+import { useMutation } from "react-query";
+import { ResetPasswordSend } from "../../Services/AuthService";
 
 const Header = () => {
+  const [reset, setReset] = useState(false);
+  const { token, userName } = useSelector((state) => state.auth); // Update the selector
+if(token != null){
+  var decodedToken = jwt_decode(token);
+  var userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+}
+  const handleSendReset = () => {
+    mutate(userId);
+  };
+  const { mutate } = useMutation(
+    (userId) => ResetPasswordSend(userId),
+    {
+      onSuccess: (resp) => {
+        console.log(resp);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
   const navigate = useNavigate();
-
   const handleNavigate = (route) => {
     navigate(`./${route}`);
-    console.log("Navigation triggered");
   };
   const dispatch  = useDispatch()
   const Routes = ["Home", "About", "Courses", "contact", "Events", "staff"];
-  const { token, userName } = useSelector((state) => state.auth); // Update the selector
+
+  
+
 
   const userGreeting = userName ? (
     <Menu>
@@ -35,6 +58,7 @@ const Header = () => {
       <MenuList>
         <MenuItem onClick={()=> dispatch(logoutAction())}>Log out</MenuItem>
         <MenuItem>Me</MenuItem>
+        <MenuItem onClick={handleSendReset}>ResetPassword</MenuItem>
       </MenuList>
     </Menu>
   ) : (

@@ -10,6 +10,6 @@ namespace Echooling.Aplication.Abstraction.Services
         Task<TokenResponseDto> Login(SignInDto signInDto);
         Task<TokenResponseDto> ValidateRefreshToken(string refreshToken);
         Task ResetPassword(ResetPasswordDto resetPasswordDto);
-        Task ResetPasswordLetter(ResetPasswordLetterDto resetPasswordLetterDto);
+        Task ResetPasswordLetter(Guid id);
     }
 }

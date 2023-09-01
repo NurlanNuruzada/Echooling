@@ -33,10 +33,10 @@ namespace Echooling.API.Controllers
             await _authService.Register(registerDto);
             return Ok("User registered successfully");
         }
-        [HttpPost("[action]")]
-        public async Task<IActionResult> ResetPasswordLetter(ResetPasswordLetterDto resetPasswordLetterDto)
+        [HttpPost("[action]/{id}")]
+        public async Task<IActionResult> ResetPasswordLetter(Guid id)
         {
-            await _authService.ResetPasswordLetter(resetPasswordLetterDto);
+            await _authService.ResetPasswordLetter(id);
             return Ok("Lettter sent!");
         }
         [HttpPost("[action]")]

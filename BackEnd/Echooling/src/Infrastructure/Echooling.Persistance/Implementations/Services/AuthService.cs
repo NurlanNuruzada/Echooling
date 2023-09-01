@@ -157,25 +157,19 @@ namespace Echooling.Persistance.Implementations.Services
             }
         }
 
-        public async Task ResetPasswordLetter(ResetPasswordLetterDto resetPasswordLetterDto)
+        public async Task ResetPasswordLetter(Guid userId)
         {
-            var userId = resetPasswordLetterDto.userId;
-            if (userId is null)
-            {
-                throw new ArgumentNullException("Values cannot be null!");
-            }
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
             if (user is null)
             {
                 throw new notFoundException("User not found!");
             }
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user); // Await the token generation
-
             var FrontEndBase = "http://localhost:3000";
             var codeHtmlVersion = HttpUtility.UrlEncode(token);
             var userIp = EmailConfigurations.GetUserIP().ToString();
-            var resetPasswordUrl = $"{FrontEndBase}/Auth/ResetPassword?userId={userId}&token={token}";
+            var resetPasswordUrl = $"{FrontEndBase}/Auth/ResetPassword?userId={userId}&token={codeHtmlVersion.ToString()}";
 
             TimeSpan tokenExpiration = _securityStampOptions.Value.ValidationInterval;
 
@@ -184,8 +178,9 @@ namespace Echooling.Persistance.Implementations.Services
                 To = user.Email,
                 Subject = "Reset Password",
                 body = $"<html><body>" +
-                       $"<h1>Reset Your Password</h1>" +
-                       $"<p>You've requested to reset your password. Please click <a href='{resetPasswordUrl}'>here</a> to reset your password.</p>" +
+                       $"<h1>Hi {user.Fullname},</h1>" +
+                       $"<h1>There was a request to change your password!</h1>" +
+                       $"<p>Please click <a href='{resetPasswordUrl}'>here</a> to reset your password.If you did not forget your password, please disregard this email</p>" +
                        $"<br/>" +
                        $"<h3>This link is valid for {tokenExpiration.TotalHours} hours, and we received this from {userIp}</h3>" +
                        $"</body></html>"
