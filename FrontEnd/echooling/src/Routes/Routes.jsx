@@ -15,6 +15,7 @@ import CourseDetails from "../Pages/CourseDetails/CourseDetails";
 import { useSelector } from "react-redux";
 import ConfirmEmail from "../Pages/ConfirmEmail/ConfirmEmail";
 import ForgetPassword from "../Pages/ResetPassword/ForgetPassword";
+import forgetPasswordEmail from "../Pages/ForgetPassword/forgetPasswordEmail";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -80,6 +81,10 @@ export default function Routes() {
           path:"/Auth/ResetPassword",
           search: "?userId=value&token=value",
           element: <ForgetPassword/>
+        },
+          {
+          path: "/Auth/forgetPassword",
+          element: <forgetPasswordEmail />,
         },
       ],
     },

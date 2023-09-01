@@ -18,52 +18,60 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../../Redux/Slices/AuthSlice";
 import { useMutation } from "react-query";
 import { ResetPasswordSend } from "../../Services/AuthService";
-
+import Done from "../DoneModal/Done";
+const buttonsAndRoute = {
+  button1: {
+    navigate: "/home",
+    name: "Home",
+    color: "green",
+  },
+  title:
+    "Please check your email Adress We sent Reset Password link to your accont!",
+};
 const Header = () => {
   const [reset, setReset] = useState(false);
+  const [success, setSuccess] = useState(false);
   const { token, userName } = useSelector((state) => state.auth); // Update the selector
-if(token != null){
-  var decodedToken = jwt_decode(token);
-  var userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-}
+  if (token != null) {
+    var decodedToken = jwt_decode(token);
+    var userId =
+      decodedToken[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      ];
+  }
   const handleSendReset = () => {
     mutate(userId);
   };
-  const { mutate } = useMutation(
-    (userId) => ResetPasswordSend(userId),
-    {
-      onSuccess: (resp) => {
-        console.log(resp);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
+  const { mutate } = useMutation((userId) => ResetPasswordSend(userId), {
+    onSuccess: (resp) => {
+      setSuccess(true);
+      console.log(resp);
+    },
+    onError: (error) => {
+      console.log(error);
+      setSuccess(false);
+    },
+  });
   const navigate = useNavigate();
   const handleNavigate = (route) => {
     navigate(`./${route}`);
   };
-  const dispatch  = useDispatch()
+  const dispatch = useDispatch();
   const Routes = ["Home", "About", "Courses", "contact", "Events", "staff"];
-
-  
-
-
   const userGreeting = userName ? (
     <Menu>
       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
         {userName}
       </MenuButton>
       <MenuList>
-        <MenuItem onClick={()=> dispatch(logoutAction())}>Log out</MenuItem>
+        <MenuItem onClick={() => dispatch(logoutAction())}>Log out</MenuItem>
         <MenuItem>Me</MenuItem>
         <MenuItem onClick={handleSendReset}>ResetPassword</MenuItem>
       </MenuList>
     </Menu>
   ) : (
     <p
-      onClick={() => !userName && handleNavigate("auth/register")} 
+      onClick={() => !userName && handleNavigate("auth/register")}
       className={Styles.page}
     >
       Sign In
@@ -71,6 +79,7 @@ if(token != null){
   );
   return (
     <div className={Styles.MainContainer}>
+      {success && <Done buttonsAndNagivage={buttonsAndRoute} />}
       <div className={Styles.LeftSideLogo}>
         <img src={MainLogo} alt="" />
       </div>
@@ -86,11 +95,7 @@ if(token != null){
         </div>
         <Flex flexDirection={"row"} alignItems={"center"}>
           <div className={Styles.signIn}>
-            <p
-              className={Styles.page}
-            >
-              {userGreeting}
-            </p>
+            <p className={Styles.page}>{userGreeting}</p>
           </div>
           <div className={Styles.icons}>
             <SearchInputCom height={"20px"} placeholder={"Search"} />

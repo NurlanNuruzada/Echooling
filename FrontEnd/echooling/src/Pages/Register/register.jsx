@@ -42,6 +42,7 @@ import { login, register } from "../../Services/AuthService";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import Done from "../../Components/DoneModal/Done";
+import { Link } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -50,13 +51,15 @@ const Register = () => {
     button1:{
         navigate:"/",
         name:"Home",
-        color:"gray"
+        color:"gray",
+        isOpen:"false"
     },
     button2:{
-        navigate:"/",
-        name:"Done",
+      navigate:"/auth/register",
+        name:"login",
         color:"green"
-    }
+    },
+    title:"Succesfully registered!"
 }
 
   const getErrorMessage = (fieldName) => {
@@ -315,7 +318,8 @@ const Register = () => {
                     >
                       SIGN IN
                     </Button>
-                    <Box position="relative" padding="10">
+                    <Link to={"/Auth/forgetPassword"} textAlign={"right"}>Forget Password?</Link>
+                    <Box  position="relative" padding="10">
                       <Divider />
                       <AbsoluteCenter
                         fontWeight={500}

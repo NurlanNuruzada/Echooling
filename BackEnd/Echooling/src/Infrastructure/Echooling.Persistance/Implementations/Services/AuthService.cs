@@ -178,7 +178,7 @@ namespace Echooling.Persistance.Implementations.Services
                 To = user.Email,
                 Subject = "Reset Password",
                 body = $"<html><body>" +
-                       $"<h1>Hi {user.Fullname},</h1>" +
+                       $"<h1  style='color: #3270fc;'>Hi,{user.Fullname}</h1>" +
                        $"<h1>There was a request to change your password!</h1>" +
                        $"<p>Please click <a href='{resetPasswordUrl}'>here</a> to reset your password.If you did not forget your password, please disregard this email</p>" +
                        $"<br/>" +
@@ -188,7 +188,35 @@ namespace Echooling.Persistance.Implementations.Services
             _emailService.SendEmail(resetPasswordEmail);
         }
 
+        public async Task ForgetPasswordLetter(string mailAdress)
+        {
+            var user = await _userManager.FindByEmailAsync(mailAdress);
+            if (user is null)
+            {
+                throw new notFoundException("User not found!");
+            }
 
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user); // Await the token generation
+            var FrontEndBase = "http://localhost:3000";
+            var codeHtmlVersion = HttpUtility.UrlEncode(token);
+            var userIp = EmailConfigurations.GetUserIP().ToString();
+            var resetPasswordUrl = $"{FrontEndBase}/Auth/ResetPassword?userId={user.Id}&token={codeHtmlVersion.ToString()}";
+
+            TimeSpan tokenExpiration = _securityStampOptions.Value.ValidationInterval;
+            SentEmailDto resetPasswordEmail = new SentEmailDto
+            {
+                To = user.Email,
+                Subject = "Reset Password",
+                body = $"<html><body>" +
+                       $"<h1  style='color: #3270fc;'>Hi,{user.Fullname}</h1>" +
+                       $"<h1>There was a request to change your password!</h1>" +
+                       $"<p>Please click <a href='{resetPasswordUrl}'>here</a> to reset your password.If you did not forget your password, please disregard this email</p>" +
+                       $"<br/>" +
+                       $"<h3>This link is valid for {tokenExpiration.TotalHours} hours, and we received this from {userIp}</h3>" +
+                       $"</body></html>"
+            };
+            _emailService.SendEmail(resetPasswordEmail);
+        }
         public async Task<TokenResponseDto> ValidateRefreshToken(string refreshToken)
         {
             if (refreshToken is null)

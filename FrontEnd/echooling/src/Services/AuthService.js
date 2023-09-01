@@ -36,3 +36,8 @@ export const ResetPassword = async(data) =>{
     throw error;
   }
 }
+export const ForgetPasswordSend = async(mail) =>{
+  console.log(mail)
+  const response = await httpClient.post(`/api/Auth/ForgetPasswordLetter/${mail}`)
+  return response.data; 
+}

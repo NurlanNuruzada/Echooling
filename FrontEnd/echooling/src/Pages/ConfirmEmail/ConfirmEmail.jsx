@@ -13,9 +13,10 @@ const buttonsAndRoute = {
     button1:{
         navigate:"/",
         name:"Home",
-        color:"green"
+        color:"green",
+        isOpen:"false"
     },
- 
+    title:"Please check your email Adress We sent Confirimation Email to your accont!"
 }
   const values = {
     token: token,
@@ -38,7 +39,7 @@ const buttonsAndRoute = {
 
   return (
     <div className={Styles.MainContainer}>
-      {success && <Done buttonsAndNagivage={buttonsAndRoute}/>}
+      {success && <Done  buttonsAndNagivage={buttonsAndRoute}/>}
     </div>
   );
 };

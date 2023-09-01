@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./resetPassword.module.css";
 import Resetpassword from "../../Valudations/Resetpassword";
 import {
@@ -17,7 +17,22 @@ import { useFormik } from "formik";
 import { useMutation } from "react-query";
 import { logoutAction } from "../../Redux/Slices/AuthSlice";
 import { ResetPassword } from "../../Services/AuthService";
+import Done from "../../Components/DoneModal/Done";
 const ForgetPassword = () => {
+    const buttonsAndRoute = {
+        button1:{
+            navigate:"/",
+            name:"Home",
+            color:"gray"
+        },
+        button2:{
+            navigate:"/auth/register",
+            name:"Done",
+            color:"green"
+        },
+        title:"Your password is succesfully changed!"
+    }
+    const [PasswordChanged,setPasswordChanged] = useState()
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const UserId = queryParams.get("userId");
@@ -30,10 +45,12 @@ const ForgetPassword = () => {
         {
           onSuccess: (resp) => {
             dispatch(logoutAction(resp.data));
+            setPasswordChanged(true);
             console.log(resp);
           },
           onError: (error) => {
             console.log(error);
+            setPasswordChanged(false);
           },
         }
       );
@@ -58,6 +75,8 @@ const ForgetPassword = () => {
     
       return (
         <>
+             {PasswordChanged  && (
+          <Done buttonsAndNagivage={buttonsAndRoute} />)}
           <Flex p={"40px 0"} justifyContent={"center"}>
             <Box minW="0rem">
               <Heading color={"#3270fc"} mb={4}>

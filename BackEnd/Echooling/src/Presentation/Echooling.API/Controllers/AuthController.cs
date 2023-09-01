@@ -39,6 +39,12 @@ namespace Echooling.API.Controllers
             await _authService.ResetPasswordLetter(id);
             return Ok("Lettter sent!");
         }
+        [HttpPost("[action]/{mailAdress}")]
+        public async Task<IActionResult> ForgetPasswordLetter(string mailAdress)
+        {
+            await _authService.ForgetPasswordLetter(mailAdress);
+            return Ok("Lettter sent!");
+        }
         [HttpPost("[action]")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
         {

@@ -25,6 +25,9 @@ const Done = ({ buttonsAndNagivage }) => {
   const handleHomeButtonClick = () => {
     navigate(`${buttonsAndNagivage.button1?.navigate}`); // Navigate to the home page
   };
+  const handleButtonClick = () => {
+    navigate(`${buttonsAndNagivage.button2?.navigate}`); // Navigate to the home page
+  };
 
   const cancelRef = React.useRef();
 
@@ -49,10 +52,11 @@ const Done = ({ buttonsAndNagivage }) => {
             <AlertDialogBody>
               <Flex flexDirection={"column"} alignItems={"center"}>
                 <h1
+                
                   color="Black"
-                  style={{ fontWeight: "500", fontSize: "18px" }}
+                  style={{ fontWeight: "500", fontSize: "18px" ,textAlign:'center' }}
                 >
-                  We sent Confirmation to your email address
+                  {buttonsAndNagivage.title}
                 </h1>
                 <h1>You can close this by clicking "Done"</h1>
               </Flex>
@@ -73,7 +77,7 @@ const Done = ({ buttonsAndNagivage }) => {
                       width={"100%"}
                       colorScheme={buttonsAndNagivage.button2?.color}
                       ref={cancelRef}
-                      onClick={onClose}
+                      onClick={handleButtonClick}
                       >
                   {buttonsAndNagivage.button2?.name}
                 </Button>
