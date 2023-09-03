@@ -3,7 +3,42 @@ import video from "../../Videos/AdobeStock_610985032.mov";
 import Styles from "./News.module.css";
 import { Grid, GridItem } from "@chakra-ui/react";
 import SearchInputCom from "../SeacthInput/SearchInput2";
+import { useFormik } from "formik";
+import { useMutation } from "react-query";
+import { sentNotification } from "../../Services/newsService";
 const News = () => {
+  const buttonsAndRoute = {
+    button1:{
+        navigate:"/",
+        name:"Home",
+        color:"gray",
+        isOpen:"false"
+    },
+    button2:{
+      navigate:"/auth/register",
+        name:"login",
+        color:"green"
+    },
+    title:"Succesfully registered!"
+}
+  const formik = useFormik({
+    initialValues:{
+      mail:""
+    },
+    onSubmit:(values)=>{
+      console.log(values)
+      mutate(values)
+    },
+  })
+  const { mutate,isLoading: Loginloading, error: Loginerror,} =
+  useMutation((values) => sentNotification(values), {
+   onSuccess: (resp) => {
+    console.log("sent reqquest");
+   },
+   onError: (error) => {
+     console.log("error");
+   },
+ });
   return (
     <div className={Styles.VideoContainer}>
       <video className={Styles.BackgroundVideo} autoPlay muted loop>

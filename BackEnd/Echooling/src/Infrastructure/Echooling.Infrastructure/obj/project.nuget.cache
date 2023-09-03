@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Xui0N/xLKxCqdQnIrlk91WZRimZ1UN+AQJeuixicnqWBbAynZZhtqhn2DcY3XmRGEvT6TU/lF5nz/y7yEGQWTg==",
+  "dgSpecHash": "BZ11M6sTsgwwl86PaYFs/TuHxAX2m0+GAY5PCe8ho1S0UvZVstcXXPKlPu0a3J0RyL8MHCuL6ck0uM3q3K8wlQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Infrastructure\\Echooling.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\Nurlan\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.7.1\\fluentvalidation.dependencyinjectionextensions.11.7.1.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\mailkit\\4.1.0\\mailkit.4.1.0.nupkg.sha512",
+    "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.21\\microsoft.aspnetcore.authentication.google.6.0.21.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.21\\microsoft.aspnetcore.authentication.jwtbearer.6.0.21.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.20\\microsoft.aspnetcore.cryptography.internal.6.0.20.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.20\\microsoft.aspnetcore.cryptography.keyderivation.6.0.20.nupkg.sha512",

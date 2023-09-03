@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Rs/K64GAExBPCNRN8QF3t5lEyXpxGuxIlgsRphm2V9JzjPduH+LKjmgtaP/nxyKAxeoaM9SFbdKb4p/FWEayCQ==",
+  "dgSpecHash": "0MS0VCtyFgLxayOFj5KSSTrf05txXaz1bPycjRS+4Zs+a2DjeeW3CAL9anlWQdTmxrpYS8rQK7C1fxp7CeBllg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Presentation\\Echooling.API\\Echooling.API.csproj",
   "expectedPackageFiles": [
@@ -16,6 +16,7 @@
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.9\\microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnet.webapi.core\\5.2.9\\microsoft.aspnet.webapi.core.5.2.9.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnet.webapi.cors\\5.2.9\\microsoft.aspnet.webapi.cors.5.2.9.nupkg.sha512",
+    "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.21\\microsoft.aspnetcore.authentication.google.6.0.21.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.21\\microsoft.aspnetcore.authentication.jwtbearer.6.0.21.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.20\\microsoft.aspnetcore.cryptography.internal.6.0.20.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.20\\microsoft.aspnetcore.cryptography.keyderivation.6.0.20.nupkg.sha512",

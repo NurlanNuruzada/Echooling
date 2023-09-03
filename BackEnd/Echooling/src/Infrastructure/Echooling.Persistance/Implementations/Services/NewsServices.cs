@@ -42,10 +42,12 @@ namespace Echooling.Persistance.Implementations.Services
             }
 
             user.IsSendNewsConfirmed = true;
+            var result = await _userManager.UpdateAsync(user);
             var FrontEndBase = "http://localhost:3000";
             var userIp = EmailConfigurations.GetUserIP().ToString();
             var resetPasswordUrl = $"{FrontEndBase}";
             DateTime datetimeNow = DateTime.Now;
+           
             SentEmailDto subscriptinon = new SentEmailDto
             {
 
@@ -56,6 +58,7 @@ namespace Echooling.Persistance.Implementations.Services
                            $"<h1> Thanks for subscribing to Echooling!</h1>" +
                            $"<p> As a subscriber, you will also receive the latest news and updates from Echooling.Stay informed about our exciting developments, promotions, and more.\r\n</p>" +
                            $"<br/>" +
+                                $"<p>You can return from <a href='{FrontEndBase}'>here</a></p>" +
                            $"<h3>we received this from {userIp}</h3>" +
                            $"</body></html>"
             };

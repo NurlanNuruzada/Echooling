@@ -14,7 +14,7 @@ import {
 import image from "../../Images/Animations/checkGreen.mp4";
 import { useNavigate } from "react-router";
 
-const Done = ({ buttonsAndNagivage }) => {
+const Done = ({ buttonsAndNagivage ,seccondTitle}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   React.useEffect(() => {
     onOpen();
@@ -58,19 +58,22 @@ const Done = ({ buttonsAndNagivage }) => {
                 >
                   {buttonsAndNagivage.title}
                 </h1>
-                <h1>You can close this by clicking "Done"</h1>
+                <h1>{seccondTitle}</h1>
               </Flex>
             </AlertDialogBody>
             <AlertDialogFooter>
               <Flex gap={10}>
-                  <Button
-                    padding={"0 40px"}
-                    width={"100%"}
-                    colorScheme={buttonsAndNagivage.button1.color}
-                    onClick={handleHomeButtonClick} // Use the custom handler
-                    >
-                    {buttonsAndNagivage.button1.name}
+                   {buttonsAndNagivage.button1?.name && (
+
+                     <Button
+                     padding={"0 40px"}
+                     width={"100%"}
+                     colorScheme={buttonsAndNagivage.button1?.color}
+                     onClick={handleHomeButtonClick} // Use the custom handler
+                     >
+                    {buttonsAndNagivage.button1?.name}
                   </Button>
+                      )}
                     {buttonsAndNagivage.button2?.name && (
                       <Button
                       padding={"0 40px"}
