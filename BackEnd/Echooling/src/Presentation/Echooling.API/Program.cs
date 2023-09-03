@@ -10,6 +10,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+
 builder.Services.AddCors();
 builder.Services.addStorage<LocalStorage>();
 //builder.Services.addStorage<AzureStorage>();
@@ -51,6 +55,8 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true
     };
 });
+
+
 builder.Services.AddInfrastuctureServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
