@@ -9,5 +9,6 @@ public class EventProfile:Profile
     public EventProfile()
     {
         CreateMap<events,EventCreateDto>().ReverseMap();    
+        CreateMap<events, EventGetDto>().ReverseMap();    
     }
 }

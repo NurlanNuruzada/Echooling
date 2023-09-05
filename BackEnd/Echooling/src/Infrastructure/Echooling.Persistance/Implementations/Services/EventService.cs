@@ -2,13 +2,9 @@
 using Echooling.Aplication.Abstraction.Repository.EventRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.EventDTOs;
-using Echooling.Aplication.DTOs.SliderDTOs;
-using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
-using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
@@ -18,9 +14,20 @@ namespace Echooling.Persistance.Implementations.Services
     {
         private readonly IEventWriteRepository _writeRepository;
         private readonly IEventReadRepository _readRepository;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
-        public readonly AppDbContext _context;
+
+        public EventService(IEventWriteRepository writeRepository,
+                            IEventReadRepository readRepository,
+                            IStringLocalizer<ErrorMessages> localizer,
+                            IMapper mapper)
+        {
+            _writeRepository = writeRepository;
+            _readRepository = readRepository;
+            _localizer = localizer;
+            _mapper = mapper;
+        }
+
         public async Task CreateAsync(EventCreateDto CreateStaffDto)
         {
             events events = _mapper.Map<events>(CreateStaffDto);
@@ -28,14 +35,14 @@ namespace Echooling.Persistance.Implementations.Services
             await _writeRepository.SaveChangesAsync();
         }
 
-        public async Task<List<EventCreateDto>> GetAllAsync()
+        public async Task<List<EventGetDto>> GetAllAsync()
         {
             var Events = await _readRepository.GetAll().ToListAsync();
-            List<EventCreateDto> List = _mapper.Map<List<EventCreateDto>>(Events);
+            List<EventGetDto> List = _mapper.Map<List<EventGetDto>>(Events);
             return List;
         }
 
-        public async Task<EventCreateDto> getById(Guid id)
+        public async Task<EventGetDto> getById(Guid id)
         {
             var Event = await _readRepository.GetByIdAsync(id);
             string message = _localizer.GetString("NotFoundExceptionMsg");
@@ -43,7 +50,7 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException("user" + " " + message);
             }
-            EventCreateDto FoundEvent = _mapper.Map<EventCreateDto>(Event);
+            EventGetDto FoundEvent = _mapper.Map<EventGetDto>(Event);
             return FoundEvent;
         }
 
