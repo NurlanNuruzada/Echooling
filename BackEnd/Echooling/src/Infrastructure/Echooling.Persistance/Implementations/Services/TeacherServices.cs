@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
 using Echooling.Aplication.Abstraction.Services;
-using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
 using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;

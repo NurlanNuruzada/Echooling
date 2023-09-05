@@ -1,10 +1,14 @@
-﻿using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
+﻿using Echooling.Aplication.Abstraction.Repository.EventRepositories;
+using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
+using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.Valudators.SliderValudators;
 using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Helper;
+using Echooling.Persistance.Implementations.Repositories.EventRepositories;
 using Echooling.Persistance.Implementations.Repositories.SliderRepositories;
+using Echooling.Persistance.Implementations.Repositories.StaffRepository;
 using Echooling.Persistance.Implementations.Repositories.TeacherRepositories;
 using Echooling.Persistance.Implementations.Services;
 using Echooling.Persistance.MapperProfile;
@@ -13,7 +17,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Echooling.Persistance;
@@ -42,6 +45,8 @@ public static class ServiceRegistration
         //services
         services.AddScoped<ISliderService, SliderServices>();
         services.AddScoped<ITeacherService,TeacherServices>();
+        services.AddScoped<IStaffService,StaffService>();   
+        services.AddScoped<IEventService,EventService>();   
 
         //Idenitity
         services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -60,14 +65,16 @@ public static class ServiceRegistration
     }
     private static void AddReadRepositories(this IServiceCollection services)
     {
-        //slider
         services.AddScoped<ISliderReadRepository, SliderReadRepository>();
         services.AddScoped<ITeacherReadRepository, TeacherReadRepository>();
+        services.AddScoped<IStaffReadRepository,StaffReadRepository>();
+        services.AddScoped<IEventReadRepository,EventReadRepository>();
     }
     private static void AddWriteRepositories(this IServiceCollection services)
     {
-        //slider
         services.AddScoped<ISliderWriteRepository, SliderWriteRepository>();
         services.AddScoped<ITeacherWriteRepository,TeacherWriteRepositories>(); 
+        services.AddScoped<IStaffWriteRepository,StaffWriteRepository>();
+        services.AddScoped<IEventWriteRepository,EventWriteRepository>();
     }
 }

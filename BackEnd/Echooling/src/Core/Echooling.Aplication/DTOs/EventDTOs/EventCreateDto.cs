@@ -17,3 +17,4 @@ namespace Echooling.Aplication.DTOs.EventDTOs
         public string? AboutEvent { get; set; }
     }
 }
+ 
