@@ -12,6 +12,7 @@ using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
+using Ecooling.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -50,6 +51,7 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new notFoundException("user" + " " + message);
             }
             teacherDetails teacherDetails = _mapper.Map<teacherDetails>(teacherCreateDto);
+            var result = await _userManager.AddToRoleAsync(user, Roles.Teacher.ToString());
             teacherDetails.AppUserID = UserId;
             await _writeRepo.addAsync(teacherDetails);
             await _writeRepo.SaveChangesAsync();
@@ -85,6 +87,7 @@ namespace Echooling.Persistance.Implementations.Services
         }
         public async Task UpdateAsync(TeacherUpdateDto updateDto, Guid UserId)
         {
+            var user = await _userManager.FindByIdAsync(UserId.ToString());
             var teacher = await _readRepo.GetByExpressionAsync(u => u.AppUserID == UserId);
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
             if (teacher is null)

@@ -102,6 +102,39 @@ namespace Echooling.Persistance.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Ecooling.Domain.Entites.AppUserEvents", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("eventsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("GuId");
+
+                    b.HasIndex("AppUserId1");
+
+                    b.HasIndex("eventsId");
+
+                    b.ToTable("AppUserEvents", (string)null);
+                });
+
             modelBuilder.Entity("Ecooling.Domain.Entites.Course", b =>
                 {
                     b.Property<Guid>("GuId")
@@ -169,7 +202,51 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasKey("GuId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.events", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AboutEvent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Const")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EventEndDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EventStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EventTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TotalSlot")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("orginazer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GuId");
+
+                    b.ToTable("Events", (string)null);
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.Slider", b =>
@@ -208,7 +285,90 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasKey("GuId");
 
-                    b.ToTable("Sliders");
+                    b.ToTable("Sliders", (string)null);
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.Staff", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AppUserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EventCount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastestEvent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TotalExperianceHours")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("faculty")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("hobbies")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("instagram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("linkedin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("profecion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("twitter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GuId");
+
+                    b.ToTable("Staff", (string)null);
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.StaffEvents", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("StaffId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("eventsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("GuId");
+
+                    b.HasIndex("StaffId");
+
+                    b.HasIndex("eventsId");
+
+                    b.ToTable("EventStaff", (string)null);
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.teacherDetails", b =>
@@ -217,7 +377,7 @@ namespace Echooling.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AppUserId")
+                    b.Property<Guid>("AppUserID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateCreated")
@@ -274,7 +434,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasKey("GuId");
 
-                    b.ToTable("TeacherDetails");
+                    b.ToTable("TeacherDetails", (string)null);
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.TeacherDetailsCourses", b =>
@@ -283,7 +443,7 @@ namespace Echooling.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CourseId")
+                    b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateCreated")
@@ -295,7 +455,7 @@ namespace Echooling.Persistance.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("teacherDetailsId")
+                    b.Property<Guid?>("teacherDetailsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("GuId");
@@ -304,7 +464,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasIndex("teacherDetailsId");
 
-                    b.ToTable("TeacherDetailsCourses");
+                    b.ToTable("TeacherDetailsCourses", (string)null);
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entities.CourseAppUser", b =>
@@ -337,7 +497,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("CourseAppUsers");
+                    b.ToTable("CourseAppUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -473,19 +633,45 @@ namespace Echooling.Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Ecooling.Domain.Entites.AppUserEvents", b =>
+                {
+                    b.HasOne("Ecooling.Domain.Entites.AppUser", "AppUser")
+                        .WithMany("AppUserEvents")
+                        .HasForeignKey("AppUserId1");
+
+                    b.HasOne("Ecooling.Domain.Entites.events", "events")
+                        .WithMany("AppUserEvents")
+                        .HasForeignKey("eventsId");
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("events");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.StaffEvents", b =>
+                {
+                    b.HasOne("Ecooling.Domain.Entites.Staff", "staff")
+                        .WithMany("StaffEvents")
+                        .HasForeignKey("StaffId");
+
+                    b.HasOne("Ecooling.Domain.Entites.events", "events")
+                        .WithMany("StaffEvents")
+                        .HasForeignKey("eventsId");
+
+                    b.Navigation("events");
+
+                    b.Navigation("staff");
+                });
+
             modelBuilder.Entity("Ecooling.Domain.Entites.TeacherDetailsCourses", b =>
                 {
                     b.HasOne("Ecooling.Domain.Entites.Course", "Course")
                         .WithMany("TeacherDetailsCourses")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.HasOne("Ecooling.Domain.Entites.teacherDetails", "teacherDetails")
                         .WithMany("TeacherDetailsCourses")
-                        .HasForeignKey("teacherDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("teacherDetailsId");
 
                     b.Navigation("Course");
 
@@ -562,6 +748,8 @@ namespace Echooling.Persistance.Migrations
 
             modelBuilder.Entity("Ecooling.Domain.Entites.AppUser", b =>
                 {
+                    b.Navigation("AppUserEvents");
+
                     b.Navigation("CourseAppUser");
                 });
 
@@ -570,6 +758,18 @@ namespace Echooling.Persistance.Migrations
                     b.Navigation("CourseAppUser");
 
                     b.Navigation("TeacherDetailsCourses");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.events", b =>
+                {
+                    b.Navigation("AppUserEvents");
+
+                    b.Navigation("StaffEvents");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.Staff", b =>
+                {
+                    b.Navigation("StaffEvents");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.teacherDetails", b =>

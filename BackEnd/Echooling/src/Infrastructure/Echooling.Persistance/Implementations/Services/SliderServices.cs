@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using Echooling.Aplication.Abstraction.Repository;
+﻿using System.Text;
+using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.SliderDTOs;
@@ -8,11 +8,6 @@ using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Echooling.Persistance.Implementations.Services
 {
