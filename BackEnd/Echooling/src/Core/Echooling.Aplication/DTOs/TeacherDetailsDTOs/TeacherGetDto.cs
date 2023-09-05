@@ -7,16 +7,18 @@ using Ecooling.Domain.Entites;
 
 namespace Echooling.Aplication.DTOs.TeacherDetailsDTOs
 {
-    public record TeacherGetDto(
-                                   Guid userId,
-                                   string? hobbies,
-                                   string? faculty,
-                                   string? TotalExperianceHours,
-                                   string? totalOnlineCourseCount,
-                                   string? totalStudentCount,
-                                   string? Facebook,
-                                   string? twitter,
-                                   string? linkedin,
-                                   string? instagram,
-                                   string? profecion);
+    public class TeacherGetDto
+    {
+        public Guid AppUserID { get; set; }
+        public string? hobbies { get; set; }
+        public string? faculty { get; set; }
+        public string? TotalExperianceHours { get; set; }
+        public string? totalOnlineCourseCount { get; set; }
+        public string? totalStudentCount { get; set; }
+        public string? Facebook { get; set; }
+        public string? twitter { get; set; }
+        public string? linkedin { get; set; }
+        public string? instagram { get; set; }
+        public string? profecion { get; set; }
+    }
 }

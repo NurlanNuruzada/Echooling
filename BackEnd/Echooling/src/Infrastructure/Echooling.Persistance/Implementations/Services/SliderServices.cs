@@ -36,7 +36,6 @@ namespace Echooling.Persistance.Implementations.Services
             await _writeRepository.addAsync(newSlider);
             await _writeRepository.SaveChangesAsync();
         }
-
         public async Task<List<SliderGetDto>> GetAllAsync()
         {
             var Sliders = await _readRepository.GetAll().ToListAsync();
@@ -68,7 +67,6 @@ namespace Echooling.Persistance.Implementations.Services
             _writeRepository.remove(slider);
             await _writeRepository.SaveChangesAsync();
         }
-
         public async Task UpdateAsync(SldierUpdateDto sldierUpdateDto, Guid id)
         {
             var Slider = await _readRepository.GetByIdAsync(id);
