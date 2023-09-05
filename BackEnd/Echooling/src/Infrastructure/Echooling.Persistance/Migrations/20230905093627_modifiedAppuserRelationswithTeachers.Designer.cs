@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Echooling.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230905084750_modifiedAppuserRelationswithTeacher")]
-    partial class modifiedAppuserRelationswithTeacher
+    [Migration("20230905093627_modifiedAppuserRelationswithTeachers")]
+    partial class modifiedAppuserRelationswithTeachers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -187,7 +187,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasIndex("teacherDetailsGuId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.Slider", b =>
@@ -276,7 +276,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasKey("GuId");
 
-                    b.ToTable("teacherDetails");
+                    b.ToTable("TeacherDetails");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entities.CourseAppUser", b =>
@@ -289,7 +289,6 @@ namespace Echooling.Persistance.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AppUserId1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("CourseGuId")
@@ -313,7 +312,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasIndex("CourseGuId");
 
-                    b.ToTable("CourseAppUser");
+                    b.ToTable("CourseAppUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -473,9 +472,7 @@ namespace Echooling.Persistance.Migrations
                 {
                     b.HasOne("Ecooling.Domain.Entites.AppUser", "AppUser")
                         .WithMany("CourseAppUser")
-                        .HasForeignKey("AppUserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AppUserId1");
 
                     b.HasOne("Ecooling.Domain.Entites.Course", "Course")
                         .WithMany("CourseAppUser")
