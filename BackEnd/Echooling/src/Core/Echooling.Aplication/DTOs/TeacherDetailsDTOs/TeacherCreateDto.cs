@@ -7,8 +7,7 @@ using Ecooling.Domain.Entites;
 
 namespace Echooling.Aplication.DTOs.TeacherDetailsDTOs
 {
-    public record TeacherCreateDto(ICollection<AppUser> AppUsers,
-                                   ICollection<Course>? CreatedCourses,
+    public record TeacherCreateDto(Guid userId,
                                    string? hobbies,
                                    string? faculty,
                                    string? TotalExperianceHours,

@@ -1,9 +1,11 @@
 ﻿using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
+using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.Valudators.SliderValudators;
 using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Helper;
 using Echooling.Persistance.Implementations.Repositories.SliderRepositories;
+using Echooling.Persistance.Implementations.Repositories.TeacherRepositories;
 using Echooling.Persistance.Implementations.Services;
 using Echooling.Persistance.MapperProfile;
 using Ecooling.Domain.Entites;
@@ -39,6 +41,7 @@ public static class ServiceRegistration
 
         //services
         services.AddScoped<ISliderService, SliderServices>();
+        services.AddScoped<ITeacherService,TeacherServices>();
 
         //Idenitity
         services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -59,10 +62,12 @@ public static class ServiceRegistration
     {
         //slider
         services.AddScoped<ISliderReadRepository, SliderReadRepository>();
+        services.AddScoped<ITeacherReadRepository, TeacherReadRepository>();
     }
     private static void AddWriteRepositories(this IServiceCollection services)
     {
         //slider
         services.AddScoped<ISliderWriteRepository, SliderWriteRepository>();
+        services.AddScoped<ITeacherWriteRepository,TeacherWriteRepositories>(); 
     }
 }

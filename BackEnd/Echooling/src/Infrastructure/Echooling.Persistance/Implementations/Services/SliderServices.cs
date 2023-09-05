@@ -43,7 +43,6 @@ namespace Echooling.Persistance.Implementations.Services
             List<SliderGetDto> List = _mapper.Map<List<SliderGetDto>>(Sliders);
             return List;
         }
-
         public async Task<SliderGetDto> getById(Guid id)
         {
             Slider slider = await _readRepository.GetByIdAsync(id);

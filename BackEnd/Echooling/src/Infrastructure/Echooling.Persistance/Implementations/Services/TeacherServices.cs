@@ -34,6 +34,10 @@ namespace Echooling.Persistance.Implementations.Services
 
         public async Task CreateAsync(TeacherCreateDto teacherCreateDto)
         {
+            if(teacherCreateDto is null)
+            {
+                throw new ArgumentNullException("teacherDto is null!");
+            }
             teacherDetails teacherDetails = _mapper.Map<teacherDetails>(teacherCreateDto);
             await _writeRepo.addAsync(teacherDetails);
             await _writeRepo.SaveChangesAsync();

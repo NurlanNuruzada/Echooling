@@ -13,7 +13,5 @@ namespace Ecooling.Domain.Entites
         public DateTime? RefrestTokenExpiration { get; set; }
         public string? RefrestToken { get; set; }
         public ICollection<CourseAppUser>? CourseAppUser { get; set; }
-        public int? teacherDetailsId { get; set; }
-        public teacherDetails? teacherDetails { get; set; }
     }
 }

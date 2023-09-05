@@ -89,12 +89,6 @@ namespace Echooling.Persistance.Migrations
                     b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("teacherDetailsGuId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("teacherDetailsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -104,8 +98,6 @@ namespace Echooling.Persistance.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("teacherDetailsGuId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -175,15 +167,7 @@ namespace Echooling.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("teacherDetailsGuId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("teacherDetailsId")
-                        .HasColumnType("int");
-
                     b.HasKey("GuId");
-
-                    b.HasIndex("teacherDetailsGuId");
 
                     b.ToTable("Courses");
                 });
@@ -233,6 +217,9 @@ namespace Echooling.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -240,41 +227,84 @@ namespace Echooling.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Facebook")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("TotalExperianceHours")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("faculty")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("hobbies")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("instagram")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("linkedin")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("profecion")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("totalOnlineCourseCount")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("totalStudentCount")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("twitter")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("GuId");
 
                     b.ToTable("TeacherDetails");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.TeacherDetailsCourses", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("teacherDetailsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("GuId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("teacherDetailsId");
+
+                    b.ToTable("TeacherDetailsCourses");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entities.CourseAppUser", b =>
@@ -283,17 +313,14 @@ namespace Echooling.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AppUserId1")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("CourseGuId")
+                    b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -308,7 +335,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasIndex("AppUserId1");
 
-                    b.HasIndex("CourseGuId");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("CourseAppUsers");
                 });
@@ -446,22 +473,21 @@ namespace Echooling.Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Ecooling.Domain.Entites.AppUser", b =>
+            modelBuilder.Entity("Ecooling.Domain.Entites.TeacherDetailsCourses", b =>
                 {
-                    b.HasOne("Ecooling.Domain.Entites.teacherDetails", "teacherDetails")
-                        .WithMany("AppUser")
-                        .HasForeignKey("teacherDetailsGuId");
-
-                    b.Navigation("teacherDetails");
-                });
-
-            modelBuilder.Entity("Ecooling.Domain.Entites.Course", b =>
-                {
-                    b.HasOne("Ecooling.Domain.Entites.teacherDetails", "teacherDetails")
-                        .WithMany("CreatedCourses")
-                        .HasForeignKey("teacherDetailsGuId")
+                    b.HasOne("Ecooling.Domain.Entites.Course", "Course")
+                        .WithMany("TeacherDetailsCourses")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Ecooling.Domain.Entites.teacherDetails", "teacherDetails")
+                        .WithMany("TeacherDetailsCourses")
+                        .HasForeignKey("teacherDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
 
                     b.Navigation("teacherDetails");
                 });
@@ -474,7 +500,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasOne("Ecooling.Domain.Entites.Course", "Course")
                         .WithMany("CourseAppUser")
-                        .HasForeignKey("CourseGuId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -542,13 +568,13 @@ namespace Echooling.Persistance.Migrations
             modelBuilder.Entity("Ecooling.Domain.Entites.Course", b =>
                 {
                     b.Navigation("CourseAppUser");
+
+                    b.Navigation("TeacherDetailsCourses");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.teacherDetails", b =>
                 {
-                    b.Navigation("AppUser");
-
-                    b.Navigation("CreatedCourses");
+                    b.Navigation("TeacherDetailsCourses");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Echooling.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230828044358_Modifieduser")]
-    partial class Modifieduser
+    [Migration("20230905121655_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,9 @@ namespace Echooling.Persistance.Migrations
 
                     b.Property<string>("Fullname")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsSendNewsConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -101,6 +104,76 @@ namespace Echooling.Persistance.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Ecooling.Domain.Entites.Course", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AboutCourse")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CounrseContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Dutation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Enrolled")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageRoutue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instructor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Languge")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThisCourseIncludes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WhatWillLearn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GuId");
+
+                    b.ToTable("Courses");
+                });
+
             modelBuilder.Entity("Ecooling.Domain.Entites.Slider", b =>
                 {
                     b.Property<Guid>("GuId")
@@ -138,6 +211,135 @@ namespace Echooling.Persistance.Migrations
                     b.HasKey("GuId");
 
                     b.ToTable("Sliders");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.teacherDetails", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Facebook")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TotalExperianceHours")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("faculty")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("hobbies")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("instagram")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("linkedin")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("profecion")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("totalOnlineCourseCount")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("totalStudentCount")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("twitter")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("GuId");
+
+                    b.ToTable("TeacherDetails");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.TeacherDetailsCourses", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("teacherDetailsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("GuId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("teacherDetailsId");
+
+                    b.ToTable("TeacherDetailsCourses");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entities.CourseAppUser", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("GuId");
+
+                    b.HasIndex("AppUserId1");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseAppUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -273,6 +475,42 @@ namespace Echooling.Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Ecooling.Domain.Entites.TeacherDetailsCourses", b =>
+                {
+                    b.HasOne("Ecooling.Domain.Entites.Course", "Course")
+                        .WithMany("TeacherDetailsCourses")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecooling.Domain.Entites.teacherDetails", "teacherDetails")
+                        .WithMany("TeacherDetailsCourses")
+                        .HasForeignKey("teacherDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("teacherDetails");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entities.CourseAppUser", b =>
+                {
+                    b.HasOne("Ecooling.Domain.Entites.AppUser", "AppUser")
+                        .WithMany("CourseAppUser")
+                        .HasForeignKey("AppUserId1");
+
+                    b.HasOne("Ecooling.Domain.Entites.Course", "Course")
+                        .WithMany("CourseAppUser")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -322,6 +560,23 @@ namespace Echooling.Persistance.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.AppUser", b =>
+                {
+                    b.Navigation("CourseAppUser");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.Course", b =>
+                {
+                    b.Navigation("CourseAppUser");
+
+                    b.Navigation("TeacherDetailsCourses");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.teacherDetails", b =>
+                {
+                    b.Navigation("TeacherDetailsCourses");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ecooling.Domain.Entities;
 
 namespace Ecooling.Domain.Entites
 {
-    public class Course:BaseEntity
+    public class Course : BaseEntity
     {
         public ICollection<CourseAppUser>? CourseAppUser { get; set; }
-        public int teacherDetailsId { get; set; } 
-        public teacherDetails teacherDetails { get; set; } = null!;
+        public ICollection<TeacherDetailsCourses>? TeacherDetailsCourses { get; set; }
         public string Title { get; set; } = null!;
         public string ImageRoutue { get; set; } = null!;
-        public decimal Rate { get; set; } 
-        public decimal Price { get; set; } 
+        public decimal Rate { get; set; }
+        public decimal Price { get; set; }
         public string Instructor { get; set; } = null!;
         public string Dutation { get; set; } = null!;
         public string Languge { get; set; } = null!;
@@ -25,6 +21,5 @@ namespace Ecooling.Domain.Entites
         public string AboutCourse { get; set; } = null!;
         public string WhatWillLearn { get; set; } = null!;
         public string CounrseContent { get; set; } = null!;
-      
     }
 }

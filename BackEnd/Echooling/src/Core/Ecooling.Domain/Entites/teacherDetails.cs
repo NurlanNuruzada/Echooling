@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecooling.Domain.Entites
 {
-    public class teacherDetails:BaseEntity
+    public class teacherDetails : BaseEntity
     {
-   
-        public ICollection<AppUser>? AppUser { get; set; }
-        public ICollection<Course>? CreatedCourses { get; set; }
+        public Guid AppUserID { get; set; }
+        public ICollection<TeacherDetailsCourses>? TeacherDetailsCourses { get; set; }
         public string? hobbies { get; set; }
         public string? faculty { get; set; }
         public string? TotalExperianceHours { get; set; }
