@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BZ11M6sTsgwwl86PaYFs/TuHxAX2m0+GAY5PCe8ho1S0UvZVstcXXPKlPu0a3J0RyL8MHCuL6ck0uM3q3K8wlQ==",
+  "dgSpecHash": "oZPRBsIg7F6O0GcRnJnSuCesaZLI65LV7kLWEPOwp/vfBdt6VoLw7xEBsf19SVivHA+rrxgHaFNmaQccqKACBg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\echooling\\src\\Infrastructure\\Echooling.Infrastructure\\Echooling.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Infrastructure\\Echooling.Infrastructure\\Echooling.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nurlan\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
