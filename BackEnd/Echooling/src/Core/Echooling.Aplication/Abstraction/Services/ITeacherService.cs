@@ -14,7 +14,7 @@ namespace Echooling.Aplication.Abstraction.Services
         Task CreateAsync(TeacherCreateDto teacherCreateDto,Guid id);
         Task<List<TeacherGetDto>> GetAllAsync();
         Task<TeacherGetDto> getById(Guid id);
-        //Task UpdateAsync(SldierUpdateDto categoryUpdateDto, Guid id);
+        Task UpdateAsync(TeacherUpdateDto teacherUpdateDto, Guid id);
         Task Remove(Guid id);
     }
 }

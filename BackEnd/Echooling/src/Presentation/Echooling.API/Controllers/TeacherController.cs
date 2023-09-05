@@ -50,5 +50,11 @@ namespace Echooling.API.Controllers
             }
             return Ok(new { message = "teacher details is deleted successfully." });
         }
+        [HttpPut("id")]
+        public async Task<IActionResult> update([FromBody] TeacherUpdateDto teacherUpdate, Guid UserId)
+        {
+            await _service.UpdateAsync(teacherUpdate, UserId);
+            return Ok(new { message = "teacher Updated successfully." + teacherUpdate });
+        }
     }
 }

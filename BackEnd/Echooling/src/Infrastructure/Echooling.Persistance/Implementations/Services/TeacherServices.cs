@@ -41,16 +41,16 @@ namespace Echooling.Persistance.Implementations.Services
             _userManager = userManager;
         }
 
-        public async Task CreateAsync(TeacherCreateDto teacherCreateDto, Guid id)
+        public async Task CreateAsync(TeacherCreateDto teacherCreateDto, Guid UserId)
         {
-            var user = await _userManager.FindByIdAsync(id.ToString());
+            var user = await _userManager.FindByIdAsync(UserId.ToString());
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
             if (user is null)
             {
                 throw new notFoundException("user" + " " + message);
             }
             teacherDetails teacherDetails = _mapper.Map<teacherDetails>(teacherCreateDto);
-            teacherDetails.AppUserID = id;
+            teacherDetails.AppUserID = UserId;
             await _writeRepo.addAsync(teacherDetails);
             await _writeRepo.SaveChangesAsync();
         }
@@ -61,9 +61,9 @@ namespace Echooling.Persistance.Implementations.Services
             return List;
         }
 
-        public  async Task<TeacherGetDto> getById(Guid id)
+        public  async Task<TeacherGetDto> getById(Guid UserId)
         {
-            var teachers = await _readRepo.GetByExpressionAsync(u=>u.AppUserID == id);
+            var teachers = await _readRepo.GetByExpressionAsync(u=>u.AppUserID == UserId);
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
             if (teachers is null )
             {
@@ -72,15 +72,26 @@ namespace Echooling.Persistance.Implementations.Services
             TeacherGetDto teacher = _mapper.Map<TeacherGetDto>(teachers);
             return teacher;
         }
-        public async Task Remove(Guid id)
+        public async Task Remove(Guid UserId)
         {
-            var teachers = await _readRepo.GetByExpressionAsync(u => u.AppUserID == id);
+            var teachers = await _readRepo.GetByExpressionAsync(u => u.AppUserID == UserId);
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
             if (teachers is null)
             {
                 throw new notFoundException(message);
             }
             _writeRepo.remove(teachers);
+            await _writeRepo.SaveChangesAsync();
+        }
+        public async Task UpdateAsync(TeacherUpdateDto updateDto, Guid UserId)
+        {
+            var teacher = await _readRepo.GetByExpressionAsync(u => u.AppUserID == UserId);
+            string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
+            if (teacher is null)
+            {
+                throw new notFoundException("user"+" "+message);
+            }
+            _mapper.Map(updateDto, teacher);
             await _writeRepo.SaveChangesAsync();
         }
     }
