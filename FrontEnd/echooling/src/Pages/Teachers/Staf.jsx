@@ -8,7 +8,18 @@ import Banner from "../../Images/teacher/teachersImage3.jpeg";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import News from "../../Components/News/News";
 import { Link } from "react-router-dom";
+import { useQueries, useQuery } from "react-query";
+import { GetUStaffUsers } from "../../Services/StaffService";
 const Staf = () => {
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ["getStaff"],
+    queryFn: GetUStaffUsers,
+    staleTime: 0,
+  });
+  if (isLoading) return <h2>Loading...</h2>;
+  if (isError) return <h2>Error: {isError.message}</h2>;
+  if (isError) return "An error has occured: " + isError.message;
+  console.log(data)
   return (
     <div>
       <EffectImage
@@ -31,64 +42,19 @@ const Staf = () => {
           xl: "repeat(5, 1fr)",
         }}
         rowGap={5}
-      >
-        <Link  to={"/TeacherDeatils"}>
-          <TeacherCard
-          
+        >
+        {data?.data?.map((staff) => (
+
+        <Link to={"/TeacherDeatils"}>
+            <TeacherCard
+            key={staff.appUserID}
             image={image}
-            teacherName={"Kamran Jabiyev"}
-            Profession={"Profesional Programing teacher"}
-          />
+            teacherName={staff?.hobbies}
+            Profession={staff?.profecion}
+            fa-md="true" 
+            />
         </Link>
-        <Link  to={"/TeacherDeatils"}>
-          <TeacherCard
-          
-            image={image}
-            teacherName={"Kamran Jabiyev"}
-            Profession={"Profesional Programing teacher"}
-          />
-        </Link>
-        <Link  to={"/TeacherDeatils"}>
-          <TeacherCard
-          
-            image={image}
-            teacherName={"Kamran Jabiyev"}
-            Profession={"Profesional Programing teacher"}
-          />
-        </Link>
-        <Link  to={"/TeacherDeatils"}>
-          <TeacherCard
-          
-            image={image}
-            teacherName={"Kamran Jabiyev"}
-            Profession={"Profesional Programing teacher"}
-          />
-        </Link>
-        <Link  to={"/TeacherDeatils"}>
-          <TeacherCard
-          
-            image={image}
-            teacherName={"Kamran Jabiyev"}
-            Profession={"Profesional Programing teacher"}
-          />
-        </Link>
-        <Link  to={"/TeacherDeatils"}>
-          <TeacherCard
-          
-            image={image}
-            teacherName={"Kamran Jabiyev"}
-            Profession={"Profesional Programing teacher"}
-          />
-        </Link>
-        <Link  to={"/TeacherDeatils"}>
-          <TeacherCard
-          
-            image={image}
-            teacherName={"Kamran Jabiyev"}
-            Profession={"Profesional Programing teacher"}
-          />
-        </Link>
-       
+          ))}
       </Grid>
       <News />
     </div>

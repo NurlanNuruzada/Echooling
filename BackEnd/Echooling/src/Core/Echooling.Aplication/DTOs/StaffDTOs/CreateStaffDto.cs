@@ -8,6 +8,7 @@ namespace Echooling.Aplication.DTOs.StaffDTOs
 {
     public class CreateStaffDto
     {
+        public Guid AppUserID { get; set; }
         public string? hobbies { get; set; }
         public string? faculty { get; set; }
         public string? TotalExperianceHours { get; set; }

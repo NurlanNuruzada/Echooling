@@ -9,5 +9,7 @@ public class StaffProfile:Profile
     public StaffProfile()
     {
         CreateMap<Staff , CreateStaffDto>().ReverseMap();   
+        CreateMap<Staff , GetStaffDto>().ReverseMap();   
+        CreateMap<AppUser , GetUserListDto>().ReverseMap();   
     }
 }

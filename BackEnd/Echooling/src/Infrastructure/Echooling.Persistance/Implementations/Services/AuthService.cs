@@ -1,22 +1,17 @@
-﻿using Echooling.Aplication.Abstraction.Services;
+﻿using System.Text;
+using System.Web;
+using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
 using Echooling.Aplication.DTOs.EmailDTOs;
 using Echooling.Aplication.DTOs.ResponseDTOs;
 using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
+using Echooling.Persistance.Helper;
 using Ecooling.Domain.Entites;
 using Ecooling.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Org.BouncyCastle.Asn1.Ocsp;
-using System.Text;
-using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
-using System.Web;
-using System.Net.Sockets;
-using System.Net;
-using Echooling.Persistance.Helper;
 using Microsoft.Extensions.Options;
 
 namespace Echooling.Persistance.Implementations.Services

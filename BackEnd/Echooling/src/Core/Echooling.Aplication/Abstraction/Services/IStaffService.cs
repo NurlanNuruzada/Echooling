@@ -11,8 +11,9 @@ namespace Echooling.Aplication.Abstraction.Services
     public interface IStaffService
     {
         Task CreateAsync(CreateStaffDto CreateStaffDto,Guid id);
-        Task<CreateStaffDto> getById(Guid id);
-        Task<List<CreateStaffDto>> GetAllAsync();
+        Task<GetStaffDto> getById(Guid id);
+        Task<List<GetStaffDto>> GetAllAsync();
+        Task<List<GetUserListDto>> GetAllStaffUsers();
         Task UpdateAsync(CreateStaffDto StaffUpdateDto, Guid id);
         Task Remove(Guid id);
     }

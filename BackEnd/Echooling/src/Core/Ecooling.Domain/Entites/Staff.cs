@@ -14,5 +14,6 @@
         public string? linkedin { get; set; }
         public string? instagram { get; set; }
         public string? profecion { get; set; }
+
     }
 }

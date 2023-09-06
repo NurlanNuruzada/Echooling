@@ -19,21 +19,27 @@ namespace Echooling.API.Controllers
             _service = service;
         }
         [HttpPost("id")]
-        public async Task<IActionResult> CreateTeacher(CreateStaffDto staffDto, Guid id)
+        public async Task<IActionResult> CreateTeacher([FromBody]CreateStaffDto staffDto, Guid id)
         {
             await _service.CreateAsync(staffDto, id);
             return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpGet("[Action]")]
-        public async Task<IActionResult> GetTeachers()
+        public async Task<IActionResult> GetStaffDetails()
         {
-            List<CreateStaffDto> List = await _service.GetAllAsync();
+            List<GetStaffDto> List = await _service.GetAllAsync();
             return Ok(List);
+        }
+        [HttpGet("[Action]")]
+        public async Task<IActionResult> GetStaffUsers()
+        {
+            List<GetUserListDto> staffList = await _service.GetAllStaffUsers();
+            return Ok(staffList);
         }
         [HttpGet("id")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            CreateStaffDto Staff = await _service.getById(id);
+            GetStaffDto Staff = await _service.getById(id);
             return Ok(Staff);
         }
         [HttpDelete("id")]
