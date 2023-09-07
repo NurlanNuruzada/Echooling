@@ -55,6 +55,9 @@ namespace Echooling.Persistance.Implementations.Services
             Staff staff = _mapper.Map<Staff>(createStaff);
             var result = await _userManager.AddToRoleAsync(user, Roles.Staff.ToString());
             staff.AppUserID = UserId;
+            staff.PhoneNumber = user.PhoneNumber;
+            staff.Fullname = user.Fullname;
+            staff.emailAddress = user.Email;
             await _writeRepository.addAsync(staff);
             await _writeRepository.SaveChangesAsync();
         }
@@ -64,13 +67,6 @@ namespace Echooling.Persistance.Implementations.Services
             var Staff = await _readRepository.GetAll().ToListAsync();
             List<GetStaffDto> List = _mapper.Map<List<GetStaffDto>>(Staff);
             return List;
-        }
-        public async Task<List<GetUserListDto>> GetAllStaffUsers()
-        {
-            var staffUsers = await _userManager.GetUsersInRoleAsync("Staff");
-
-            List<GetUserListDto> userList = staffUsers.Select(user => _mapper.Map<GetUserListDto>(user)).ToList();
-            return userList;
         }
         public async Task<GetStaffDto> getById(Guid UserId)
         {

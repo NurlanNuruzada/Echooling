@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "../TeacherDetail/teacherDetail.module.css";
 import image from "../../Images/teacher/teacher5.jpg";
 import { Grid, Flex } from "@chakra-ui/react";
@@ -11,7 +11,28 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import News from "../../Components/News/News";
 import Counter from "../../Components/Counter/Couter";
+import { useMutation, useQuery } from "react-query";
+import { GetUStaffUsers, getById } from "../../Services/StaffService";
+import { useLocation, useParams } from "react-router";
+import { Link } from "react-router-dom";
 const TeacherDetail = () => {
+  const { id } = useParams();
+  const [props, setProps] = useState()
+  const { mutate, isLoading, error } = useMutation(
+    (id) => getById(id),
+    {
+      onSuccess: (resp) => {
+        console.log(resp);
+        setProps(resp)
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+  useEffect(() => {
+    mutate(id);
+  }, []);
   return (
     <div className={Styles.Container}>
       <div className={Styles.upContainer}>
@@ -31,27 +52,22 @@ const TeacherDetail = () => {
           </div>
           <div className={Styles.details}>
             <div>
-              <h1>STUART KELVIN</h1>
-              <h2>Associate Professor</h2>
+              <h1>{props?.data.fullname}</h1>
+              <h2>{props?.data.profecion}</h2>
             </div>
             <div>
               <h3>ABOUT ME</h3>
               <p>
-                I must explain to you how all this a mistaken idea of denouncing
-                great explorer of the rut the is lder of human happiness pcias
-                unde omnis iste natus error sit voluptatem accusantium ue
-                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
-                veritatis et quas i architeo beatae vitae dicta sunt explicabo.
-                Nemo enim ipsam voluptatem quia voluptas
+              {props?.data.aboutMe}
               </p>
               <h2>DEGREE:</h2>
-              <span> PHD in Micro Biology</span>
+              <span> {props?.data.profession}</span>
               <h2>EXPERIENCE:</h2>
-              <span> 7 years experience</span>
+              <span>Total experience {props?.data.totalExperianceHours}</span>
               <h2>HOBBIES:</h2>
-              <span> music, travelling, catching fish</span>
+              <span>{props?.data.hobbies}</span>
               <h2>FACULTY:</h2>
-              <span>Din, Department of Micro Biology</span>
+              <span>{props?.data.faculty}</span>
             </div>
           </div>
         </Grid>
@@ -72,27 +88,34 @@ const TeacherDetail = () => {
           <div>
             <Flex gap={1} alignItems={"center"}>
               <h2>Mail me:</h2>
-              <span> stuart@eduhome.com</span>
+              <span> {props?.data.emailAddress}</span>
             </Flex>
             <Flex gap={1} alignItems={"center"}>
               <h2>Make a call:</h2>
-              <span> (+125) 5896 548 9874</span>
+              <span> {props?.data.phoneNumber}</span>
             </Flex>
           </div>
           <div>
             <div className={Styles.down3}>
+              <Link to={`http://${props.facebook}`}>
               <FontAwesomeIcon className={Styles.icon} icon={faFacebook} />
+              </Link>
+              <Link to={`http://${props.facebook}`}>
               <FontAwesomeIcon className={Styles.icon} icon={faTwitter} />
+              </Link>
+              <Link to={`http://${props.facebook}`}>
               <FontAwesomeIcon className={Styles.icon} icon={faLinkedin} />
+              </Link>
+              <Link to={`http://${props.facebook}`}>
               <FontAwesomeIcon className={Styles.icon} icon={faInstagram} />
+              </Link>
             </div>
           </div>
         </div>
         <div>
-          <Flex className={Styles.flex} gap={4}  flexWrap={"wrap"}>
-            <Counter MaxNumber={50} InlineText={"total Students"} />
-            <Counter MaxNumber={100} InlineText={"total Experiance"} />
-            <Counter MaxNumber={10} InlineText={"total online Courses"} />
+          <Flex className={Styles.flex} gap={4} flexWrap={"wrap"}>
+            <Counter MaxNumber={props.totalExperianceHours} InlineText={"total Experiance hours"} />
+            <Counter MaxNumber={props.EventCount} InlineText={"total Events"} />
           </Flex>
         </div>
       </Grid>

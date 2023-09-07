@@ -294,6 +294,9 @@ namespace Echooling.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AboutMe")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("AppUserID")
                         .HasColumnType("uniqueidentifier");
 
@@ -309,13 +312,22 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("Facebook")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Fullname")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastestEvent")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TotalExperianceHours")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("emailAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("faculty")
@@ -330,7 +342,7 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("linkedin")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("profecion")
+                    b.Property<string>("profession")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("twitter")
@@ -377,6 +389,9 @@ namespace Echooling.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AboutMe")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("AppUserID")
                         .HasColumnType("uniqueidentifier");
 
@@ -390,13 +405,22 @@ namespace Echooling.Persistance.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Fullname")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TotalExperianceHours")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("emailAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("faculty")
                         .HasMaxLength(200)
@@ -414,7 +438,7 @@ namespace Echooling.Persistance.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("profecion")
+                    b.Property<string>("profession")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 

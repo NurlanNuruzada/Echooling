@@ -11,7 +11,7 @@ public class TeacherConfiguration : IEntityTypeConfiguration<teacherDetails>
         builder.Property(x => x.Facebook).IsRequired(false).HasMaxLength(100);
         builder.Property(x => x.linkedin).IsRequired(false).HasMaxLength(100);
         builder.Property(x => x.instagram).IsRequired(false).HasMaxLength(100);
-        builder.Property(x => x.profecion).IsRequired(false).HasMaxLength(100);
+        builder.Property(x => x.profession).IsRequired(false).HasMaxLength(100);
         builder.Property(x => x.twitter).IsRequired(false).HasMaxLength(100);
         builder.Property(x => x.totalStudentCount).IsRequired(true).HasMaxLength(10);
         builder.Property(x => x.TotalExperianceHours).IsRequired(true).HasMaxLength(20);

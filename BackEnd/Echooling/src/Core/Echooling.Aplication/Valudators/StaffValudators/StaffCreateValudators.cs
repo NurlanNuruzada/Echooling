@@ -17,7 +17,7 @@ namespace Echooling.Aplication.Valudators.StaffValudators
             RuleFor(x => x.faculty).MaximumLength(100);
             RuleFor(x => x.twitter).MaximumLength(100);
             RuleFor(x => x.instagram).MaximumLength(100);
-            RuleFor(x => x.profecion).MaximumLength(100);
+            RuleFor(x => x.profession).MaximumLength(100);
         }
     }
 }

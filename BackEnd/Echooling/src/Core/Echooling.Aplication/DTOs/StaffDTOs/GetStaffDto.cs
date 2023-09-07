@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Echooling.Aplication.DTOs.StaffDTOs
 {
-    public record GetStaffDto(string? profecion,
+    public record GetStaffDto(string? profession,
                               string? instagram,
                               string? linkedin,
+                              string? AboutMe,
                               string? twitter,
                               string? Facebook,
                               string? EventCount,
@@ -16,6 +17,9 @@ namespace Echooling.Aplication.DTOs.StaffDTOs
                               string? TotalExperianceHours,
                               string? faculty,
                               string? hobbies,
+                              string? PhoneNumber,
+                              string? Fullname,
                               Guid GuId,
+                              string? emailAddress,
                               Guid AppUserID);
 }

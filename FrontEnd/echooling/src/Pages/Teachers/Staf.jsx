@@ -7,7 +7,7 @@ import logo from "../../Images/logo2.png";
 import Banner from "../../Images/teacher/teachersImage3.jpeg";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import News from "../../Components/News/News";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useQueries, useQuery } from "react-query";
 import { GetUStaffUsers } from "../../Services/StaffService";
 const Staf = () => {
@@ -44,16 +44,20 @@ const Staf = () => {
         rowGap={5}
         >
         {data?.data?.map((staff) => (
-
-        <Link to={"/TeacherDeatils"}>
             <TeacherCard
             key={staff.appUserID}
             image={image}
-            teacherName={staff?.hobbies}
-            Profession={staff?.profecion}
+            userId={staff.appUserID}
+            socialMediaLinks={{
+              instagram: staff.instagram,
+              linkedin: staff.linkedin,
+              twitter: staff.twitter,
+              facebook: staff.facebook,
+          }} 
+            teacherName={staff?.fullname}
+            Profession={staff?.profecion} 
             fa-md="true" 
             />
-        </Link>
           ))}
       </Grid>
       <News />

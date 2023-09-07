@@ -1,10 +1,8 @@
-﻿using Echooling.Aplication.Abstraction.Services;
-using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
-using Echooling.Persistance.Exceptions;
-using System.Net;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.StaffDTOs;
+using Echooling.Persistance.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Echooling.API.Controllers
 {
@@ -29,12 +27,6 @@ namespace Echooling.API.Controllers
         {
             List<GetStaffDto> List = await _service.GetAllAsync();
             return Ok(List);
-        }
-        [HttpGet("[Action]")]
-        public async Task<IActionResult> GetStaffUsers()
-        {
-            List<GetUserListDto> staffList = await _service.GetAllStaffUsers();
-            return Ok(staffList);
         }
         [HttpGet("id")]
         public async Task<IActionResult> GetById(Guid id)

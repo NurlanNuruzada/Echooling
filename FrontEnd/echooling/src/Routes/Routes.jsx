@@ -67,7 +67,7 @@ export default function Routes() {
           element: <CourseDetails />,
         },
         {
-          path: "/TeacherDeatils",
+          path: "/TeacherDetails/:id",
           element: <TeacherDetail />,
         },
         {
