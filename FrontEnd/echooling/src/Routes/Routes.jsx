@@ -18,6 +18,7 @@ import ForgetPassword from "../Pages/ResetPassword/ForgetPassword";
 import forgetPasswordEmail from "../Pages/ForgetPassword/forgetPasswordEmail";
 import ForgetPasswordEmail from "../Pages/ForgetPassword/forgetPasswordEmail";
 import StaffDetail from "../Pages/StaffDetail/StaffDetail";
+import TeacherDetails from "../Pages/TeacherDetails/TeacherDetails";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -73,7 +74,7 @@ export default function Routes() {
         },
         {
           path: "/TeacherDetails/:id",
-          element: <TeacherDetail />,
+          element: <TeacherDetails />,
         },
         {
           path: "/EventDetail",

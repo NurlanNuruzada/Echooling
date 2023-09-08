@@ -115,7 +115,8 @@ const TeacherDetails = () => {
         <div>
         <Flex className={Styles.flex} gap={4} flexWrap={"wrap"}>
             <Counter MaxNumber={props?.data.totalExperianceHours} InlineText={"total Experiance hours"} />
-            <Counter MaxNumber={props?.data.EventCount} InlineText={"total Events"} />
+            <Counter MaxNumber={props?.data.totalStudentCount}  InlineText={"total Students"} />
+            <Counter MaxNumber={props?.data.totalOnlineCourseCount} InlineText={"total online Courses"} />
           </Flex>
         </div>
       </Grid>
