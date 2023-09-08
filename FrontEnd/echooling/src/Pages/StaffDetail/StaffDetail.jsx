@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Styles from "../TeacherDetail/teacherDetail.module.css";
+import Styles from "./StaffDetail.module.css";
 import image from "../../Images/teacher/teacher5.jpg";
 import { Grid, Flex } from "@chakra-ui/react";
 import {
@@ -10,12 +10,12 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import News from "../../Components/News/News";
-import Counter from "../../Components/Counter/Couter";
+import Counter from "../../Components/Counter/Couter"; 
 import { useMutation, useQuery } from "react-query";
 import { GetUStaffUsers, getById } from "../../Services/StaffService";
 import { useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
-const TeacherDetail = () => {
+const StaffDetail = () => {
   const { id } = useParams();
   const [props, setProps] = useState()
   const { mutate, isLoading, error } = useMutation(
@@ -52,7 +52,7 @@ const TeacherDetail = () => {
           </div>
           <div className={Styles.details}>
             <div>
-              <h1>{props?.data.fullname}</h1>
+              <h1>Staff : {props?.data.fullname}</h1>
               <h2>{props?.data.profecion}</h2>
             </div>
             <div>
@@ -97,25 +97,25 @@ const TeacherDetail = () => {
           </div>
           <div>
             <div className={Styles.down3}>
-              <Link to={`http://${props.facebook}`}>
+            <Link to={`http://${props?.data.facebook}`}>
               <FontAwesomeIcon className={Styles.icon} icon={faFacebook} />
               </Link>
-              <Link to={`http://${props.facebook}`}>
+              <Link to={`http://${props?.data.twitter}`}>
               <FontAwesomeIcon className={Styles.icon} icon={faTwitter} />
               </Link>
-              <Link to={`http://${props.facebook}`}>
+              <Link to={`http://${props?.data.linkedin}`}>
               <FontAwesomeIcon className={Styles.icon} icon={faLinkedin} />
               </Link>
-              <Link to={`http://${props.facebook}`}>
+              <Link to={`http://${props?.data.instagram}`}>
               <FontAwesomeIcon className={Styles.icon} icon={faInstagram} />
               </Link>
             </div>
           </div>
         </div>
         <div>
-          <Flex className={Styles.flex} gap={4} flexWrap={"wrap"}>
-            <Counter MaxNumber={props.totalExperianceHours} InlineText={"total Experiance hours"} />
-            <Counter MaxNumber={props.EventCount} InlineText={"total Events"} />
+        <Flex className={Styles.flex} gap={4} flexWrap={"wrap"}>
+            <Counter MaxNumber={props?.data.totalExperianceHours} InlineText={"total Experiance hours"} />
+            <Counter MaxNumber={props?.data.EventCount} InlineText={"total Events"} />
           </Flex>
         </div>
       </Grid>
@@ -124,4 +124,4 @@ const TeacherDetail = () => {
   );
 };
 
-export default TeacherDetail;
+export default StaffDetail;

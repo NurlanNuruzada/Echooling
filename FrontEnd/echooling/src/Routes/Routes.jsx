@@ -8,7 +8,7 @@ import Course from "../Pages/Course/Course";
 import Events from "../Pages/Events/Events";
 import Contact from "../Pages/Contact/Contact";
 import Staf from "../Pages/Teachers/Staf";
-import TeacherDetail from "../Pages/TeacherDetail/teacherDetail";
+import TeacherDetail from "../Pages/StaffDetail/StaffDetail";
 import EventDetails from "../Pages/Eventdetail/EventDetails";
 import Register from "../Pages/Register/register";
 import CourseDetails from "../Pages/CourseDetails/CourseDetails";
@@ -17,6 +17,7 @@ import ConfirmEmail from "../Pages/ConfirmEmail/ConfirmEmail";
 import ForgetPassword from "../Pages/ResetPassword/ForgetPassword";
 import forgetPasswordEmail from "../Pages/ForgetPassword/forgetPasswordEmail";
 import ForgetPasswordEmail from "../Pages/ForgetPassword/forgetPasswordEmail";
+import StaffDetail from "../Pages/StaffDetail/StaffDetail";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -65,6 +66,10 @@ export default function Routes() {
         {
           path: "/CourseDetails",
           element: <CourseDetails />,
+        },
+        {
+          path: "/StaffDetails/:id",
+          element: <StaffDetail />,
         },
         {
           path: "/TeacherDetails/:id",

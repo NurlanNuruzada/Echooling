@@ -25,7 +25,7 @@ namespace Echooling.API.Controllers
         [HttpGet("[Action]")]
         public async Task<IActionResult> GetStaffDetails()
         {
-            List<GetStaffDto> List = await _service.GetAllAsync();
+            List<GetUserListDto> List = await _service.GetAllAsync();
             return Ok(List);
         }
         [HttpGet("id")]

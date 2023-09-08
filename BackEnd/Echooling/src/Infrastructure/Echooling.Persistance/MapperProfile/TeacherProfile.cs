@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Echooling.Aplication.DTOs.SliderDTOs;
+using Echooling.Aplication.DTOs.StaffDTOs;
 using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
 using Ecooling.Domain.Entites;
 
@@ -17,6 +18,7 @@ namespace Echooling.Persistance.MapperProfile
             CreateMap<teacherDetails, TeacherCreateDto>().ReverseMap();
             CreateMap<teacherDetails, TeacherGetDto>().ReverseMap();
             CreateMap<teacherDetails, TeacherUpdateDto>().ReverseMap();
+            CreateMap<teacherDetails, GetUserListDto>().ReverseMap();
         }
     }
 }

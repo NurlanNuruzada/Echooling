@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using AutoMapper;
+using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
@@ -19,6 +20,7 @@ namespace Echooling.Persistance.Implementations.Services
         public readonly AppDbContext _context;
         public readonly ITeacherReadRepository _readRepo;
         public readonly ITeacherWriteRepository _writeRepo;
+        public readonly IStaffReadRepository _staffService;
         public readonly IMapper _mapper;
         public readonly IStringLocalizer<ErrorMessages> _stringLocalizer;
         private readonly UserManager<AppUser> _userManager;
@@ -27,7 +29,8 @@ namespace Echooling.Persistance.Implementations.Services
                                IMapper mapper,
                                IStringLocalizer<ErrorMessages> stringLocalizer,
                                AppDbContext context,
-                               UserManager<AppUser> userManager)
+                               UserManager<AppUser> userManager,
+                               IStaffReadRepository staffService)
         {
             _readRepo = readRepo;
             _writeRepo = writeRepo;
@@ -35,20 +38,36 @@ namespace Echooling.Persistance.Implementations.Services
             _stringLocalizer = stringLocalizer;
             _context = context;
             _userManager = userManager;
+            _staffService = staffService;
         }
 
         public async Task CreateAsync(TeacherCreateDto teacherCreateDto, Guid UserId)
         {
             var user = await _userManager.FindByIdAsync(UserId.ToString());
+            var DublicatedExcetionMessage = _stringLocalizer.GetString("DublicatedExceptionMsg");
+            var IsAlreadyStaff = await _staffService.GetByExpressionAsync(S => S.AppUserID == UserId);
+            if (IsAlreadyStaff is not null)
+            {
+                throw new notFoundException("this user is " + " " + DublicatedExcetionMessage);
+            }  
+            var IsAlreadyteacher = await _readRepo.GetByExpressionAsync(S => S.AppUserID == UserId);
+            if (IsAlreadyteacher is not null)
+            {
+                throw new notFoundException("this user is " + " " + DublicatedExcetionMessage);
+            }
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
             if (user is null)
             {
                 throw new notFoundException("user" + " " + message);
             }
-            teacherDetails teacherDetails = _mapper.Map<teacherDetails>(teacherCreateDto);
+            teacherDetails teacher = _mapper.Map<teacherDetails>(teacherCreateDto);
             var result = await _userManager.AddToRoleAsync(user, Roles.Teacher.ToString());
-            teacherDetails.AppUserID = UserId;
-            await _writeRepo.addAsync(teacherDetails);
+            teacher.AppUserID = UserId;
+            teacher.PhoneNumber = user.PhoneNumber;
+            teacher.Fullname = user.Fullname;
+            teacher.emailAddress = user.Email;
+            teacher.Role = "Teacher";
+            await _writeRepo.addAsync(teacher);
             await _writeRepo.SaveChangesAsync();
         }
         public async Task<List<TeacherGetDto>> GetAllAsync()

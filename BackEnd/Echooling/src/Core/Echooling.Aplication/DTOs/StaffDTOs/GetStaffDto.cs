@@ -17,6 +17,7 @@ namespace Echooling.Aplication.DTOs.StaffDTOs
                               string? TotalExperianceHours,
                               string? faculty,
                               string? hobbies,
+                                         string? Role,
                               string? PhoneNumber,
                               string? Fullname,
                               Guid GuId,

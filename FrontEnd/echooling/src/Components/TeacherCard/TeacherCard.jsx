@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Link } from 'react-router-dom';
 
-const TeacherCard = ({ image, teacherName, Profession, socialMediaLinks, userId }) => {
+const TeacherCard = ({ image, teacherName, Profession, socialMediaLinks, userId,Role }) => {
     return (
-        <a href={`/TeacherDetails/${userId}`}>
+        <a href={Role == "Teacher" ? `/TeacherDetails/${userId}`: `/StaffDetails/${userId}`}>
             <div data-aos="zoom-in" className={Styles.MainConatiner}>
                 <div className={Styles.up}><img src={image} alt="" /></div>
                 <div className={Styles.down}>

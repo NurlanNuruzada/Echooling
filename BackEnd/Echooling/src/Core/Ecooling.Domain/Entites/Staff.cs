@@ -2,6 +2,11 @@
 {
     public class Staff:BaseEntity
     {
+        public Staff()
+        {
+            Role = "Staff";
+        }
+        public string Role { get; set; } = "Staff";
         public Guid AppUserID { get; set; }
         public ICollection<StaffEvents>? StaffEvents { get; set; }
         public string? hobbies { get; set; }

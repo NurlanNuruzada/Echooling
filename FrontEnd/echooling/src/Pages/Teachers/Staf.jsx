@@ -19,7 +19,6 @@ const Staf = () => {
   if (isLoading) return <h2>Loading...</h2>;
   if (isError) return <h2>Error: {isError.message}</h2>;
   if (isError) return "An error has occured: " + isError.message;
-  console.log(data)
   return (
     <div>
       <EffectImage
@@ -46,6 +45,7 @@ const Staf = () => {
         {data?.data?.map((staff) => (
             <TeacherCard
             key={staff.appUserID}
+            Role = {staff.role}
             image={image}
             userId={staff.appUserID}
             socialMediaLinks={{
@@ -55,7 +55,7 @@ const Staf = () => {
               facebook: staff.facebook,
           }} 
             teacherName={staff?.fullname}
-            Profession={staff?.profecion} 
+            Profession={staff?.profession} 
             fa-md="true" 
             />
           ))}

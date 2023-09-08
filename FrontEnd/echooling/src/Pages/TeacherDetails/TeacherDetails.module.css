@@ -1,0 +1,97 @@
+.upContainer {
+    background: linear-gradient( 260.95deg, #F2F4F4 0, rgba(3, 62, 212, 0.007) 115.81% ) !important;
+    display: flex;
+    flex-flow: row;
+}
+.Image {
+    width: 100%;
+    height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.ImageContainer {
+    width: 420px;
+    height: 450px;
+}
+.details {
+  padding: 30px 0px;
+}
+.details h1 {
+  color: #131550;
+  font-weight: 600;
+  font-size: 30px;
+}
+.details h3 {
+  font-weight: 600;
+  font-size: 26px;
+  color: #131550;
+}
+.details h2 {
+  font-weight: 500;
+  color: #131550;
+  font-size: 18px;
+}
+.details P {
+  font-weight: 400;
+  font-size: 17px;
+  padding: 10px 0;
+}
+.down3 {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.teacherContainer{
+    align-items: center;
+    justify-items: center;
+}
+.ContactInformation h1 {
+  font-weight: 600;
+  font-size: 23px;
+  text-transform: uppercase;
+}
+.ContactInformation h2 {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 5px 0  5px 0;
+  text-transform: uppercase;
+}
+.down3{
+    padding: 10px 0;
+}
+.icon {
+  color: #3270fc;
+  transition: all 0.3s ease 0s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 10px;
+  border-radius: 3px;
+}
+.ContactInformation{
+    padding-right: 140px;
+}
+.ContactContainer{
+    align-items: center;
+    justify-items: center;
+    padding: 80px 0;
+}
+@media (max-width:1100px) {
+    .Image {
+        width: 100%;
+        height: 100%;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+    .ImageContainer {
+        width: 320px;
+        height: 350px;
+    }
+    .ContactInformation{
+        padding: 40px;
+    }
+}
+@media (max-width:480px) {
+    .details{
+        padding: 20px;
+    }
+    .flex{
+        padding: 20px;
+    }
+}
