@@ -306,8 +306,8 @@ namespace Echooling.Persistance.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EventCount")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("EventCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("Facebook")
                         .HasColumnType("nvarchar(max)");
@@ -328,8 +328,8 @@ namespace Echooling.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TotalExperianceHours")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TotalExperianceHours")
+                        .HasColumnType("int");
 
                     b.Property<string>("emailAddress")
                         .HasColumnType("nvarchar(max)");
@@ -422,10 +422,10 @@ namespace Echooling.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TotalExperianceHours")
+                    b.Property<int?>("TotalExperianceHours")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("int");
 
                     b.Property<string>("emailAddress")
                         .HasColumnType("nvarchar(max)");
@@ -450,15 +450,15 @@ namespace Echooling.Persistance.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("totalOnlineCourseCount")
+                    b.Property<int?>("totalOnlineCourseCount")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("int");
 
-                    b.Property<string>("totalStudentCount")
+                    b.Property<int?>("totalStudentCount")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("int");
 
                     b.Property<string>("twitter")
                         .HasMaxLength(100)

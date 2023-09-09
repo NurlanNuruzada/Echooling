@@ -167,7 +167,6 @@ namespace Echooling.Persistance.Implementations.Services
             var resetPasswordUrl = $"{FrontEndBase}/Auth/ResetPassword?userId={userId}&token={codeHtmlVersion.ToString()}";
 
             TimeSpan tokenExpiration = _securityStampOptions.Value.ValidationInterval;
-
             SentEmailDto resetPasswordEmail = new SentEmailDto
             {
                 To = user.Email,

@@ -19,6 +19,7 @@ import forgetPasswordEmail from "../Pages/ForgetPassword/forgetPasswordEmail";
 import ForgetPasswordEmail from "../Pages/ForgetPassword/forgetPasswordEmail";
 import StaffDetail from "../Pages/StaffDetail/StaffDetail";
 import TeacherDetails from "../Pages/TeacherDetails/TeacherDetails";
+import ApplyForTeacher from "../Pages/ApplyForTeacher/ApplyForTeacher";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -83,6 +84,10 @@ export default function Routes() {
         {
           path: "/*",
           element: <NotFound />,
+        },
+        {
+          path: "/Applyteacher/:id",
+          element: token ? <ApplyForTeacher /> :   <Navigate to={"/auth/register"}/>,
         },
         {
           path:"/Auth/ResetPassword",

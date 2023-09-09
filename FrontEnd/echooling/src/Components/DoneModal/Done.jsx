@@ -14,7 +14,7 @@ import {
 import image from "../../Images/Animations/checkGreen.mp4";
 import { useNavigate } from "react-router";
 
-const Done = ({ buttonsAndNagivage ,seccondTitle}) => {
+const Done = ({ buttonsAndNagivage ,seccondTitle,firstTitle}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   React.useEffect(() => {
     onOpen();
@@ -44,7 +44,7 @@ const Done = ({ buttonsAndNagivage ,seccondTitle}) => {
 
         <AlertDialogContent>
           <Flex flexDirection={"column"} alignItems={"center"}>
-            <AlertDialogHeader>You Successfully registered</AlertDialogHeader>
+            <AlertDialogHeader>{firstTitle}</AlertDialogHeader>
             <AlertDialogCloseButton />
             <video width={"200px"} autoPlay>
               <source src={image} type="video/mp4" />
@@ -56,14 +56,13 @@ const Done = ({ buttonsAndNagivage ,seccondTitle}) => {
                   color="Black"
                   style={{ fontWeight: "500", fontSize: "18px" ,textAlign:'center' }}
                 >
-                  {buttonsAndNagivage.title}
+                  {seccondTitle} 
                 </h1>
-                <h1>{seccondTitle}</h1>
               </Flex>
             </AlertDialogBody>
             <AlertDialogFooter>
               <Flex gap={10}>
-                   {buttonsAndNagivage.button1?.name && (
+                   {buttonsAndNagivage?.button1?.name && (
 
                      <Button
                      padding={"0 40px"}
@@ -74,7 +73,7 @@ const Done = ({ buttonsAndNagivage ,seccondTitle}) => {
                     {buttonsAndNagivage.button1?.name}
                   </Button>
                       )}
-                    {buttonsAndNagivage.button2?.name && (
+                    {buttonsAndNagivage?.button2?.name && (
                       <Button
                       padding={"0 40px"}
                       width={"100%"}

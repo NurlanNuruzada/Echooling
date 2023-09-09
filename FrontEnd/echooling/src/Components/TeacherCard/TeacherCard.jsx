@@ -16,16 +16,16 @@ const TeacherCard = ({ image, teacherName, Profession, socialMediaLinks, userId,
                     </div>
                     <div className={Styles.down3}>
                         {/* Use the full URLs for the social media links */}
-                        <Link to={`http://${socialMediaLinks.facebook}`}>
+                        <Link to={`http://${socialMediaLinks?.facebook}`}>
                             <FontAwesomeIcon className={Styles.icon} icon={faFacebook} />
                         </Link>
-                        <a href={`http://${socialMediaLinks.linkedin}`}  rel="noopener noreferrer">
+                        <a href={`http://${socialMediaLinks?.linkedin}`}  rel="noopener noreferrer">
                             <FontAwesomeIcon className={Styles.icon} icon={faTwitter} />
                         </a>
-                        <a href={`http://${socialMediaLinks.twitter}`} rel="noopener noreferrer">
+                        <a href={`http://${socialMediaLinks?.twitter}`} rel="noopener noreferrer">
                             <FontAwesomeIcon className={Styles.icon} icon={faLinkedin} />
                         </a>
-                        <a href={`http://${socialMediaLinks.instagram}`}  rel="noopener noreferrer">
+                        <a href={`http://${socialMediaLinks?.instagram}`}  rel="noopener noreferrer">
                             <FontAwesomeIcon className={Styles.icon} icon={faInstagram} />
                         </a>
                     </div>

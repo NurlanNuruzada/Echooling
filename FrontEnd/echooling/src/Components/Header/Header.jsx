@@ -31,7 +31,7 @@ const buttonsAndRoute = {
 const Header = () => {
   const [reset, setReset] = useState(false);
   const [success, setSuccess] = useState(false);
-  const { token, userName } = useSelector((state) => state.auth); // Update the selector
+  const { token, userName} = useSelector((state) => state.auth); // Update the selector
   if (token != null) {
     var decodedToken = jwt_decode(token);
     var userId =
@@ -54,7 +54,7 @@ const Header = () => {
   });
   const navigate = useNavigate();
   const handleNavigate = (route) => {
-    navigate(`./${route}`);
+    navigate(route); 
   };
   const dispatch = useDispatch();
   const Routes = ["Home", "About", "Courses", "contact", "Events", "staff"];
@@ -66,12 +66,13 @@ const Header = () => {
       <MenuList>
         <MenuItem onClick={() => dispatch(logoutAction())}>Log out</MenuItem>
         <MenuItem>Me</MenuItem>
+        <MenuItem onClick={()=>handleNavigate(`/Applyteacher/${userId}`)}>Apply For Teaching</MenuItem>
         <MenuItem onClick={handleSendReset}>ResetPassword</MenuItem>
       </MenuList>
     </Menu>
   ) : (
     <p
-      onClick={() => !userName && handleNavigate("auth/register")}
+      onClick={() => !userName && handleNavigate("/auth/register")}
       className={Styles.page}
     >
       Sign In

@@ -17,6 +17,7 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         public readonly IStaffEventsService _staffEventsService;
+
         public EventService(IEventWriteRepository writeRepository,
                             IEventReadRepository readRepository,
                             IStringLocalizer<ErrorMessages> localizer,
@@ -33,7 +34,7 @@ namespace Echooling.Persistance.Implementations.Services
         {
             events events = _mapper.Map<events>(CreateStaffDto);
             await _writeRepository.addAsync(events);
-            //_staffEventsService.AddStaffToEventAsync(events.GuId)
+            //_staffEventsService.AddStaffToEventAsync(events.GuId,);
             await _writeRepository.SaveChangesAsync();
         }
         public async Task<List<EventGetDto>> GetAllAsync()

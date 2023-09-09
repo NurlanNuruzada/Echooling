@@ -10,9 +10,9 @@ namespace Echooling.Aplication.DTOs.StaffDTOs
     {
         public string? hobbies { get; set; }
         public string? faculty { get; set; }
-        public string? TotalExperianceHours { get; set; }
+        public int? TotalExperianceHours { get; set; }
         public string? LastestEvent { get; set; }
-        public string? EventCount { get; set; }
+        public int? EventCount { get; set; }
         public string? Facebook { get; set; }
         public string? twitter { get; set; }
         public string? linkedin { get; set; }

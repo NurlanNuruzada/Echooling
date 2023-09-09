@@ -12,9 +12,9 @@ namespace Echooling.Aplication.DTOs.TeacherDetailsDTOs
         public Guid AppUserID { get; set; }
         public string? hobbies { get; set; }
         public string? faculty { get; set; }
-        public string? TotalExperianceHours { get; set; }
-        public string? totalOnlineCourseCount { get; set; }
-        public string? totalStudentCount { get; set; }
+        public int? TotalExperianceHours { get; set; }
+        public int? totalOnlineCourseCount { get; set; }
+        public int? totalStudentCount { get; set; }
         public string? Facebook { get; set; }
         public string? twitter { get; set; }
         public string? linkedin { get; set; }
