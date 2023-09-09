@@ -1,4 +1,5 @@
 ﻿using Echooling.Aplication.Abstraction.Repository.EventRepositories;
+using Echooling.Aplication.Abstraction.Repository.EventsStaff;
 using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
 using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
@@ -8,6 +9,7 @@ using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Helper;
 using Echooling.Persistance.Implementations.Repositories.EventRepositories;
 using Echooling.Persistance.Implementations.Repositories.SliderRepositories;
+using Echooling.Persistance.Implementations.Repositories.StaffEventsRepositories;
 using Echooling.Persistance.Implementations.Repositories.StaffRepository;
 using Echooling.Persistance.Implementations.Repositories.TeacherRepositories;
 using Echooling.Persistance.Implementations.Services;
@@ -46,8 +48,8 @@ public static class ServiceRegistration
         services.AddScoped<ISliderService, SliderServices>();
         services.AddScoped<ITeacherService,TeacherServices>();
         services.AddScoped<IStaffService,StaffService>();   
-        services.AddScoped<IEventService,EventService>();   
-
+        services.AddScoped<IEventService,EventService>();
+        services.AddScoped<IStaffEventsService,EventStaffServices>();
         //Idenitity
         services.AddIdentity<AppUser, IdentityRole>(options =>
         {
@@ -69,6 +71,7 @@ public static class ServiceRegistration
         services.AddScoped<ITeacherReadRepository, TeacherReadRepository>();
         services.AddScoped<IStaffReadRepository,StaffReadRepository>();
         services.AddScoped<IEventReadRepository,EventReadRepository>();
+        services.AddScoped<IEventStaffWriteRepository, StaffEventWriteRepository>();
     }
     private static void AddWriteRepositories(this IServiceCollection services)
     {
@@ -76,5 +79,6 @@ public static class ServiceRegistration
         services.AddScoped<ITeacherWriteRepository,TeacherWriteRepositories>(); 
         services.AddScoped<IStaffWriteRepository,StaffWriteRepository>();
         services.AddScoped<IEventWriteRepository,EventWriteRepository>();
+        services.AddScoped<IEventStaffReadRepository,StaffEventsReadRepository>();
     }
 }

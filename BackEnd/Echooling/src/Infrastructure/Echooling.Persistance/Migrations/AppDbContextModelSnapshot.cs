@@ -214,7 +214,7 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("AboutEvent")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Const")
+                    b.Property<decimal?>("Cost")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("DateCreated")
@@ -238,8 +238,8 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TotalSlot")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TotalSlot")
+                        .HasColumnType("int");
 
                     b.Property<string>("orginazer")
                         .HasColumnType("nvarchar(max)");

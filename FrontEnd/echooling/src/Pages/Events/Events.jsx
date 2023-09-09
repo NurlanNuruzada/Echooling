@@ -24,6 +24,7 @@ import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import { Grid, GridItem, Link } from "@chakra-ui/react";
 import News from "../../Components/News/News";
 const Blog = () => {
+  
   const Categorylist = [
     "  CSS Engineering (10)",
     "Political Science (12)",

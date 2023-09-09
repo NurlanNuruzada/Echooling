@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Echooling.Aplication.DTOs.EventDTOs
 {
     public record EventGetDto(DateTime? EventStartDate,
-                              Guid GuId,
                               DateTime? EventFinishDate,
-                              decimal? Const,
+                              Guid GuId,
+                              decimal? Cost,
                               string? orginazer,
                               string? TotalSlot,
                               string? Location,

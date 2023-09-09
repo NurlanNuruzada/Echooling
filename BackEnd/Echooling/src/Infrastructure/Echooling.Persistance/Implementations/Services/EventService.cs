@@ -16,32 +16,32 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly IEventReadRepository _readRepository;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
-
+        public readonly IStaffEventsService _staffEventsService;
         public EventService(IEventWriteRepository writeRepository,
                             IEventReadRepository readRepository,
                             IStringLocalizer<ErrorMessages> localizer,
-                            IMapper mapper)
+                            IMapper mapper,
+                            IStaffEventsService staffEventsService)
         {
             _writeRepository = writeRepository;
             _readRepository = readRepository;
             _localizer = localizer;
             _mapper = mapper;
+            _staffEventsService = staffEventsService;
         }
-
         public async Task CreateAsync(EventCreateDto CreateStaffDto)
         {
             events events = _mapper.Map<events>(CreateStaffDto);
             await _writeRepository.addAsync(events);
+            //_staffEventsService.AddStaffToEventAsync(events.GuId)
             await _writeRepository.SaveChangesAsync();
         }
-
         public async Task<List<EventGetDto>> GetAllAsync()
         {
             var Events = await _readRepository.GetAll().ToListAsync();
             List<EventGetDto> List = _mapper.Map<List<EventGetDto>>(Events);
             return List;
         }
-
         public async Task<EventGetDto> getById(Guid id)
         {
             var Event = await _readRepository.GetByIdAsync(id);
@@ -53,7 +53,6 @@ namespace Echooling.Persistance.Implementations.Services
             EventGetDto FoundEvent = _mapper.Map<EventGetDto>(Event);
             return FoundEvent;
         }
-
         public async Task Remove(Guid id)
         {
             var Event = await _readRepository.GetByIdAsync(id);
@@ -65,7 +64,6 @@ namespace Echooling.Persistance.Implementations.Services
             _writeRepository.remove(Event);
             await _writeRepository.SaveChangesAsync();
         }
-
         public async Task UpdateAsync(EventCreateDto StaffUpdateDto, Guid id)
         {
             var Event = await _readRepository.GetByIdAsync(id);

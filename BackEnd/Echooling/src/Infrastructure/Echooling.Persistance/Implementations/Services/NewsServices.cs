@@ -22,7 +22,6 @@ namespace Echooling.Persistance.Implementations.Services
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmailService _emailService;
-
         public NewsServices(UserManager<AppUser> userManager, IEmailService emailService)
         {
             _userManager = userManager;

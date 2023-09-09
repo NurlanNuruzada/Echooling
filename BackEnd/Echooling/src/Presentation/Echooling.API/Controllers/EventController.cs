@@ -18,7 +18,6 @@ namespace Echooling.API.Controllers
         {
             _eventService = eventService;
         }
-
         [HttpGet("id")]
         public async Task<IActionResult> get(Guid id)
         {
