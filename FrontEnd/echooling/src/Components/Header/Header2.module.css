@@ -1,0 +1,72 @@
+.MainContainer {
+  height: 100px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.pages {
+  display: flex;
+  gap: 50px;
+  color: #3270fc;
+  font-weight: 500;
+}
+.signIn {
+  display: flex;
+  gap: 10px;
+  color: #3270fc;
+  transition: 300ms;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 0 30px ;
+}
+.rightSide {
+  display: flex;
+  align-items: center;
+}
+.icons {
+  padding-left: 20px;
+}
+.page {
+  transition: 300ms;
+  font-size: 18px;
+}
+.page:hover {
+  color: black;
+  cursor: pointer;
+}
+
+@media (max-width: 952px) {
+  .page {
+    font-size: 16px;
+  }
+  .pages {
+    gap: 20px;
+  }
+}
+.BurgerMenu {
+  display: none;
+}
+
+@media (max-width: 1224px) {
+  .pages {
+    display: none;
+  }
+  .MainContainer {
+    justify-content: space-between;
+    padding: 0px 10px;
+  }
+  .BurgerMenu {
+    display: block;
+    margin-left: auto;
+  }
+  .icons {
+    display: none;
+  }
+}

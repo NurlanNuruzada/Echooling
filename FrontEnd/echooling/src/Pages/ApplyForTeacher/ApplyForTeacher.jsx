@@ -6,6 +6,7 @@ import Done from "../../Components/DoneModal/Done";
 import { useFormik } from "formik";
 import TeacherApplyScema from "../../Valudations/ApplyForTeachers";
 import { List, ListItem } from "@chakra-ui/react";
+import { Progress } from '@chakra-ui/react'
 import {
   Accordion,
   AccordionItem,
@@ -19,16 +20,28 @@ import {
   Button,
   Flex,
   Input,
-  tokenToCSSVar
+  tokenToCSSVar,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { ApplyAsTeacher, ApplyForTeacherJob } from "../../Services/ApplyForTeacher";
-import { useParams } from "react-router";
+import {  useNavigate, useParams } from "react-router";
+import Steps from "../../Components/Steps/Steps";
+import jwt_decode from "jwt-decode";
 export default function ApplyForTeacher() {
+  const navigate = useNavigate();
+  const handleNavigate = (route) => {
+    navigate(route); 
+  };
   const [SentSuccess, setSentSuccess] = useState(false)
-  const { id } = useParams();
-  const stringId = String(id);
+  const { select: UserKnowledge } = useParams();
   const { token, Fullname} = useSelector((state) => state.auth);
+  if (token != null) {
+    var decodedToken = jwt_decode(token);
+    var userId =
+      decodedToken[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      ];
+  }
   const formik = useFormik({
     initialValues: {
       hobbies: "",
@@ -44,6 +57,7 @@ export default function ApplyForTeacher() {
       PhoneNumber: "",
       Fullname: Fullname,
       AboutMe: "",
+      userKnowledge:UserKnowledge
     },
     onSubmit: (values) => {
       mutate(values);
@@ -51,9 +65,9 @@ export default function ApplyForTeacher() {
     validationSchema: TeacherApplyScema,
   });
   const { mutate, isLoading, error, } =
-    useMutation((values) => ApplyAsTeacher(stringId,values), {
+    useMutation((values) => ApplyAsTeacher(userId,values), {
       onSuccess: (resp) => {
-        console.log("Succesess");
+        setSentSuccess(true)
         console.log(resp);
       },
       onError: (error) => {
@@ -66,19 +80,23 @@ export default function ApplyForTeacher() {
   useEffect(() => {
     if (SentSuccess) {
       const timer = setTimeout(() => {
-        setSentSuccess(false);
+        setSentSuccess(false); // Set it to false to hide the modal
       }, 2500);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        handleNavigate("/");
+      };
     }
   }, [SentSuccess]);
   return (
     <>
+      <Progress value={100} />
+      <Steps CurrentStep={"2"} TotalSteps={"2"}/>
       {SentSuccess && <Done firstTitle={"the Apply request sent Succesfully"} seccondTitle={"we will send email address about your apply check your email address"} />}
-      APPLY
-      <Flex p={"40px 0"} justifyContent={"center"}>
+      <Flex className={Styles.MainContainer} p={"40px 0"} justifyContent={"center"}>
         <Box minW="0rem">
           <Heading color={"#3270fc"} mb={4}>
-            Let's fill up the Form first
+            And Lastly Let's fill up the Form 
           </Heading>
           <Flex p={"20px 0"} gap={5} flexFlow={"column"}>
             <Box>
@@ -225,8 +243,9 @@ export default function ApplyForTeacher() {
               size="md"
               backgroundColor={"white !important"}
               mt="24px"
+              onClick={()=>handleNavigate(`/Applyteacher/teaching-experiance`)}
             >
-              Return to menu
+              Return back
             </Button>
             <Button
               onClick={formik.handleSubmit}

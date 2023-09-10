@@ -66,7 +66,7 @@ const Header = () => {
       <MenuList>
         <MenuItem onClick={() => dispatch(logoutAction())}>Log out</MenuItem>
         <MenuItem>Me</MenuItem>
-        <MenuItem onClick={()=>handleNavigate(`/Applyteacher/${userId}`)}>Apply For Teaching</MenuItem>
+        <MenuItem onClick={()=>handleNavigate(`/Applyteacher/teaching-experiance`)}>Apply For Teaching</MenuItem>
         <MenuItem onClick={handleSendReset}>ResetPassword</MenuItem>
       </MenuList>
     </Menu>

@@ -20,6 +20,8 @@ import ForgetPasswordEmail from "../Pages/ForgetPassword/forgetPasswordEmail";
 import StaffDetail from "../Pages/StaffDetail/StaffDetail";
 import TeacherDetails from "../Pages/TeacherDetails/TeacherDetails";
 import ApplyForTeacher from "../Pages/ApplyForTeacher/ApplyForTeacher";
+import { SecondLayout } from "../Layouts/SecondLayout";
+import KnowlageApply from "../Components/ApplyTeacherSteps/ApplyTeacherShareKhowlage";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -85,10 +87,7 @@ export default function Routes() {
           path: "/*",
           element: <NotFound />,
         },
-        {
-          path: "/Applyteacher/:id",
-          element: token ? <ApplyForTeacher /> :   <Navigate to={"/auth/register"}/>,
-        },
+
         {
           path:"/Auth/ResetPassword",
           search: "?userId=value&token=value",
@@ -97,6 +96,21 @@ export default function Routes() {
           {
           path: "/Auth/forgetPassword",
           element: <ForgetPasswordEmail />,
+        },
+      ],
+    },
+    {
+      path: "/",
+      element: <SecondLayout />,
+      children: [
+        {
+          path: "/Applyteacher/teaching-experiance",
+          element: token ? <KnowlageApply /> :   <Navigate to={"/auth/register"}/>,
+        },
+        {
+          path: "/Applyteacher/:select",
+          search: "select=value",
+          element: token ? <ApplyForTeacher /> :   <Navigate to={"/auth/register"}/>,
         },
       ],
     },

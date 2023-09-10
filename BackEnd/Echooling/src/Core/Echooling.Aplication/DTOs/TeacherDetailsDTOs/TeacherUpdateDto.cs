@@ -22,5 +22,6 @@ namespace Echooling.Aplication.DTOs.TeacherDetailsDTOs
         public string? Fullname { get; set; }
         public string? AboutMe { get; set; }
         public string? emailAddress { get; set; }
+        public string? userKnowledge { get; set; }
     }
 }

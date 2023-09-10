@@ -464,6 +464,9 @@ namespace Echooling.Persistance.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("userKnowledge")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("GuId");
 
                     b.ToTable("TeacherDetails");
