@@ -31,7 +31,8 @@ const buttonsAndRoute = {
 const Header = () => {
   const [reset, setReset] = useState(false);
   const [success, setSuccess] = useState(false);
-  const { token, userName} = useSelector((state) => state.auth); // Update the selector
+
+  const { token, userName} = useSelector((state) => state.auth); 
   if (token != null) {
     var decodedToken = jwt_decode(token);
     var userId =
@@ -57,7 +58,7 @@ const Header = () => {
     navigate(route); 
   };
   const dispatch = useDispatch();
-  const Routes = ["get back to Home"];
+  const Routes = ["Home"];
   return (
     <div className={Styles.MainContainer}>
       {success && <Done buttonsAndNagivage={buttonsAndRoute} />}
@@ -69,7 +70,7 @@ const Header = () => {
           {Routes.map((route, index) => (
             <div key={index}>
               <p onClick={() => handleNavigate(route)} className={Styles.page}>
-                {route}
+                get back to home
               </p>
             </div>
           ))}

@@ -16,8 +16,8 @@ namespace Echooling.API.Controllers
         {
             _service = service;
         }
-        [HttpPost("id")]
-        public async Task<IActionResult> CreateTeacher([FromBody]CreateStaffDto staffDto, Guid id)
+        [HttpPost("[Action]/id")]
+        public async Task<IActionResult> CreateStaff( Guid id, CreateStaffDto staffDto)
         {
             await _service.CreateAsync(staffDto, id);
             return StatusCode((int)HttpStatusCode.Created);

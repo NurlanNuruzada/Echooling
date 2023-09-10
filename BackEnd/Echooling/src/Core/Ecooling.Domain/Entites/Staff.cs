@@ -11,9 +11,6 @@
         public ICollection<StaffEvents>? StaffEvents { get; set; }
         public string? hobbies { get; set; }
         public string? faculty { get; set; }
-        public int? TotalExperianceHours { get; set; }
-        public string? LastestEvent { get; set; }
-        public int? EventCount { get; set; }
         public string? Facebook { get; set; }
         public string? twitter { get; set; }
         public string? linkedin { get; set; }
@@ -23,5 +20,10 @@
         public string? profession { get; set; }
         public string? AboutMe { get; set; }
         public string? emailAddress { get; set; }
+        public int? TotalExperianceHours { get; set; }
+        public string? LastestEvent { get; set; }
+        public int? EventCount { get; set; }
+        public string? StartExperiance { get; set; }
+        public string? Follower { get; set; }
     }
 }

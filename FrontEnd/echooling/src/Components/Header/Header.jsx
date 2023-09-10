@@ -19,6 +19,8 @@ import { logoutAction } from "../../Redux/Slices/AuthSlice";
 import { useMutation } from "react-query";
 import { ResetPasswordSend } from "../../Services/AuthService";
 import Done from "../DoneModal/Done";
+import { getTeacherById } from "../../Services/TeacherService";
+import { getById } from "../../Services/StaffService";
 const buttonsAndRoute = {
   button1: {
     navigate: "/home",
@@ -31,12 +33,51 @@ const buttonsAndRoute = {
 const Header = () => {
   const [reset, setReset] = useState(false);
   const [success, setSuccess] = useState(false);
-  const { token, userName} = useSelector((state) => state.auth); // Update the selector
+  const [Isteacher, setIsTeacher] = useState(true);
+  const [IsStaff, setIsStaff] = useState(true);
+  const { token, userName } = useSelector((state) => state.auth); // Update the selector
+  if (token != null) {
+    var decodedToken = jwt_decode(token);
+    var id =
+      decodedToken[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      ];
+  }
+  const { mutate : getStaff} = useMutation(
+    (id) => getTeacherById(id),
+    {
+      onSuccess: (resp) => {
+        console.log(resp);
+        setIsTeacher(false)
+      },
+      onError: (error) => {
+        console.log(error);
+        setIsTeacher(true)
+    }
+  }
+  );
+  const { mutate :Getteacher} = useMutation(
+    (id) => getById(id),
+    {
+      onSuccess: (resp) => {
+        console.log(resp);
+        setIsStaff(false)
+      },
+      onError: (error) => {
+        setIsStaff(true)
+        console.log(error);
+      },
+    }
+  );
+  useEffect(() => {
+    getStaff(id);
+    Getteacher(id);
+  }, []);
   if (token != null) {
     var decodedToken = jwt_decode(token);
     var userId =
       decodedToken[
-        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
       ];
   }
   const handleSendReset = () => {
@@ -54,7 +95,7 @@ const Header = () => {
   });
   const navigate = useNavigate();
   const handleNavigate = (route) => {
-    navigate(route); 
+    navigate(route);
   };
   const dispatch = useDispatch();
   const Routes = ["Home", "About", "Courses", "contact", "Events", "staff"];
@@ -66,8 +107,9 @@ const Header = () => {
       <MenuList>
         <MenuItem onClick={() => dispatch(logoutAction())}>Log out</MenuItem>
         <MenuItem>Me</MenuItem>
-        <MenuItem onClick={()=>handleNavigate(`/Applyteacher/teaching-experiance`)}>Apply For Teaching</MenuItem>
         <MenuItem onClick={handleSendReset}>ResetPassword</MenuItem>
+        {Isteacher && <MenuItem onClick={() => handleNavigate(`/Applyteacher/teaching-experiance`)}>Apply For Teaching</MenuItem>}
+        {IsStaff  &&<MenuItem onClick={() => handleNavigate(`/ApplyForStaffContainer`)}>Apply For Job</MenuItem>}
       </MenuList>
     </Menu>
   ) : (

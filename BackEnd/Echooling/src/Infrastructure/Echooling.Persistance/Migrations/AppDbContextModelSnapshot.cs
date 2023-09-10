@@ -312,6 +312,9 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("Facebook")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Follower")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Fullname")
                         .HasColumnType("nvarchar(max)");
 
@@ -326,6 +329,9 @@ namespace Echooling.Persistance.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StartExperiance")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TotalExperianceHours")

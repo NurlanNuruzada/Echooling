@@ -17,10 +17,12 @@ namespace Echooling.Aplication.DTOs.StaffDTOs
                               int? TotalExperianceHours,
                               string? faculty,
                               string? hobbies,
-                                         string? Role,
+                              string? Role,
                               string? PhoneNumber,
                               string? Fullname,
                               Guid GuId,
                               string? emailAddress,
+                              string? StartExperiance,
+                              string? Follower,
                               Guid AppUserID);
 }

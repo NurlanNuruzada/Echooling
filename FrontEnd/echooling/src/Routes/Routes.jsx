@@ -22,6 +22,7 @@ import TeacherDetails from "../Pages/TeacherDetails/TeacherDetails";
 import ApplyForTeacher from "../Pages/ApplyForTeacher/ApplyForTeacher";
 import { SecondLayout } from "../Layouts/SecondLayout";
 import KnowlageApply from "../Components/ApplyTeacherSteps/ApplyTeacherShareKhowlage";
+import ApplyForStaffContainer from "../Pages/ApplyForStaff/ApplyStaffContainer";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -108,9 +109,12 @@ export default function Routes() {
           element: token ? <KnowlageApply /> :   <Navigate to={"/auth/register"}/>,
         },
         {
-          path: "/Applyteacher/:select",
-          search: "select=value",
-          element: token ? <ApplyForTeacher /> :   <Navigate to={"/auth/register"}/>,
+          path: "/Applyteacher/teaching-experiance",
+          element: token ? <KnowlageApply /> :   <Navigate to={"/auth/register"}/>,
+        },
+        {
+          path: "/ApplyForStaffContainer",
+          element: token ? <ApplyForStaffContainer /> :   <Navigate to={"/auth/register"}/>,
         },
       ],
     },

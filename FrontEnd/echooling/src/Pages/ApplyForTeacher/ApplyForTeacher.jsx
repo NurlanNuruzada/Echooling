@@ -5,41 +5,42 @@ import News from "../../Components/News/News";
 import Done from "../../Components/DoneModal/Done";
 import { useFormik } from "formik";
 import TeacherApplyScema from "../../Valudations/ApplyForTeachers";
-import { List, ListItem } from "@chakra-ui/react";
-import { Progress } from '@chakra-ui/react'
 import {
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
+  List, ListItem,
   AccordionIcon,
-} from '@chakra-ui/react'
-import {
+  Progress,
   Heading,
   Box,
   Button,
-  Flex,
+  Flex, Radio,
+   RadioGroup, 
   Input,
   tokenToCSSVar,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { ApplyAsTeacher, ApplyForTeacherJob } from "../../Services/ApplyForTeacher";
-import {  useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Steps from "../../Components/Steps/Steps";
 import jwt_decode from "jwt-decode";
+
+
 export default function ApplyForTeacher() {
   const navigate = useNavigate();
   const handleNavigate = (route) => {
-    navigate(route); 
+    navigate(route);
   };
   const [SentSuccess, setSentSuccess] = useState(false)
   const { select: UserKnowledge } = useParams();
-  const { token, Fullname} = useSelector((state) => state.auth);
+  const { token, Fullname } = useSelector((state) => state.auth);
   if (token != null) {
     var decodedToken = jwt_decode(token);
     var userId =
       decodedToken[
-        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
       ];
   }
   const formik = useFormik({
@@ -57,7 +58,7 @@ export default function ApplyForTeacher() {
       PhoneNumber: "",
       Fullname: Fullname,
       AboutMe: "",
-      userKnowledge:UserKnowledge
+      userKnowledge: UserKnowledge
     },
     onSubmit: (values) => {
       mutate(values);
@@ -65,7 +66,7 @@ export default function ApplyForTeacher() {
     validationSchema: TeacherApplyScema,
   });
   const { mutate, isLoading, error, } =
-    useMutation((values) => ApplyAsTeacher(userId,values), {
+    useMutation((values) => ApplyAsTeacher(userId, values), {
       onSuccess: (resp) => {
         setSentSuccess(true)
         console.log(resp);
@@ -91,12 +92,12 @@ export default function ApplyForTeacher() {
   return (
     <>
       <Progress value={100} />
-      <Steps CurrentStep={"2"} TotalSteps={"2"}/>
+      <Steps CurrentStep={"2"} TotalSteps={"2"} />
       {SentSuccess && <Done firstTitle={"the Apply request sent Succesfully"} seccondTitle={"we will send email address about your apply check your email address"} />}
       <Flex className={Styles.MainContainer} p={"40px 0"} justifyContent={"center"}>
         <Box minW="0rem">
           <Heading color={"#3270fc"} mb={4}>
-            And Lastly Let's fill up the Form 
+            And Lastly Let's fill up the Form
           </Heading>
           <Flex p={"20px 0"} gap={5} flexFlow={"column"}>
             <Box>
@@ -165,16 +166,16 @@ export default function ApplyForTeacher() {
             <AccordionItem >
               <h2>
                 <AccordionButton>
-                  <Box  color={"#3270fc"} as="span" flex='1' textAlign='left'>
+                  <Box color={"#3270fc"} as="span" flex='1' textAlign='left'>
                     Social Media (Optional)
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel  pb={4}>
+              <AccordionPanel pb={4}>
                 <Box>
                   <Input
-                  maxW={360}
+                    maxW={360}
                     borderColor={"black"}
                     variant="flushed"
                     pr="4.5rem"
@@ -187,7 +188,7 @@ export default function ApplyForTeacher() {
                 </Box>
                 <Box>
                   <Input
-                  maxW={360}
+                    maxW={360}
                     borderColor={"black"}
                     variant="flushed"
                     pr="4.5rem"
@@ -200,7 +201,7 @@ export default function ApplyForTeacher() {
                 </Box>
                 <Box>
                   <Input
-                  maxW={360}
+                    maxW={360}
                     borderColor={"black"}
                     variant="flushed"
                     pr="4.5rem"
@@ -213,7 +214,7 @@ export default function ApplyForTeacher() {
                 </Box>
                 <Box>
                   <Input
-                  maxW={360}
+                    maxW={360}
                     borderColor={"black"}
                     variant="flushed"
                     pr="4.5rem"
@@ -227,7 +228,7 @@ export default function ApplyForTeacher() {
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
-          
+
           <List>
             {Object.keys(formik.errors).map((fieldName) => (
               <ListItem key={fieldName}>
@@ -243,7 +244,7 @@ export default function ApplyForTeacher() {
               size="md"
               backgroundColor={"white !important"}
               mt="24px"
-              onClick={()=>handleNavigate(`/Applyteacher/teaching-experiance`)}
+              onClick={() => handleNavigate(`/Applyteacher/teaching-experiance`)}
             >
               Return back
             </Button>
