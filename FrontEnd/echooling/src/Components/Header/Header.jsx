@@ -47,11 +47,9 @@ const Header = () => {
     (id) => getTeacherById(id),
     {
       onSuccess: (resp) => {
-        console.log(resp);
         setIsTeacher(false)
       },
       onError: (error) => {
-        console.log(error);
         setIsTeacher(true)
     }
   }
@@ -60,12 +58,10 @@ const Header = () => {
     (id) => getById(id),
     {
       onSuccess: (resp) => {
-        console.log(resp);
         setIsStaff(false)
       },
       onError: (error) => {
         setIsStaff(true)
-        console.log(error);
       },
     }
   );
@@ -106,7 +102,7 @@ const Header = () => {
       </MenuButton>
       <MenuList>
         <MenuItem onClick={() => dispatch(logoutAction())}>Log out</MenuItem>
-        <MenuItem>Me</MenuItem>
+        <MenuItem  onClick={() => handleNavigate(`/ControlPanel`)}>Panel</MenuItem>
         <MenuItem onClick={handleSendReset}>ResetPassword</MenuItem>
         {Isteacher && <MenuItem onClick={() => handleNavigate(`/Applyteacher/teaching-experiance`)}>Apply For Teaching</MenuItem>}
         {IsStaff  &&<MenuItem onClick={() => handleNavigate(`/ApplyForStaffContainer`)}>Apply For Job</MenuItem>}

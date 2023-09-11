@@ -1,0 +1,221 @@
+.adminPanelContainer {
+    width: 270px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    color: black;
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: width 0.3s ease;
+}
+
+.UserSeciton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-weight: 500;
+    font-size: 17px;
+    color: #3c4fe0;
+}
+
+.ImageContainerMini {
+    padding: 5px;
+    width: 100%;
+    border-bottom: 1px solid #5555;
+}
+
+.adminPanelContainerMini {
+    transition: width 0.3s ease;
+    width: 70px;
+    padding: 0;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    color: black;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.UserSecitonMini {
+    display: none;
+}
+
+.MainListMini {
+    opacity: 0;
+}
+
+.SelectionMini {
+    font-size: 0px;
+}
+
+.ButtonMini{
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    display: flex;
+    margin: 15px 10px;
+    z-index: 2;
+}
+
+.linkListMini {
+    display: none;
+}
+
+.ButtonMini:focus {
+    box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.ButtonMini:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.ButtonMini:active {
+    box-shadow: #3c4fe0 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
+.UserSeciton h2 {
+    color: rgb(136, 136, 136);
+    font-weight: 400;
+}
+
+.UserSeciton h1 {
+    padding-top: 10px;
+}
+
+.ImageContainer {
+    padding: 10px;
+    border-bottom: 1px solid #5555;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.linkList {
+    list-style: none;
+    padding: 0;
+}
+
+.linkItem {
+    margin-bottom: 10px;
+}
+
+.linkItem {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.linkItem:hover {
+    color: #326ffcb8;
+}
+
+.Button {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    display: flex;
+    margin: 15px 0;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.MainList {
+    font-size: 18px;
+    color: #5468ff;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.Button:focus {
+    box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.Button:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.Button:active {
+    box-shadow: #3c4fe0 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
+@media (max-width:1200px) {
+    .adminPanelContainer {
+        width: 220px;
+    }
+}
+
+.sidebar {
+    width: 270px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    color: black;
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: width 0.3s ease;
+    /* Add CSS transition */
+}
+
+.sidebarSmall {
+    width: 70px;
+    padding: 0;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    color: black;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: width 0.3s ease;
+    /* Add CSS transition */
+}

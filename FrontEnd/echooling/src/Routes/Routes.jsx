@@ -23,6 +23,8 @@ import ApplyForTeacher from "../Pages/ApplyForTeacher/ApplyForTeacher";
 import { SecondLayout } from "../Layouts/SecondLayout";
 import KnowlageApply from "../Components/ApplyTeacherSteps/ApplyTeacherShareKhowlage";
 import ApplyForStaffContainer from "../Pages/ApplyForStaff/ApplyStaffContainer";
+import AdminPanel from "../Pages/AdminPanel/AdminPanel";
+import { AdminLayout } from "../Layouts/AdminLayout";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -30,6 +32,15 @@ export default function Routes() {
       path: "/Auth/ConfirmEmail",
       search: "?userId=value&token=value",
       element: <ConfirmEmail />,
+    },
+    {
+      element: <AdminLayout />,
+      children: [
+        {
+          path: "/ControlPanel",
+          element: token ? <AdminPanel /> : <Navigate to={"/"} />
+        },
+      ]
     },
     {
       path: "/",
@@ -90,11 +101,11 @@ export default function Routes() {
         },
 
         {
-          path:"/Auth/ResetPassword",
+          path: "/Auth/ResetPassword",
           search: "?userId=value&token=value",
-          element: <ForgetPassword/>
+          element: <ForgetPassword />
         },
-          {
+        {
           path: "/Auth/forgetPassword",
           element: <ForgetPasswordEmail />,
         },
@@ -106,15 +117,15 @@ export default function Routes() {
       children: [
         {
           path: "/Applyteacher/teaching-experiance",
-          element: token ? <KnowlageApply /> :   <Navigate to={"/auth/register"}/>,
+          element: token ? <KnowlageApply /> : <Navigate to={"/auth/register"} />,
         },
         {
           path: "/Applyteacher/teaching-experiance",
-          element: token ? <KnowlageApply /> :   <Navigate to={"/auth/register"}/>,
+          element: token ? <KnowlageApply /> : <Navigate to={"/auth/register"} />,
         },
         {
           path: "/ApplyForStaffContainer",
-          element: token ? <ApplyForStaffContainer /> :   <Navigate to={"/auth/register"}/>,
+          element: token ? <ApplyForStaffContainer /> : <Navigate to={"/auth/register"} />,
         },
       ],
     },
