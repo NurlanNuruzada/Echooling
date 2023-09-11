@@ -8,21 +8,37 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faPlus, faCalendarDays, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-export default function Sidebar({ CreateTeacher, CreateStaff, isSmall }) {
-  useEffect(() => {
-  }, []);
+export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsSmall, IsButtonClicked }) {
+  const [isMouseOver, setIsMouseOver] = useState(false);
+
+  const handleMouseOver = () => {
+    if (isSmall) {
+      toggleIsSmall();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!IsButtonClicked) {
+      toggleIsSmall();
+    }
+    setIsMouseOver(true);
+  };
+
   return (
-    <div>
+    <div
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+    >{handleMouseLeave}
       <div className={isSmall ? Styles.adminPanelContainerMini : Styles.adminPanelContainer}>
-        <div className={ isSmall ? Styles.ImageContainerMini : Styles.ImageContainer}>
+        <div className={isSmall ? Styles.ImageContainerMini : Styles.ImageContainer}>
           <img src={isSmall ? SmallLog : image} alt="" />
         </div>
-        <div className={ isSmall ? Styles.UserSecitonMini : Styles.UserSeciton }>
-          <Avatar size='xl' name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
+        <div className={isSmall ? Styles.UserSecitonMini : Styles.UserSeciton}>
+          <Avatar size='xl' name='Dan Abrahmov' color={"red"} src='https://bit.ly/dan-abramov' />
           <h1>Nurlan Nurzade</h1>
           <h2>Programmer</h2>
         </div>
-        <ul className={ Styles.linkList}>
+        <ul className={Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Main</h1>
           <li  >
             <Link className={isSmall ? Styles.ButtonMini : Styles.Button}>

@@ -13,19 +13,35 @@ export function AdminLayout() {
 
   // Initialize the isSmall state
   const [isSmall, setIsSmall] = useState(false);
+  const [IsButtonClicked, setIsButtonClicked] = useState(false);
 
   // Callback function to toggle isSmall
   const toggleIsSmall = () => {
     setIsSmall(!isSmall);
   };
 
+  // Callback function to toggle IsButtonClicked
+  const handleButtonClick = () => {
+    setIsButtonClicked(!IsButtonClicked);
+  };
+
   return (
     <Grid className={Styles.GridContainer} templateColumns="0fr 1fr">
       <GridItem>
-        <Sidebar CreateTeacher={CreateTeacher} CreateStaff={CreateStaff} isSmall={isSmall} />
+        <Sidebar
+          toggleIsSmall={toggleIsSmall}
+          IsButtonClicked={IsButtonClicked}
+          CreateTeacher={CreateTeacher}
+          CreateStaff={CreateStaff}
+          isSmall={isSmall}
+        />
       </GridItem>
       <GridItem className={Styles.GridItem}>
-        <AdminPageHeader toggleIsSmall={toggleIsSmall} isSmall={isSmall} />
+        <AdminPageHeader
+          toggleIsSmall={toggleIsSmall}
+          isSmall={isSmall}
+          IsButtonClicked={handleButtonClick} // Pass the callback to handle button click
+        />
         <Outlet />
       </GridItem>
     </Grid>
