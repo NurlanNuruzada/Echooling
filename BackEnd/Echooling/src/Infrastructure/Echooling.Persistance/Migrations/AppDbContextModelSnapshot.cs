@@ -149,6 +149,9 @@ namespace Echooling.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("CourseCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -202,7 +205,59 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasKey("GuId");
 
+                    b.HasIndex("CourseCategoryId");
+
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.CourseCategories", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("GuId");
+
+                    b.ToTable("CourseCategories");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.EventCategoryies", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("GuId");
+
+                    b.ToTable("EventCategoryies");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.events", b =>
@@ -222,6 +277,9 @@ namespace Echooling.Persistance.Migrations
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("EventCategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("EventFinishDate")
                         .HasColumnType("datetime2");
@@ -245,6 +303,8 @@ namespace Echooling.Persistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GuId");
+
+                    b.HasIndex("EventCategoryId");
 
                     b.ToTable("Events");
                 });
@@ -402,7 +462,7 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("AboutMe")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("AppUserID")
+                    b.Property<Guid?>("AppUserID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateCreated")
@@ -514,13 +574,13 @@ namespace Echooling.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AppUserId")
+                    b.Property<Guid?>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AppUserId1")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("CourseId")
+                    b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateCreated")
@@ -689,6 +749,28 @@ namespace Echooling.Persistance.Migrations
                     b.Navigation("events");
                 });
 
+            modelBuilder.Entity("Ecooling.Domain.Entites.Course", b =>
+                {
+                    b.HasOne("Ecooling.Domain.Entites.CourseCategories", "CourseCategory")
+                        .WithMany("Courses")
+                        .HasForeignKey("CourseCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourseCategory");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.events", b =>
+                {
+                    b.HasOne("Ecooling.Domain.Entites.EventCategoryies", "EventCategoryies")
+                        .WithMany("Events")
+                        .HasForeignKey("EventCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EventCategoryies");
+                });
+
             modelBuilder.Entity("Ecooling.Domain.Entites.StaffEvents", b =>
                 {
                     b.HasOne("Ecooling.Domain.Entites.Staff", "staff")
@@ -727,9 +809,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasOne("Ecooling.Domain.Entites.Course", "Course")
                         .WithMany("CourseAppUser")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.Navigation("AppUser");
 
@@ -799,6 +879,16 @@ namespace Echooling.Persistance.Migrations
                     b.Navigation("CourseAppUser");
 
                     b.Navigation("TeacherDetailsCourses");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.CourseCategories", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.EventCategoryies", b =>
+                {
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.events", b =>

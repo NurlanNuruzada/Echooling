@@ -9,7 +9,7 @@ public class teacherDetails : BaseEntity
         Role = "Teacher";
     }
     public string Role { get; set; } = "Teacher";
-    public Guid AppUserID { get; set; }
+    public Guid? AppUserID { get; set; }
     public ICollection<TeacherDetailsCourses>? TeacherDetailsCourses { get; set; }
     public string? hobbies { get; set; }
     public string? faculty { get; set; }

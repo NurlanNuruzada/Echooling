@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ecooling.Domain.Entites;
+using FluentValidation;
 
-namespace Echooling.Aplication.Valudators.CourseValudators
+namespace Echooling.Aplication.Valudators.CourseValudators;
+public class CourseCategory : AbstractValidator<CourseCategories>
 {
-    internal class CourseCategoryValudators
+    public CourseCategory()
     {
+        RuleFor(x => x.Category).MaximumLength(100).NotEmpty().NotNull();
     }
 }

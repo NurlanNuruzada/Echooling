@@ -9,9 +9,9 @@ using FluentValidation;
 
 namespace Echooling.Aplication.Valudators.EventValudators
 {
-    public class EventCreateValudator : AbstractValidator<events>
+    public class CourseCreateValudator : AbstractValidator<events>
     {
-        public EventCreateValudator()
+        public CourseCreateValudator()
         {
             RuleFor(x => x.EventTitle).MaximumLength(20).NotEmpty().NotNull();
             RuleFor(x => x.AboutEvent).MaximumLength(400).NotEmpty().NotNull();
