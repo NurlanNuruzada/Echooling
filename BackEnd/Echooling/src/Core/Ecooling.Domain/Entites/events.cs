@@ -12,5 +12,7 @@
         public string? Location { get; set; }
         public string? EventTitle { get; set; }
         public string? AboutEvent { get; set; }
+        public int EventCategoryId { get; set; }
+        public EventCategoryies EventCategoryies { get; set; } = null!;
     }
 }

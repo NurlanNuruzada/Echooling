@@ -8,6 +8,7 @@ const initialState = {
     expireDate: null,
     refreshToken: null,
     refreshTokenExpiration: null,
+    userJob:null,
 };
 
 export const AuthSlice = createSlice({
@@ -23,6 +24,9 @@ export const AuthSlice = createSlice({
       state.refreshToken =  action.payload.refreshToken
       state.refreshTokenExpiration =  action.payload.refreshTokenExpiration
     },
+    setUsetJobAction:(state,action)=>{
+      state.userJob = action.payload.Role
+    },
     logoutAction: (state, action) => {
       return initialState;
     },
@@ -33,5 +37,5 @@ export const AuthSlice = createSlice({
 });
 
 // Export actions and reducer
-export const { loginAction, logoutAction, registerAction } = AuthSlice.actions;
+export const { loginAction, logoutAction, registerAction,setUsetJobAction } = AuthSlice.actions;
 export default AuthSlice.reducer;

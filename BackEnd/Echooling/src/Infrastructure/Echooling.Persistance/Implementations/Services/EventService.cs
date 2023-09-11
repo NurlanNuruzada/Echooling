@@ -7,6 +7,7 @@ using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace Echooling.Persistance.Implementations.Services
 {
@@ -30,11 +31,12 @@ namespace Echooling.Persistance.Implementations.Services
             _mapper = mapper;
             _staffEventsService = staffEventsService;
         }
-        public async Task CreateAsync(EventCreateDto CreateStaffDto)
+        public async Task CreateAsync(EventCreateDto CreateEventDto, Guid UserId)
         {
-            events events = _mapper.Map<events>(CreateStaffDto);
+            events events = _mapper.Map<events>(CreateEventDto);
             await _writeRepository.addAsync(events);
-            //_staffEventsService.AddStaffToEventAsync(events.GuId,);
+            await _writeRepository.SaveChangesAsync();
+            await _staffEventsService.AddStaffToEventAsync(events.GuId, UserId);
             await _writeRepository.SaveChangesAsync();
         }
         public async Task<List<EventGetDto>> GetAllAsync()

@@ -25,6 +25,8 @@ import KnowlageApply from "../Components/ApplyTeacherSteps/ApplyTeacherShareKhow
 import ApplyForStaffContainer from "../Pages/ApplyForStaff/ApplyStaffContainer";
 import AdminPanel from "../Pages/AdminPanel/AdminPanel";
 import { AdminLayout } from "../Layouts/AdminLayout";
+import CreateEvent from "../Pages/AdminPanel/CreateEvent/CreateEvent";
+import CreateEventContainer from "../Pages/AdminPanel/CreateEvent/CreateEventContainer";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -34,11 +36,15 @@ export default function Routes() {
       element: <ConfirmEmail />,
     },
     {
-      element: <AdminLayout />,
+      element: token ? <AdminLayout /> : <Navigate to={"/"} />,
       children: [
         {
           path: "/ControlPanel",
           element: token ? <AdminPanel /> : <Navigate to={"/"} />
+        },
+        {
+          path: "/ControlPanel/CreateEvent",
+          element:  <CreateEventContainer />  
         },
       ]
     },
@@ -46,7 +52,6 @@ export default function Routes() {
       path: "/",
       element: <MainLayout />,
       children: [
-
         {
           path: "/",
           element: <Home />,

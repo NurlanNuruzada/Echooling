@@ -43,10 +43,10 @@ namespace Echooling.API.Controllers
             }
             return Ok(new { message = "Category deleted successfully." });
         }
-        [HttpPost]
-        public async Task<IActionResult> Create(EventCreateDto eventDto)
+        [HttpPost("[Action]/id")]
+        public async Task<IActionResult> Create(EventCreateDto eventDto, Guid StaffId)
         {
-            await _eventService.CreateAsync(eventDto);
+            await _eventService.CreateAsync(eventDto, StaffId);
             return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpPut("id")]

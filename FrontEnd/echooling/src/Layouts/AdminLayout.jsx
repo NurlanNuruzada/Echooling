@@ -8,10 +8,38 @@ import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import Styles from "./AdminLayout.module.css";
 
 export function AdminLayout() {
-  const CreateTeacher = ["Create Course", "My Courses", "Stats", "Course Review"];
-  const CreateStaff = ["Create Event", "My Events", "Stats"];
-
-  // Initialize the isSmall state
+  const CreateTeacher = [
+    {
+      LinkName: "Create Course",
+      link: "/ControlPanel/CreateEvent"
+    },
+    {
+      LinkName: "My Courses",
+      link: "/ControlPanel/MyEvents"
+    },
+    {
+      LinkName: "Stats",
+      link: "/ControlPanel/Stats"
+    },
+    {
+      LinkName: "Course Review",
+      link: "/ControlPanel/Stats"
+    }
+  ];
+  const CreateStaff = [
+    {
+      LinkName: "Create Event",
+      link: "/ControlPanel/CreateEvent"
+    },
+    {
+      LinkName: "My Events",
+      link: "/ControlPanel/MyEvents"
+    },
+    {
+      LinkName: "Stats",
+      link: "/ControlPanel/Stats"
+    }
+  ];
   const [isSmall, setIsSmall] = useState(false);
   const [IsButtonClicked, setIsButtonClicked] = useState(false);
 

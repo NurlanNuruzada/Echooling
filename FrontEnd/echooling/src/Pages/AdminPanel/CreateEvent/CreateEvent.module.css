@@ -1,0 +1,64 @@
+.MainContainer{
+    padding: 0 10px !important;
+    }
+    .Button {
+        align-items: center;
+        background-color: #7ab1f8 !important;
+        border: 2px solid #111 !important;
+        border-radius: 8px !important;
+        box-sizing: border-box !important;
+        color: #111 !important;
+        cursor: pointer !important;
+        display: flex;
+        font-family: Inter,sans-serif;
+        font-size: 16px;
+        height: 48px;
+        justify-content: center;
+        line-height: 24px;
+        max-width: 100%;
+        padding: 0 25px !important;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+      
+      .Button:after {
+        background-color: #111;
+        border-radius: 8px;
+        content: "";
+        display: block;
+        height: 48px;
+        left: 0;
+        width: 100%;
+        position: absolute;
+        top: -2px;
+        transform: translate(8px, 8px);
+        transition: transform .2s ease-out;
+        z-index: -1;
+      }
+      
+      .Button:hover:after {
+        transform: translate(0, 0);
+      }
+      
+      .Button:active {
+        background-color: #5782f8;
+        outline: 0;
+      }
+      
+      .Button:hover {
+        outline: 0;
+      }
+      
+      @media (max-width: 768px) {
+        .Button {
+          padding: 0 40px;
+        }
+        .ButtonContainer{
+          max-width: 370px;
+        }
+      }
+      
