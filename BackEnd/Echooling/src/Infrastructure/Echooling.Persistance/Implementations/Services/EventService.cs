@@ -43,9 +43,9 @@ namespace Echooling.Persistance.Implementations.Services
         {
             events events = _mapper.Map<events>(CreateEventDto);
             await _writeRepository.addAsync(events);
+            //AppUserEventDto appUserEventDto = new(events.GuId.to, UserId);
+            //await _AppuserEventService.CreateAsync(appUserEventDto);
             await _writeRepository.SaveChangesAsync();
-            AppUserEventDto appUserEventDto = new(events.GuId, UserId);
-            await _AppuserEventService.CreateAsync(appUserEventDto);
             await _staffEventsService.AddStaffToEventAsync(events.GuId, UserId);
             await _writeRepository.SaveChangesAsync();
 

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Echooling.Aplication.DTOs
 {
-    public record AppUserEventDto(Guid? eventsId, Guid? AppUserId)
-    {                             
+    public class AppUserEventDto
+    {
+        public Guid eventsId { get; set; }
+        public Guid AppUserId { get; set; }
     }
 }

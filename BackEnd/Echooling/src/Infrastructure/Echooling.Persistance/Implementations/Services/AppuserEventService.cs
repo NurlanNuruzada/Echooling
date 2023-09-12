@@ -12,6 +12,7 @@ using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 
 namespace Echooling.Persistance.Implementations.Services
@@ -41,8 +42,11 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException(message);
             }
+            categoryCreateDto.eventsId = new Guid(categoryCreateDto.eventsId.ToString());
+            string guid = categoryCreateDto.AppUserId.ToString();
             AppUserEvents userEvents = _mapper.Map<AppUserEvents>(categoryCreateDto);
             await _writeRepository.addAsync(userEvents);
+            await _writeRepository.SaveChangesAsync();
         }
     }
 }
