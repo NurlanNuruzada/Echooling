@@ -22,13 +22,13 @@ namespace Echooling.API.Controllers
         [HttpGet("id")]
         public async Task<IActionResult> get(Guid id)
         {
-            CourseCategoryDto slider = await _courseService.GetCourseCategoryById(id);
+            CategoryGetDto slider = await _courseService.GetCourseCategoryById(id);
             return Ok(slider);
         }
         [HttpGet]
         public async Task<IActionResult> getAll()
         {
-            List<CourseCategoryDto> List = await _courseService.GetAllAsync();
+            List<CategoryGetDto> List = await _courseService.GetAllAsync();
             return Ok(List);
         }
         [HttpDelete("id")]

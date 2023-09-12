@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.EventRepositories;
 using Echooling.Aplication.Abstraction.Services;
+using Echooling.Aplication.DTOs;
 using Echooling.Aplication.DTOs.EventDTOs;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
@@ -18,26 +19,36 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         public readonly IStaffEventsService _staffEventsService;
+        private readonly IAppUserEventService _AppuserEventService;
+        public readonly IAppUserEventService _appUserEventService;
 
         public EventService(IEventWriteRepository writeRepository,
                             IEventReadRepository readRepository,
-                            IStringLocalizer<ErrorMessages> localizer,
                             IMapper mapper,
-                            IStaffEventsService staffEventsService)
+                            IStringLocalizer<ErrorMessages> localizer,
+                            IStaffEventsService staffEventsService,
+                            IAppUserEventService appuserEventService,
+                            IAppUserEventService appUserEventService)
         {
             _writeRepository = writeRepository;
             _readRepository = readRepository;
-            _localizer = localizer;
             _mapper = mapper;
+            _localizer = localizer;
             _staffEventsService = staffEventsService;
+            _AppuserEventService = appuserEventService;
+            _appUserEventService = appUserEventService;
         }
+
         public async Task CreateAsync(EventCreateDto CreateEventDto, Guid UserId)
         {
             events events = _mapper.Map<events>(CreateEventDto);
             await _writeRepository.addAsync(events);
             await _writeRepository.SaveChangesAsync();
+            AppUserEventDto appUserEventDto = new(events.GuId, UserId);
+            await _AppuserEventService.CreateAsync(appUserEventDto);
             await _staffEventsService.AddStaffToEventAsync(events.GuId, UserId);
             await _writeRepository.SaveChangesAsync();
+
         }
         public async Task<List<EventGetDto>> GetAllAsync()
         {

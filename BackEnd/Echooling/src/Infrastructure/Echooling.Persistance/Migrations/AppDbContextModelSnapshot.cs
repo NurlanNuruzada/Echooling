@@ -278,7 +278,7 @@ namespace Echooling.Persistance.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("EventCategoryId")
+                    b.Property<Guid?>("EventCategoryiesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("EventFinishDate")
@@ -304,7 +304,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasKey("GuId");
 
-                    b.HasIndex("EventCategoryId");
+                    b.HasIndex("EventCategoryiesId");
 
                     b.ToTable("Events");
                 });
@@ -764,9 +764,8 @@ namespace Echooling.Persistance.Migrations
                 {
                     b.HasOne("Ecooling.Domain.Entites.EventCategoryies", "EventCategoryies")
                         .WithMany("Events")
-                        .HasForeignKey("EventCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventCategoryiesId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("EventCategoryies");
                 });

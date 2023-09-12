@@ -9,8 +9,8 @@ namespace Ecooling.Domain.Entites
     public class AppUserEvents:BaseEntity
     {
         public Guid? eventsId { get; set; }
-        public events? events { get; set; }
         public Guid? AppUserId { get; set; }
+        public events? events { get; set; }
         public AppUser? AppUser { get; set; }
     }
 }

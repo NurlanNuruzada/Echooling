@@ -12,7 +12,7 @@
         public string? Location { get; set; }
         public string? EventTitle { get; set; }
         public string? AboutEvent { get; set; }
-        public Guid EventCategoryId { get; set; }
-        public EventCategoryies EventCategoryies { get; set; } = null!;
+        public Guid? EventCategoryiesId { get; set; }
+        public EventCategoryies? EventCategoryies{ get; set; }
     }
 }

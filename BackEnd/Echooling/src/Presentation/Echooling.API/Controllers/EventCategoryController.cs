@@ -21,13 +21,13 @@ namespace Echooling.API.Controllers
         [HttpGet("id")]
         public async Task<IActionResult> get(Guid id)
         {
-            EventCategoryDto slider = await _eventService.getById(id);
+            CategoryGetDto slider = await _eventService.getById(id);
             return Ok(slider);
         }
         [HttpGet]
         public async Task<IActionResult> getAll()
         {
-            List<EventCategoryDto> List = await _eventService.GetAllAsync();
+            List<CategoryGetDto> List = await _eventService.GetAllAsync();
             return Ok(List);
         }
         [HttpDelete("id")]

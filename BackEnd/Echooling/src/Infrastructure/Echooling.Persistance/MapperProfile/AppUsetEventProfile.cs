@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Echooling.Aplication.DTOs.CategoryDTOs;
+using Echooling.Aplication.DTOs;
 using Ecooling.Domain.Entites;
 
 namespace Echooling.Persistance.MapperProfile
 {
-    public class EventCourseProfile : Profile
+    public class AppUsetEventProfile:Profile
     {
-        public EventCourseProfile()
+        public AppUsetEventProfile()
         {
-            CreateMap<EventCategoryies, EventCategoryDto>().ReverseMap();
+            CreateMap<AppUserEvents,AppUserEventDto>().ReverseMap();
         }
     }
 }

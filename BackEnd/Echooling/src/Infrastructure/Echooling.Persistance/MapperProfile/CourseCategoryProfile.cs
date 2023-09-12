@@ -15,6 +15,8 @@ namespace Echooling.Persistance.MapperProfile
         public CourseCategoryProfile()
         {
             CreateMap<CourseCategories, CourseCategoryDto>().ReverseMap();
+            CreateMap<CourseCategories, CategoryGetDto>().ReverseMap();
+
         }
     }
 }

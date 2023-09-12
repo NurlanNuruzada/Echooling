@@ -20,11 +20,35 @@ import {
     Input,
     tokenToCSSVar,
 } from "@chakra-ui/react";
+import {
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
+} from '@chakra-ui/react'
 import Done from '../../../Components/DoneModal/Done';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
+
 function CreateEvent({ onNext, formData, onPrevious }) {
+    const [number, setNumber] = useState(0);
+
+    const format = (val) => {
+        return `$${val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+    };
+
+    const parse = (val) => {
+        const parsedValue = parseFloat(val.replace(/[^\d.]/g, ''));
+        return isNaN(parsedValue) ? 0 : parsedValue;
+    };
+
+    const handleInputChange = (valueString) => {
+        // Parse the value from the input
+        const parsedValue = parse(valueString);
+        setNumber(parsedValue);
+    };
     const navigate = useNavigate();
 
     const handleNavigate = (route) => {
@@ -38,14 +62,14 @@ function CreateEvent({ onNext, formData, onPrevious }) {
             "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
             ];
     }
-    const [step2Data, setStep2Data] = useState("");
+    const [step3Data, setstep3Data] = useState("");
     const [SentSuccess, setSentSuccess] = useState(false)
     const handlePreviousClick = () => {
         onPrevious();
     };
     const formik = useFormik({
         initialValues: {
-            Cost: "",
+            Cost: number,
             orginazer: "",
             TotalSlot: "",
             Location: "",
@@ -83,7 +107,9 @@ function CreateEvent({ onNext, formData, onPrevious }) {
             };
         }
     }, [SentSuccess]);
-    <button className={Styles.Bu} onClick={handlePreviousClick}>Previus</button>
+    const currentDateTime = new Date().toISOString().slice(0, 16);
+
+    // Add the missing return statement for your JSX
     return (
         <>
             <Progress value={100} />
@@ -92,20 +118,28 @@ function CreateEvent({ onNext, formData, onPrevious }) {
             <Flex className={Styles.MainContainer} p={"40px 0"} justifyContent={"center"}>
                 <Box minW="0rem">
                     <Heading color={"#3270fc"} mb={4}>
-                        And Lastly Let's fill up the Form
+                        And Lastly Let's fill up the Event information
                     </Heading>
-                    <Flex p={"20px 0"} gap={5} flexFlow={"column"}>
-                        <Box>
-                            <Input
-                                borderColor={"black"}
+                    <Flex p={"20px 0"} gap={5} flexFlow={"column"} >
+                        <Box >
+                            <NumberInput
+                                borderColor="black"
                                 variant="flushed"
-                                pr="4.5rem"
                                 size="lg"
+                                value={format(number)} // Format the displayed value
+                                onChange={(valueString) => handleInputChange(valueString)} // Change this line
+                                min={0}
+                                step={0.01} // Set the step to 0.01 for two decimal places
                                 placeholder="Event Cost"
-                                onChange={formik.handleChange}
                                 name="Cost"
-                                value={formik.values.Cost}
-                            />
+                                style={{ width: '100%' }}
+                            >
+                                <NumberInputField />
+                                <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                </NumberInputStepper>
+                            </NumberInput>
                         </Box>
                         <Box>
                             <Input
@@ -113,10 +147,11 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 variant="flushed"
                                 pr="4.5rem"
                                 size="lg"
-                                placeholder="Event EventTitle"
+                                placeholder="Event Title"
                                 onChange={formik.handleChange}
                                 name="EventTitle"
                                 value={formik.values.EventTitle}
+                                className={Styles.Input}
                             />
                         </Box>
                         <Box>
@@ -129,6 +164,7 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 onChange={formik.handleChange}
                                 name="Location"
                                 value={formik.values.Location}
+                                className={Styles.Input}
                             />
                         </Box>
                         <Box>
@@ -137,10 +173,13 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 variant="flushed"
                                 pr="4.5rem"
                                 size="lg"
-                                placeholder="Event EventStartDate"
+                                type="datetime-local"
+                                placeholder="EventStartDate"
                                 onChange={formik.handleChange}
                                 name="EventStartDate"
                                 value={formik.values.EventStartDate}
+                                className={Styles.Input}
+                                min={currentDateTime} // Set the minimum date and time
                             />
                         </Box>
                         <Box>
@@ -149,10 +188,13 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 variant="flushed"
                                 pr="4.5rem"
                                 size="lg"
-                                placeholder="Event EventFinishDate"
+                                type="datetime-local"
+                                placeholder="EventFinishDate"
                                 onChange={formik.handleChange}
                                 name="EventFinishDate"
                                 value={formik.values.EventFinishDate}
+                                className={Styles.Input}
+                                min={currentDateTime} // Set the minimum date and time
                             />
                         </Box>
                         <Box>
@@ -161,10 +203,12 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 variant="flushed"
                                 pr="4.5rem"
                                 size="lg"
-                                placeholder="Event TotalSlot"
+                                placeholder="Event Total Slot"
                                 onChange={formik.handleChange}
                                 name="TotalSlot"
                                 value={formik.values.TotalSlot}
+                                className={Styles.Input}
+                                type='number'
                             />
                         </Box>
                         <Box>
@@ -173,10 +217,12 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 variant="flushed"
                                 pr="4.5rem"
                                 size="lg"
-                                placeholder="Event AboutEvent"
+                                placeholder="About Event"
                                 onChange={formik.handleChange}
                                 name="AboutEvent"
                                 value={formik.values.AboutEvent}
+                                className={Styles.Input}
+
                             />
                         </Box>
                     </Flex>
@@ -214,4 +260,4 @@ function CreateEvent({ onNext, formData, onPrevious }) {
     );
 }
 
-export default CreateEvent
+export default CreateEvent;

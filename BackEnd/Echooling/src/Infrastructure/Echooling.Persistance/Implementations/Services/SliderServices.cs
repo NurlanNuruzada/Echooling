@@ -40,8 +40,8 @@ namespace Echooling.Persistance.Implementations.Services
         public async Task<SliderGetDto> getById(Guid id)
         {
             Slider slider = await _readRepository.GetByIdAsync(id);
-            string message = _localizer.GetString("NotFoundExceptionMsg");
             SliderGetDto sliderGetDto = _mapper.Map<SliderGetDto>(slider);
+            string message = _localizer.GetString("NotFoundExceptionMsg");
             if (slider is null)
             {
                 throw new notFoundException(message);

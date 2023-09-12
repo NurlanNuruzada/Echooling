@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.CourseCategory;
-using Echooling.Aplication.Abstraction.Repository.EventCategoryRepository;
-using Echooling.Aplication.Abstraction.Repository.EventRepositories;
+using Echooling.Aplication.Abstraction.Repository.EventsStaff;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.CategoryDTOs;
+using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
@@ -17,32 +17,43 @@ using Microsoft.Extensions.Localization;
 
 namespace Echooling.Persistance.Implementations.Services
 {
-    public class EventCourseService : IEventsCategoryService
+    public class CourseCAtegoryServices : ICourseCategoryService
     {
-        private readonly IEventCategoryReadRepository _ReadRepository;
-        private readonly IEventCategoryWriteRepository _WriteRepository;
+        private readonly ICourseReadRepository _ReadRepository;
+        private readonly ICourseWriteRepository _WriteRepository;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
-        public async Task Create(EventCategoryDto eventCategoryDto)
+        public CourseCAtegoryServices(ICourseReadRepository readRepository,
+                              ICourseWriteRepository writeRepository,
+                              IMapper mapper,
+                              IStringLocalizer<ErrorMessages> localizer)
         {
-            EventCategoryies category = _mapper.Map<EventCategoryies>(eventCategoryDto);
+            _ReadRepository = readRepository;
+            _WriteRepository = writeRepository;
+            _mapper = mapper;
+            _localizer = localizer;
+        }
+
+        public async Task CreateCourseCategory(CourseCategoryDto courseCategoryDto)
+        {
+            CourseCategories category = _mapper.Map<CourseCategories>(courseCategoryDto);
             await _WriteRepository.addAsync(category);
             await _WriteRepository.SaveChangesAsync();
         }
 
-        public async Task<List<EventCategoryDto>> GetAllAsync()
+        public async Task<List<CategoryGetDto>> GetAllAsync()
         {
             var Categoryes = await _ReadRepository.GetAll().ToListAsync();
-            List<EventCategoryDto> List = _mapper.Map<List<EventCategoryDto>>(Categoryes);
+            List<CategoryGetDto> List = _mapper.Map<List<CategoryGetDto>>(Categoryes);
             return List;
         }
 
-        public async Task<EventCategoryDto> getById(Guid id)
+        public async Task<CategoryGetDto> GetCourseCategoryById(Guid id)
         {
-            EventCategoryies Category = await _ReadRepository.GetByIdAsync(id);
+            CourseCategories Category = await _ReadRepository.GetByIdAsync(id);
             string message = _localizer.GetString("NotFoundExceptionMsg");
-            EventCategoryDto category = _mapper.Map<EventCategoryDto>(Category);
+            CategoryGetDto category = _mapper.Map<CategoryGetDto>(Category);
             if (category is null)
             {
                 throw new notFoundException(message);
@@ -55,7 +66,7 @@ namespace Echooling.Persistance.Implementations.Services
 
         public async Task Remove(Guid id)
         {
-            EventCategoryies categories = await _ReadRepository.GetByIdAsync(id);
+            CourseCategories categories = await _ReadRepository.GetByIdAsync(id);
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (categories is null)
             {
@@ -65,7 +76,7 @@ namespace Echooling.Persistance.Implementations.Services
             await _WriteRepository.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(EventCategoryDto categoryDto, Guid id)
+        public async Task UpdateAsync(CourseCategoryDto categoryDto, Guid id)
         {
             var categories = await _ReadRepository.GetByIdAsync(id);
             string message = _localizer.GetString("NotFoundExceptionMsg");
@@ -76,5 +87,6 @@ namespace Echooling.Persistance.Implementations.Services
             _mapper.Map(categoryDto, categories);
             await _WriteRepository.SaveChangesAsync();
         }
+
     }
 }

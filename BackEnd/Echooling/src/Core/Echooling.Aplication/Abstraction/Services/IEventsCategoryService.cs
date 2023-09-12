@@ -5,8 +5,8 @@ namespace Echooling.Aplication.Abstraction.Services;
 public interface IEventsCategoryService
 {
     Task Create(EventCategoryDto eventCategoryDto);
-    Task<EventCategoryDto> getById(Guid id);
-    Task<List<EventCategoryDto>> GetAllAsync();
+    Task<CategoryGetDto> getById(Guid id);
+    Task<List<CategoryGetDto>> GetAllAsync();
     Task UpdateAsync(EventCategoryDto eventCategoryDto, Guid id);
     Task Remove(Guid id);
 }

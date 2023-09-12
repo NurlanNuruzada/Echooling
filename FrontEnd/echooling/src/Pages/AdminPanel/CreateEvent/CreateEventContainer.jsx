@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CreateEventStepone from "./CreateEventStepone";
+import CreateEventSteptwo from "./CreateEventSteptwo";
 import CreateEvent from "./CreateEvent";
 
 export default function CreateEventContainer() {
@@ -7,6 +8,7 @@ export default function CreateEventContainer() {
     const [formData, setFormData] = useState({
         step1Data: "",
         step2Data: "",
+        step3Data: ""
     });
 
     const handleNext = (data) => {
@@ -26,8 +28,11 @@ export default function CreateEventContainer() {
         <div>
             {currentStep === 1 && <CreateEventStepone onNext={handleNext} />}
             {currentStep === 2 && (
+                <CreateEventSteptwo onPrevious={handlePrevious} onNext={handleNext} />
+            )}
+            {currentStep === 3 && (
                 <CreateEvent onPrevious={handlePrevious} onNext={handleNext} formData={formData} />
             )}
         </div>
     );
-};
+}

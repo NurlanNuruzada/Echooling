@@ -31,7 +31,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
         modelBuilder.Entity<events>()
             .HasOne(e => e.EventCategoryies)
             .WithMany(ec => ec.Events)
-            .HasForeignKey(e => e.EventCategoryId)
+            .HasForeignKey(e => e.EventCategoryiesId)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Course>()
