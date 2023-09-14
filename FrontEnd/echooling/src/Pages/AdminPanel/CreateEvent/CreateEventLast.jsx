@@ -18,7 +18,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
     const [Id, setId] = useState('');
     const [File, SetFile] = useState(null); // Declare File in the outer scope
     const [FileName, SetFileName] = useState('');
-    const { token, userName } = useSelector((state) => state.auth); // Update the selector
+     const { token, userName } = useSelector((state) => state.auth); // Update the selector
 
     if (token != null) {
         var decodedToken = jwt_decode(token);
@@ -110,6 +110,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
         if (SentSuccess) {
             const timer = setTimeout(() => {
                 setSentSuccess(false);
+                navigate("/ControlPanel/CreateEvent")
             }, 1500);
             return () => {
                 clearTimeout(timer);

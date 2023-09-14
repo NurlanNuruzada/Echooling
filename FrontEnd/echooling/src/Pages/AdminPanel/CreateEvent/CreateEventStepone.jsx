@@ -15,13 +15,13 @@ import { getAllEventCategories } from '../../../Services/CategoryService';
 import { GetUStaffUsers } from '../../../Services/StaffService';
 
 export default function CreateEventStepone({ onNext }) {
-  const [step1Data, setStep1Data] = useState('');
-  const [selected, setSelected] = useState(false);
-  const [Data, setData] = useState({ data: [] }); // Initialize Data as an object with an empty data array
+  const [step1Data, setStep1Data] = useState(''); // No initial value for step1Data
+  const [selected, setSelected] = useState(false); // Set initial selected state to false
+  const [Data, setData] = useState({ data: [] });
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredData, setFilteredData] = useState([]); // Initialize filteredData as an empty array
+  const [filteredData, setFilteredData] = useState([]);
 
-  const { mutate, isLoading, error } = useMutation(() => GetUStaffUsers(), {
+  const { mutate, isLoading, error } = useMutation(() => getAllEventCategories(), {
     onSuccess: (resp) => {
       console.log(resp);
       setData(resp);
@@ -36,13 +36,10 @@ export default function CreateEventStepone({ onNext }) {
   }, []);
 
   useEffect(() => {
-    // Filter the data based on the search query
     const query = searchQuery.toLowerCase();
-    const filteredData = Data.data.filter((data) =>
-      data.userName.toLowerCase().includes(query)
+    const filteredData = Data.data?.filter((data) =>
+      data.category.toLowerCase().includes(query)
     );
-
-    // Update the state with the filtered data
     setFilteredData(filteredData);
   }, [searchQuery, Data]);
 
@@ -68,15 +65,15 @@ export default function CreateEventStepone({ onNext }) {
       <div className={Styles.MainContainer}>
         <div className={Styles.container}>
           <div className={Styles.header}>
-            <h1>Let's Sellect the Atendances you want </h1>
+            <h1>Let's Select the Attendees you want</h1>
             <p>
-             you can able to sellect any teaher or stuff to work for you or just invite some of the users u want.
-             you can simply skip this one if you want.
+              You can select any teacher or staff to work for you or just invite some of the users you want.
+              You can simply skip this step if you want.
             </p>
           </div>
           <div className={Styles.ImageAndRadios}>
             <Stack>
-              <h1> Select the Event Atendances and Staff</h1>
+              <h1> Select the Event Attendees and Staff</h1>
               <Input
                 variant='flushed'
                 placeholder='Search'
@@ -88,10 +85,11 @@ export default function CreateEventStepone({ onNext }) {
                 placeholder='Select Category'
                 size='lg'
                 onChange={handleValueChange}
+                value={step1Data} // Set the initial value here
               >
-                {filteredData.map((data, index) => (
+                {filteredData?.map((data, index) => (
                   <option key={index} value={data.guId}>
-                    {data.userName}
+                    {data.category}
                   </option>
                 ))}
               </Select>
@@ -100,7 +98,7 @@ export default function CreateEventStepone({ onNext }) {
           </div>
         </div>
       </div>
-      {true && (
+      {selected && (
         <button className={Styles.Button} onClick={handleNext}>
           NEXT
         </button>

@@ -57,7 +57,7 @@ function CreateEvent({ onNext, formData, onPrevious }) {
     };
     const formik = useFormik({
         initialValues: {
-          Cost: number,
+          Cost: "",
           orginazer: '',
           TotalSlot: '',
           Location: '',
@@ -67,7 +67,6 @@ function CreateEvent({ onNext, formData, onPrevious }) {
           EventStartDate: '',
         },
         onSubmit: (values) => {
-            formik.Cost =number
           onNext({ step3Data: values });
         },
       });
@@ -84,24 +83,19 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                     </Heading>
                     <Flex p={"20px 0"} gap={5} flexFlow={"column"} >
                         <Box>
-                            <NumberInput
+                            <Input
                                 borderColor="black"
                                 variant="flushed"
                                 size="lg"
-                                value={number}
-                                onChange={(value) => setNumber(value)}
+                                value={formik.values.Cost}
+                                onChange={formik.handleChange}
                                 min={0}
                                 step={0.01}
                                 placeholder="Event Cost"
                                 name="Cost"
                                 style={{ width: '100%' }}
                             >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
+                            </Input>
                         </Box>
                         <Box>
                             <Input

@@ -2,7 +2,9 @@
 using Echooling.Aplication.Abstraction.Repository.EventRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs;
+using Echooling.Aplication.DTOs.CategoryDTOs;
 using Echooling.Aplication.DTOs.EventDTOs;
+using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Helper;
 using Echooling.Persistance.Resources;
@@ -25,6 +27,7 @@ namespace Echooling.Persistance.Implementations.Services
         public readonly IStaffEventsService _staffEventsService;
         private readonly IAppUserEventService _AppuserEventService;
         public readonly IAppUserEventService _appUserEventService;
+        public IEventsCategoryService _eventsCategoryService;
 
         public EventService(IEventWriteRepository writeRepository,
                             IEventReadRepository readRepository,
@@ -33,7 +36,8 @@ namespace Echooling.Persistance.Implementations.Services
                             IStaffEventsService staffEventsService,
                             IAppUserEventService appuserEventService,
                             IAppUserEventService appUserEventService,
-                            IWebHostEnvironment env)
+                            IWebHostEnvironment env,
+                            IEventsCategoryService eventsCategoryService)
         {
             _writeRepository = writeRepository;
             _readRepository = readRepository;
@@ -43,30 +47,46 @@ namespace Echooling.Persistance.Implementations.Services
             _AppuserEventService = appuserEventService;
             _appUserEventService = appUserEventService;
             _env = env;
+            _eventsCategoryService = eventsCategoryService;
         }
 
         public async Task CreateAsync(EventCreateDto CreateEventDto, Guid UserId)
         {
-            events events = _mapper.Map<events>(CreateEventDto);
+            if (CreateEventDto.image == null)
+            {
+                throw new Exception("No image file provided.");
+            }
+            events EntityEvent = _mapper.Map<events>(CreateEventDto);
+            string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Event";
+            Directory.CreateDirectory(uploadsDirectory);
+
             if (CreateEventDto.image is not null)
             {
-                events.ImageRoutue = await CreateEventDto.image.GetBytes();
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(CreateEventDto.image.FileName);
+                string filePath = Path.Combine(uploadsDirectory, fileName);
+
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                {
+                    await CreateEventDto.image.CopyToAsync(fileStream);
+                }
+
+                EntityEvent.ImageRoutue = fileName;
             }
-            else
-            {
-                throw new Exception("imgae not fuond");
-            }
-            await _writeRepository.addAsync(events);
+            await _writeRepository.addAsync(EntityEvent);
             //AppUserEventDto appUserEventDto = new(events.GuId.to, UserId);
             //await _AppuserEventService.CreateAsync(appUserEventDto);
             await _writeRepository.SaveChangesAsync();
-            await _staffEventsService.AddStaffToEventAsync(events.GuId, UserId);
+            await _staffEventsService.AddStaffToEventAsync(EntityEvent.GuId, UserId);
             await _writeRepository.SaveChangesAsync();
         }
         public async Task<List<EventGetDto>> GetAllAsync()
         {
             var Events = await _readRepository.GetAll().ToListAsync();
             List<EventGetDto> List = _mapper.Map<List<EventGetDto>>(Events);
+            foreach (EventGetDto sliderDto in List)
+            {
+                sliderDto.ImageRoutue = $"{sliderDto.ImageRoutue}";
+            }
             return List;
         }
         public async Task<EventGetDto> getById(Guid id)
@@ -78,7 +98,7 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new notFoundException("user" + " " + message);
             }
             EventGetDto FoundEvent = _mapper.Map<EventGetDto>(Event);
-            FoundEvent.image = Convert.ToBase64String(Event.ImageRoutue);
+            FoundEvent.ImageRoutue = Event.ImageRoutue;
             return FoundEvent;
         }
         public async Task Remove(Guid id)

@@ -6,5 +6,4 @@ public class Slider : BaseEntity
     public string SeccondTile { get; set; } = null!;
     public string Description { get; set; } = null!;
     public string? ImageRoutue { get; set; } = null!;
-
 }

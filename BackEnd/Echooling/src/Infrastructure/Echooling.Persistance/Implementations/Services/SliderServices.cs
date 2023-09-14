@@ -81,6 +81,7 @@ namespace Echooling.Persistance.Implementations.Services
             }
             else
             {
+                sliderGetDto.ImageRoutue = slider.ImageRoutue;
                 return sliderGetDto;
             }
         }

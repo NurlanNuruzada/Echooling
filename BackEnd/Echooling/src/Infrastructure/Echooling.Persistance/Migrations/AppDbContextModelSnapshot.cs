@@ -290,8 +290,8 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("EventTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("ImageRoutue")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("ImageRoutue")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -299,11 +299,11 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Orginazer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("TotalSlot")
                         .HasColumnType("int");
-
-                    b.Property<string>("orginazer")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GuId");
 

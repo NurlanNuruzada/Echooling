@@ -14,6 +14,7 @@ namespace Echooling.Aplication.DTOs.EventDTOs
         public string? EventTitle { get; set; }
         public string? AboutEvent { get; set; }
         public IFormFile? image { get; set; }
+        public Guid? EventCategoryiesId { get; set;}
     }
 }
  
