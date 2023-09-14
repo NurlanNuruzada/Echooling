@@ -49,11 +49,17 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
     const handleNavigate = (route) => {
         navigate(route);
     };
-    const saveFile = (e) => {
-        console.log(e.target.files[0]);
-        SetFile(e.target.files[0]);
-        SetFileName(e.target.files[0].name);
-    }
+
+    const fileUploadHandler = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            SetFile(selectedFile);
+            SetFileName(selectedFile.name);
+            formik.setFieldValue('image', selectedFile)
+        } else {
+            console.error("No file selected.");
+        }
+    };
     const formik = useFormik({
         initialValues: {
             eventFinishDate: formData.step3Data.EventFinishDate,
@@ -77,22 +83,11 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             formData.append("Location", values.location);
             formData.append("EventTitle", values.eventTitle);
             formData.append("AboutEvent", values.aboutEvent);
-            console.log(formData.getAll("Cost"));
-            console.log(formData.getAll("location"));
-            console.log(formData.getAll("EventTitle"));
-            console.log(formData.getAll("image"));
-            console.log(formData.getAll("AboutEvent"));
-            console.log(formData.getAll("orginazer"));
-            console.log(formData.getAll("TotalSlot"));
-            try {
-                const response = await axios.post(`https://localhost:7222/api/Event/Create/id?staffId=${Id}`, formData, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                });
-                // QueryClient.invalidateQueries("getAllSlider");
-            } catch (error) {
-                console.error(error);
+            if (formData.get("image")) {
+                console.log("FormData before muration", formData)
+                mutate(formData);
+            } else {
+                console.log("FormData is null");
             }
         },
     });
@@ -115,8 +110,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
         if (SentSuccess) {
             const timer = setTimeout(() => {
                 setSentSuccess(false);
-                handleNavigate('/ControlPanel');
-            }, 4500);
+            }, 1500);
             return () => {
                 clearTimeout(timer);
             };
@@ -136,10 +130,10 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             CreateEventLast
             <Flex gap={5}>
                 <form onSubmit={formik.handleSubmit}>
-                    <input
+                <input
                         name="image"
                         type="file"
-                        onChange={(e) => saveFile(e)}
+                        onChange={(e) => fileUploadHandler(e)}
                     />
                     <button className={Styles.Button} onClick={handlePreviousClick}>
                         PREVIOUS

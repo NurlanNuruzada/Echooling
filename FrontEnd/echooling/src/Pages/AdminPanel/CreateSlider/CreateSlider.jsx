@@ -89,15 +89,7 @@ export default function CreateSlider({ onNext, formData, onPrevious }) {
 
             if (formData.get("image")) {
                 console.log("FormData before muration", formData)
-                //1
                 mutate(formData);
-
-                //2
-                for (const [key, value] of formData.entries()) {
-                    console.log(key, value);
-                }
-                //3
-                console.log(...formData.values());
             } else {
                 console.log("FormData is null");
             }

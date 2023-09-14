@@ -13,9 +13,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router";
+import { getSliders } from "../../Services/SliderService";
+import { useQuery } from "react-query";
 
 const SliderCom = () => {
-  const Images = [image1, image2, image3];
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["sliders"],
+    queryFn: getSliders,
+    staleTime: 0,
+
+});
   const sliderRef = React.useRef(null);
 
   const settings = {
@@ -45,13 +52,9 @@ const SliderCom = () => {
   return (
     <div className={Styles.SliderContainer}>
       <Slider ref={sliderRef} {...settings} className={Styles.CustomSlider}>
-        {Images.map((image, index) => (
+        {data?.data.map((slider, index) => (
           <div key={index} className={Styles.slideContainer}>
-            <img
-              className={Styles.customSlide}
-              src={image}
-              alt={`slider - ${index}`}
-            />
+            <img  className={Styles.customSlide}  alt={`slider - ${index}`} src={`/Uploads/${slider.imageRoutue}`}/>
             <div className={`${Styles.slideText} ${Styles.fadeInAnimation}`}>
               <h2>Slide {index + 1}</h2>
               <div
@@ -62,21 +65,19 @@ const SliderCom = () => {
                
                   className={Styles.MainTitle}
                 >
-                  EDUCATION MAKES{" "}
+                  {slider.title}{" "}
                 </h1>
                 <h1
               
                   className={Styles.SeccondTitle}
                 >
-                  PROPER HUMANITY{" "}
+                  {slider.seccondTile}{" "}
                 </h1>
                 <p
                   
                   className={Styles.Desctiption}
                 >
-                  I must explain to you how all this mistaken idea of denouncing
-                  pleasure and prsing pain was born and I will give you a
-                  complete account of the system{" "}
+                  {slider.description}{" "}
                 </p>
                 <Button
                   onClick={handleGoAbout}
