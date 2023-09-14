@@ -59,15 +59,24 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
             </Link>
           </li>
         </ul>
+        <ul className={Styles.linkList}>
+          <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Admin</h1>
+          <li  >
+            <Link to={"/ControlPanel/CreateSlider"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+              <FontAwesomeIcon icon={faChartLine} />
+              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Slider</h1>
+            </Link>
+          </li>
+       
+        </ul>
         <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Teacher</h1>
-          {CreateTeacher?.map((CreateTeacher, index) => (
-            <li key={index} >
-              <Link to={CreateTeacher.link} className={isSmall ? Styles.ButtonMini : Styles.Button}>
-                {CreateTeacher.LinkName}
-              </Link>
-            </li>
-          ))}
+          <li  >
+            <Link to={"/ControlPanel/CreateCourseContainer"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+              <FontAwesomeIcon icon={faChartLine} />
+              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Coruse</h1>
+            </Link>
+          </li>
         </ul>
         <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Events</h1>

@@ -5,7 +5,7 @@ using Echooling.Persistance.Contexts;
 using Ecooling.Domain.Entites;
 
 namespace Echooling.Persistance.Implementations.Repositories.CategoryRepositories;
-public class CategoryReadRepository : ReadRepository<CourseCategories>, ICourseReadRepository
+public class CategoryReadRepository : ReadRepository<CourseCategories>, ICourseCategoryReadRepository
 {
     public CategoryReadRepository(AppDbContext context) : base(context)
     {

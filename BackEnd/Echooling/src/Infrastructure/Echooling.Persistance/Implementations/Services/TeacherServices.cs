@@ -66,6 +66,7 @@ namespace Echooling.Persistance.Implementations.Services
             teacher.PhoneNumber = user.PhoneNumber;
             teacher.Fullname = user.Fullname;
             teacher.emailAddress = user.Email;
+            teacher.UserName = user.UserName;
             teacher.Role = "Teacher";
             await _writeRepo.addAsync(teacher);
             await _writeRepo.SaveChangesAsync();

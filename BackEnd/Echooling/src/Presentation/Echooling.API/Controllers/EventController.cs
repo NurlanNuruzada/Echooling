@@ -5,6 +5,7 @@ using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Echooling.Aplication.DTOs.EventDTOs;
+using Ecooling.Domain.Entites.Common;
 
 namespace Echooling.API.Controllers
 {
@@ -43,18 +44,23 @@ namespace Echooling.API.Controllers
             }
             return Ok(new { message = "Category deleted successfully." });
         }
+
+
         [HttpPost("[Action]/id")]
-        public async Task<IActionResult> Create(EventCreateDto eventDto, Guid StaffId)
+        public async Task<IActionResult> Create([FromForm]EventCreateDto eventDto,Guid staffId)
         {
-            await _eventService.CreateAsync(eventDto, StaffId);
+            Console.WriteLine(eventDto.Cost+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            await _eventService.CreateAsync(eventDto, staffId);
             return StatusCode((int)HttpStatusCode.Created);
         }
+
         [HttpPut("id")]
         public async Task<IActionResult> update([FromBody] EventCreateDto eventDto, Guid id)
         {
             await _eventService.UpdateAsync(eventDto, id);
             return Ok(new { message = "Slider Updated successfully." + eventDto });
         }
+
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using Ecooling.Domain.Entites;
+using Microsoft.AspNetCore.Http;
 
 namespace Echooling.Aplication.DTOs.EventDTOs
 {
@@ -12,6 +13,7 @@ namespace Echooling.Aplication.DTOs.EventDTOs
         public string? Location { get; set; }
         public string? EventTitle { get; set; }
         public string? AboutEvent { get; set; }
+        public IFormFile? image { get; set; }
     }
 }
  

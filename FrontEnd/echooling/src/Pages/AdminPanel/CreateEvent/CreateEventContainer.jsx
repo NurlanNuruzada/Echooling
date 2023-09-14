@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import CreateEventStepone from "./CreateEventStepone";
 import CreateEventSteptwo from "./CreateEventSteptwo";
 import CreateEvent from "./CreateEvent";
+import CreateEventLast from "./CreateEventLast";
+import { useMutation } from "react-query";
+import { useFormik } from "formik";
 
 export default function CreateEventContainer() {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
         step1Data: "",
         step2Data: "",
-        step3Data: ""
+        step3Data: "",
+        step4Data: "",
     });
 
     const handleNext = (data) => {
@@ -20,10 +24,12 @@ export default function CreateEventContainer() {
         setCurrentStep(currentStep - 1);
     };
 
-    useEffect(() => {
-        console.log(formData); // Check if formData is updated correctly
-    }, [formData]);
 
+    //create event 
+   
+    useEffect(() => {
+    }, [formData]);
+    
     return (
         <div>
             {currentStep === 1 && <CreateEventStepone onNext={handleNext} />}
@@ -32,6 +38,9 @@ export default function CreateEventContainer() {
             )}
             {currentStep === 3 && (
                 <CreateEvent onPrevious={handlePrevious} onNext={handleNext} formData={formData} />
+            )}
+            {currentStep === 4 && (
+                <CreateEventLast onPrevious={handlePrevious} onNext={handleNext} formData={formData} />
             )}
         </div>
     );

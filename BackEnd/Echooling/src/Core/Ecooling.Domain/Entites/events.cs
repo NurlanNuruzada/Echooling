@@ -14,5 +14,6 @@
         public string? AboutEvent { get; set; }
         public Guid? EventCategoryiesId { get; set; }
         public EventCategoryies? EventCategoryies{ get; set; }
+        public byte[]? ImageRoutue { get; set; }
     }
 }

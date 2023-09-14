@@ -19,13 +19,13 @@ namespace Echooling.Persistance.Implementations.Services
 {
     public class CourseCAtegoryServices : ICourseCategoryService
     {
-        private readonly ICourseReadRepository _ReadRepository;
-        private readonly ICourseWriteRepository _WriteRepository;
+        private readonly ICourseCategoryReadRepository _ReadRepository;
+        private readonly ICourseCategoryWriteRepository _WriteRepository;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
-        public CourseCAtegoryServices(ICourseReadRepository readRepository,
-                              ICourseWriteRepository writeRepository,
+        public CourseCAtegoryServices(ICourseCategoryReadRepository readRepository,
+                              ICourseCategoryWriteRepository writeRepository,
                               IMapper mapper,
                               IStringLocalizer<ErrorMessages> localizer)
         {

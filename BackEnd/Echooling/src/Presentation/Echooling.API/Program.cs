@@ -6,6 +6,7 @@ using Echooling.Persistance;
 using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
 
@@ -55,6 +56,16 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddInfrastuctureServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 var app = builder.Build();
 app.UseRequestLocalization(localizationOptions);
 using (var init = app.Services.CreateScope())
@@ -69,15 +80,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.useCustomExceptionHandler();
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseCors(x => x
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader()
 );
-
+app.UseCors();
+app.UseCors(cors => cors
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .SetIsOriginAllowed(x => true)
+            .AllowCredentials());
 
 app.UseAuthentication();
 app.UseAuthorization();

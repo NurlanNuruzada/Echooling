@@ -25,13 +25,13 @@ namespace Echooling.API.Controllers
             SliderGetDto slider = await _sliderService.getById(id);
             return Ok(slider);
         }
-        [HttpGet]
+        [HttpGet("[Action]")]
         public async Task<IActionResult> getAll()
         {
             List<SliderGetDto> List = await _sliderService.GetAllAsync();
             return Ok(List);
         }
-        [HttpDelete("id")]
+        [HttpDelete("[Action]/id")]
         public async Task<IActionResult> delete(Guid id)
         {
             try
@@ -44,8 +44,8 @@ namespace Echooling.API.Controllers
             }
             return Ok(new { message = "Category deleted successfully." });
         }
-        [HttpPost]
-        public async Task<IActionResult> Create(SliderCreateDto sliderCreateDto)
+        [HttpPost("[Action]")]
+        public async Task<IActionResult> Create([FromForm]SliderCreateDto sliderCreateDto)
         {
             await _sliderService.CreateAsync(sliderCreateDto);
             return StatusCode((int)HttpStatusCode.Created);

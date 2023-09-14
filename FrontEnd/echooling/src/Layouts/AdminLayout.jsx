@@ -54,24 +54,24 @@ export function AdminLayout() {
   };
 
   return (
-    <Grid className={Styles.GridContainer} templateColumns="0fr 1fr">
-      <GridItem>
-        <Sidebar
-          toggleIsSmall={toggleIsSmall}
-          IsButtonClicked={IsButtonClicked}
-          CreateTeacher={CreateTeacher}
-          CreateStaff={CreateStaff}
-          isSmall={isSmall}
-        />
-      </GridItem>
-      <GridItem className={Styles.GridItem}>
-        <AdminPageHeader
-          toggleIsSmall={toggleIsSmall}
-          isSmall={isSmall}
-          IsButtonClicked={handleButtonClick} // Pass the callback to handle button click
-        />
-        <Outlet />
-      </GridItem>
-    </Grid>
+      <Grid className={Styles.GridContainer} templateColumns="0fr 1fr">
+        <GridItem>
+          <Sidebar
+            toggleIsSmall={toggleIsSmall}
+            IsButtonClicked={IsButtonClicked}
+            CreateTeacher={CreateTeacher}
+            CreateStaff={CreateStaff}
+            isSmall={isSmall}
+          />
+        </GridItem>
+        <GridItem className={Styles.GridItem}>
+          <AdminPageHeader
+            toggleIsSmall={toggleIsSmall}
+            isSmall={isSmall}
+            IsButtonClicked={handleButtonClick} // Pass the callback to handle button click
+          />
+          <Outlet className={Styles.ContentToshow} />
+        </GridItem>
+      </Grid>
   );
 }

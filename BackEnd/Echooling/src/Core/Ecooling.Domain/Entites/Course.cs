@@ -21,7 +21,6 @@ namespace Ecooling.Domain.Entites
         public string AboutCourse { get; set; } = null!;
         public string WhatWillLearn { get; set; } = null!;
         public string CounrseContent { get; set; } = null!;
-
         public Guid CourseCategoryId { get; set; }
         public CourseCategories CourseCategory { get; set; } = null!;
     }

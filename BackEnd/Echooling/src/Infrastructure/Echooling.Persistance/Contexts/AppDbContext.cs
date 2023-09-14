@@ -39,7 +39,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
             .WithMany(cc => cc.Courses)
             .HasForeignKey(e => e.CourseCategoryId)
             .OnDelete(DeleteBehavior.Cascade);
-
         base.OnModelCreating(modelBuilder);
     }
 }

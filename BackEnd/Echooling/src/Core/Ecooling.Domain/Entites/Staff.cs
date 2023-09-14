@@ -25,5 +25,7 @@
         public int? EventCount { get; set; }
         public string? StartExperiance { get; set; }
         public string? Follower { get; set; }
+        public string? UserName { get; set; }
+
     }
 }

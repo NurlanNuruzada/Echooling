@@ -10,4 +10,5 @@ public record GetUserListDto(Guid AppUserID,
                               string? hobbies,
                              string? Role,
                              string? PhoneNumber,
+                                string? UserName,
                              string? Fullname);

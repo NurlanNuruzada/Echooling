@@ -4,7 +4,7 @@ using Ecooling.Domain.Entites;
 
 namespace Echooling.Persistance.Implementations.Repositories.CategoryRepositories
 {
-    public class CategoryWriteRepository : WriteRepository<CourseCategories>, ICourseWriteRepository
+    public class CategoryWriteRepository : WriteRepository<CourseCategories>, ICourseCategoryWriteRepository
     {
         public CategoryWriteRepository(AppDbContext Context) : base(Context)
         {

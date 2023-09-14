@@ -24,5 +24,6 @@ namespace Echooling.Aplication.DTOs.StaffDTOs
         public string? emailAddress { get; set; }
         public string? StartExperiance { get; set; }
         public string? Follower { get; set; }
+        public string? UserName { get; set; }
     }
 }

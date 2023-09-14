@@ -1,4 +1,5 @@
 ﻿using Echooling.Aplication.DTOs.EventDTOs;
+using Microsoft.AspNetCore.Http;
 
 namespace Echooling.Aplication.Abstraction.Services
 {

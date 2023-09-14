@@ -1,69 +1,110 @@
-import React from 'react'
-import Styles from './CreateEventStepone.module.css'
-import { useState, useEffect } from "react";
-import { Progress, Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import Styles from './CreateEventStepone.module.css';
+import {
+  Progress,
+  Radio,
+  RadioGroup,
+  Select,
+  Stack,
+  Input,
+} from '@chakra-ui/react';
 import image from '../../../Images/expand.jpg';
 import Steps from '../../../Components/Steps/Steps';
+import { useMutation } from 'react-query';
+import { getAllEventCategories } from '../../../Services/CategoryService';
+import { GetUStaffUsers } from '../../../Services/StaffService';
+
 export default function CreateEventStepone({ onNext }) {
-    const [step1Data, setStep1Data] = useState("");
-    const [selected, setSelected] = useState(false);
+  const [step1Data, setStep1Data] = useState('');
+  const [selected, setSelected] = useState(false);
+  const [Data, setData] = useState({ data: [] }); // Initialize Data as an object with an empty data array
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([]); // Initialize filteredData as an empty array
 
-    const handleNext = () => {
-        onNext({ step1Data });
-    };
+  const { mutate, isLoading, error } = useMutation(() => GetUStaffUsers(), {
+    onSuccess: (resp) => {
+      console.log(resp);
+      setData(resp);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
-    const handleValueChange = (newValue) => {
-        setStep1Data(newValue);
-        setSelected(true)
-    };
+  useEffect(() => {
+    mutate();
+  }, []);
 
-    // useEffect(() => {
-    //   setStep1Data(newValue);
-    // }, []);
-
-    return (
-        <div>
-            <Progress value={33.3} />
-            <Steps CurrentStep={1} TotalSteps={3} />
-            <div className={Styles.MainContainer}>
-                <div className={Styles.container}>
-                    <div className={Styles.header}>
-                        <h1>Let's learn about you</h1>
-                        <p>
-                            Over the years we've helped thousands of instructors learn how to event at home. No matter your experience level, you can become a event pro too. We'll equip you with the latest resources, tips, and support to help you succeed.
-                        </p>
-                    </div>
-                    <div className={Styles.ImageAndRadios}>
-                        <RadioGroup onChange={handleValueChange} value={step1Data}>
-                            <h1>How much "pro" are you in evnets</h1>
-                            <Stack>
-                                <div className={Styles.Radio}>
-                                    <Radio colorScheme='gray' value="I'm_a_beginner">
-                                        I'm a beginner
-                                    </Radio>
-                                </div>
-                                <div className={Styles.Radio}>
-                                    <Radio colorScheme='gray' value='I_have_Some_knowlage'>
-                                        I have some knowlage
-                                    </Radio>
-                                </div>
-                                <div className={Styles.Radio}>
-                                    <Radio colorScheme='gray' value="I'm_experiance">
-                                        I'm experiance
-                                    </Radio>
-                                </div>
-                                <div className={Styles.Radio}>
-                                    <Radio colorScheme='gray' value="I_have_videos_ready_to_upload">
-                                        I have videos ready to upload
-                                    </Radio>
-                                </div>
-                            </Stack>
-                        </RadioGroup>
-                        <img className={Styles.Image} src={image} alt="" />
-                    </div>
-                </div>
-            </div>
-            {selected && <button className={Styles.Button} onClick={handleNext}>NEXT</button>}
-        </div>
+  useEffect(() => {
+    // Filter the data based on the search query
+    const query = searchQuery.toLowerCase();
+    const filteredData = Data.data.filter((data) =>
+      data.userName.toLowerCase().includes(query)
     );
-};
+
+    // Update the state with the filtered data
+    setFilteredData(filteredData);
+  }, [searchQuery, Data]);
+
+  const handleNext = () => {
+    onNext({ step1Data });
+  };
+
+  const handleValueChange = (event) => {
+    const selectedGuId = event.target.value;
+    setStep1Data(selectedGuId);
+    setSelected(true);
+  };
+
+  const handleSearchChange = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+  };
+
+  return (
+    <div>
+      <Progress value={25} />
+      <Steps CurrentStep={1} TotalSteps={4} />
+      <div className={Styles.MainContainer}>
+        <div className={Styles.container}>
+          <div className={Styles.header}>
+            <h1>Let's Sellect the Atendances you want </h1>
+            <p>
+             you can able to sellect any teaher or stuff to work for you or just invite some of the users u want.
+             you can simply skip this one if you want.
+            </p>
+          </div>
+          <div className={Styles.ImageAndRadios}>
+            <Stack>
+              <h1> Select the Event Atendances and Staff</h1>
+              <Input
+                variant='flushed'
+                placeholder='Search'
+                size='lg'
+                onChange={handleSearchChange}
+              />
+              <Select
+                variant='flushed'
+                placeholder='Select Category'
+                size='lg'
+                onChange={handleValueChange}
+              >
+                {filteredData.map((data, index) => (
+                  <option key={index} value={data.guId}>
+                    {data.userName}
+                  </option>
+                ))}
+              </Select>
+            </Stack>
+            <img className={Styles.Image} src={image} alt='' />
+          </div>
+        </div>
+      </div>
+      {true && (
+        <button className={Styles.Button} onClick={handleNext}>
+          NEXT
+        </button>
+      )}
+    </div>
+  );
+}

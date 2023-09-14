@@ -2,3 +2,7 @@
 .GridItems{
     width: 100%;
 }
+.ContentToshow{
+    width: 100%;
+    overflow: hidden;
+}

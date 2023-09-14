@@ -27,6 +27,8 @@ import AdminPanel from "../Pages/AdminPanel/AdminPanel";
 import { AdminLayout } from "../Layouts/AdminLayout";
 import CreateEvent from "../Pages/AdminPanel/CreateEvent/CreateEvent";
 import CreateEventContainer from "../Pages/AdminPanel/CreateEvent/CreateEventContainer";
+import CreateSlider from "../Pages/AdminPanel/CreateSlider/CreateSlider";
+import CreateCourseContainer from "../Pages/AdminPanel/CreateCourse/CreateCourseContainer";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -43,8 +45,16 @@ export default function Routes() {
           element: token ? <AdminPanel /> : <Navigate to={"/"} />
         },
         {
+          path: "/ControlPanel/CreateSlider",
+          element:  <CreateSlider />  
+        },
+        {
           path: "/ControlPanel/CreateEvent",
           element:  <CreateEventContainer />  
+        },
+        {
+          path: "/ControlPanel/CreateCourseContainer",
+          element:  <CreateCourseContainer />  
         },
       ]
     },

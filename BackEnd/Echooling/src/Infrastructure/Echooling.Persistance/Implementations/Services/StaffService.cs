@@ -67,6 +67,7 @@ namespace Echooling.Persistance.Implementations.Services
             staff.PhoneNumber = user.PhoneNumber;
             staff.Fullname = user.Fullname;
             staff.emailAddress = user.Email;
+            staff.UserName = user.UserName;
             staff.Role = "Staff";
             await _writeRepository.addAsync(staff);
             await _writeRepository.SaveChangesAsync();

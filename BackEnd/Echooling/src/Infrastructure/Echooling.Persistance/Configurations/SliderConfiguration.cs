@@ -10,5 +10,6 @@ public class SliderConfiguration : IEntityTypeConfiguration<Slider>
         builder.Property(x=>x.Title).IsRequired(true).HasMaxLength(20);
         builder.Property(x=>x.SeccondTile).IsRequired(true).HasMaxLength(50);
         builder.Property(x=>x.Description).IsRequired(true).HasMaxLength(250);
+
     }
 }

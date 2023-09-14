@@ -290,6 +290,9 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("EventTitle")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("ImageRoutue")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -327,7 +330,6 @@ namespace Echooling.Persistance.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("ImageRoutue")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -396,6 +398,9 @@ namespace Echooling.Persistance.Migrations
 
                     b.Property<int?>("TotalExperianceHours")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("emailAddress")
                         .HasColumnType("nvarchar(max)");
@@ -492,6 +497,9 @@ namespace Echooling.Persistance.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("emailAddress")
                         .HasColumnType("nvarchar(max)");

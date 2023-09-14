@@ -24,5 +24,6 @@ namespace Echooling.Aplication.DTOs.StaffDTOs
                               string? emailAddress,
                               string? StartExperiance,
                               string? Follower,
+                               string? UserName,
                               Guid AppUserID);
 }
