@@ -17,27 +17,30 @@ import { getSliders } from '../../../Services/SliderService';
 export default function CreateEventSteptwo({ onNext, formData, onPrevious }) {
   const [step2Data, setStep2Data] = useState('');
   const [selected, setSelected] = useState(false);
-  const [originalData, setOriginalData] = useState([]); // Store the original data
-  const [filteredData, setFilteredData] = useState([]); // Initialize as an empty array
+  const [Data, setData] = useState({ data: [] }); // Initialize Data as an object with an empty data array
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([]); // Initialize filteredData as an empty array
 
   const { mutate, isLoading, error } = useMutation(() => getAllEventCategories(), {
     onSuccess: (resp) => {
-      console.log(resp);
-      setOriginalData(resp); // Set the original data
-      setFilteredData(resp); // Initialize filtered data with the original data
+      setData(resp);
     },
     onError: (error) => {
       console.error(error);
     },
   });
+  useEffect(() => {
+    const query = searchQuery.toLowerCase();
+    Data.data?.filter((data) =>
+      data.category.toLowerCase().includes(query)
+    ).map((data) => setFilteredData(data));
+    console.log(filteredData)
+  }, [searchQuery])
 
   useEffect(() => {
     mutate();
-  }, []);
 
-  const handlePreviousClick = () => {
-    onPrevious();
-  };
+  }, []);
 
   const handleNext = () => {
     onNext({ step2Data });
@@ -45,28 +48,22 @@ export default function CreateEventSteptwo({ onNext, formData, onPrevious }) {
 
   const handleValueChange = (event) => {
     const selectedGuId = event.target.value;
+    console.log(selectedGuId)
     setStep2Data(selectedGuId);
     setSelected(true);
   };
 
   const handleSearchChange = (event) => {
     const query = event.target.value.toLowerCase();
-
-    // Filter the original data based on the search query
-    const filteredData = originalData.filter((data) =>
-      data.category.toLowerCase().includes(query)
-    );
-
-    setFilteredData(filteredData); // Update the filtered data
-
-    // Optional: If you want to update the selected option when you search, you can clear the selected state here.
-    // setSelected(false);
+    setSearchQuery(query);
   };
-
+  const handlePreviousClick = () => {
+    onPrevious();
+};
   return (
     <div>
-          <Progress value={50} />
-      <Steps CurrentStep={2} TotalSteps={4} />
+          <Progress value={33.3} />
+      <Steps CurrentStep={1} TotalSteps={3} />
       <div className={Styles.MainContainer}>
         <div className={Styles.container}>
           <div className={Styles.header}>
@@ -84,14 +81,16 @@ export default function CreateEventSteptwo({ onNext, formData, onPrevious }) {
                 size='lg'
                 onChange={handleSearchChange}
               />
-              <Select
+                <Select
                 variant='flushed'
                 placeholder='Select Category'
                 size='lg'
                 onChange={handleValueChange}
               >
-                {filteredData.map((data, index) => (
-                  <option key={index} value={data.GuId}>
+                {searchQuery ? <option value={filteredData.guId} >
+                  {filteredData.category}
+                </option> : Data?.data?.map((data, index) => (
+                  <option key={index} value={data.guId}>
                     {data.category}
                   </option>
                 ))}
@@ -102,7 +101,6 @@ export default function CreateEventSteptwo({ onNext, formData, onPrevious }) {
         </div>
       </div>
       <Flex gap={5}>
-        <button className={Styles.Button} onClick={handlePreviousClick}>PREVIOUS</button>
         {selected && <button className={Styles.Button} onClick={handleNext}>NEXT</button>}
       </Flex>
     </div>

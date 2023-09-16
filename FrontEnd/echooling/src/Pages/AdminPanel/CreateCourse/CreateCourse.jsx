@@ -46,7 +46,9 @@ function CreateCourse({ onNext, formData, onPrevious }) {
     const handleNavigate = (route) => {
         navigate(route);
     };
-
+    const getErrorMessage = (fieldName) => {
+        return formik.errors[fieldName] ? formik.errors[fieldName] : "";
+      };
     const [step3Data, setstep3Data] = useState("");
     const handleNext = (values) => {
         setstep3Data(values);
@@ -57,7 +59,7 @@ function CreateCourse({ onNext, formData, onPrevious }) {
     };
     const formik = useFormik({
         initialValues: {
-          Cost: number,
+          Cost: "",
           orginazer: '',
           TotalSlot: '',
           Location: '',
@@ -67,9 +69,9 @@ function CreateCourse({ onNext, formData, onPrevious }) {
           EventStartDate: '',
         },
         onSubmit: (values) => {
-            formik.Cost =number
           onNext({ step3Data: values });
         },
+        // validationSchema: CreateEventScema,
       });
     const currentDateTime = new Date().toISOString().slice(0, 16);
     return (

@@ -1,2 +1,6 @@
 ﻿namespace Echooling.Aplication.DTOs.CategoryDTOs;
-public record CategoryGetDto(string Category,Guid GuId);
+public class CategoryGetDto
+{
+    public string Category { get;set; }
+    public Guid GuId { get; set; }
+}

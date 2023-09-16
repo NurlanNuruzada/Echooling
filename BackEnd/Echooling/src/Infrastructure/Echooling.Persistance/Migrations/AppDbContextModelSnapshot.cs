@@ -573,7 +573,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasIndex("teacherDetailsId");
 
-                    b.ToTable("TeacherDetailsCourses");
+                    b.ToTable("TeachersCourses");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entities.CourseAppUser", b =>
@@ -786,7 +786,8 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasOne("Ecooling.Domain.Entites.events", "events")
                         .WithMany("StaffEvents")
-                        .HasForeignKey("eventsId");
+                        .HasForeignKey("eventsId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("events");
 
@@ -801,7 +802,8 @@ namespace Echooling.Persistance.Migrations
 
                     b.HasOne("Ecooling.Domain.Entites.teacherDetails", "teacherDetails")
                         .WithMany("TeacherDetailsCourses")
-                        .HasForeignKey("teacherDetailsId");
+                        .HasForeignKey("teacherDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Course");
 

@@ -9,7 +9,6 @@ import { useFormik } from "formik";
 export default function CreateEventContainer() {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
-        step1Data: "",
         step2Data: "",
         step3Data: "",
         step4Data: "",
@@ -18,6 +17,7 @@ export default function CreateEventContainer() {
     const handleNext = (data) => {
         setCurrentStep(currentStep + 1);
         setFormData((prevData) => ({ ...prevData, ...data }));
+        console.log(formData);
     };
 
     const handlePrevious = () => {
@@ -32,14 +32,13 @@ export default function CreateEventContainer() {
     
     return (
         <div>
-            {currentStep === 1 && <CreateEventStepone onNext={handleNext} />}
-            {currentStep === 2 && (
-                <CreateEventSteptwo onPrevious={handlePrevious} onNext={handleNext} />
+            {currentStep === 1 && (
+                <CreateEventSteptwo  onNext={handleNext} />
             )}
-            {currentStep === 3 && (
+            {currentStep === 2 && (
                 <CreateEvent onPrevious={handlePrevious} onNext={handleNext} formData={formData} />
             )}
-            {currentStep === 4 && (
+            {currentStep === 3 && (
                 <CreateEventLast onPrevious={handlePrevious} onNext={handleNext} formData={formData} />
             )}
         </div>

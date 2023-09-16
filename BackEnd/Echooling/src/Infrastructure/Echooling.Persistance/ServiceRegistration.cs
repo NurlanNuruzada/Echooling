@@ -7,6 +7,7 @@ using Echooling.Aplication.Abstraction.Repository.EventRepositories;
 using Echooling.Aplication.Abstraction.Repository.EventsStaff;
 using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
 using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
+using Echooling.Aplication.Abstraction.Repository.TeacherCourses;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.Valudators.SliderValudators;
@@ -20,6 +21,7 @@ using Echooling.Persistance.Implementations.Repositories.EventRepositories;
 using Echooling.Persistance.Implementations.Repositories.SliderRepositories;
 using Echooling.Persistance.Implementations.Repositories.StaffEventsRepositories;
 using Echooling.Persistance.Implementations.Repositories.StaffRepository;
+using Echooling.Persistance.Implementations.Repositories.TeaceherCoursesRepository;
 using Echooling.Persistance.Implementations.Repositories.TeacherRepositories;
 using Echooling.Persistance.Implementations.Services;
 using Echooling.Persistance.MapperProfile;
@@ -60,8 +62,10 @@ public static class ServiceRegistration
         services.AddScoped<IEventService,EventService>();
         services.AddScoped<IStaffEventsService,EventStaffServices>();
         services.AddScoped<IEventsCategoryService,EventCategoryService>();
-        services.AddScoped<ICourseCategoryService,CourseCAtegoryServices>();
         services.AddScoped<IAppUserEventService,AppuserEventService>();
+        services.AddScoped<ICourseCategoryService,CourseCAtegoryServices>();
+        services.AddScoped<ITeacherCourses,TeacherCoursesService>();
+        services.AddScoped<ICourseService, CourseService>();
         //Idenitity
         services.AddIdentity<AppUser, IdentityRole>(options =>
         {
@@ -85,8 +89,9 @@ public static class ServiceRegistration
         services.AddScoped<IEventReadRepository,EventReadRepository>();
         services.AddScoped<IEventStaffWriteRepository, StaffEventWriteRepository>();
         services.AddScoped<IEventCategoryReadRepository, EventCategoryReadReposiory>();
-        services.AddScoped<ICourseCategoryReadRepository, CategoryReadRepository>();
         services.AddScoped<IAppuserEventReadRopository , AppUserEventsReadRepository>();
+        services.AddScoped<ITeacherCoursesReadRepository , TeacherCoursesReadRepository>();
+        services.AddScoped<ICourseCategoryReadRepository, CategoryReadRepository>();
         services.AddScoped<ICourseReadRepository, CourseReadRepository>();
     }
     private static void AddWriteRepositories(this IServiceCollection services)
@@ -97,8 +102,9 @@ public static class ServiceRegistration
         services.AddScoped<IEventWriteRepository,EventWriteRepository>();
         services.AddScoped<IEventStaffReadRepository,StaffEventsReadRepository>();
         services.AddScoped<IEventCategoryWriteRepository, EventCategoryWriteRepository>();
-        services.AddScoped<ICourseCategoryWriteRepository,CategoryWriteRepository>();
         services.AddScoped<IAppuserEventWriteRepository, AppUserEventWriteRepostitory>();
+        services.AddScoped<ICourseCategoryWriteRepository,CategoryWriteRepository>();
         services.AddScoped<ICourseWriteRepository, CourseWriteRepository>();
+        services.AddScoped<ITeacherCoursesWriteRepository, TeacherCourseWriteRepository>();
     }
 }

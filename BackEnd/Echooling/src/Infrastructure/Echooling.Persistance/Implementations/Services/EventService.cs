@@ -73,8 +73,6 @@ namespace Echooling.Persistance.Implementations.Services
                 EntityEvent.ImageRoutue = fileName;
             }
             await _writeRepository.addAsync(EntityEvent);
-            //AppUserEventDto appUserEventDto = new(events.GuId.to, UserId);
-            //await _AppuserEventService.CreateAsync(appUserEventDto);
             await _writeRepository.SaveChangesAsync();
             await _staffEventsService.AddStaffToEventAsync(EntityEvent.GuId, UserId);
             await _writeRepository.SaveChangesAsync();

@@ -18,7 +18,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
     const [Id, setId] = useState('');
     const [File, SetFile] = useState(null); // Declare File in the outer scope
     const [FileName, SetFileName] = useState('');
-     const { token, userName } = useSelector((state) => state.auth); // Update the selector
+     const { token, userName ,fullname} = useSelector((state) => state.auth); // Update the selector
 
     if (token != null) {
         var decodedToken = jwt_decode(token);
@@ -42,6 +42,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
         }
     );
     useEffect(() => {
+        console.log(fullname)
         getId(id);
     }, []);
 
@@ -65,11 +66,12 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             eventFinishDate: formData.step3Data.EventFinishDate,
             eventStartDate: formData.step3Data.EventStartDate,
             cost: formData.step3Data.Cost,
-            orginazer: formData.step3Data.orginazer,
+            orginazer: formData.step1Data,
             totalSlot: formData.step3Data.TotalSlot,
             location: formData.step3Data.Location,
             eventTitle: formData.step3Data.EventTitle,
             aboutEvent: formData.step3Data.AboutEvent,
+            EventCategoryiesId: formData.step2Data,
             image: null,
         },
         onSubmit: async (values) => {
@@ -81,8 +83,10 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             formData.append("orginazer", values.orginazer);
             formData.append("TotalSlot", values.totalSlot);
             formData.append("Location", values.location);
+            formData.append("orginazer", values.orginazer);
             formData.append("EventTitle", values.eventTitle);
             formData.append("AboutEvent", values.aboutEvent);
+            formData.append("EventCategoryiesId", values.EventCategoryiesId);
             if (formData.get("image")) {
                 console.log("FormData before muration", formData)
                 mutate(formData);
@@ -121,7 +125,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
     return (
         <div>
             <Progress value={100} />
-            <Steps CurrentStep={4} TotalSteps={4} />
+            <Steps CurrentStep={3} TotalSteps={3} />
             {SentSuccess && (
                 <Done
                     firstTitle={'the Event Created Succesfully'}

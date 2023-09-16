@@ -10,6 +10,7 @@ namespace Echooling.Aplication.DTOs.TeacherDetailsDTOs
     public class TeacherGetDto
     {
         public Guid AppUserID { get; set; }
+        public Guid GuId { get; set; }
         public string? hobbies { get; set; }
         public string? faculty { get; set; }
         public int? TotalExperianceHours { get; set; }

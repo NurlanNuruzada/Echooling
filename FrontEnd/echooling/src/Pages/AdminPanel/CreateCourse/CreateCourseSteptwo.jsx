@@ -10,63 +10,57 @@ import {
 import image from '../../../Images/LearnImage.jpg';
 import Steps from '../../../Components/Steps/Steps';
 import { useMutation, useQuery } from 'react-query';
-import { useFormik } from 'formik';
-import { getAllEventCategories } from '../../../Services/CategoryService';
-import { getSliders } from '../../../Services/SliderService';
+import { getAllCourseategories, getAllEventCategories } from '../../../Services/CategoryService';
 
 export default function CreateCourseSteptwo({ onNext, formData, onPrevious }) {
   const [step2Data, setStep2Data] = useState('');
   const [selected, setSelected] = useState(false);
-  const [originalData, setOriginalData] = useState([]); // Store the original data
-  const [filteredData, setFilteredData] = useState([]); // Initialize as an empty array
+  const [Data, setData] = useState({ data: [] }); 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([]); 
 
-  const { mutate, isLoading, error } = useMutation(() => getAllEventCategories(), {
+  const { mutate, isLoading, error } = useMutation(() => getAllCourseategories(), {
     onSuccess: (resp) => {
-      console.log(resp);
-      setOriginalData(resp); // Set the original data
-      setFilteredData(resp); // Initialize filtered data with the original data
+      setData(resp);
+      console.log(resp)
     },
     onError: (error) => {
       console.error(error);
     },
   });
+  useEffect(() => {
+    const query = searchQuery.toLowerCase();
+    Data.data?.filter((data) =>
+      data.category.toLowerCase().includes(query)
+    ).map((data) => setFilteredData(data));
+    console.log(filteredData)
+  }, [searchQuery])
 
   useEffect(() => {
     mutate();
-  }, []);
 
-  const handlePreviousClick = () => {
-    onPrevious();
-  };
+  }, []);
 
   const handleNext = () => {
     onNext({ step2Data });
   };
-
   const handleValueChange = (event) => {
     const selectedGuId = event.target.value;
+    console.log(selectedGuId)
     setStep2Data(selectedGuId);
     setSelected(true);
   };
+  console.log(filteredData)
 
   const handleSearchChange = (event) => {
     const query = event.target.value.toLowerCase();
-
-    // Filter the original data based on the search query
-    const filteredData = originalData.filter((data) =>
-      data.category.toLowerCase().includes(query)
-    );
-
-    setFilteredData(filteredData); // Update the filtered data
-
-    // Optional: If you want to update the selected option when you search, you can clear the selected state here.
-    // setSelected(false);
+    setSearchQuery(query);
   };
 
   return (
     <div>
-          <Progress value={50} />
-      <Steps CurrentStep={2} TotalSteps={4} />
+          <Progress value={25} />
+      <Steps CurrentStep={1} TotalSteps={4} />
       <div className={Styles.MainContainer}>
         <div className={Styles.container}>
           <div className={Styles.header}>
@@ -90,8 +84,10 @@ export default function CreateCourseSteptwo({ onNext, formData, onPrevious }) {
                 size='lg'
                 onChange={handleValueChange}
               >
-                {filteredData.map((data, index) => (
-                  <option key={index} value={data.GuId}>
+                    {searchQuery ? <option value={filteredData.guId} >
+                  {filteredData.category}
+                </option> : Data?.data?.map((data, index) => (
+                  <option key={index} value={data.guId}>
                     {data.category}
                   </option>
                 ))}
@@ -102,7 +98,6 @@ export default function CreateCourseSteptwo({ onNext, formData, onPrevious }) {
         </div>
       </div>
       <Flex gap={5}>
-        <button className={Styles.Button} onClick={handlePreviousClick}>PREVIOUS</button>
         {selected && <button className={Styles.Button} onClick={handleNext}>NEXT</button>}
       </Flex>
     </div>

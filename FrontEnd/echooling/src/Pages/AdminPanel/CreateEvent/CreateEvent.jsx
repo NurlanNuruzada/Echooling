@@ -27,6 +27,7 @@ import Done from '../../../Components/DoneModal/Done';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
+import CreateEventScema from '../../../Valudations/EventCreateScema';
 
 function CreateEvent({ onNext, formData, onPrevious }) {
     const [number, setNumber] = useState(0);
@@ -46,7 +47,9 @@ function CreateEvent({ onNext, formData, onPrevious }) {
     const handleNavigate = (route) => {
         navigate(route);
     };
-
+    const getErrorMessage = (fieldName) => {
+        return formik.errors[fieldName] ? formik.errors[fieldName] : "";
+      };
     const [step3Data, setstep3Data] = useState("");
     const handleNext = (values) => {
         setstep3Data(values);
@@ -69,12 +72,13 @@ function CreateEvent({ onNext, formData, onPrevious }) {
         onSubmit: (values) => {
           onNext({ step3Data: values });
         },
+        validationSchema: CreateEventScema,
       });
     const currentDateTime = new Date().toISOString().slice(0, 16);
-    return (
+    return (    
         <>
-            <Progress value={75} />
-            <Steps CurrentStep={"3"} TotalSteps={"4"} />
+            <Progress value={66.5} />
+            <Steps CurrentStep={"2"} TotalSteps={"3"} />
 
             <Flex className={Styles.MainContainer} p={"40px 0"} justifyContent={"center"}>
                 <Box minW="0rem">
@@ -102,7 +106,7 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 borderColor={"black"}
                                 variant="flushed"
                                 pr="4.5rem"
-                                size="lg"
+                                size="lg" 
                                 placeholder="Event Title"
                                 onChange={formik.handleChange}
                                 name="EventTitle"
@@ -182,7 +186,7 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                             />
                         </Box>
                     </Flex>
-                    {/* <List>
+                    <List>
                         {Object.keys(formik.errors).map((fieldName) => (
                             <ListItem key={fieldName}>
                                 <div style={{ color: "red", textAlign: "start" }}>
@@ -190,7 +194,7 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 </div>
                             </ListItem>
                         ))}
-                    </List> */}
+                    </List>
                     <Flex className={Styles.ButtonContainer} gap={10} flexFlow={"row"}>
                         <Button
                             className={Styles.Button}

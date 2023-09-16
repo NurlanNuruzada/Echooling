@@ -23,6 +23,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<AppUserEvents> AppUserEvents { get; set; } = null!;
     public DbSet<CourseCategories> CourseCategories { get; set; } = null!;
     public DbSet<EventCategoryies> EventCategoryies { get; set; } = null!;
+    public DbSet<TeacherDetailsCourses> TeachersCourses { get; set; } = null!;
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SliderConfiguration).Assembly);
@@ -39,7 +40,22 @@ public class AppDbContext : IdentityDbContext<AppUser>
             .WithMany(cc => cc.Courses)
             .HasForeignKey(e => e.CourseCategoryId)
             .OnDelete(DeleteBehavior.Cascade);
+        base.OnModelCreating(modelBuilder); 
+        
+        modelBuilder.Entity<events>()
+            .HasMany<StaffEvents>(e => e.StaffEvents)
+            .WithOne(cc => cc.events)
+            .HasForeignKey(e => e.eventsId)
+            .OnDelete(DeleteBehavior.Cascade);
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<teacherDetails>()
+          .HasMany<TeacherDetailsCourses>(e => e.TeacherDetailsCourses)
+          .WithOne(cc => cc.teacherDetails)
+          .HasForeignKey(e => e.teacherDetailsId)
+          .OnDelete(DeleteBehavior.Cascade);
+        base.OnModelCreating(modelBuilder);
+
     }
 }
 
