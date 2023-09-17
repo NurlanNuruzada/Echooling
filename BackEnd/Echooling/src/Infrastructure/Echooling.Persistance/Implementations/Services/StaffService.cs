@@ -46,16 +46,6 @@ namespace Echooling.Persistance.Implementations.Services
         {
             var user = await _userManager.FindByIdAsync(UserId.ToString());
             var IsAlreadyStaff = await _readRepository.GetByExpressionAsync(S => S.AppUserID == UserId);
-            var DublicatedExcetionMessage = _localizer.GetString("DublicatedExceptionMsg");
-            if (IsAlreadyStaff is not null)
-            {
-                throw new notFoundException("this user is " + " " + DublicatedExcetionMessage);
-            }
-            var IsAlreadyteacher = await _readRepo.GetByExpressionAsync(S => S.AppUserID == UserId);
-            if (IsAlreadyteacher is not null)
-            {
-                throw new notFoundException("this user is " + " " + DublicatedExcetionMessage);
-            }
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (user is null)
             {

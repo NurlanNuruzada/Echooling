@@ -44,17 +44,6 @@ namespace Echooling.Persistance.Implementations.Services
         public async Task CreateAsync(TeacherCreateDto teacherCreateDto, Guid UserId)
         {
             var user = await _userManager.FindByIdAsync(UserId.ToString());
-            var DublicatedExcetionMessage = _stringLocalizer.GetString("DublicatedExceptionMsg");
-            var IsAlreadyStaff = await _staffService.GetByExpressionAsync(S => S.AppUserID == UserId);
-            if (IsAlreadyStaff is not null)
-            {
-                throw new notFoundException("this user is " + " " + DublicatedExcetionMessage);
-            }  
-            var IsAlreadyteacher = await _readRepo.GetByExpressionAsync(S => S.AppUserID == UserId);
-            if (IsAlreadyteacher is not null)
-            {
-                throw new notFoundException("this user is " + " " + DublicatedExcetionMessage);
-            }
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
             if (user is null)
             {

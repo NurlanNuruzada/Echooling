@@ -12,6 +12,7 @@ import { AddEvent } from '../../../Services/EventService';
 import { getById } from '../../../Services/StaffService';
 import axios from 'axios';
 import { AddCourse } from '../../../Services/CourseService';
+import { getTeacherById } from '../../../Services/TeacherService';
 
 export default function CreateCourseLast({ onNext, formData, onPrevious }) {
     const [step4Data, setStep4Data] = useState(null); // Initialize with null
@@ -33,7 +34,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
     };
 
     const { mutate: getId } = useMutation(
-        (id) => getById(id),
+        (id) => getTeacherById(id),
         {
             onSuccess: (resp) => {
                 setId(resp.data.guId);
@@ -117,7 +118,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             onSuccess: (resp) => {
                 console.log('success');
                 console.log(resp);
-                // setSentSuccess(true);
+                setSentSuccess(true);
             },
             onError: (error) => {
                 console.error(error);

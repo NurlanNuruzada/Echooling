@@ -137,11 +137,12 @@ export default function Routes() {
       children: [
         {
           path: "/Applyteacher/teaching-experiance",
-          element: token ? <KnowlageApply /> : <Navigate to={"/auth/register"} />,
+          element: token ? <KnowlageApply /> :   <Navigate to={"/auth/register"}/>,
         },
         {
-          path: "/Applyteacher/teaching-experiance",
-          element: token ? <KnowlageApply /> : <Navigate to={"/auth/register"} />,
+          path: "/Applyteacher/:select",
+          search: "select=value",
+          element: token ? <ApplyForTeacher /> :   <Navigate to={"/auth/register"}/>,
         },
         {
           path: "/ApplyForStaffContainer",
