@@ -30,7 +30,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SliderConfiguration).Assembly);
 
-        // Configure cascade delete for Events and EventCategoryies
         modelBuilder.Entity<events>()
             .HasOne(e => e.EventCategoryies)
             .WithMany(ec => ec.Events)

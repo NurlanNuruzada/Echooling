@@ -12,7 +12,7 @@ using Ecooling.Domain.Entites;
 
 namespace Echooling.Persistance.Implementations.Repositories.VideoContentRepositories
 {
-    public class VideoContentWriteRepository : WriteRepository<VideoContent>,IVideoWriteRepository
+    public class VideoContentWriteRepository : WriteRepository<VideoContent>,IVideoContentWriteRepository
     {
         public VideoContentWriteRepository(AppDbContext appContext) : base(appContext) { }
     }

@@ -9,7 +9,7 @@ using Ecooling.Domain.Entites;
 
 namespace Echooling.Persistance.Implementations.Repositories.VideoContentRepositories
 {
-    public class VideoContentReadRepository:ReadRepository<VideoContent>,IVideoReadRepository
+    public class VideoContentReadRepository:ReadRepository<VideoContent>,IVideoContentReadRepository
     {
         public VideoContentReadRepository(AppDbContext context):base(context) { }
     }

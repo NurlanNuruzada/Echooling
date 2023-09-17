@@ -2,6 +2,6 @@
 {
     public interface IVideoContentCourseService
     {
-        Task AddVideoToCourse(Guid eventId, Guid staffId);
+        Task AddVideoToCourse(Guid CourseId, Guid VideoId);
     }
 }

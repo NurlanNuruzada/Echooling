@@ -19,26 +19,26 @@ namespace Echooling.Persistance.Implementations.Services
     {
         readonly IVideoContent_CourseReadRepository _readRepository;
         readonly IVideoContent_CourseWriteRepository _writeRepository;
-        readonly IVideoReadRepository _videoReadRepository;
-        readonly IVideoWriteRepository _videoWriteRepository;
+        readonly IVideoContentReadRepository _videoReadRepository;
+        readonly IVideoContentWriteRepository _videoWriteRepository;
         readonly ICourseReadRepository _CourseReadRepository;
         readonly ICourseWriteRepository _courseWriteRepository;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         readonly IMapper _mapper;
 
-        public async Task AddVideoToCourse(Guid eventId, Guid VideoContentId)
+        public async Task AddVideoToCourse(Guid CourseId, Guid VideoContentId)
         {
-            var Course = await _CourseReadRepository.GetByExpressionAsync(u => u.GuId == eventId);
+            var Course = await _CourseReadRepository.GetByExpressionAsync(u => u.GuId == CourseId);
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (Course == null)
             {
-                throw new notFoundException("Event " + message);
+                throw new notFoundException("Course " + message);
             }
 
             var VideoContent = await _videoReadRepository.GetByIdAsync(VideoContentId);
             if (VideoContent == null)
             {
-                throw new notFoundException("VideoContent " + message);
+                throw new notFoundException("Video " + message);
             }
             if (Course.VideoCourse == null)
             {
@@ -48,7 +48,7 @@ namespace Echooling.Persistance.Implementations.Services
             var VideoCourse = new Video_Course
             {
                 VideoContentId = VideoContentId,
-                CourseId = eventId,
+                CourseId = CourseId,
                 Course = _mapper.Map<Course>(Course),
                 VideoContent = _mapper.Map<VideoContent>(VideoContent)
             };

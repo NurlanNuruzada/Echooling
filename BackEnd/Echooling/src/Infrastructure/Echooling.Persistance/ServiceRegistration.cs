@@ -9,6 +9,8 @@ using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
 using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Repository.TeacherCourses;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
+using Echooling.Aplication.Abstraction.Repository.VideoContentCourseRepositories;
+using Echooling.Aplication.Abstraction.Repository.VideoRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.Valudators.SliderValudators;
 using Echooling.Persistance.Contexts;
@@ -23,6 +25,8 @@ using Echooling.Persistance.Implementations.Repositories.StaffEventsRepositories
 using Echooling.Persistance.Implementations.Repositories.StaffRepository;
 using Echooling.Persistance.Implementations.Repositories.TeaceherCoursesRepository;
 using Echooling.Persistance.Implementations.Repositories.TeacherRepositories;
+using Echooling.Persistance.Implementations.Repositories.VideoContent_CourseRepositories;
+using Echooling.Persistance.Implementations.Repositories.VideoContentRepositories;
 using Echooling.Persistance.Implementations.Services;
 using Echooling.Persistance.MapperProfile;
 using Ecooling.Domain.Entites;
@@ -66,6 +70,9 @@ public static class ServiceRegistration
         services.AddScoped<ICourseCategoryService,CourseCAtegoryServices>();
         services.AddScoped<ITeacherCourses,TeacherCoursesService>();
         services.AddScoped<ICourseService, CourseService>();
+        services.AddScoped<IVideoContentService,VideoService>();
+        services.AddScoped<IVideoContentCourseService,VideoContent_CourseService>();
+        services.AddScoped<ICourseService, CourseService>();
         //Idenitity
         services.AddIdentity<AppUser, IdentityRole>(options =>
         {
@@ -93,6 +100,9 @@ public static class ServiceRegistration
         services.AddScoped<ITeacherCoursesReadRepository , TeacherCoursesReadRepository>();
         services.AddScoped<ICourseCategoryReadRepository, CategoryReadRepository>();
         services.AddScoped<ICourseReadRepository, CourseReadRepository>();
+        services.AddScoped<IVideoContent_CourseReadRepository,VideoContent_CourseReadRepository>();
+        services.AddScoped<IVideoContentReadRepository,VideoContentReadRepository>();  
+
     }
     private static void AddWriteRepositories(this IServiceCollection services)
     {
@@ -106,5 +116,7 @@ public static class ServiceRegistration
         services.AddScoped<ICourseCategoryWriteRepository,CategoryWriteRepository>();
         services.AddScoped<ICourseWriteRepository, CourseWriteRepository>();
         services.AddScoped<ITeacherCoursesWriteRepository, TeacherCourseWriteRepository>();
+        services.AddScoped<IVideoContent_CourseWriteRepository, VideoContent_CourseWriteRepository>();
+        services.AddScoped<IVideoContentWriteRepository, VideoContentWriteRepository>();
     }
 }
