@@ -10,23 +10,23 @@ namespace Echooling.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EventStaffController : ControllerBase
+    public class Event_StaffController : ControllerBase
     {
         public readonly IStaffEventsService _staffEventsService;
-        public EventStaffController(IStaffEventsService staffEventsService)
+        public Event_StaffController(IStaffEventsService staffEventsService)
         {
             _staffEventsService = staffEventsService;
         }
         [HttpGet("id")]
         public async Task<IActionResult> get(Guid id)
         {
-            StaffEvents staffEvents = await _staffEventsService.GetByEventOrStaffId(id);
+            Staff_Events staffEvents = await _staffEventsService.GetByEventOrStaffId(id);
             return Ok(staffEvents);
         }
         [HttpGet]
         public async Task<IActionResult> getAll()
         {
-            List<StaffEvents> List = await _staffEventsService.GetAllAsync();
+            List<Staff_Events> List = await _staffEventsService.GetAllAsync();
             return Ok(List);
         }
         [HttpPost]
@@ -36,7 +36,7 @@ namespace Echooling.API.Controllers
             return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpPut("id")]
-        public async Task<IActionResult> update([FromBody] StaffEvents eventDto, Guid id)
+        public async Task<IActionResult> update([FromBody] Staff_Events eventDto, Guid id)
         {
             await _staffEventsService.UpdateAsync(eventDto, id);
             return Ok(new { message = "Updated successfully." + eventDto });

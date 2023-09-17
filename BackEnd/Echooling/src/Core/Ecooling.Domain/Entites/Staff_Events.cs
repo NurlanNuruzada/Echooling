@@ -1,6 +1,6 @@
 ﻿namespace Ecooling.Domain.Entites
 {
-    public class StaffEvents:BaseEntity
+    public class Staff_Events:BaseEntity
     {
         public Guid? StaffId { get; set; }
         public Staff? staff { get; set; }

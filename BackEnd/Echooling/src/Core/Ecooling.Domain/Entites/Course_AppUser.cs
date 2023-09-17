@@ -2,7 +2,7 @@
 
 namespace Ecooling.Domain.Entities
 {
-    public class CourseAppUser : BaseEntity
+    public class Course_AppUser : BaseEntity
     {
         public Guid? AppUserId { get; set; }
         public Guid? CourseId { get; set; }

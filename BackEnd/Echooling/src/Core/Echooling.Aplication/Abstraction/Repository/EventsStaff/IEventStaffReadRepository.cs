@@ -2,7 +2,7 @@
 
 namespace Echooling.Aplication.Abstraction.Repository.EventsStaff
 {
-    public interface IEventStaffReadRepository:IReadRepository<StaffEvents> 
+    public interface IEventStaffReadRepository:IReadRepository<Staff_Events> 
     {
     }
 }

@@ -12,7 +12,7 @@ namespace Ecooling.Domain.Entites
         public bool? IsSendNewsConfirmed { get; set; }
         public DateTime? RefrestTokenExpiration { get; set; }
         public string? RefrestToken { get; set; }
-        public ICollection<CourseAppUser>? CourseAppUser { get; set; }
-        public ICollection<AppUserEvents>? AppUserEvents { get; set; }
+        public ICollection<Course_AppUser>? CourseAppUser { get; set; }
+        public ICollection<AppUser_Events>? AppUserEvents { get; set; }
     }
 }

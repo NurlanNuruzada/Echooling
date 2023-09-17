@@ -10,11 +10,11 @@ namespace Echooling.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseCategoryController : ControllerBase
+    public class Course_CategoryController : ControllerBase
     {
         private readonly ICourseCategoryService _courseService;
 
-        public CourseCategoryController(ICourseCategoryService courseService)
+        public Course_CategoryController(ICourseCategoryService courseService)
         {
             _courseService = courseService;
         }

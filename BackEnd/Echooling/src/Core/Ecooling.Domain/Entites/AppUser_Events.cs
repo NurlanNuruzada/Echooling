@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ecooling.Domain.Entites
 {
-    public class AppUserEvents:BaseEntity
+    public class AppUser_Events:BaseEntity
     {
         public Guid? eventsId { get; set; }
         public Guid? AppUserId { get; set; }

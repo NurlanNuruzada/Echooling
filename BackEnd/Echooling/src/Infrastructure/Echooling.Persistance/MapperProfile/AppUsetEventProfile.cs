@@ -13,7 +13,7 @@ namespace Echooling.Persistance.MapperProfile
     {
         public AppUsetEventProfile()
         {
-            CreateMap<AppUserEvents,AppUserEventDto>().ReverseMap();
+            CreateMap<AppUser_Events,AppUserEventDto>().ReverseMap();
         }
     }
 }

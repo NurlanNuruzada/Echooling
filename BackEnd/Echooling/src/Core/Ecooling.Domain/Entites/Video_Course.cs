@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ecooling.Domain.Entites
 {
-    public class VideoCourse : BaseEntity
+    public class Video_Course : BaseEntity
     {
         public Guid? CourseId { get; set; }
         public teacherDetails? Course { get; set; }

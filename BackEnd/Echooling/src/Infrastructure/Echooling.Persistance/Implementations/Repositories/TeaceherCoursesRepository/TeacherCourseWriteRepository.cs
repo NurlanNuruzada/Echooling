@@ -10,7 +10,7 @@ using Ecooling.Domain.Entites;
 
 namespace Echooling.Persistance.Implementations.Repositories.TeaceherCoursesRepository
 {
-    public class TeacherCourseWriteRepository:WriteRepository<TeacherDetailsCourses>,ITeacherCoursesWriteRepository
+    public class TeacherCourseWriteRepository:WriteRepository<TeacherDetails_Courses>,ITeacherCoursesWriteRepository
     {
         public TeacherCourseWriteRepository(AppDbContext context):base(context) { } 
     }

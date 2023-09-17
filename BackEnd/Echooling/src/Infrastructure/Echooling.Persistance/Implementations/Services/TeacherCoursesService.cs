@@ -58,10 +58,10 @@ namespace Echooling.Persistance.Implementations.Services
             }
             if (Course.TeacherDetailsCourses == null)
             {
-                Course.TeacherDetailsCourses = new List<TeacherDetailsCourses>();
+                Course.TeacherDetailsCourses = new List<TeacherDetails_Courses>();
             }
 
-            var TeaherCourse = new TeacherDetailsCourses
+            var TeaherCourse = new TeacherDetails_Courses
             {
                 CourseId = CourseId,
                 teacherDetailsId = TeacherId,

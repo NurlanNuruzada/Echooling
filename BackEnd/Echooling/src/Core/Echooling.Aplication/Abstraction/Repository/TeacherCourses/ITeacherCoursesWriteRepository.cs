@@ -7,7 +7,7 @@ using Ecooling.Domain.Entites;
 
 namespace Echooling.Aplication.Abstraction.Repository.TeacherCourses
 {
-    public interface ITeacherCoursesWriteRepository:IWriteRepository<TeacherDetailsCourses>
+    public interface ITeacherCoursesWriteRepository:IWriteRepository<TeacherDetails_Courses>
     {
     }
 }

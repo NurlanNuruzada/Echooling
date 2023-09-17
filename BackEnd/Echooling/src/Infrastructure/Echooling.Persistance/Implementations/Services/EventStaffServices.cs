@@ -58,10 +58,10 @@ namespace Echooling.Persistance.Implementations.Services
             }
             if (eventEntity.StaffEvents == null)
             {
-                eventEntity.StaffEvents = new List<StaffEvents>();
+                eventEntity.StaffEvents = new List<Staff_Events>();
             }
 
-            var staffEvent = new StaffEvents
+            var staffEvent = new Staff_Events
             {
                 StaffId = staffId, 
                 eventsId = eventId,
@@ -76,15 +76,15 @@ namespace Echooling.Persistance.Implementations.Services
 
 
 
-        public Task<List<StaffEvents>> GetAllAsync()
+        public Task<List<Staff_Events>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
-        public Task<StaffEvents> GetByEventOrStaffId(Guid id)
+        public Task<Staff_Events> GetByEventOrStaffId(Guid id)
         {
             throw new NotImplementedException();
         }
-        public Task UpdateAsync(StaffEvents StaffEvents, Guid id)
+        public Task UpdateAsync(Staff_Events StaffEvents, Guid id)
         {
             throw new NotImplementedException();
         }

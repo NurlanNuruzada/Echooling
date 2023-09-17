@@ -5,8 +5,8 @@ namespace Echooling.Aplication.Abstraction.Services
     public interface IStaffEventsService
     {
         Task AddStaffToEventAsync(Guid eventId, Guid staffId);
-        Task<StaffEvents> GetByEventOrStaffId(Guid id);
-        Task<List<StaffEvents>> GetAllAsync();
-        Task UpdateAsync(StaffEvents StaffEvents, Guid id);
+        Task<Staff_Events> GetByEventOrStaffId(Guid id);
+        Task<List<Staff_Events>> GetAllAsync();
+        Task UpdateAsync(Staff_Events StaffEvents, Guid id);
     }
 }

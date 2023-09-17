@@ -7,7 +7,7 @@ using Ecooling.Domain.Entites;
 
 namespace Echooling.Aplication.Abstraction.Repository.AppUserEventRepository
 {
-    public interface IAppuserEventReadRopository:IReadRepository<AppUserEvents>
+    public interface IAppuserEventReadRopository:IReadRepository<AppUser_Events>
     {
     }
 }

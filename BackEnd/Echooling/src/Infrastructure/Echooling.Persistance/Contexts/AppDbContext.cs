@@ -16,14 +16,14 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Slider> Sliders { get; set; } = null!;
     public DbSet<teacherDetails> TeacherDetails { get; set; } = null!;
     public DbSet<Course> Courses { get; set; } = null!;
-    public DbSet<CourseAppUser> CourseAppUsers { get; set; } = null!;
+    public DbSet<Course_AppUser> CourseAppUsers { get; set; } = null!;
     public DbSet<events> Events { get; set; } = null!;
     public DbSet<Staff> Staff { get; set; } = null!;
-    public DbSet<StaffEvents> EventStaff { get; set; } = null!;
-    public DbSet<AppUserEvents> AppUserEvents { get; set; } = null!;
+    public DbSet<Staff_Events> EventStaff { get; set; } = null!;
+    public DbSet<AppUser_Events> AppUserEvents { get; set; } = null!;
     public DbSet<CourseCategories> CourseCategories { get; set; } = null!;
     public DbSet<EventCategoryies> EventCategoryies { get; set; } = null!;
-    public DbSet<TeacherDetailsCourses> TeachersCourses { get; set; } = null!;
+    public DbSet<TeacherDetails_Courses> TeachersCourses { get; set; } = null!;
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SliderConfiguration).Assembly);
@@ -43,14 +43,14 @@ public class AppDbContext : IdentityDbContext<AppUser>
         base.OnModelCreating(modelBuilder); 
         
         modelBuilder.Entity<events>()
-            .HasMany<StaffEvents>(e => e.StaffEvents)
+            .HasMany<Staff_Events>(e => e.StaffEvents)
             .WithOne(cc => cc.events)
             .HasForeignKey(e => e.eventsId)
             .OnDelete(DeleteBehavior.Cascade);
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<teacherDetails>()
-          .HasMany<TeacherDetailsCourses>(e => e.TeacherDetailsCourses)
+          .HasMany<TeacherDetails_Courses>(e => e.TeacherDetailsCourses)
           .WithOne(cc => cc.teacherDetails)
           .HasForeignKey(e => e.teacherDetailsId)
           .OnDelete(DeleteBehavior.Cascade);

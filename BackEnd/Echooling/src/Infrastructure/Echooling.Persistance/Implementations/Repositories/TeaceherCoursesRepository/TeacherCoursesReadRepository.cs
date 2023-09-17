@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Echooling.Persistance.Implementations.Repositories.TeaceherCoursesRepository
 {
-    public class TeacherCoursesReadRepository : ReadRepository<TeacherDetailsCourses>, ITeacherCoursesReadRepository
+    public class TeacherCoursesReadRepository : ReadRepository<TeacherDetails_Courses>, ITeacherCoursesReadRepository
     {
         public TeacherCoursesReadRepository(AppDbContext context) : base(context) { }
     }

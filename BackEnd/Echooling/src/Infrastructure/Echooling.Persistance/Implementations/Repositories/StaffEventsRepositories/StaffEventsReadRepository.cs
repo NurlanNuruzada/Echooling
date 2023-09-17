@@ -9,7 +9,7 @@ using Ecooling.Domain.Entites;
 
 namespace Echooling.Persistance.Implementations.Repositories.StaffEventsRepositories
 {
-    public class StaffEventsReadRepository:ReadRepository<StaffEvents>,IEventStaffReadRepository 
+    public class StaffEventsReadRepository:ReadRepository<Staff_Events>,IEventStaffReadRepository 
     {
         public StaffEventsReadRepository(AppDbContext context):base(context) { }
     }

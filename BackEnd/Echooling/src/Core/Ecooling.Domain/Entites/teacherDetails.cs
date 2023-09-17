@@ -10,7 +10,7 @@ public class teacherDetails : BaseEntity
     }
     public string Role { get; set; } = "Teacher";
     public Guid? AppUserID { get; set; }
-    public ICollection<TeacherDetailsCourses>? TeacherDetailsCourses { get; set; }
+    public ICollection<TeacherDetails_Courses>? TeacherDetailsCourses { get; set; }
     public string? hobbies { get; set; }
     public string? faculty { get; set; }
     public int? TotalExperianceHours { get; set; }

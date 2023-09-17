@@ -8,7 +8,7 @@
         }
         public string Role { get; set; } = "Staff";
         public Guid AppUserID { get; set; }
-        public ICollection<StaffEvents>? StaffEvents { get; set; }
+        public ICollection<Staff_Events>? StaffEvents { get; set; }
         public string? hobbies { get; set; }
         public string? faculty { get; set; }
         public string? Facebook { get; set; }

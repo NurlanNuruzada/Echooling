@@ -2,8 +2,8 @@
 {
     public class events:BaseEntity
     {
-        public ICollection<AppUserEvents>? AppUserEvents { get; set; }
-        public ICollection<StaffEvents>? StaffEvents { get; set; }
+        public ICollection<AppUser_Events>? AppUserEvents { get; set; }
+        public ICollection<Staff_Events>? StaffEvents { get; set; }
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventFinishDate { get; set; }
         public decimal? Cost { get; set; }

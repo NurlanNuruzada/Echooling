@@ -44,7 +44,7 @@ namespace Echooling.Persistance.Implementations.Services
             }
             categoryCreateDto.eventsId = new Guid(categoryCreateDto.eventsId.ToString());
             string guid = categoryCreateDto.AppUserId.ToString();
-            AppUserEvents userEvents = _mapper.Map<AppUserEvents>(categoryCreateDto);
+            AppUser_Events userEvents = _mapper.Map<AppUser_Events>(categoryCreateDto);
             await _writeRepository.addAsync(userEvents);
             await _writeRepository.SaveChangesAsync();
         }

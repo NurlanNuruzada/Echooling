@@ -6,9 +6,9 @@ namespace Ecooling.Domain.Entites
 {
     public class Course : BaseEntity
     {
-        public ICollection<CourseAppUser>? CourseAppUser { get; set; }
-        public ICollection<TeacherDetailsCourses>? TeacherDetailsCourses { get; set; }
-        public ICollection<VideoCourse>? VideoCourse { get; set; }
+        public ICollection<Course_AppUser>? CourseAppUser { get; set; }
+        public ICollection<TeacherDetails_Courses>? TeacherDetailsCourses { get; set; }
+        public ICollection<Video_Course>? VideoCourse { get; set; }
         public string Title { get; set; } = null!;
         public string ImageRoutue { get; set; } = null!;
         public decimal Rate { get; set; }
