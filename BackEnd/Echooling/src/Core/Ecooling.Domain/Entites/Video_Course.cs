@@ -9,7 +9,7 @@ namespace Ecooling.Domain.Entites
     public class Video_Course : BaseEntity
     {
         public Guid? CourseId { get; set; }
-        public teacherDetails? Course { get; set; }
+        public Course? Course { get; set; }
         public Guid? VideoContentId { get; set; }
         public VideoContent? VideoContent { get; set; }
     }
