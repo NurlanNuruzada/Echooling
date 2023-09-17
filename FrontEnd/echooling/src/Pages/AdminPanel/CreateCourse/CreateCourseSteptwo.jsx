@@ -10,16 +10,16 @@ import {
 import image from '../../../Images/LearnImage.jpg';
 import Steps from '../../../Components/Steps/Steps';
 import { useMutation, useQuery } from 'react-query';
-import { getAllCourseategories, getAllEventCategories } from '../../../Services/CategoryService';
+import { getAllCourseategories } from '../../../Services/CategoryService';
 
-export default function CreateCourseSteptwo({ onNext, formData, onPrevious }) {
+export default function CreateCourseSteptwo({ onNext }) {
   const [step2Data, setStep2Data] = useState('');
   const [selected, setSelected] = useState(false);
-  const [Data, setData] = useState({ data: [] }); 
+  const [Data, setData] = useState({ data: [] });
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredData, setFilteredData] = useState([]); 
+  const [filteredData, setFilteredData] = useState([]);
 
-  const { mutate, isLoading, error } = useMutation(() => getAllCourseategories(), {
+  const { mutate } = useMutation(() => getAllCourseategories(), {
     onSuccess: (resp) => {
       setData(resp);
       console.log(resp)
@@ -28,29 +28,31 @@ export default function CreateCourseSteptwo({ onNext, formData, onPrevious }) {
       console.error(error);
     },
   });
+
   useEffect(() => {
     const query = searchQuery.toLowerCase();
-    Data.data?.filter((data) =>
+    setFilteredData(Data.data?.filter((data) =>
       data.category.toLowerCase().includes(query)
-    ).map((data) => setFilteredData(data));
-    console.log(filteredData)
-  }, [searchQuery])
+    ));
+  }, [searchQuery, Data.data]);
 
   useEffect(() => {
     mutate();
-
-  }, []);
+  }, [mutate]);
 
   const handleNext = () => {
+    console.log(step2Data)
     onNext({ step2Data });
   };
+
   const handleValueChange = (event) => {
-    const selectedGuId = event.target.value;
-    console.log(selectedGuId)
-    setStep2Data(selectedGuId);
+    const selectedValue = event.target.value;
+    const [GuId, category] = selectedValue.split(',');
+    const selectedData = { GuId, category };
+    const selectedDataArray = [selectedData];
+    setStep2Data(selectedDataArray);
     setSelected(true);
   };
-  console.log(filteredData)
 
   const handleSearchChange = (event) => {
     const query = event.target.value.toLowerCase();
@@ -59,12 +61,12 @@ export default function CreateCourseSteptwo({ onNext, formData, onPrevious }) {
 
   return (
     <div>
-          <Progress value={25} />
+      <Progress value={25} />
       <Steps CurrentStep={1} TotalSteps={4} />
       <div className={Styles.MainContainer}>
         <div className={Styles.container}>
           <div className={Styles.header}>
-            <h1>Let's add Category</h1>
+            <h1>What category best fits the knowledge you'll share?</h1>
             <p>
               This is very important to select the correct event category.
             </p>
@@ -84,13 +86,19 @@ export default function CreateCourseSteptwo({ onNext, formData, onPrevious }) {
                 size='lg'
                 onChange={handleValueChange}
               >
-                    {searchQuery ? <option value={filteredData.guId} >
-                  {filteredData.category}
-                </option> : Data?.data?.map((data, index) => (
-                  <option key={index} value={data.guId}>
-                    {data.category}
-                  </option>
-                ))}
+                {searchQuery ? (
+                  filteredData.map((data) => (
+                    <option key={data.guId} value={`${data.guId},${data.category}`}>
+                      {data.category}
+                    </option>
+                  ))
+                ) : (
+                  Data.data?.map((data) => (
+                    <option key={data.guId} value={`${data.guId},${data.category}`}>
+                      {data.category}
+                    </option>
+                  ))
+                )}
               </Select>
             </Stack>
             <img className={Styles.Image} src={image} alt='' />

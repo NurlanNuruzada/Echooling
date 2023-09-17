@@ -27,19 +27,45 @@ import Done from '../../../Components/DoneModal/Done';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
+import { useSelector } from 'react-redux';
 
 function CreateCourse({ onNext, formData, onPrevious }) {
     const [number, setNumber] = useState(0);
-
-    const parse = (val) => {
-        const parsedValue = parseFloat(val.replace(/[^\d.]/g, ''));
-        return (parsedValue)
+    const { token, fullname } = useSelector((state) => state.auth); // Update the selector
+    const [learningObjectives, setLearningObjectives] = useState([
+        '',
+        '',
+        '',
+        '',
+    ]);
+    const placeholderTexts = [
+        "Define the roles and responsibilities of a project manager",
+        "Explain key concepts of data analysis",
+        "Demonstrate effective communication skills",
+        "Discuss best practices in customer service",
+    ];
+    const initialLearningObjectives = ['', '', '', ''];
+    const handleInputChange = (event, index) => {
+        const newObjectives = [...formik.values.WhatWillLearn];
+        newObjectives[index] = event.target.value;
+        formik.setFieldValue('WhatWillLearn', newObjectives);
     };
 
-    const handleInputChange = (valueString) => {
-        // Parse the value from the input
-        const parsedValue = parse(valueString);
-        setNumber(parsedValue);
+    const handleAddField = () => {
+        setLearningObjectives([...learningObjectives, '']);
+    };
+    const handleRemoveField = () => {
+        if (learningObjectives.length > 4) {
+            const newObjectives = [...learningObjectives];
+            newObjectives.pop();
+            setLearningObjectives(newObjectives);
+        }
+    };
+
+
+
+    const HandleInputChange = (valueString) => {
+        setNumber(valueString); // No need to parse, store the string as-is
     };
     const navigate = useNavigate();
 
@@ -48,7 +74,7 @@ function CreateCourse({ onNext, formData, onPrevious }) {
     };
     const getErrorMessage = (fieldName) => {
         return formik.errors[fieldName] ? formik.errors[fieldName] : "";
-      };
+    };
     const [step3Data, setstep3Data] = useState("");
     const handleNext = (values) => {
         setstep3Data(values);
@@ -59,20 +85,27 @@ function CreateCourse({ onNext, formData, onPrevious }) {
     };
     const formik = useFormik({
         initialValues: {
-          Cost: "",
-          orginazer: '',
-          TotalSlot: '',
-          Location: '',
-          EventTitle: '',
-          AboutEvent: '',
-          EventFinishDate: '',
-          EventStartDate: '',
+            Title: "",
+            Rate: '',
+            Price: '',
+            Instructor: fullname,
+            Dutation: '',
+            Languge: '',
+            Subject: '',
+            Enrolled: '',
+            ThisCourseIncludes: '',
+            AboutCourse: '',
+            WhatWillLearn: initialLearningObjectives,
+            CounrseContent: '',
+            image: '',
         },
         onSubmit: (values) => {
-          onNext({ step3Data: values });
+            values.Subject = formData.step2Data[0].category
+            // onNext({ step3Data: values });
+            console.log(values)
         },
         // validationSchema: CreateEventScema,
-      });
+    });
     const currentDateTime = new Date().toISOString().slice(0, 16);
     return (
         <>
@@ -82,7 +115,7 @@ function CreateCourse({ onNext, formData, onPrevious }) {
             <Flex className={Styles.MainContainer} p={"40px 0"} justifyContent={"center"}>
                 <Box minW="0rem">
                     <Heading color={"#3270fc"} mb={4}>
-                        And Lastly Let's fill up the Event information
+                        And  Let's fill up the Course information
                     </Heading>
                     <Flex p={"20px 0"} gap={5} flexFlow={"column"} >
                         <Box>
@@ -90,15 +123,18 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                                 borderColor="black"
                                 variant="flushed"
                                 size="lg"
-                                value={number}
-                                onChange={(value) => setNumber(value)}
+                                value={number} // No need to convert to string
+                                onChange={(valueString) => HandleInputChange(valueString)}
                                 min={0}
                                 step={0.01}
-                                placeholder="Event Cost"
-                                name="Cost"
+                                placeholder="Event Price"
+                                name="Price"
                                 style={{ width: '100%' }}
                             >
-                                <NumberInputField />
+                                <Flex alignItems={'center'}>
+                                    $
+                                    <NumberInputField />
+                                </Flex>
                                 <NumberInputStepper>
                                     <NumberIncrementStepper />
                                     <NumberDecrementStepper />
@@ -106,15 +142,32 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                             </NumberInput>
                         </Box>
                         <Box>
+                            <h1 className={Styles.FirstTitle}>How about a working title?</h1>
+                            <h1 className={Styles.SecondTitle}>It's ok if you can't think of a good title now. You can change it later.</h1>
                             <Input
                                 borderColor={"black"}
                                 variant="flushed"
                                 pr="4.5rem"
                                 size="lg"
-                                placeholder="Event Title"
+                                placeholder="Title"
                                 onChange={formik.handleChange}
-                                name="EventTitle"
-                                value={formik.values.EventTitle}
+                                name="Title"
+                                value={formik.values.Title}
+                                className={Styles.Input}
+                            />
+                        </Box>
+                        <Box>
+                            <h1 className={Styles.FirstTitle}>How about a working title?</h1>
+                            <h1 className={Styles.SecondTitle}>It's ok if you can't think of a good title now. You can change it later.</h1>
+                            <Input
+                                borderColor={"black"}
+                                variant="flushed"
+                                pr="4.5rem"
+                                size="lg"
+                                placeholder="About Course"
+                                onChange={formik.handleChange}
+                                name="AboutCourse"
+                                value={formik.values.AboutCourse}
                                 className={Styles.Input}
                             />
                         </Box>
@@ -124,10 +177,10 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                                 variant="flushed"
                                 pr="4.5rem"
                                 size="lg"
-                                placeholder="Event Location"
+                                placeholder="Languge"
                                 onChange={formik.handleChange}
-                                name="Location"
-                                value={formik.values.Location}
+                                name="Languge"
+                                value={formik.values.Languge}
                                 className={Styles.Input}
                             />
                         </Box>
@@ -137,58 +190,83 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                                 variant="flushed"
                                 pr="4.5rem"
                                 size="lg"
-                                type="datetime-local"
-                                placeholder="EventStartDate"
+                                placeholder="This Course Includes Short"
                                 onChange={formik.handleChange}
-                                name="EventStartDate"
-                                value={formik.values.EventStartDate}
+                                name="ThisCourseIncludes"
+                                value={formik.values.ThisCourseIncludes}
                                 className={Styles.Input}
-                                min={currentDateTime} // Set the minimum date and time
                             />
                         </Box>
                         <Box>
+                            <h1 className={Styles.FirstTitle}>What will students learn in your course?</h1>
+                            <h1 className={Styles.SecondTitle}>You must enter at least 4 learning objectives or outcomes that learners can expect to achieve after completing your course.</h1>
                             <Input
                                 borderColor={"black"}
                                 variant="flushed"
                                 pr="4.5rem"
                                 size="lg"
-                                type="datetime-local"
-                                placeholder="EventFinishDate"
+                                placeholder="Example: Define the roles and responsibilities of a project manager"
                                 onChange={formik.handleChange}
-                                name="EventFinishDate"
-                                value={formik.values.EventFinishDate}
+                                name="ThisCourseIncludes"
+                                value={formik.values.ThisCourseIncludes}
                                 className={Styles.Input}
-                                min={currentDateTime} // Set the minimum date and time
                             />
                         </Box>
-                        <Box>
-                            <Input
-                                borderColor={"black"}
-                                variant="flushed"
-                                pr="4.5rem"
-                                size="lg"
-                                placeholder="Event Total Slot"
-                                onChange={formik.handleChange}
-                                name="TotalSlot"
-                                value={formik.values.TotalSlot}
-                                className={Styles.Input}
-                                type='number'
-                            />
-                        </Box>
-                        <Box>
-                            <Input
-                                borderColor={"black"}
-                                variant="flushed"
-                                pr="4.5rem"
-                                size="lg"
-                                placeholder="About Event"
-                                onChange={formik.handleChange}
-                                name="AboutEvent"
-                                value={formik.values.AboutEvent}
-                                className={Styles.Input}
+                        <Flex flexDirection={"column"} className={Styles.MainContainer} p={"40px 0"} justifyContent={"center"}>
+                            <h1 className={Styles.FirstTitle}>What will students learn in your course?</h1>
+                            <h1 className={Styles.SecondTitle}>
+                                You must enter at least 4 learning objectives or outcomes that learners can expect to achieve after completing your course.
+                            </h1>
+                            {formik.values.WhatWillLearn.map((objective, index) => (
+                                <div key={index} className={Styles.InputContainer}>
+                                    <Input
+                                        borderColor={"black"}
+                                        variant="flushed"
+                                        pr="4.5rem"
+                                        size="lg"
+                                        placeholder={"Example: "+placeholderTexts[index] || `Learning Objective ${index + 1}`} // Use the placeholder text or a default text
+                                        onChange={(event) => handleInputChange(event, index)}
+                                        value={objective}
+                                        className={Styles.Input}
+                                        name={`WhatWillLearn[${index}]`}
+                                    />
+                                    {index === formik.values.WhatWillLearn.length - 1 && (
+                                        <Button
+                                            onClick={handleRemoveField}
+                                            className={Styles.RemoveButton}
+                                            size="sm"
+                                            type="button"
+                                        >
+                                            Remove
+                                        </Button>
+                                    )}
+                                </div>
+                            ))}
+                            <Button
+                                onClick={handleAddField}
+                                size="sm"
+                                mt="24px"
+                                type="button"
+                            >
+                                Add Learning Objective
+                            </Button>
+                        </Flex>
 
-                            />
-                        </Box>
+                        <Accordion allowToggle>
+                            <AccordionItem>
+                                <h2>
+                                    <AccordionButton>
+                                        <Box as="span" flex='1' textAlign='left'>
+                                            this course includes
+                                        </Box>
+                                        <AccordionIcon />
+                                    </AccordionButton>
+                                </h2>
+                                <AccordionPanel pb={4}>
+
+                                </AccordionPanel>
+                            </AccordionItem>
+                        </Accordion>
                     </Flex>
                     {/* <List>
                         {Object.keys(formik.errors).map((fieldName) => (

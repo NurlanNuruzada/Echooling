@@ -96,7 +96,7 @@ namespace Echooling.Persistance.Implementations.Services
             _writeRepository.remove(slider);
             await _writeRepository.SaveChangesAsync();
         }
-        public async Task UpdateAsync(SldierUpdateDto sldierUpdateDto, Guid id)
+        public async Task UpdateAsync(SliderUpdateDto sldierUpdateDto, Guid id)
         {
             var Slider = await _readRepository.GetByIdAsync(id);
             string message = _localizer.GetString("NotFoundExceptionMsg");

@@ -15,7 +15,7 @@ namespace Echooling.Persistance.MapperProfile
         {
             CreateMap<Slider, SliderCreateDto>().ReverseMap();
             CreateMap<Slider, SliderGetDto>().ReverseMap();
-            CreateMap<Slider, SldierUpdateDto>().ReverseMap();
+            CreateMap<Slider, SliderUpdateDto>().ReverseMap();
             CreateMap<Slider, SliderRemoveDto>().ReverseMap();
         }
     }

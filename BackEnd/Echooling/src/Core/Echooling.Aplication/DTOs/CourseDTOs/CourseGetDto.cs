@@ -15,7 +15,7 @@ namespace Echooling.Aplication.DTOs.CourseDTOs
         public decimal Rate { get; set; }
         public decimal Price { get; set; }
         public string Instructor { get; set; } = null!;
-        public string Dutation { get; set; } = null!;
+        public string Duration { get; set; } = null!;
         public string Languge { get; set; } = null!;
         public string Subject { get; set; } = null!;
         public string Enrolled { get; set; } = null!;
