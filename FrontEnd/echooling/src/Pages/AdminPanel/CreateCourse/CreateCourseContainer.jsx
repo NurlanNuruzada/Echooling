@@ -20,12 +20,16 @@ export default function CreateCourseContainer() {
         setCurrentStep(currentStep + 1);
         setFormData((prevData) => ({ ...prevData, ...data }));
     };
-
+    
     const handlePrevious = () => {
         setCurrentStep(currentStep - 1);
     };
-   
+    
+    
+    //create event 
+    
     useEffect(() => {
+        console.log(formData);
     }, [formData]);
     
     return (

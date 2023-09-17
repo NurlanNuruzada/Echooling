@@ -4,10 +4,13 @@ using Echooling.Aplication.Abstraction.Repository.EventRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.CourseDTOs;
 using Echooling.Aplication.DTOs.EventDTOs;
+using Echooling.Aplication.DTOs.SliderDTOs;
+using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
 
 namespace Echooling.Persistance.Implementations.Services
 {
@@ -41,9 +44,11 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new Exception("No image file provided.");
             }
-            Course Course = _mapper.Map<Course>(courseCreateDto);
+
+            Course course = _mapper.Map<Course>(courseCreateDto);
             string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Course";
             Directory.CreateDirectory(uploadsDirectory);
+            course.Approved = false;
 
             if (courseCreateDto.image is not null)
             {
@@ -55,22 +60,38 @@ namespace Echooling.Persistance.Implementations.Services
                     await courseCreateDto.image.CopyToAsync(fileStream);
                 }
 
-                Course.ImageRoutue = fileName;
+                course.ImageRoutue = fileName;
             }
-            await _writeRepository.addAsync(Course);
+
+            // Serialize the string arrays to JSON
+            course.ThisCourseIncludes = JsonConvert.SerializeObject(courseCreateDto.ThisCourseIncludes);
+            course.WhatWillLearn = JsonConvert.SerializeObject(courseCreateDto.WhatWillLearn);
+
+            await _writeRepository.addAsync(course);
             await _writeRepository.SaveChangesAsync();
-            await _TeacherCoursesCreateService.AddCourseToTeacherAsync(Course.GuId, TeacherId);
+            await _TeacherCoursesCreateService.AddCourseToTeacherAsync(course.GuId, TeacherId);
             await _writeRepository.SaveChangesAsync();
         }
 
-        public Task<List<EventGetDto>> GetAllAsync()
+        public Task<List<CourseGetDto>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<EventGetDto> getById(Guid CourseId)
+        public async Task<CourseGetDto> getById(Guid CourseId)
         {
-            throw new NotImplementedException();
+            Course Course = await _readRepository.GetByIdAsync(CourseId);
+            CourseGetDto CourseGet = _mapper.Map<CourseGetDto>(Course);
+            string message = _localizer.GetString("NotFoundExceptionMsg");
+            if (Course is null)
+            {
+                throw new notFoundException(message);
+            }
+            else
+            {
+                CourseGet.image = Course.ImageRoutue;
+                return CourseGet;
+            }
         }
 
         public Task Remove(Guid CourseId)

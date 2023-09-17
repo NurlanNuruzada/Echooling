@@ -2517,7 +2517,8 @@
           "Microsoft.AspNetCore.Authentication.Google": "6.0.21",
           "Microsoft.EntityFrameworkCore": "6.0.21",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
-          "MimeKit": "4.1.0"
+          "MimeKit": "4.1.0",
+          "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
           "bin/placeholder/Echooling.Persistance.dll": {}

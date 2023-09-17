@@ -12,14 +12,14 @@ import { AddEvent } from '../../../Services/EventService';
 import { getById } from '../../../Services/StaffService';
 import axios from 'axios';
 
-export default function CreateCourseLast({ onNext, formData, onPrevious }) {
+export default function CreateEventLast({ onNext, formData, onPrevious }) {
     const [step4Data, setStep4Data] = useState(null); // Initialize with null
     const [SentSuccess, setSentSuccess] = useState(false);
     const [Id, setId] = useState('');
     const [File, SetFile] = useState(null); // Declare File in the outer scope
     const [FileName, SetFileName] = useState('');
+ 
      const { token, userName ,fullname} = useSelector((state) => state.auth); // Update the selector
-
     if (token != null) {
         var decodedToken = jwt_decode(token);
         var id =
@@ -88,7 +88,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             formData.append("AboutEvent", values.aboutEvent);
             formData.append("EventCategoryiesId", values.EventCategoryiesId);
             if (formData.get("image")) {
-                console.log("FormData before muration", formData)
+                console.log("FormData before muration",formData)
                 mutate(formData);
             } else {
                 console.log("FormData is null");

@@ -71,6 +71,7 @@ function CreateEvent({ onNext, formData, onPrevious }) {
         },
         onSubmit: (values) => {
           onNext({ step3Data: values });
+          console.log(values)
         },
         validationSchema: CreateEventScema,
       });

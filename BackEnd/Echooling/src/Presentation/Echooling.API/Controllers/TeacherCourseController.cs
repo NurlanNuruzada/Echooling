@@ -8,11 +8,11 @@ namespace Echooling.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Teacher_CourseController : ControllerBase
+    public class TeacherCourseController : ControllerBase
     {
         private readonly ITeacherCourses _teacherCourseService;
 
-        public Teacher_CourseController(ITeacherCourses teacherCourseService)
+        public TeacherCourseController(ITeacherCourses teacherCourseService)
         {
             _teacherCourseService = teacherCourseService;
         }

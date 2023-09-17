@@ -32,19 +32,19 @@ import { useSelector } from 'react-redux';
 function CreateCourse({ onNext, formData, onPrevious }) {
     const [number, setNumber] = useState(0);
     const { token, fullname } = useSelector((state) => state.auth); // Update the selector
-    const [learningObjectives, setLearningObjectives] = useState([
-        '',
-        '',
-        '',
-        '',
-    ]);
+    const [learningObjectives, setLearningObjectives] = useState(['', '', '', '']);
+    const [thisCourseIncludes, setThisCourseIncludes] = useState(['']);
+    const initialThisCourseIncludes = [''];
+    const initialLearningObjectives = ['', '', '', ''];
+    // Define state for ThisCourseIncludes
+
     const placeholderTexts = [
         "Define the roles and responsibilities of a project manager",
         "Explain key concepts of data analysis",
         "Demonstrate effective communication skills",
         "Discuss best practices in customer service",
     ];
-    const initialLearningObjectives = ['', '', '', ''];
+
     const handleInputChange = (event, index) => {
         const newObjectives = [...formik.values.WhatWillLearn];
         newObjectives[index] = event.target.value;
@@ -52,61 +52,87 @@ function CreateCourse({ onNext, formData, onPrevious }) {
     };
 
     const handleAddField = () => {
-        setLearningObjectives([...learningObjectives, '']);
+        const newObjectives = [...formik.values.WhatWillLearn, ''];
+        formik.setFieldValue('WhatWillLearn', newObjectives);
     };
-    const handleRemoveField = () => {
-        if (learningObjectives.length > 4) {
-            const newObjectives = [...learningObjectives];
-            newObjectives.pop();
-            setLearningObjectives(newObjectives);
-        }
-    };
-
-
 
     const HandleInputChange = (valueString) => {
         setNumber(valueString); // No need to parse, store the string as-is
     };
+
     const navigate = useNavigate();
 
     const handleNavigate = (route) => {
         navigate(route);
     };
+
     const getErrorMessage = (fieldName) => {
         return formik.errors[fieldName] ? formik.errors[fieldName] : "";
     };
+
     const [step3Data, setstep3Data] = useState("");
+
     const handleNext = (values) => {
         setstep3Data(values);
         onNext({ step3Data });
     };
+
     const handlePreviousClick = () => {
         onPrevious();
     };
+
+
+    const handleThisCourseIncludesChange = (event, index) => {
+        const newObjectives = [...formik.values.ThisCourseIncludes];
+        newObjectives[index] = event.target.value;
+        formik.setFieldValue('ThisCourseIncludes', newObjectives);
+    };
+
+    const handleAddThisCourseIncludesField = () => {
+        const newItems = [...formik.values.ThisCourseIncludes, ''];
+        formik.setFieldValue('ThisCourseIncludes', newItems);
+    };
+    const handleRemoveField = () => {
+        if (formik.values.WhatWillLearn.length > 1) {
+            const newObjectives = [...formik.values.WhatWillLearn];
+            newObjectives.pop();
+            formik.setFieldValue('WhatWillLearn', newObjectives);
+        }
+    };
+    
+    const handleRemoveThisCourseIncludesField = () => {
+        if (formik.values.ThisCourseIncludes.length > 1) {
+            const newItems = [...formik.values.ThisCourseIncludes];
+            newItems.pop();
+            formik.setFieldValue('ThisCourseIncludes', newItems);
+        }
+    };
+
     const formik = useFormik({
         initialValues: {
             Title: "",
-            Rate: '',
             Price: '',
             Instructor: fullname,
-            Dutation: '',
             Languge: '',
             Subject: '',
-            Enrolled: '',
-            ThisCourseIncludes: '',
+            ThisCourseIncludes: initialThisCourseIncludes,
             AboutCourse: '',
             WhatWillLearn: initialLearningObjectives,
-            CounrseContent: '',
             image: '',
+            CourseCategoryId: '',
         },
         onSubmit: (values) => {
             values.Subject = formData.step2Data[0].category
-            // onNext({ step3Data: values });
-            console.log(values)
+            values.CourseCategoryId = formData.step2Data[0].GuId
+            console.log(values);
+            onNext({ step3Data: values });
+            
         },
         // validationSchema: CreateEventScema,
     });
+
     const currentDateTime = new Date().toISOString().slice(0, 16);
+
     return (
         <>
             <Progress value={75} />
@@ -123,7 +149,7 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                                 borderColor="black"
                                 variant="flushed"
                                 size="lg"
-                                value={number} // No need to convert to string
+                                value={number}
                                 onChange={(valueString) => HandleInputChange(valueString)}
                                 min={0}
                                 step={0.01}
@@ -133,7 +159,11 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                             >
                                 <Flex alignItems={'center'}>
                                     $
-                                    <NumberInputField />
+                                    <NumberInputField
+                                        name="Price" // Make sure the name matches the formik field name
+                                        value={formik.values.Price} // Bind the value to formik
+                                        onChange={formik.handleChange} // Handle changes via formik
+                                    />
                                 </Flex>
                                 <NumberInputStepper>
                                     <NumberIncrementStepper />
@@ -185,32 +215,43 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                             />
                         </Box>
                         <Box>
-                            <Input
-                                borderColor={"black"}
-                                variant="flushed"
-                                pr="4.5rem"
-                                size="lg"
-                                placeholder="This Course Includes Short"
-                                onChange={formik.handleChange}
-                                name="ThisCourseIncludes"
-                                value={formik.values.ThisCourseIncludes}
-                                className={Styles.Input}
-                            />
-                        </Box>
-                        <Box>
-                            <h1 className={Styles.FirstTitle}>What will students learn in your course?</h1>
-                            <h1 className={Styles.SecondTitle}>You must enter at least 4 learning objectives or outcomes that learners can expect to achieve after completing your course.</h1>
-                            <Input
-                                borderColor={"black"}
-                                variant="flushed"
-                                pr="4.5rem"
-                                size="lg"
-                                placeholder="Example: Define the roles and responsibilities of a project manager"
-                                onChange={formik.handleChange}
-                                name="ThisCourseIncludes"
-                                value={formik.values.ThisCourseIncludes}
-                                className={Styles.Input}
-                            />
+                            <h1 className={Styles.FirstTitle}>What does this course include?</h1>
+                            <h1 className={Styles.SecondTitle}>
+                                You must enter at least 4 items that this course includes.
+                            </h1>
+                            {formik.values.ThisCourseIncludes.map((objective, index) => (
+                                <div key={index} className={Styles.InputContainer}>
+                                    <Input
+                                        borderColor={"black"}
+                                        variant="flushed"
+                                        pr="4.5rem"
+                                        size="lg"
+                                        placeholder={`Example: ${placeholderTexts[index] || `Item ${index + 1}`}`}
+                                        onChange={(event) => handleThisCourseIncludesChange(event, index)}
+                                        value={objective}
+                                        className={Styles.Input}
+                                        name={`ThisCourseIncludes[${index}]`}
+                                    />
+                                    {index === formik.values.ThisCourseIncludes.length - 1 && (
+                                        <Button
+                                            onClick={handleRemoveThisCourseIncludesField}
+                                            className={Styles.RemoveButton}
+                                            size="sm"
+                                            type="button"
+                                        >
+                                            Remove
+                                        </Button>
+                                    )}
+                                </div>
+                            ))}
+                            <Button
+                                onClick={handleAddThisCourseIncludesField} // Use the new function for adding fields
+                                size="sm"
+                                mt="24px"
+                                type="button"
+                            >
+                                Add Item
+                            </Button>
                         </Box>
                         <Flex flexDirection={"column"} className={Styles.MainContainer} p={"40px 0"} justifyContent={"center"}>
                             <h1 className={Styles.FirstTitle}>What will students learn in your course?</h1>
@@ -224,7 +265,7 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                                         variant="flushed"
                                         pr="4.5rem"
                                         size="lg"
-                                        placeholder={"Example: "+placeholderTexts[index] || `Learning Objective ${index + 1}`} // Use the placeholder text or a default text
+                                        placeholder={"Example: " + placeholderTexts[index] || `Learning Objective ${index + 1}`} // Use the placeholder text or a default text
                                         onChange={(event) => handleInputChange(event, index)}
                                         value={objective}
                                         className={Styles.Input}
@@ -251,23 +292,8 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                                 Add Learning Objective
                             </Button>
                         </Flex>
-
-                        <Accordion allowToggle>
-                            <AccordionItem>
-                                <h2>
-                                    <AccordionButton>
-                                        <Box as="span" flex='1' textAlign='left'>
-                                            this course includes
-                                        </Box>
-                                        <AccordionIcon />
-                                    </AccordionButton>
-                                </h2>
-                                <AccordionPanel pb={4}>
-
-                                </AccordionPanel>
-                            </AccordionItem>
-                        </Accordion>
                     </Flex>
+
                     {/* <List>
                         {Object.keys(formik.errors).map((fieldName) => (
                             <ListItem key={fieldName}>

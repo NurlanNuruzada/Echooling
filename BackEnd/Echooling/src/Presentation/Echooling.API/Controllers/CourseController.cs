@@ -5,6 +5,7 @@ using Echooling.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Echooling.Aplication.DTOs.CourseDTOs;
+using Echooling.Aplication.DTOs.SliderDTOs;
 
 namespace Echooling.API.Controllers
 {
@@ -24,6 +25,12 @@ namespace Echooling.API.Controllers
         {
             await _CourseService.CreateAsync(Course, TeacherId);
             return StatusCode((int)HttpStatusCode.Created);
+        }
+        [HttpGet("id")]
+        public async Task<IActionResult> get(Guid id)
+        {
+            CourseGetDto Course = await _CourseService.getById(id);
+            return Ok(Course);
         }
     }
 }

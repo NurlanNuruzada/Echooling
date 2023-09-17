@@ -145,6 +145,9 @@ namespace Echooling.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("CourseCategoryId")
                         .HasColumnType("uniqueidentifier");
 
@@ -155,11 +158,9 @@ namespace Echooling.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Duration")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Enrolled")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageRoutue")
@@ -850,7 +851,8 @@ namespace Echooling.Persistance.Migrations
                 {
                     b.HasOne("Ecooling.Domain.Entites.Course", "Course")
                         .WithMany("TeacherDetailsCourses")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Ecooling.Domain.Entites.teacherDetails", "teacherDetails")
                         .WithMany("TeacherDetailsCourses")

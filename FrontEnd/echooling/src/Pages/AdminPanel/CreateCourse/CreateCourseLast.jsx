@@ -11,15 +11,16 @@ import { useFormik } from 'formik';
 import { AddEvent } from '../../../Services/EventService';
 import { getById } from '../../../Services/StaffService';
 import axios from 'axios';
+import { AddCourse } from '../../../Services/CourseService';
 
 export default function CreateCourseLast({ onNext, formData, onPrevious }) {
-    const [step4Data, setStep4Data] = useState(null);
+    const [step4Data, setStep4Data] = useState(null); // Initialize with null
     const [SentSuccess, setSentSuccess] = useState(false);
     const [Id, setId] = useState('');
-    const [File, SetFile] = useState(null);
+    const [File, SetFile] = useState(null); // Declare File in the outer scope
     const [FileName, SetFileName] = useState('');
-    const { token, userName } = useSelector((state) => state.auth);
-    
+    const { token, userName, fullname } = useSelector((state) => state.auth); // Update the selector
+    const [MainData, SetMainData] = useState('');
     if (token != null) {
         var decodedToken = jwt_decode(token);
         var id =
@@ -27,83 +28,109 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
             ];
     }
-
     const handlePreviousClick = () => {
         onPrevious();
     };
 
-    const navigate = useNavigate();
-    const handleNavigate = (route) => {
-        navigate(route);
-    };
-
-    const saveFile = (e) => {
-        console.log(e.target.files[0]);
-        SetFile(e.target.files[0]);
-        SetFileName(e.target.files[0].name);
-    }
-
-    const formik = useFormik({
-        initialValues: {
-            eventFinishDate: formData.step3Data.EventFinishDate,
-            eventStartDate: formData.step3Data.EventStartDate,
-            cost: formData.step3Data.Cost,
-            orginazer: formData.step3Data.orginazer,
-            totalSlot: formData.step3Data.TotalSlot,
-            location: formData.step3Data.Location,
-            eventTitle: formData.step3Data.EventTitle,
-            aboutEvent: formData.step3Data.AboutEvent,
-            image: null,
-        },
-        onSubmit: async (values) => {
-            const formData = new FormData();
-            formData.append("image", File ? File : "");
-            formData.append("EventStartDate", values.eventFinishDate);
-            formData.append("EventFinishDate", values.eventStartDate);
-            formData.append("Cost", values.cost);
-            formData.append("orginazer", values.orginazer);
-            formData.append("TotalSlot", values.totalSlot);
-            formData.append("Location", values.location);
-            formData.append("EventTitle", values.eventTitle);
-            formData.append("AboutEvent", values.aboutEvent);
-
-            try {
-                const response = await axios.post(`https://localhost:7222/api/Event/Create/id?staffId=${Id}`, formData, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                });
-                setSentSuccess(true);
-            } catch (error) {
-                console.error(error);
-            }
-        },
-    });
-
-    const { mutate: getIdMutation } = useMutation(
+    const { mutate: getId } = useMutation(
         (id) => getById(id),
         {
             onSuccess: (resp) => {
                 setId(resp.data.guId);
-                formik.handleSubmit();
             },
             onError: (error) => {
-                console.log("erroooooooooooooooOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR")
                 console.error(error);
             },
         }
     );
     useEffect(() => {
-        // Trigger the getIdMutation when the component mounts
-        getIdMutation(id);
+        console.log(fullname)
+        getId(id);
     }, []);
+    useEffect(() => {
+        SetMainData(formData)
+    }, [formData]);
+    const navigate = useNavigate();
+    const handleNavigate = (route) => {
+        navigate(route);
+    };
+
+    const fileUploadHandler = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            SetFile(selectedFile);
+            SetFileName(selectedFile.name);
+            formik.setFieldValue('image', selectedFile)
+            formik.setFieldValue('Title', formData.step3Data.Title)
+            formik.setFieldValue('Price', formData.step3Data.Price)
+            formik.setFieldValue('Instructor', formData.step3Data.Instructor)
+            formik.setFieldValue('Languge', formData.step3Data.Languge)
+            formik.setFieldValue('Subject', formData.step3Data.Subject)
+            formik.setFieldValue('AboutCourse', formData.step3Data.AboutCourse)
+            formik.setFieldValue('WhatWillLearn', formData.step3Data.WhatWillLearn)
+            formik.setFieldValue('CourseCategoryId', formData.step3Data.CourseCategoryId)
+        } else {
+            console.error("No file selected.");
+        }
+    };
+    const formik = useFormik({
+        initialValues: {
+            Title: '',
+            Price: '',
+            Instructor: '',
+            Languge: '',
+            Subject: '',
+            ThisCourseIncludes: '',
+            AboutCourse: '',
+            WhatWillLearn: '',
+            CourseCategoryId: '',
+            image: null,
+        },
+        onSubmit: async (values) => {
+            const formData = new FormData();
+
+            // Append values to formData
+            formData.append("image", File ? File : "");
+            formData.append("Title", values.Title);
+            formData.append("Price", values.Price);
+            formData.append("Instructor", values.Instructor);
+            formData.append("Languge", values.Languge);
+            formData.append("Subject", values.Subject);
+            formData.append("ThisCourseIncludes", values.ThisCourseIncludes);
+            formData.append("WhatWillLearn", values.WhatWillLearn);
+            formData.append("AboutCourse", values.AboutCourse);
+            formData.append("CourseCategoryId", values.CourseCategoryId);
+
+            // Log formData
+            
+            if (formData.get("image")) {
+                mutate(formData)
+            } else {
+                console.log("FormData is null");
+                console.log(formData);
+            }
+        },
+    });
+    const { mutate, isLoading, error } = useMutation(
+        (data) => AddCourse(Id, data),
+        {
+            onSuccess: (resp) => {
+                console.log('success');
+                console.log(resp);
+                // setSentSuccess(true);
+            },
+            onError: (error) => {
+                console.error(error);
+            },
+        }
+    );
 
     useEffect(() => {
         if (SentSuccess) {
             const timer = setTimeout(() => {
                 setSentSuccess(false);
-                handleNavigate('/ControlPanel');
-            }, 4500);
+                navigate("/ControlPanel/CreateEvent")
+            }, 1500);
             return () => {
                 clearTimeout(timer);
             };
@@ -113,7 +140,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
     return (
         <div>
             <Progress value={100} />
-            <Steps CurrentStep={4} TotalSteps={4} />
+            <Steps CurrentStep={3} TotalSteps={3} />
             {SentSuccess && (
                 <Done
                     firstTitle={'the Event Created Succesfully'}
@@ -122,17 +149,17 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             )}
             CreateEventLast
             <Flex gap={5}>
-                <form>
+                <form onSubmit={formik.handleSubmit}>
                     <input
                         name="image"
                         type="file"
-                        onChange={(e) => saveFile(e)}
+                        onChange={(e) => fileUploadHandler(e)}
                     />
                     <button className={Styles.Button} onClick={handlePreviousClick}>
                         PREVIOUS
                     </button>
                     {true && (
-                        <button className={Styles.Button} type="button" onClick={() => getIdMutation(id)}>
+                        <button className={Styles.Button} type="submit">
                             NEXT
                         </button>
                     )}

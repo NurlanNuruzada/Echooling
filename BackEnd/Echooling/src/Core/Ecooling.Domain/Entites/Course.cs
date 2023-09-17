@@ -14,14 +14,15 @@ namespace Ecooling.Domain.Entites
         public decimal Rate { get; set; }
         public decimal Price { get; set; }
         public string Instructor { get; set; } = null!;
-        public string Duration { get; set; } = null!;
+        public string? Duration { get; set; }
         public string Languge { get; set; } = null!;
         public string Subject { get; set; } = null!;
-        public string Enrolled { get; set; } = null!;
+        public string? Enrolled { get; set; }
         public string ThisCourseIncludes { get; set; } = null!;
-        public string AboutCourse { get; set; } = null!;
         public string WhatWillLearn { get; set; } = null!;
+        public string AboutCourse { get; set; } = null!;
         public Guid CourseCategoryId { get; set; }
         public CourseCategories CourseCategory { get; set; } = null!;
+        public bool Approved { get; set; }
     }
 }

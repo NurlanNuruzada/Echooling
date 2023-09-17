@@ -10,10 +10,10 @@ namespace Echooling.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Event_StaffController : ControllerBase
+    public class EventStaffController : ControllerBase
     {
         public readonly IStaffEventsService _staffEventsService;
-        public Event_StaffController(IStaffEventsService staffEventsService)
+        public EventStaffController(IStaffEventsService staffEventsService)
         {
             _staffEventsService = staffEventsService;
         }
