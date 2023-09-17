@@ -10,7 +10,7 @@ namespace Ecooling.Domain.Entites
     public class VideoContent:BaseEntity
     {
         public ICollection<Video_Course>? VideoCourse { get; set; }
-        public IFormFile Video { get; set; } = null!;
-        public string VideoName { get; set; }
+        public string? VideoTitle { get; set; }
+        public string? VideoUniqueName { get; set; } = null!;
     }
 }

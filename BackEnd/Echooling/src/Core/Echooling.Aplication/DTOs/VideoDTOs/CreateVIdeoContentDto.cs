@@ -5,6 +5,6 @@ namespace Echooling.Aplication.DTOs.VideoDTOs
     public class CreateVIdeoContentDto
     {
         public string? VideoTitle { get; set; }
-        public IFormFile Video { get; set; } = null!;
+        public IFormFile? Video { get; set; } = null!;
     }
 }

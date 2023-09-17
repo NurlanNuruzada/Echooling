@@ -4,6 +4,7 @@ using Echooling.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Echooling.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230917024441_addedVideoDetail1")]
+    partial class addedVideoDetail1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -617,10 +619,10 @@ namespace Echooling.Persistance.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("VideoTitle")
+                    b.Property<string>("VideoRoutue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoUniqueName")
+                    b.Property<string>("VideoTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GuId");

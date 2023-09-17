@@ -11,6 +11,6 @@ namespace Echooling.Aplication.DTOs.VideoDTOs
     {
         public Guid Guid { get; set; }
         public string? VideoTitle { get; set; }
-        public string VideoName { get; set; } = null!;
+        public string? VideoUniqueName { get; set; } = null;
     }
 }
