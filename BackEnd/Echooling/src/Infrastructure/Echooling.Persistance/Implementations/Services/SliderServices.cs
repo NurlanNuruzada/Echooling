@@ -60,27 +60,29 @@ namespace Echooling.Persistance.Implementations.Services
 
         public async Task<List<SliderGetDto>> GetAllAsync()
         {
-            var Sliders = await _readRepository.GetAll().ToListAsync();
+            var Sliders = await _readRepository.GetAll().Where(s=>s.IsDeleted == false).ToListAsync();
             List<SliderGetDto> List = _mapper.Map<List<SliderGetDto>>(Sliders);
-
             foreach (SliderGetDto sliderDto in List)
             {
                 sliderDto.ImageRoutue = $"{sliderDto.ImageRoutue}";
             }
-
             return List;
         }
         public async Task<SliderGetDto> getById(Guid id)
         {
-            Slider slider = await _readRepository.GetByIdAsync(id);
-            SliderGetDto sliderGetDto = _mapper.Map<SliderGetDto>(slider);
             string message = _localizer.GetString("NotFoundExceptionMsg");
+            Slider slider = await _readRepository.GetByIdAsync(id);
             if (slider is null)
+            {
+                throw new notFoundException(message);
+            }
+            if (slider.IsDeleted == true)
             {
                 throw new notFoundException(message);
             }
             else
             {
+                SliderGetDto sliderGetDto = _mapper.Map<SliderGetDto>(slider);
                 sliderGetDto.ImageRoutue = slider.ImageRoutue;
                 return sliderGetDto;
             }
@@ -93,7 +95,7 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException(message);
             }
-            _writeRepository.remove(slider);
+            slider.IsDeleted = true;
             await _writeRepository.SaveChangesAsync();
         }
         public async Task UpdateAsync(SliderUpdateDto sldierUpdateDto, Guid id)

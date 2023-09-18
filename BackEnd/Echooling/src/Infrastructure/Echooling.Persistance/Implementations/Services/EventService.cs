@@ -72,6 +72,7 @@ namespace Echooling.Persistance.Implementations.Services
 
                 EntityEvent.ImageRoutue = fileName;
             }
+            EventCategoryDto eventCategoryDto = new EventCategoryDto();
             await _writeRepository.addAsync(EntityEvent);
             await _writeRepository.SaveChangesAsync();
             await _staffEventsService.AddStaffToEventAsync(EntityEvent.GuId, UserId);
@@ -79,7 +80,7 @@ namespace Echooling.Persistance.Implementations.Services
         }
         public async Task<List<EventGetDto>> GetAllAsync()
         {
-            var Events = await _readRepository.GetAll().ToListAsync();
+            var Events = await _readRepository.GetAll().Where(e => e.IsDeleted == false).ToListAsync();
             List<EventGetDto> List = _mapper.Map<List<EventGetDto>>(Events);
             foreach (EventGetDto sliderDto in List)
             {
@@ -95,9 +96,16 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException("user" + " " + message);
             }
-            EventGetDto FoundEvent = _mapper.Map<EventGetDto>(Event);
-            FoundEvent.ImageRoutue = Event.ImageRoutue;
-            return FoundEvent;
+            if (Event.IsDeleted == true)
+            {
+                throw new notFoundException(message);
+            }
+            else
+            {
+                EventGetDto FoundEvent = _mapper.Map<EventGetDto>(Event);
+                FoundEvent.ImageRoutue = Event.ImageRoutue;
+                return FoundEvent;
+            }
         }
         public async Task Remove(Guid id)
         {
@@ -107,20 +115,35 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException(message);
             }
-            _writeRepository.remove(Event);
+            Event.IsDeleted = true;
             await _writeRepository.SaveChangesAsync();
         }
         public async Task UpdateAsync(EventCreateDto StaffUpdateDto, Guid id)
         {
             var Event = await _readRepository.GetByIdAsync(id);
+            var ImageRoutue = Event.ImageRoutue;
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (Event is null)
             {
-                throw new notFoundException("user" + " " + message);
+                throw new notFoundException(message);
             }
+            string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Event";
+            Directory.CreateDirectory(uploadsDirectory);
             _mapper.Map(StaffUpdateDto, Event);
+            if (StaffUpdateDto.image is not null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(StaffUpdateDto.image.FileName);
+                string filePath = Path.Combine(uploadsDirectory, fileName);
+
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                {
+                    await StaffUpdateDto.image.CopyToAsync(fileStream);
+                }
+
+                Event.ImageRoutue = fileName;
+            }
             await _writeRepository.SaveChangesAsync();
         }
-
     }
+
 }

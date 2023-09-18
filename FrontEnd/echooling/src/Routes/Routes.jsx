@@ -31,6 +31,8 @@ import CreateSlider from "../Pages/AdminPanel/CreateSlider/CreateSlider";
 import CreateCourseContainer from "../Pages/AdminPanel/CreateCourse/CreateCourseContainer";
 import ListOfEvents from "../Pages/AdminPanel/CreateEvent/ListOfEvents";
 import SliderUpdate from "../Pages/AdminPanel/CreateSlider/SliderUpdate";
+import EventsAdmin from "../Pages/AdminPanel/EventCrud/EventsAdmin";
+import UpdateEvent from "../Pages/AdminPanel/EventCrud/EventUpdate";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -57,6 +59,14 @@ export default function Routes() {
         {
           path: "/ControlPanel/CreateEvent",
           element:  <CreateEventContainer />  
+        },
+        {
+          path: "/ControlPanel/UpdateEvent/:id",
+           element:  <UpdateEvent />  
+        },
+        {
+          path: "/ControlPanel/Events",
+          element:  <EventsAdmin />  
         },
         {
           path: "/ControlPanel/CreateCourseContainer",

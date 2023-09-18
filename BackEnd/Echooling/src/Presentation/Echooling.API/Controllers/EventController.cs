@@ -55,7 +55,7 @@ namespace Echooling.API.Controllers
         }
 
         [HttpPut("id")]
-        public async Task<IActionResult> update([FromBody] EventCreateDto eventDto, Guid id)
+        public async Task<IActionResult> update([FromForm] EventCreateDto eventDto, Guid id)
         {
             await _eventService.UpdateAsync(eventDto, id);
             return Ok(new { message = "Slider Updated successfully." + eventDto });

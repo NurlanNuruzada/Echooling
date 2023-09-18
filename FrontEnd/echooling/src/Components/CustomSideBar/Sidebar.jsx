@@ -67,6 +67,12 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Slider</h1>
             </Link>
           </li>
+          <li  >
+            <Link to={"/ControlPanel/Events"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+              <FontAwesomeIcon icon={faChartLine} />
+              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Events</h1>
+            </Link>
+          </li>
        
         </ul>
         <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>

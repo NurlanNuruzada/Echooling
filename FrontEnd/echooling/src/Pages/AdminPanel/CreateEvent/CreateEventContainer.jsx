@@ -17,8 +17,7 @@ export default function CreateEventContainer() {
     const handleNext = (data) => {
         setCurrentStep(currentStep + 1);
         setFormData((prevData) => ({ ...prevData, ...data }));
-        console.log(formData);
-    };
+      };
 
     const handlePrevious = () => {
         setCurrentStep(currentStep - 1);

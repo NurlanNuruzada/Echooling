@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import Styles from './CreateEventSteptwo.module.css';
+import Styles from './CreateEventStepone.module.css';
 import {
   Progress,
   Stack,
   Select,
   Flex,
   Input,
+  List,
+  ListItem,
 } from '@chakra-ui/react';
 import image from '../../../Images/LearnImage.jpg';
 import Steps from '../../../Components/Steps/Steps';
 import { useMutation, useQuery } from 'react-query';
-import { useFormik } from 'formik';
-import { getAllEventCategories } from '../../../Services/CategoryService';
-import { getSliders } from '../../../Services/SliderService';
+import { getAllCourseategories, getAllEventCategories } from '../../../Services/CategoryService';
+import { GetUStaffUsers } from '../../../Services/StaffService';
 
-export default function CreateEventSteptwo({ onNext, formData, onPrevious }) {
+export default function CreateCourseSteptwo({ onNext }) {
   const [step2Data, setStep2Data] = useState('');
   const [selected, setSelected] = useState(false);
-  const [Data, setData] = useState({ data: [] }); // Initialize Data as an object with an empty data array
+  const [Data, setData] = useState({ data: [] });
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredData, setFilteredData] = useState([]); // Initialize filteredData as an empty array
+  const [filteredData, setFilteredData] = useState([]);
 
-  const { mutate, isLoading, error } = useMutation(() => getAllEventCategories(), {
+  const { mutate } = useMutation(() => getAllEventCategories(), {
     onSuccess: (resp) => {
       setData(resp);
     },
@@ -29,27 +30,28 @@ export default function CreateEventSteptwo({ onNext, formData, onPrevious }) {
       console.error(error);
     },
   });
+
   useEffect(() => {
     const query = searchQuery.toLowerCase();
-    Data.data?.filter((data) =>
+    setFilteredData(Data.data?.filter((data) =>
       data.category.toLowerCase().includes(query)
-    ).map((data) => setFilteredData(data));
-    console.log(filteredData)
-  }, [searchQuery])
+    ));
+  }, [searchQuery, Data.data]);
 
   useEffect(() => {
     mutate();
-
-  }, []);
+  }, [mutate]);
 
   const handleNext = () => {
     onNext({ step2Data });
   };
 
   const handleValueChange = (event) => {
-    const selectedGuId = event.target.value;
-    console.log(selectedGuId)
-    setStep2Data(selectedGuId);
+    const selectedValue = event.target.value;
+    const [GuId, category] = selectedValue.split(',');
+    const selectedData = { GuId, category };
+    const selectedDataArray = [selectedData];
+    setStep2Data(selectedDataArray);
     setSelected(true);
   };
 
@@ -57,17 +59,15 @@ export default function CreateEventSteptwo({ onNext, formData, onPrevious }) {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
   };
-  const handlePreviousClick = () => {
-    onPrevious();
-};
+
   return (
     <div>
-          <Progress value={33.3} />
-      <Steps CurrentStep={1} TotalSteps={3} />
+      <Progress value={25} />
+      <Steps CurrentStep={1} TotalSteps={4} />
       <div className={Styles.MainContainer}>
         <div className={Styles.container}>
           <div className={Styles.header}>
-            <h1>Let's add Category</h1>
+            <h1>What category best fits the knowledge you'll share?</h1>
             <p>
               This is very important to select the correct event category.
             </p>
@@ -81,24 +81,31 @@ export default function CreateEventSteptwo({ onNext, formData, onPrevious }) {
                 size='lg'
                 onChange={handleSearchChange}
               />
-                <Select
+              <Select
                 variant='flushed'
                 placeholder='Select Category'
                 size='lg'
                 onChange={handleValueChange}
               >
-                {searchQuery ? <option value={filteredData.guId} >
-                  {filteredData.category}
-                </option> : Data?.data?.map((data, index) => (
-                  <option key={index} value={data.guId}>
-                    {data.category}
-                  </option>
-                ))}
+                {searchQuery ? (
+                  filteredData.map((data) => (
+                    <option key={data.guId} value={`${data.guId},${data.category}`}>
+                      {data.category}
+                    </option>
+                  ))
+                ) : (
+                  Data.data?.map((data) => (
+                    <option key={data.guId} value={`${data.guId},${data.category}`}>
+                      {data.category}
+                    </option>
+                  ))
+                )}
               </Select>
             </Stack>
             <img className={Styles.Image} src={image} alt='' />
           </div>
         </div>
+  
       </div>
       <Flex gap={5}>
         {selected && <button className={Styles.Button} onClick={handleNext}>NEXT</button>}

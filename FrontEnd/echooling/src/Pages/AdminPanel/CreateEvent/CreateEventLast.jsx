@@ -71,7 +71,8 @@ export default function CreateEventLast({ onNext, formData, onPrevious }) {
             location: formData.step3Data.Location,
             eventTitle: formData.step3Data.EventTitle,
             aboutEvent: formData.step3Data.AboutEvent,
-            EventCategoryiesId: formData.step2Data,
+            EventCategoryiesId: formData.step2Data[0].GuId,
+            Categoryname:formData.step2Data[0].category,
             image: null,
         },
         onSubmit: async (values) => {
@@ -80,22 +81,22 @@ export default function CreateEventLast({ onNext, formData, onPrevious }) {
             formData.append("EventStartDate", values.eventFinishDate);
             formData.append("EventFinishDate", values.eventStartDate);
             formData.append("Cost", values.cost);
-            formData.append("orginazer", values.orginazer);
+            formData.append("orginazer", values.orginazer); 
             formData.append("TotalSlot", values.totalSlot);
             formData.append("Location", values.location);
             formData.append("orginazer", values.orginazer);
             formData.append("EventTitle", values.eventTitle);
             formData.append("AboutEvent", values.aboutEvent);
             formData.append("EventCategoryiesId", values.EventCategoryiesId);
+            formData.append("Categoryname", values.Categoryname);
             if (formData.get("image")) {
-                console.log("FormData before muration",formData)
-                mutate(formData);
+                 mutate(formData);
             } else {
                 console.log("FormData is null");
             }
         },
     });
-
+console.log(formData)
     const { mutate, isLoading, error } = useMutation(
         (data) => AddEvent(Id, data),
         {

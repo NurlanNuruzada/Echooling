@@ -266,6 +266,9 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("AboutEvent")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Categoryname")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal?>("Cost")
                         .HasColumnType("decimal(18,2)");
 

@@ -13,6 +13,7 @@
         public string? EventTitle { get; set; }
         public string? AboutEvent { get; set; }
         public Guid? EventCategoryiesId { get; set; }
+        public string? Categoryname {  get; set; }   
         public EventCategoryies? EventCategoryies{ get; set; }
         public string? ImageRoutue { get; set; }
     }
