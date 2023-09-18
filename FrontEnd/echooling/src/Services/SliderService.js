@@ -18,6 +18,18 @@ export const DeleteSliders = async (Id) => {
     const response = await httpClient.delete(`/api/Slider/delete/id?id=${Id}`)
     return response.data;
 }
+export const UpdateSlider = async (Id,formData) => {
+    const response = await httpClient.put(`/api/Slider/id?id=${Id}`, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data; boundary=l3iPy71otz",
+        },
+    });
+    return response.data;
+}
+export const GetSliderId = async (Id) => {
+    const response = await httpClient.get(`/api/Slider/id?id=${Id}`)
+    return response.data;
+}
 export const CreateSliderFunction = async (formData) => {
     console.log("formdata inside of the Service",formData)
     const response = await httpClient.post(`/api/Slider/Create`, formData, {

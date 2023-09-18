@@ -155,7 +155,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
                     <input
                         name="image"
                         type="file"
-                        accept="video/mp4,video/mpeg,video/ogg,video/webm"
+                        accept="image/*"
                         onChange={(e) => fileUploadHandler(e)}
                     />
                     <button className={Styles.Button} onClick={handlePreviousClick}>

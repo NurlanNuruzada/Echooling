@@ -99,12 +99,27 @@ namespace Echooling.Persistance.Implementations.Services
         public async Task UpdateAsync(SliderUpdateDto sldierUpdateDto, Guid id)
         {
             var Slider = await _readRepository.GetByIdAsync(id);
+            var ImageRoutue = Slider.ImageRoutue;
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (Slider is null)
             {
                 throw new notFoundException(message);
             }
+            string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads";
+            Directory.CreateDirectory(uploadsDirectory);
             _mapper.Map(sldierUpdateDto, Slider);
+            if (sldierUpdateDto.image is not null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(sldierUpdateDto.image.FileName);
+                string filePath = Path.Combine(uploadsDirectory, fileName);
+
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                {
+                    await sldierUpdateDto.image.CopyToAsync(fileStream);
+                }
+
+                Slider.ImageRoutue = fileName;
+            }
             await _writeRepository.SaveChangesAsync();
         }
     }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
-import { Box, Button, Flex, Input, Progress } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, Progress, styled } from '@chakra-ui/react';
 import Styles from './CreateSlider.module.css';
 import Done from '../../../Components/DoneModal/Done';
 import Steps from '../../../Components/Steps/Steps';
@@ -108,7 +108,7 @@ export default function CreateSlider({ onNext, formData, onPrevious }) {
         }
     }, [SentSuccess]);
 
-
+    var number = 0
     const queryClient = useQueryClient()
     const { mutate: Delete } = useMutation(
         (Id) => DeleteSliders(Id),
@@ -135,7 +135,7 @@ export default function CreateSlider({ onNext, formData, onPrevious }) {
         }
     );
     return (
-        <div>
+        <div lassName={Styles.MainContainer2}>
             <Progress value={100} />
             <Steps CurrentStep={4} TotalSteps={4} />
             <div className={Styles.MainContainer}>
@@ -146,10 +146,11 @@ export default function CreateSlider({ onNext, formData, onPrevious }) {
                     />
                 )}
                 CreateEventLast
-                <form onSubmit={formik.handleSubmit}>
+                <form style={{padding:"10px"}} onSubmit={formik.handleSubmit}>
                     <input
                         name="image"
                         type="file"
+                        accept="image/*"
                         onChange={(e) => fileUploadHandler(e)}
                     />
                     <Box>
@@ -197,36 +198,36 @@ export default function CreateSlider({ onNext, formData, onPrevious }) {
                         </button>
                     )}
                 </form>
-                <Flex>
+                <Flex className={Styles.Table}> 
                     {isLoading && <div>Loading...</div>}
                     {isError && <div>Error: {error.message}</div>}
-                    <TableContainer className={Styles.TableContainer} p={10} w={"100%"}>
-                        <Table size='lg' >
+                        <Table size='sm' >
                             <TableCaption>Get all Sliders </TableCaption>
                             <Thead>
-                                <Tr>
-                                    <Th>image</Th>
+                                <Tr >
+                                    <Th></Th>
+                                    <Th className={Styles.displayNone}>image</Th>
                                     <Th>Title</Th>
-                                    <Th>Second Title</Th>
-                                    <Th>Description</Th>
+                                    <Th className={Styles.displayNone}>Second Title</Th>
+                                    <Th className={Styles.displayNone}>Description</Th>
                                     <Th></Th>
                                     <Th></Th>
                                 </Tr>
                             </Thead>
-                            <Tbody>
+                            <Tbody >
                                 {data?.data.map((slider) => (
                                     <Tr key={slider.id}>
-                                        <Td><img src={`/Uploads/${slider.imageRoutue}`} alt="" /></Td>
-                                        <Td>{slider.title}</Td>
-                                        <Td>{slider.seccondTile}</Td>
-                                        <Td>{slider.description}</Td>
-                                        <Td><Button color={'white '} borderColor={'white'} backgroundColor={'orange '}>Update</Button></Td>
-                                        <Td><Button onClick={() => Delete(slider.guId)} color={'white '} borderColor={'white'} backgroundColor={"red"}>Delete</Button></Td>
+                                        <Td  >{number += 1}.</Td>
+                                        <Td className={Styles.displayNone} ><img width={200} src={`/Uploads/${slider.imageRoutue}`} alt="" /></Td>
+                                        <Td  >{slider.title}</Td>
+                                        <Td  className={Styles.displayNone}>{slider.seccondTile}</Td>
+                                        <Td className={Styles.displayNone} >{slider.description + "..."}</Td>
+                                        <Td  className={Styles.TableButon2} ><Button className={Styles.TableButon} onClick={() => handleNavigate(`/ControlPanel/UpdateSlider/${slider.guId}`)} color={'white '} borderColor={'white'} backgroundColor={'orange '}>Update</Button></Td>
+                                        <Td className={Styles.TableButon2} ><Button  className={Styles.TableButon} onClick={() => Delete(slider.guId)} color={'white '} borderColor={'white'} backgroundColor={"red"}>Delete</Button></Td>
                                     </Tr>
                                 ))}
                             </Tbody>
                         </Table>
-                    </TableContainer>
                 </Flex>
             </div>
         </div>

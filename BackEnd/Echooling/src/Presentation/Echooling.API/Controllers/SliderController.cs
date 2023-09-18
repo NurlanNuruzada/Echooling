@@ -51,7 +51,7 @@ namespace Echooling.API.Controllers
             return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpPut("id")]
-        public async Task<IActionResult> update([FromBody] SliderUpdateDto sldierUpdateDto, Guid id)
+        public async Task<IActionResult> update([FromForm] SliderUpdateDto sldierUpdateDto, Guid id)
         {
             await _sliderService.UpdateAsync(sldierUpdateDto, id);
             return Ok(new { message = "Slider Updated successfully." + sldierUpdateDto });
