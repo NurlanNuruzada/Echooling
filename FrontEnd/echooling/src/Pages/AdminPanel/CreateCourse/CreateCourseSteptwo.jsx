@@ -6,6 +6,8 @@ import {
   Select,
   Flex,
   Input,
+  List,
+  ListItem,
 } from '@chakra-ui/react';
 import image from '../../../Images/LearnImage.jpg';
 import Steps from '../../../Components/Steps/Steps';
@@ -104,6 +106,7 @@ export default function CreateCourseSteptwo({ onNext }) {
             <img className={Styles.Image} src={image} alt='' />
           </div>
         </div>
+  
       </div>
       <Flex gap={5}>
         {selected && <button className={Styles.Button} onClick={handleNext}>NEXT</button>}

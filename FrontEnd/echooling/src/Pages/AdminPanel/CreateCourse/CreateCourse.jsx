@@ -28,7 +28,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
-
+import CreateCourseScema from '../../../Valudations/CourseScema';
 function CreateCourse({ onNext, formData, onPrevious }) {
     const [number, setNumber] = useState(0);
     const { token, fullname } = useSelector((state) => state.auth); // Update the selector
@@ -93,15 +93,15 @@ function CreateCourse({ onNext, formData, onPrevious }) {
         formik.setFieldValue('ThisCourseIncludes', newItems);
     };
     const handleRemoveField = () => {
-        if (formik.values.WhatWillLearn.length > 1) {
+        if (formik.values.WhatWillLearn.length > 4) {
             const newObjectives = [...formik.values.WhatWillLearn];
             newObjectives.pop();
             formik.setFieldValue('WhatWillLearn', newObjectives);
         }
     };
-    
+
     const handleRemoveThisCourseIncludesField = () => {
-        if (formik.values.ThisCourseIncludes.length > 1) {
+        if (formik.values.ThisCourseIncludes.length > 2) {
             const newItems = [...formik.values.ThisCourseIncludes];
             newItems.pop();
             formik.setFieldValue('ThisCourseIncludes', newItems);
@@ -126,9 +126,9 @@ function CreateCourse({ onNext, formData, onPrevious }) {
             values.CourseCategoryId = formData.step2Data[0].GuId
             console.log(values);
             onNext({ step3Data: values });
-            
+
         },
-        // validationSchema: CreateEventScema,
+        validationSchema: CreateCourseScema,
     });
 
     const currentDateTime = new Date().toISOString().slice(0, 16);
@@ -145,6 +145,8 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                     </Heading>
                     <Flex p={"20px 0"} gap={5} flexFlow={"column"} >
                         <Box>
+                            <h1 className={Styles.FirstTitle}>How about a price of your course you think?</h1>
+                            <h1 className={Styles.SecondTitle}>It's ok if you can't think of a good title now. You can change it later.</h1>
                             <NumberInput
                                 borderColor="black"
                                 variant="flushed"
@@ -187,8 +189,7 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                             />
                         </Box>
                         <Box>
-                            <h1 className={Styles.FirstTitle}>How about a working title?</h1>
-                            <h1 className={Styles.SecondTitle}>It's ok if you can't think of a good title now. You can change it later.</h1>
+                            <h1 className={Styles.FirstTitle}>tell us About the Couse(public)</h1>
                             <Input
                                 borderColor={"black"}
                                 variant="flushed"
@@ -202,6 +203,7 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                             />
                         </Box>
                         <Box>
+                        <h1 className={Styles.FirstTitle}>Course Languge</h1>
                             <Input
                                 borderColor={"black"}
                                 variant="flushed"
@@ -293,16 +295,16 @@ function CreateCourse({ onNext, formData, onPrevious }) {
                             </Button>
                         </Flex>
                     </Flex>
-
-                    {/* <List>
-                        {Object.keys(formik.errors).map((fieldName) => (
+                    <List>
+                        {Object.keys(formik.errors).map((fieldName, index) => (
                             <ListItem key={fieldName}>
                                 <div style={{ color: "red", textAlign: "start" }}>
-                                    {getErrorMessage(fieldName)}
+                                    {index + 1}. {"\n"+formik.errors[fieldName]}
                                 </div>
                             </ListItem>
                         ))}
-                    </List> */}
+                    </List>
+
                     <Flex className={Styles.ButtonContainer} gap={10} flexFlow={"row"}>
                         <Button
                             className={Styles.Button}

@@ -64,12 +64,13 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             formik.setFieldValue('image', selectedFile)
             formik.setFieldValue('Title', formData.step3Data.Title)
             formik.setFieldValue('Price', formData.step3Data.Price)
-            formik.setFieldValue('Instructor', formData.step3Data.Instructor)
+            formik.setFieldValue('Instructor', fullname)
             formik.setFieldValue('Languge', formData.step3Data.Languge)
             formik.setFieldValue('Subject', formData.step3Data.Subject)
             formik.setFieldValue('AboutCourse', formData.step3Data.AboutCourse)
             formik.setFieldValue('WhatWillLearn', formData.step3Data.WhatWillLearn)
             formik.setFieldValue('CourseCategoryId', formData.step3Data.CourseCategoryId)
+            formik.setFieldValue('ThisCourseIncludes', formData.step3Data.ThisCourseIncludes)
         } else {
             console.error("No file selected.");
         }
@@ -94,7 +95,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             formData.append("image", File ? File : "");
             formData.append("Title", values.Title);
             formData.append("Price", values.Price);
-            formData.append("Instructor", values.Instructor);
+            formData.append("Instructor", fullname);
             formData.append("Languge", values.Languge);
             formData.append("Subject", values.Subject);
             formData.append("ThisCourseIncludes", values.ThisCourseIncludes);
@@ -103,7 +104,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             formData.append("CourseCategoryId", values.CourseCategoryId);
 
             // Log formData
-            
+
             if (formData.get("image")) {
                 mutate(formData)
             } else {
@@ -130,7 +131,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
         if (SentSuccess) {
             const timer = setTimeout(() => {
                 setSentSuccess(false);
-                navigate("/ControlPanel/CreateEvent")
+                // navigate("/ControlPanel")
             }, 1500);
             return () => {
                 clearTimeout(timer);
@@ -154,6 +155,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
                     <input
                         name="image"
                         type="file"
+                        accept="video/mp4,video/mpeg,video/ogg,video/webm"
                         onChange={(e) => fileUploadHandler(e)}
                     />
                     <button className={Styles.Button} onClick={handlePreviousClick}>
