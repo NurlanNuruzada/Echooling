@@ -1,4 +1,5 @@
 ﻿using Echooling.Persistance.Configurations;
+using Echooling.Persistance.Interseptors;
 using Ecooling.Domain.Entites;
 using Ecooling.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -26,9 +27,16 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<TeacherDetails_Courses> TeachersCourses { get; set; } = null!;
     public DbSet<Video_Course> Video_Course { get; set; } = null!;
     public DbSet<VideoContent> VideoContent { get; set; } = null!;
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(new DateModifiedInterseptors());
+        base.OnConfiguring(optionsBuilder);
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SliderConfiguration).Assembly);
+
+
 
         modelBuilder.Entity<events>()
             .HasOne(e => e.EventCategoryies)

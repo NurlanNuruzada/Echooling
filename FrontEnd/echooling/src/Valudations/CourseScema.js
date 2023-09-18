@@ -19,7 +19,7 @@ const CreateCourseScema = Yup.object({
     .max(255, "   ThisCourseIncludes is too long")
     .required("   ThisCourseIncludes is required!"),
     ),
-    WhatWillLearn: Yup.array().of(
+    WhatWillLearn: Yup.array().of(  
         Yup.string()
             .min(10, "   WhatWillLearn too short")
             .max(255, "  WhatWillLearn is too long")
