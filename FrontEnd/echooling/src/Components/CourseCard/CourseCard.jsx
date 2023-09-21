@@ -2,7 +2,8 @@ import React from "react";
 import Styles from "./CourseCard.module.css";
 import Stars from "../Starts/Stars";
 import ReactStars from "react-rating-stars-component";
-const CourseCard = ({ image, title, price,CreatorImage }) => {
+import userImage from '../../Images/user2.png'
+const CourseCard = ({ image, title, price,CreatorImage,category,Creatorname }) => {
   const raiting = 3.5;
   const RaitedPersonNumber = 1200;
   function truncateTitle(title) {
@@ -12,19 +13,19 @@ const CourseCard = ({ image, title, price,CreatorImage }) => {
     }
     return title;
   }  
-
+console.log("image",image)
   return (
     <div className={Styles.MainContainer}>
       <div className={Styles.ImageContainer}>
-        <img className={Styles.Image} src={image} alt="" />
-        <div className={Styles.Category}>Category</div>
+        <img className={Styles.Image} src={ `/Uploads/Course/${image}`} alt="" />
+        <div className={Styles.Category}>{category}</div>
       </div>
       <div className={Styles.down}>
         <div className={Styles.title}>
           <p className={Styles.text}>{truncateTitle(title)}</p>
           <div className={Styles.CreateContainer}>
-            <img className={Styles.image} src={CreatorImage} alt="user" />
-            <p className={Styles.CreatedBy}>Someone</p>
+            <img className={Styles.image} src={ CreatorImage  ? `/Uploads/Course/${CreatorImage}` : userImage} alt="user" />
+            <p className={Styles.CreatedBy}>{Creatorname}</p>
           </div>
         </div>
         <div>

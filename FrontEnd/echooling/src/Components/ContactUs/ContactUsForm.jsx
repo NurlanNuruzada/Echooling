@@ -39,7 +39,8 @@ const ContactUsForm = ({
               </div>
               <div>
                 <h1>Adress</h1>
-                <h2>{address}</h2>
+                <h2>517 Tarkiln Hill Street
+                  La Vergne, TN 37086</h2>
               </div>
             </li>
             <li className={Styles.leftList}>
@@ -48,8 +49,8 @@ const ContactUsForm = ({
               </div>
               <div>
                 <h1>Contact</h1>
-                <h2>{Mobile}</h2>
-                <h3>{Mail}</h3>
+                <h2>(780) 439-4163</h2>
+                <h3>nurlangn@code.edu.az</h3>
               </div>
             </li>
             <li className={Styles.leftList}>
@@ -58,7 +59,7 @@ const ContactUsForm = ({
               </div>
               <div>
                 <h1>Hour of operation</h1>
-                <h2>{HourOfOperation}</h2>
+                <h2>Our doors are open to welcome you every day from 10 AM to 12 PM. we're here to serve you during these hours.</h2>
               </div>
             </li>
           </ul>
@@ -110,10 +111,6 @@ const ContactUsForm = ({
               className={Styles.Input}
               placeholder="Message"
             />
-            <Flex p={5} gap={10} alignItems={"center"}>
-              <h1>rate this Course:</h1>
-              <Starts size={30} isEditable={true} />
-            </Flex>
             <Button m={5} className={Styles.Button}>
               Send Message
             </Button>

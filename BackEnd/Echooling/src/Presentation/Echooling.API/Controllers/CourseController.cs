@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Echooling.Aplication.DTOs.CourseDTOs;
 using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Persistance.Exceptions;
+using System.Collections.Generic;
+using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
 
 namespace Echooling.API.Controllers
 {
@@ -40,10 +42,22 @@ namespace Echooling.API.Controllers
             await _CourseService.UpdateAsync(Course, id);
             return Ok(new { message = "Course Updated successfully." + Course });
         }
+        [HttpGet("[Action]/id")]
+        public async Task<IActionResult> getCourseTeachers(Guid CourseId)
+        {
+            List<TeacherGetDto> List = await _CourseService.GetTeachersByCourseId(CourseId);
+            return Ok(List);
+        }
         [HttpGet("[Action]")]
         public async Task<IActionResult> getAll()
         {
             List<CourseGetDto> List = await _CourseService.GetAllAsync();
+            return Ok(List);
+        } 
+        [HttpGet("[Action]")]
+        public async Task<IActionResult> GetLastestWithCount(int take, Guid? categoryId)
+        {
+            List<CourseGetDto> List = await _CourseService.GetLatestWithCategory(take, categoryId);
             return Ok(List);
         }
         [HttpDelete("id")]

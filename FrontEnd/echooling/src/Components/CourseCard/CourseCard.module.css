@@ -4,6 +4,8 @@
     height: max-content;
     border-radius: 10px;
     padding-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
        cursor: pointer;
 }

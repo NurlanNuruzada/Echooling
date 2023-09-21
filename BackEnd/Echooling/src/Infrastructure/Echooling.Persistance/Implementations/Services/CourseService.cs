@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.Couse;
 using Echooling.Aplication.Abstraction.Repository.EventRepositories;
+using Echooling.Aplication.Abstraction.Repository.TeacherCourses;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.CourseDTOs;
 using Echooling.Aplication.DTOs.EventDTOs;
 using Echooling.Aplication.DTOs.SliderDTOs;
+using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
+using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
@@ -23,13 +26,14 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         public readonly ITeacherService _teacherService;
         public readonly ITeacherCourses _TeacherCoursesCreateService;
-
+        private readonly AppDbContext _context;
         public CourseService(ICourseWriteRepository writeRepository,
                              ICourseReadRepository readRepository,
                              IMapper mapper,
                              IStringLocalizer<ErrorMessages> localizer,
                              ITeacherService teacherService,
-                             ITeacherCourses teacherCoursesCreateService)
+                             ITeacherCourses teacherCoursesCreateService,
+                             AppDbContext context)
         {
             _writeRepository = writeRepository;
             _readRepository = readRepository;
@@ -37,6 +41,7 @@ namespace Echooling.Persistance.Implementations.Services
             _localizer = localizer;
             _teacherService = teacherService;
             _TeacherCoursesCreateService = teacherCoursesCreateService;
+            _context = context;
         }
 
         public async Task CreateAsync(CourseCreateDto courseCreateDto, Guid TeacherId)
@@ -84,7 +89,32 @@ namespace Echooling.Persistance.Implementations.Services
             }
             return List;
         }
+        public async Task<List<CourseGetDto>> GetLatestWithCategory(int take, Guid? categoryId)
+        {
+            var query = _context.Courses
+                .Where(e => !e.IsDeleted)
+                .OrderByDescending(e => e.DateCreated)
+                .Take(take);
 
+            if (categoryId.HasValue)
+            {
+                query = query.Where(e => e.CourseCategoryId == categoryId);
+            }
+
+            var coursesWithCategory = await query
+                .Include(e => e.CourseCategory) 
+                .ToListAsync();
+
+            List<CourseGetDto> list = _mapper.Map<List<CourseGetDto>>(coursesWithCategory);
+
+            foreach (CourseGetDto courseGetDto in list)
+            {
+                courseGetDto.ImageRoutue = $"{courseGetDto.ImageRoutue}";
+                courseGetDto.CourseCategoryId = courseGetDto.CourseCategoryId;
+            }
+
+            return list;
+        }
         public async Task<CourseGetDto> getById(Guid CourseId)
         {
             Course Course = await _readRepository.GetByIdAsync(CourseId);
@@ -144,6 +174,21 @@ namespace Echooling.Persistance.Implementations.Services
                 Course.Enrolled = 0;
             }
             await _writeRepository.SaveChangesAsync();
+        }
+
+        public async Task<List<TeacherGetDto>> GetTeachersByCourseId(Guid courseId)
+        {
+            var teachersWithCourseId = await _context.TeacherDetails
+                .Where(td => td.TeacherDetailsCourses.Any(tc => tc.CourseId == courseId))
+                .ToListAsync();
+            if (teachersWithCourseId.Count == 0)
+            {
+                string message = _localizer.GetString("NotFoundExceptionMsg");
+                throw new notFoundException(message);
+            }
+
+            List<TeacherGetDto> teacherDtos = _mapper.Map<List<TeacherGetDto>>(teachersWithCourseId);
+            return teacherDtos;
         }
     }
 }

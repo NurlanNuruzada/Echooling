@@ -44,7 +44,7 @@ namespace Echooling.API.Controllers
             return Ok(new { message = "Category deleted successfully." });
         }
         [HttpPost]
-        public async Task<IActionResult> Create(EventCategoryDto EventCategoryDto)
+        public async Task<IActionResult> Create([FromBody] EventCategoryDto EventCategoryDto)
         {
             await _eventService.Create(EventCategoryDto);
             return StatusCode((int)HttpStatusCode.Created);

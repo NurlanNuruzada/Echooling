@@ -39,3 +39,11 @@ export const GetCourseId = async (Id) => {
     const response = await httpClient.get(`/api/Course/get/id?id=${Id}`)
     return response.data;
 }
+export const getCourseTeachers = async (CourseId) => {
+    const response = await httpClient.get(`/api/Course/getCourseTeachers/id?CourseId=${CourseId}`)
+    return response.data;
+}
+export const getLastestWithCount = async (take,categoryId) => {
+    const response = await httpClient.get(`/api/Course/GetLastestWithCount?take=${take}&categoryId=${categoryId}`)
+    return response.data;
+}

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ecooling.Domain.Entites;
 
 namespace Echooling.Aplication.DTOs.CourseDTOs
 {
     public class CourseGetDto
     {
+        public ICollection<TeacherDetails_Courses>? TeacherDetailsCourses { get; set; }
         public Guid GuId { get; set; }
         public string? ImageRoutue { get; set; }
         public Guid CourseCategoryId { get; set; }

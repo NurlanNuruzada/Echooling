@@ -3,20 +3,22 @@ import Styles from "../Courses/courses.module.css";
 import CourseCard from "../CourseCard/CourseCard";
 import { Grid, GridItem } from "@chakra-ui/react";
 import image1 from "../../Images/Course1.jpg";
-import image2 from "../../Images/Course2.jpg";
-import image3 from "../../Images/Course3.jpg";
-import image4 from "../../Images/Course4.jpg";
-import image5 from "../../Images/Course5.jpg";
-import image6 from "../../Images/Course6.jpg";
-import image7 from "../../Images/Teacher1.png";
-import image8 from "../../Images/Teacher2.png";
-import image9 from "../../Images/teacher3.png";
-import Button from "../Button/Button";
 import { Link } from "react-router-dom";
-const Courses = ({ Course }) => {
+import { getallCourses } from "../../Services/CourseService";
+import { useQuery } from "react-query";
+const Courses = () => {
   const courseTitle =
     "C# .NET Core 7 with MS SQL Complete Beginner to Master 2023";
   const Price = "$60.99";
+  const [Course, SetCourse] = useState([]);
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["Courses"],
+    queryFn: getallCourses,
+    staleTime: 0,
+    onSuccess: (data) => {
+      SetCourse(data?.data || []); // Use optional chaining to handle undefined data
+    },
+  });
   return (
     <div className={Styles.Conatiner}>
       <Grid
@@ -30,82 +32,20 @@ const Courses = ({ Course }) => {
         }}
         gap={5}
       >
-        <Link to={"/CourseDetails"}>
-          <GridItem data-aos="zoom-in-down" data-aos-duration="800">
-            <CourseCard
-              CreatorImage={image7}
-              price={Price}
-              title={courseTitle}
-              image={image1}
-            />
-          </GridItem>
-        </Link>
-        <Link to={"/CourseDetails"}>
-          <GridItem data-aos="zoom-in-down" data-aos-duration="800">
-            <CourseCard
-              CreatorImage={image9}
-              price={Price}
-              title={courseTitle}
-              image={image2}
-            />
-          </GridItem>
-        </Link>
-        <Link to={"/CourseDetails"}>
-        <GridItem data-aos="zoom-in-down" data-aos-duration="800">
-          <CourseCard
-            CreatorImage={image7}
-            price={Price}
-            title={courseTitle}
-            image={image4}
-          />
-        </GridItem>
-        </Link>
-        <Link to={"/CourseDetails"}>
-        <GridItem data-aos="zoom-in-down" data-aos-duration="800">
-          <CourseCard
-            CreatorImage={image8}
-            price={Price}
-            title={courseTitle}
-            image={image5}
-          />
-        </GridItem>
-        </Link>
-        <Link to={"/CourseDetails"}>
-        <GridItem data-aos="zoom-in-down" data-aos-duration="800">
-          <CourseCard
-            CreatorImage={image9}
-            price={Price}
-            title={courseTitle}
-            image={image6}
-          />
-        </GridItem>
-        </Link>
-        <Link to={"/CourseDetails"}>
-        <GridItem data-aos="zoom-in-down" data-aos-duration="800">
-          <CourseCard
-            CreatorImage={image7}
-            price={Price}
-            title={courseTitle}
-            image={image2}
-          />
-        </GridItem>
-        </Link>
-        <GridItem data-aos="zoom-in-down" data-aos-duration="800">
-          <CourseCard
-            CreatorImage={image8}
-            price={Price}
-            title={courseTitle}
-            image={image4}
-          />
-        </GridItem>
-        <GridItem data-aos="zoom-in-down" data-aos-duration="800">
-          <CourseCard
-            CreatorImage={image7}
-            price={Price}
-            title={courseTitle}
-            image={image5}
-          />
-        </GridItem>
+        {Course.map((Data, index) => (
+          <Link to={`/CourseDetails/${Data.guId}`} key={index}>
+            <GridItem data-aos="zoom-in-down" data-aos-duration="800">
+              <CourseCard
+                CreatorImage={Data?.image || ""} // Use optional chaining to handle undefined data
+                price={Data.price+"$"}
+                title={Data?.title || ""} // Use optional chaining to handle undefined data
+                image={Data?.imageRoutue}
+                category = {Data?.subject}
+                Creatorname = {Data.instructor}
+              />
+            </GridItem>
+          </Link>
+        ))}
       </Grid>
     </div>
   );

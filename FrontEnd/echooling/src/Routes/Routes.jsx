@@ -140,7 +140,7 @@ export default function Routes() {
           element: <Staf />,
         },
         {
-          path: "/CourseDetails",
+          path: `/CourseDetails/:id`,
           element: <CourseDetails />,
         },
         {
