@@ -23,6 +23,8 @@ namespace Ecooling.Domain.Entites
         public string AboutCourse { get; set; } = null!;
         public Guid CourseCategoryId { get; set; }
         public CourseCategories CourseCategory { get; set; } = null!;
+        public Guid CourseReviewId { get; set; }
+        public CourseReview CourseReview { get; set; } = null!;
         public bool Approved { get; set; }
     }
 }
