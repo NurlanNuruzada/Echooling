@@ -12,4 +12,5 @@ public class CourseCreateDto
     public string[] ThisCourseIncludes { get; set; } = new string[0];
     public string AboutCourse { get; set; } = null!;
     public string[] WhatWillLearn { get; set; } = new string[0];
+    public bool Approved { get; set; }
 }

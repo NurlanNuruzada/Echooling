@@ -102,7 +102,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             formData.append("WhatWillLearn", values.WhatWillLearn);
             formData.append("AboutCourse", values.AboutCourse);
             formData.append("CourseCategoryId", values.CourseCategoryId);
-
+            formData.append("Approved", false);
             // Log formData
 
             if (formData.get("image")) {

@@ -150,12 +150,12 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 pr="4.5rem"
                                 size="lg"
                                 type="datetime-local"
+                                min={formik.values.EventStartDate || currentDateTime}
                                 placeholder="EventFinishDate"
                                 onChange={formik.handleChange}
                                 name="EventFinishDate"
                                 value={formik.values.EventFinishDate}
                                 className={Styles.Input}
-                                min={currentDateTime} // Set the minimum date and time
                             />
                         </Box>
                         <Box>

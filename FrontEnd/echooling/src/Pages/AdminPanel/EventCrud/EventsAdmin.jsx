@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Styles from './EventsAdmin.module.css'
 import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
 import { Box, Button, Flex, Input, Progress, styled } from '@chakra-ui/react';
 import Done from '../../../Components/DoneModal/Done';
 import Steps from '../../../Components/Steps/Steps';
-import Styles from './EventsAdmin.module.css'
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
@@ -37,7 +37,6 @@ export default function EventsAdmin() {
     queryKey: ["sliders"],
     queryFn: getallEvents,
     staleTime: 0,
-
   });
   console.log(data)
   //Create Slider Funtion Start
@@ -114,6 +113,10 @@ export default function EventsAdmin() {
   );
   return (
     <div>
+      <div>
+        <Button className={Styles.TableButon} m={10} onClick={() => handleNavigate("/ControlPanel/Event/Category")} color={'white '} borderColor={'white'} backgroundColor={"green"}>Create Category</Button>
+        <Button className={Styles.TableButon} m={10} onClick={() => handleNavigate("/ControlPanel/CreateEvent")} color={'white '} borderColor={'white'} backgroundColor={"blue"}>Create Event</Button>
+      </div>
       <Flex className={Styles.Table}>
         {isLoading && <div>Loading...</div>}
         {isError && <div>Error: {error.message}</div>}

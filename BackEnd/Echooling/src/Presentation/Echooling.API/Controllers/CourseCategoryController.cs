@@ -32,7 +32,7 @@ namespace Echooling.API.Controllers
             return Ok(List);
         }
         [HttpDelete("id")]
-        public async Task<IActionResult> delete(Guid id)
+        public async Task<IActionResult> delete( Guid id)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Echooling.API.Controllers
             return Ok(new { message = "Category deleted successfully." });
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CourseCategoryDto CourseCategoryDto)
+        public async Task<IActionResult> Create([FromBody] CourseCategoryDto CourseCategoryDto)
         {
             await _courseService.CreateCourseCategory(CourseCategoryDto);
             return StatusCode((int)HttpStatusCode.Created);

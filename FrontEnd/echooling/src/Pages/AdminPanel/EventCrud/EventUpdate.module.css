@@ -1,3 +1,13 @@
+.Input{
+  max-width: 500px  
+}
+.Image{
+  max-width: 500px;
+}
+.MainContainer {
+  padding: 10px;
+  width: 100%;
+}
 .Button {
     align-items: center;
     background-color: #7ab1f8 ;
@@ -57,5 +67,19 @@
     .ButtonContainer{
       max-width: 370px;
     }
+    .Button {
+      font-size: 16px;
+      height: 45px;
+      padding:  10px !important;
+    }
+    .MainContainer {
+      padding: 10px;
+      width: 100%;
+    }
+    .Input{
+      width: 300px !important;
+    }
+    .Image{
+      width: 300px !important;
+    }
   }
-  

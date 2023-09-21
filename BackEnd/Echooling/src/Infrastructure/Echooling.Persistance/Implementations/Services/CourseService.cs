@@ -9,6 +9,7 @@ using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 
@@ -73,9 +74,15 @@ namespace Echooling.Persistance.Implementations.Services
             await _writeRepository.SaveChangesAsync();
         }
 
-        public Task<List<CourseGetDto>> GetAllAsync()
+        public async Task<List<CourseGetDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var Course = await _readRepository.GetAll().Where(e => e.IsDeleted == false).ToListAsync();
+            List<CourseGetDto> List = _mapper.Map<List<CourseGetDto>>(Course);
+            foreach (CourseGetDto courseGetDto in List)
+            {
+                courseGetDto.ImageRoutue = $"{courseGetDto.ImageRoutue}";
+            }
+            return List;
         }
 
         public async Task<CourseGetDto> getById(Guid CourseId)
@@ -85,23 +92,58 @@ namespace Echooling.Persistance.Implementations.Services
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (Course is null)
             {
+                throw new notFoundException("user" + " " + message);
+            }
+            if (Course.IsDeleted == true)
+            {
                 throw new notFoundException(message);
             }
             else
             {
-                CourseGet.image = Course.ImageRoutue;
-                return CourseGet;
+                CourseGetDto CourseDto = _mapper.Map<CourseGetDto>(Course);
+                CourseDto.ImageRoutue = Course.ImageRoutue;
+                return CourseDto;
             }
         }
 
-        public Task Remove(Guid CourseId)
+        public async Task Remove(Guid CourseId)
         {
-            throw new NotImplementedException();
+            var Course = await _readRepository.GetByIdAsync(CourseId);
+            string message = _localizer.GetString("NotFoundExceptionMsg");
+            if (Course is null)
+            {
+                throw new notFoundException(message);
+            }
+            Course.IsDeleted = true;
+            await _writeRepository.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(CourseCreateDto courseCreateDto, Guid CourseId)
+        public async Task UpdateAsync(CourseCreateDto courseCreateDto, Guid CourseId)
         {
-            throw new NotImplementedException();
+            var Course = await _readRepository.GetByIdAsync(CourseId);
+            string message = _localizer.GetString("NotFoundExceptionMsg");
+            if (Course is null)
+            {
+                throw new notFoundException(message);
+            }
+            string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Course";
+            Directory.CreateDirectory(uploadsDirectory);
+            _mapper.Map(courseCreateDto, Course);
+            if (courseCreateDto.image is not null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(courseCreateDto.image.FileName);
+                string filePath = Path.Combine(uploadsDirectory, fileName);
+
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                {
+                    await courseCreateDto.image.CopyToAsync(fileStream);
+                }
+
+                Course.ImageRoutue = fileName;
+                Course.Approved = false;
+                Course.Enrolled = 0;
+            }
+            await _writeRepository.SaveChangesAsync();
         }
     }
 }

@@ -33,6 +33,10 @@ import ListOfEvents from "../Pages/AdminPanel/CreateEvent/ListOfEvents";
 import SliderUpdate from "../Pages/AdminPanel/CreateSlider/SliderUpdate";
 import EventsAdmin from "../Pages/AdminPanel/EventCrud/EventsAdmin";
 import UpdateEvent from "../Pages/AdminPanel/EventCrud/EventUpdate";
+import CoursesList from "../Pages/AdminPanel/CourseCrud/CoursesList";
+import UpdateCourse from "../Pages/AdminPanel/CourseCrud/UpdateCourse";
+import CreateCourseCagteogy from "../Pages/AdminPanel/CourseCategory/CreateCourseCagteogy";
+import CreateEventCagteogy from "../Pages/AdminPanel/EventCategory/EventCategory";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -65,6 +69,18 @@ export default function Routes() {
            element:  <UpdateEvent />  
         },
         {
+          path: "/ControlPanel/CourseList",
+           element:  <CoursesList />  
+        },
+        {
+          path: "/ControlPanel/Course/Update/:id",
+           element:  <UpdateCourse />  
+        },
+        {
+          path: "/ControlPanel/Course/Details/:id",
+           element:  <CoursesList />  
+        },
+        {
           path: "/ControlPanel/Events",
           element:  <EventsAdmin />  
         },
@@ -75,6 +91,14 @@ export default function Routes() {
         {
           path: "/ControlPanel/getAllEvents",
           element:  <ListOfEvents />  
+        },
+        {
+          path: "/ControlPanel/Course/Category",
+          element:  <CreateCourseCagteogy />  
+        },
+        {
+          path: "/ControlPanel/Event/Category",
+          element:  <CreateEventCagteogy />  
         },
         
       ]

@@ -49,7 +49,6 @@ namespace Echooling.API.Controllers
         [HttpPost("[Action]/id")]
         public async Task<IActionResult> Create([FromForm]EventCreateDto eventDto,Guid staffId)
         {
-            Console.WriteLine(eventDto.Cost+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             await _eventService.CreateAsync(eventDto, staffId);
             return StatusCode((int)HttpStatusCode.Created);
         }

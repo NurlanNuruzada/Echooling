@@ -160,8 +160,8 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("Duration")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Enrolled")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Enrolled")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageRoutue")
                         .IsRequired()

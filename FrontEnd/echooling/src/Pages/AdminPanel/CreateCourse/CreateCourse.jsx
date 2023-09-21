@@ -118,8 +118,8 @@ function CreateCourse({ onNext, formData, onPrevious }) {
             ThisCourseIncludes: initialThisCourseIncludes,
             AboutCourse: '',
             WhatWillLearn: initialLearningObjectives,
-            image: '',
             CourseCategoryId: '',
+            image: '',
         },
         onSubmit: (values) => {
             values.Subject = formData.step2Data[0].category

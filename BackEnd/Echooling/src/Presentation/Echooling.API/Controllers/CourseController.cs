@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Echooling.Aplication.DTOs.CourseDTOs;
 using Echooling.Aplication.DTOs.SliderDTOs;
+using Echooling.Persistance.Exceptions;
 
 namespace Echooling.API.Controllers
 {
@@ -26,11 +27,37 @@ namespace Echooling.API.Controllers
             await _CourseService.CreateAsync(Course, TeacherId);
             return StatusCode((int)HttpStatusCode.Created);
         }
-        [HttpGet("id")]
+        [HttpGet("[Action]/id")]
         public async Task<IActionResult> get(Guid id)
         {
             CourseGetDto Course = await _CourseService.getById(id);
             return Ok(Course);
+        }
+
+        [HttpPut("[Action]/id")]
+        public async Task<IActionResult> update([FromForm] CourseCreateDto Course, Guid id)
+        {
+            await _CourseService.UpdateAsync(Course, id);
+            return Ok(new { message = "Course Updated successfully." + Course });
+        }
+        [HttpGet("[Action]")]
+        public async Task<IActionResult> getAll()
+        {
+            List<CourseGetDto> List = await _CourseService.GetAllAsync();
+            return Ok(List);
+        }
+        [HttpDelete("id")]
+        public async Task<IActionResult> delete(Guid id)
+        {
+            try
+            {
+                await _CourseService.Remove(id);
+            }
+            catch (notFoundException ex)
+            {
+                return StatusCode((int)HttpStatusCode.Conflict, new { message = ex.Message });
+            }
+            return Ok(new { message = "Course deleted successfully." });
         }
     }
 }

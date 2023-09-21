@@ -21,6 +21,7 @@ namespace Echooling.Aplication.DTOs.EventDTOs
         public string? Location { get; set; }
         public string? EventTitle { get; set; }
         public string? AboutEvent { get; set; }
+
     }
 
 }

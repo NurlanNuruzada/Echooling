@@ -53,7 +53,7 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
               <FontAwesomeIcon icon={faPlus} style={{ color: "#ffffff" }} />
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Courses</h1>
             </Link>
-            <Link  to={"/ControlPanel"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+            <Link to={"/ControlPanel"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
               <FontAwesomeIcon icon={faHeart} style={{ color: "#ffffff" }} />
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Wish List</h1>
             </Link>
@@ -73,7 +73,12 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Events</h1>
             </Link>
           </li>
-       
+          <li  >
+            <Link to={"/ControlPanel/CourseList"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+              <FontAwesomeIcon icon={faChartLine} />
+              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Course</h1>
+            </Link>
+          </li>
         </ul>
         <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Teacher</h1>
@@ -88,7 +93,7 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Events</h1>
           {CreateStaff?.map((CreateStaff, index) => (
             <li key={index} >
-              <Link  to={CreateStaff.link} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+              <Link to={CreateStaff.link} className={isSmall ? Styles.ButtonMini : Styles.Button}>
                 {CreateStaff.LinkName}
               </Link>
             </li>

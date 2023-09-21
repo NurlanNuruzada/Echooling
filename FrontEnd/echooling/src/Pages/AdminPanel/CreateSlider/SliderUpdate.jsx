@@ -10,6 +10,7 @@ import {
     Slide,
     Slider,
     Center,
+    Text,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useMutation, useQueryClient } from "react-query";
@@ -17,6 +18,7 @@ import { useState } from 'react';
 import Done from '../../../Components/DoneModal/Done';
 import { useEffect } from 'react';
 import { GetSliderById, GetSliderId, UpdateSlider } from '../../../Services/SliderService';
+import UpdateSliderScema from '../../../Valudations/UpdateSliderScema';
 export default function SliderUpdate() {
     const [succsess, Setsuccsess] = useState(false)
     const [SliderId, SetSliderId] = useState("")
@@ -74,6 +76,9 @@ export default function SliderUpdate() {
                 console.log("FormData is null");
             }
         },
+        validationSchema: UpdateSliderScema,
+        validateOnBlur:true,
+        validateOnChange:false
     });
     useEffect(() => {
         if (succsess) {
@@ -99,30 +104,35 @@ export default function SliderUpdate() {
         getSliderById(id)
     }, []);
     return (
-        <Flex p={"40px 0"} justifyContent={"center"}>
-            {succsess && (
-                <Done
-                    firstTitle={'Success'}
-                    seccondTitle={'the Slider Updated Succesfully'}
-                />
-            )}
-            <Box minW="0rem">
-                <Flex p={"20px 10px"} gap={5} flexFlow={"column"}>
+        <div className={Styles.MainContainer}>
+            <Flex justifyContent={"center"}>
+                {succsess && (
+                    <Done
+                        firstTitle={'Success'}
+                        seccondTitle={'the Slider Updated Succesfully'}
+                    />
+                )}
+                <Box  >
                     <Heading color={"#3270fc"} mb={4}>
                         Update Slider
                     </Heading>
-                    <img width={200} src={`/Uploads/${SliderId?.imageRoutue}`} alt="" />
-
+                    <img  src={`/Uploads/${SliderId?.imageRoutue}`} alt="" />
                     <h1 style={{ color: "#3270fc" }} >Title: </h1><span>{SliderId?.title}</span>
                     <h1 style={{ color: "#3270fc" }} >Second Title: </h1> <span>{SliderId?.seccondTile}</span>
                     <h1 style={{ color: "#3270fc" }} >Description:  </h1><span>{SliderId?.description}</span>
-                    <form style={{ padding: "10px" }} onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
                         <input
                             name="image"
                             type="file"
                             accept="image/*"
                             onChange={(e) => fileUploadHandler(e)}
                         />
+                        {formik.errors.image && (
+                            <Text color="red" fontSize="sm">
+                                {formik.errors.image}
+                            </Text>
+                        )}
+
                         <Box>
                             <Input
                                 borderColor={"black"}
@@ -135,6 +145,11 @@ export default function SliderUpdate() {
                                 value={formik.values.Title}
                                 className={Styles.Input}
                             />
+                            {formik.errors.Title && (
+                                <Text color="red" fontSize="sm">
+                                    {formik.errors.Title}
+                                </Text>
+                            )}
                         </Box>
                         <Box>
                             <Input
@@ -148,6 +163,11 @@ export default function SliderUpdate() {
                                 value={formik.values.SeccondTile}
                                 className={Styles.Input}
                             />
+                            {formik.errors.SeccondTile && (
+                                <Text color="red" fontSize="sm">
+                                    {formik.errors.SeccondTile}
+                                </Text>
+                            )}
                         </Box>
                         <Box>
                             <Input
@@ -161,6 +181,11 @@ export default function SliderUpdate() {
                                 value={formik.values.Description}
                                 className={Styles.Input}
                             />
+                            {formik.errors.Description && (
+                                <Text color="red" fontSize="sm">
+                                    {formik.errors.Description}
+                                </Text>
+                            )}
                         </Box>
                         <Flex alignItems={'center'} className={Styles.ButtonContainer} justifyContent={"center"} gap={10} flexFlow={"row"}>
 
@@ -169,7 +194,7 @@ export default function SliderUpdate() {
                                 size="md"
                                 backgroundColor={"white !important"}
                                 mt="24px"
-                                onClick={()=>handleNavigate("/ControlPanel/CreateSlider")}
+                                onClick={() => handleNavigate("/ControlPanel/CreateSlider")}
                             >
                                 Return to menu
                             </Button>
@@ -180,8 +205,8 @@ export default function SliderUpdate() {
                             )}
                         </Flex>
                     </form>
-                </Flex>
-            </Box >
-        </Flex >
+                </Box >
+            </Flex >
+        </div>
     )
 }

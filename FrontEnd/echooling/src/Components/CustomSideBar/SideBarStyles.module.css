@@ -1,6 +1,6 @@
 .adminPanelContainer {
     width: 270px;
-    min-height: 100vh;
+    min-height: 150vh;
     background-color: #ffffff;
     color: black;
     padding: 20px;
@@ -29,7 +29,7 @@
     width: 70px;
     padding: 0;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    min-height: 100vh;
+    min-height: 150vh;
     background-color: #ffffff;
     color: black;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
