@@ -1,4 +1,5 @@
-﻿using Echooling.Persistance.Configurations;
+﻿using System.Reflection.Metadata;
+using Echooling.Persistance.Configurations;
 using Echooling.Persistance.Interseptors;
 using Ecooling.Domain.Entites;
 using Ecooling.Domain.Entities;
@@ -27,6 +28,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<TeacherDetails_Courses> TeachersCourses { get; set; } = null!;
     public DbSet<Video_Course> Video_Course { get; set; } = null!;
     public DbSet<VideoContent> VideoContent { get; set; } = null!;
+    public DbSet<CourseReview> CourseReviews { get; set; } = null!;
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.AddInterceptors(new DateModifiedInterseptors());
@@ -37,6 +39,11 @@ public class AppDbContext : IdentityDbContext<AppUser>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SliderConfiguration).Assembly);
 
 
+        modelBuilder.Entity<Course>()
+        .HasMany(e => e.CourseReviews)
+        .WithOne(e => e.Course)
+        .HasForeignKey(e => e.CourseId)
+        .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<events>()
             .HasOne(e => e.EventCategoryies)
