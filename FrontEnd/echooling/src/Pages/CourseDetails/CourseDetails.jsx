@@ -48,8 +48,7 @@ import { GetCourseId, getCourseTeachers, getLastestWithCount, getallCourses } fr
 import Stars from "../../Components/Starts/Stars";
 import ContactUsForm from "../../Components/ContactUs/ContactUsForm";
 import RateCourse from "../../Components/ContactUs/RateCourse";
-import CommentArea1 from "../../Components/Review/CommentArea";
-import CommentAreas1 from "../../Components/Review/CommentArea";
+import CommentAreas1 from "../../Components/Review/CommentArea1";
 const CourseDetails = () => {
   const [course, setCourse] = useState(null);
   const [LastestCourses, setLastestCourses] = useState(null);
@@ -160,7 +159,7 @@ const CourseDetails = () => {
                 </TabList>
                 <TabPanels>
                   <TabPanel>
-                    <CommentAreas1 />
+                    <CommentAreas1 id={id} />
                     {/* {TeacherData?.map((data, index) => (
                         <a href={`/StaffDetails/${data.appUserID}`}>
                           <Atendee
@@ -182,7 +181,6 @@ const CourseDetails = () => {
                             image={AtendeeImage}
                             title={data.fullname}
                             Profesion={data.profession}
-
                           />
                         </a>
                       ))}
@@ -367,11 +365,15 @@ const CourseDetails = () => {
         </Grid>
       </Grid>
       <RateCourse
+      CourseId={id}
+        comment={"I did't liked this course teacher is awfull!"}
+        rate={1}
         title={"Write a Review for this course"}
         secondTitle={
           "Feel free to write review for this course"
         }
       />
+
       <ContactUsForm
         title={"Questions?"}
         secondTitle={"Feel free to contact uo."}

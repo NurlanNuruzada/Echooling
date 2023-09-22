@@ -11,8 +11,8 @@ namespace Echooling.Aplication.Abstraction.Services
     public interface ICourseReviewServices
     {
         Task AddReview(CreateCourseReviewDto review);
-        Task <List<CreateCourseReviewDto>> getReviewsOfCourseById(Guid CourseId);
-        Task <CreateCourseReviewDto> getbyId(Guid CourseId);
+        Task <List<GetCourseReviewDto>> getReviewsOfCourseById(Guid CourseId);
+        Task <GetCourseReviewDto> getbyId(Guid CourseId);
         Task  Delete(Guid ReviewId, Guid userId);
         Task UpdateAsync(CreateCourseReviewDto review, Guid ReviewId,Guid userId);    
     }

@@ -1,0 +1,15 @@
+.Main{
+width: 100%;
+border: 1px solid black;
+padding: 5px;
+margin-top: 10px;
+}
+.nameAndDate{
+    padding: 3px 0;
+}
+.bold{
+    font-weight: 600;
+}
+.gray{
+    color: #9f9f9f;
+}

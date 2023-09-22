@@ -64,7 +64,7 @@ namespace Echooling.Persistance.Implementations.Services
             await _WriteRepository.SaveChangesAsync();
         }
 
-        public async Task<CreateCourseReviewDto> getbyId(Guid CourseId)
+        public async Task<GetCourseReviewDto> getbyId(Guid CourseId)
         {
             var review = await _ReadRepository.GetByIdAsync(CourseId);
             string message = _localizer.GetString("NotFoundExceptionMsg");
@@ -72,16 +72,16 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException("review" + " " + message);
             }
-            var fountReview =  _mapper.Map<CreateCourseReviewDto>(review);
+            var fountReview =  _mapper.Map<GetCourseReviewDto>(review);
             return fountReview;
         }
 
-        public async Task<List<CreateCourseReviewDto>> getReviewsOfCourseById(Guid CourseId)
+        public async Task<List<GetCourseReviewDto>> getReviewsOfCourseById(Guid CourseId)
         {
             var review = await _ReadRepository.GetAll()
                 .Where(r => r.IsDeleted == false && r.CourseId == CourseId)
                 .ToListAsync();
-            var List = _mapper.Map<List<CreateCourseReviewDto>>(review);
+            var List = _mapper.Map<List<GetCourseReviewDto>>(review);
             return List;
         }
 

@@ -8,9 +8,8 @@ import Styles from "./stars.module.css";
 
 library.add(faStar, faStarHalfAlt, farStar); // Add the icons to the library
 
-function Stars({ size, isEditable, initialRating, RaitingPerson }) {
+function Stars({handleRate, size, isEditable, initialRating, RaitingPerson }) {
   const [rating, setRating] = useState(initialRating || 0);
-
   const ratingExample = {
     size: size,
     count: 5,
@@ -30,15 +29,14 @@ function Stars({ size, isEditable, initialRating, RaitingPerson }) {
     }
     return value;
   };
-
-  const handleRatingChange = (newRating) => {
-    setRating(newRating); // Update the state with the new rating
-  };
-
+const handleRatingChange = (newRating) => {
+  setRating(newRating); // Update the state with the new rating
+  handleRate(newRating); // Pass the new rating to the handleRate function
+};
   if (isEditable) {
     return (
       <div>
-        <ReactStars {...ratingExample} onChange={handleRatingChange} />
+        <ReactStars {...ratingExample}  onChange={(e) => handleRatingChange(e)} />
       </div>
     );
   } else {

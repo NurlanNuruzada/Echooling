@@ -26,7 +26,7 @@ namespace Echooling.API.Controllers
         [HttpGet("[Action]")]
         public async Task<IActionResult> getReviewsOfCourseById(Guid userId)
         {
-            List<CreateCourseReviewDto> List = await _courseReviewServices.getReviewsOfCourseById(userId);
+            List<GetCourseReviewDto> List = await _courseReviewServices.getReviewsOfCourseById(userId);
             return Ok(List);
         }
         [HttpDelete("[Action]/id")]
@@ -43,9 +43,9 @@ namespace Echooling.API.Controllers
             return Ok(new { message = "Review deleted successfully." });
         }
         [HttpPost("[Action]")]
-        public async Task<IActionResult> Create(CreateCourseReviewDto ReviewCreateDto)
+        public async Task<IActionResult> Create([FromBody] CreateCourseReviewDto createCourseReviewDto)
         {
-            await _courseReviewServices.AddReview(ReviewCreateDto);
+            await _courseReviewServices.AddReview(createCourseReviewDto);
             return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpPut("id")]

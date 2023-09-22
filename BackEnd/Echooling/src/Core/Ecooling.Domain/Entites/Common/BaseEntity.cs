@@ -5,8 +5,8 @@ public class BaseEntity
 {
     [Key]
     public Guid GuId { get; set; }
-    public DateTime DateCreated { get; set; }
     public DateTime DateModified { get; set; }
+    public DateTime DateCreated { get; set; }
     public virtual bool IsDeleted { get; set; }
 }
 

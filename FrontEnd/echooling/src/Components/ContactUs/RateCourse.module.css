@@ -16,15 +16,9 @@
   }
   .Input {
     border-color: rgba(0, 0, 0, 0.432) !important;
-    height: 10px;
   }
   .Input::placeholder {
     color: rgba(0, 0, 0, 0.877) !important;
-  }
-  .GridContainer {
-  }
-  .formTitleContainer {
-
   }
   .Button {
     border-radius: 0;

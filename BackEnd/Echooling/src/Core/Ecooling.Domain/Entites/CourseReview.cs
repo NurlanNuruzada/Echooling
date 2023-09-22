@@ -12,7 +12,7 @@ namespace Ecooling.Domain.Entites
         public Guid UserId { get; set; }
         public bool isEdited { get; set; }
         public string? Comment { get; set; }
-        public int rate { get; set; }
+        public decimal rate { get; set; }
         public string? Fullname { get; set; }
         public Guid CourseId { get; set; }
         public Course Course { get; set; } = null!;

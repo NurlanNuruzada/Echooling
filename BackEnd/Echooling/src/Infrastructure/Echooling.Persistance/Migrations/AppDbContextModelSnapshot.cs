@@ -262,8 +262,8 @@ namespace Echooling.Persistance.Migrations
                     b.Property<bool>("isEdited")
                         .HasColumnType("bit");
 
-                    b.Property<int>("rate")
-                        .HasColumnType("int");
+                    b.Property<decimal>("rate")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("GuId");
 
