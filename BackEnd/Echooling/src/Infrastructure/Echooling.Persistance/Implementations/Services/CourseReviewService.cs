@@ -43,6 +43,7 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new notFoundException("review" + " " + message);
             }
             var CreateReview = _mapper.Map<CourseReview>(review);
+            CreateReview.IsDeleted = false;
             await _WriteRepository.addAsync(CreateReview);
             await _WriteRepository.SaveChangesAsync();
         }
@@ -78,9 +79,8 @@ namespace Echooling.Persistance.Implementations.Services
         public async Task<List<CreateCourseReviewDto>> getReviewsOfCourseById(Guid CourseId)
         {
             var review = await _ReadRepository.GetAll()
-              .Where(r => r.CourseId == CourseId)
-              .Include(r => r.IsDeleted == false)
-              .ToListAsync();
+                .Where(r => r.IsDeleted == false && r.CourseId == CourseId)
+                .ToListAsync();
             var List = _mapper.Map<List<CreateCourseReviewDto>>(review);
             return List;
         }
@@ -94,6 +94,7 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new notFoundException("review" + " " + message);
             }
             _mapper.Map(reviewDto, Review);
+            Review.isEdited = true;
             await _WriteRepository.SaveChangesAsync();
         }
     }
