@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.CourseCategory;
 using Echooling.Aplication.Abstraction.Repository.CourseReviewRepositories;
+using Echooling.Aplication.Abstraction.Repository.Couse;
 using Echooling.Aplication.Abstraction.Services;
+using Echooling.Aplication.DTOs.CourseDTOs;
 using Echooling.Aplication.DTOs.CourseReviewDTOs;
 using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
@@ -19,20 +22,26 @@ namespace Echooling.Persistance.Implementations.Services
 {
     public class CourseReviewService : ICourseReviewServices
     {
-        private readonly ICourseReviewWriteRepository _WriteRepository ;
+        private readonly ICourseReviewWriteRepository _WriteRepository;
         private readonly ICourseReviewReadRepository _ReadRepository;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
+        private readonly ICourseReadRepository _CourseReadReadRepo;
+        private readonly ICourseWriteRepository _CourseWriteRepository;
 
         public CourseReviewService(ICourseReviewWriteRepository writeRepository,
                                    ICourseReviewReadRepository readRepository,
                                    IMapper mapper,
-                                   IStringLocalizer<ErrorMessages> localizer)
+                                   IStringLocalizer<ErrorMessages> localizer,
+                                   ICourseReadRepository courseReadReadRepo,
+                                   ICourseWriteRepository courseWriteRepository)
         {
             _WriteRepository = writeRepository;
             _ReadRepository = readRepository;
             _mapper = mapper;
             _localizer = localizer;
+            _CourseReadReadRepo = courseReadReadRepo;
+            _CourseWriteRepository = courseWriteRepository;
         }
 
         public async Task AddReview(CreateCourseReviewDto review)
@@ -46,6 +55,27 @@ namespace Echooling.Persistance.Implementations.Services
             CreateReview.IsDeleted = false;
             await _WriteRepository.addAsync(CreateReview);
             await _WriteRepository.SaveChangesAsync();
+            //CreateCourse rate
+            decimal TotalRate = 0;
+            int totalRateCount = 0;
+
+            Course Course = await _CourseReadReadRepo.GetByIdAsync(review.CourseId);
+            var AllReview = await _ReadRepository.GetAll()
+
+            .Where(r => r.IsDeleted == false && r.CourseId == review.CourseId)
+            .ToListAsync();
+            AllReview.ForEach(OneRate =>
+            {
+                if (OneRate.IsDeleted == false)
+                {
+                    TotalRate += OneRate.rate;
+                    totalRateCount += 1;
+                }
+
+            });
+
+            Course.Rate = TotalRate / totalRateCount;
+            await _CourseWriteRepository.SaveChangesAsync();
         }
 
         public async Task Delete(Guid ReviewId, Guid userId)
@@ -72,7 +102,7 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException("review" + " " + message);
             }
-            var fountReview =  _mapper.Map<GetCourseReviewDto>(review);
+            var fountReview = _mapper.Map<GetCourseReviewDto>(review);
             return fountReview;
         }
 
@@ -85,17 +115,40 @@ namespace Echooling.Persistance.Implementations.Services
             return List;
         }
 
-        public async Task UpdateAsync(CreateCourseReviewDto reviewDto, Guid ReviewId, Guid userId)
+        public async Task UpdateAsync(UpdateCourseReviewDto reviewDto, Guid ReviewId, Guid userId)
         {
             var Review = await _ReadRepository.GetByIdAsync(ReviewId);
             string message = _localizer.GetString("NotFoundExceptionMsg");
-            if (Review is null && Review.isEdited == true)
+            if (Review is null && Review?.UserId != userId)
             {
                 throw new notFoundException("review" + " " + message);
             }
-            _mapper.Map(reviewDto, Review);
+            Review.rate = reviewDto.rate;
+            Review.Comment =reviewDto.Comment;
             Review.isEdited = true;
             await _WriteRepository.SaveChangesAsync();
+
+            decimal TotalRate = 0;
+            int totalRateCount = 0;
+
+            Course Course = await _CourseReadReadRepo.GetByIdAsync(reviewDto.CourseId);
+            var AllReview = await _ReadRepository.GetAll()
+
+            .Where(r => r.IsDeleted == false && r.CourseId == reviewDto.CourseId)
+            .ToListAsync();
+            AllReview.ForEach(OneRate =>
+            {
+                if (OneRate.IsDeleted == false)
+                {
+                    TotalRate += OneRate.rate;
+                    totalRateCount += 1;
+                }
+
+            });
+            TotalRate -= Review.rate;
+            TotalRate += reviewDto.rate;
+            Course.Rate = TotalRate / totalRateCount;
+            await _CourseWriteRepository.SaveChangesAsync();
         }
     }
 }

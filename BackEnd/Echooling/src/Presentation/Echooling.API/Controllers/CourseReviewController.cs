@@ -24,9 +24,15 @@ namespace Echooling.API.Controllers
             return Ok(Review);
         }
         [HttpGet("[Action]")]
-        public async Task<IActionResult> getReviewsOfCourseById(Guid userId)
+        public async Task<IActionResult> getReviewsOfCourseById(Guid CourseId)
         {
-            List<GetCourseReviewDto> List = await _courseReviewServices.getReviewsOfCourseById(userId);
+            List<GetCourseReviewDto> List = await _courseReviewServices.getReviewsOfCourseById(CourseId);
+            return Ok(List);
+        }
+        [HttpGet("[Action]/id")]
+        public async Task<IActionResult> getReviewsOfCourseById2(Guid CourseId)
+        {
+            List<GetCourseReviewDto> List = await _courseReviewServices.getReviewsOfCourseById(CourseId);
             return Ok(List);
         }
         [HttpDelete("[Action]/id")]
@@ -49,7 +55,7 @@ namespace Echooling.API.Controllers
             return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpPut("id")]
-        public async Task<IActionResult> update(CreateCourseReviewDto ReviewCreateDto, Guid reviewId,Guid UserId)
+        public async Task<IActionResult> update(UpdateCourseReviewDto ReviewCreateDto, Guid reviewId,Guid UserId)
         {
             await _courseReviewServices.UpdateAsync(ReviewCreateDto, reviewId, UserId);
             return Ok(new { message = "Review Updated successfully." + ReviewCreateDto });

@@ -2,7 +2,9 @@ import { httpClient } from "../Utils/HttpClient";
 
 export const getallCommentOfCourse = (Id) => {
     try {
-        return httpClient.get(`/api/CourseReview/getReviewsOfCourseById?userId=${Id}`)
+        const response =  httpClient.get(`/api/CourseReview/getReviewsOfCourseById2/id?CourseId=${Id.toString()}`)
+        console.log("the comments",response)
+        return response
     }
     catch (error) {
         throw error
@@ -23,12 +25,8 @@ export const DeleteComment = async (reviewId,UserId) => {
     const response = await httpClient.delete(`/api/CourseReview/delete/id?reviewId=${reviewId}&UserId=${UserId}`)
     return response.data;
 }
-export const UpdateCourseById = async (Id, formData) => {
-    const response = await httpClient.put(`/api/Course/update/id?id=${Id}`, formData, {
-        headers: {
-            "Content-Type": "multipart/form-data; boundary=l3iPy71otz",
-        },
-    });
+export const UpdateReview = async (reviewId, UserId,formData) => {
+    const response = await httpClient.put(`/api/CourseReview/id?reviewId=${reviewId}&UserId=${UserId}`, formData)
     return response.data;
 }
 

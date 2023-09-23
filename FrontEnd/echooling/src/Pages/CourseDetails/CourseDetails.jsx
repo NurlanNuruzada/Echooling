@@ -17,6 +17,7 @@ import {
   faShareNodes,
   faLanguage,
   faClock,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   Accordion,
@@ -49,25 +50,32 @@ import Stars from "../../Components/Starts/Stars";
 import ContactUsForm from "../../Components/ContactUs/ContactUsForm";
 import RateCourse from "../../Components/ContactUs/RateCourse";
 import CommentAreas1 from "../../Components/Review/CommentArea1";
+import ReactStars from "react-rating-stars-component";
+
+
 const CourseDetails = () => {
   const [course, setCourse] = useState(null);
   const [LastestCourses, setLastestCourses] = useState(null);
   const [textToCopy, setTextToCopy] = useState('Text to be copied');
   const [isCopied, setIsCopied] = useState(false);
+  const [rate, setRate] = useState(course?.rate);
   const { id } = useParams();
-  const queryClient = useQueryClient();
 
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    setRate(course?.rate);
+  }, [course?.rate]);
   const currentURL = window.location.href;
-  const { mutate, isLoading, error } = useMutation(
-    (id) => GetCourseId(id),
+  const { isLoading, isError } = useQuery(
+    ['course', id],
+    () => GetCourseId(id),
     {
-      refetchOnWindowFocus: false,
       onSuccess: (resp) => {
         console.log(resp);
-        setCourse(resp)
+        setCourse(resp);
       },
       onError: (error) => {
-        console.log(error);
+        console.error(error);
       },
     }
   );
@@ -83,11 +91,10 @@ const CourseDetails = () => {
       },
     }
   );
-  useEffect(() => {
-    mutate(id);
-  }, []);
+
   useEffect(() => {
     AllCourse()
+    queryClient.invalidateQueries(['course', id]);
   }, [course]);
   const { data: TeacherData } = useQuery(
     ["Teachers", id],
@@ -101,7 +108,6 @@ const CourseDetails = () => {
     }
   );
   let number = 0
-  console.log(TeacherData);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -121,6 +127,11 @@ const CourseDetails = () => {
         setIsCopied(false); // Reset the state in case of an error
       });
   };
+  function round(value, step) {
+    step || (step = 1.0);
+    var inv = 1.0 / step;
+    return Math.round(value * inv) / inv;
+  }
   return (
     <div className={Styles.MainContainer}>
       <EffectImage
@@ -336,7 +347,21 @@ const CourseDetails = () => {
               <h1>This Course icludes</h1>
               <p>15 January, 2022 - December 14, 2022</p>
               <h1>Course Rate:</h1>
-              <Stars initialRating={course?.rate} RaitingPerson={course?.enrolled} size={"30px"} />
+              <Flex alignItems={"center"}>
+                <h5 style={{ fontWeight: "600" }}>({rate})</h5>
+                <ReactStars
+                  value={round(rate)}
+                  size={20}
+                  count={5}
+                  color="lightgray"
+                  activeColor="orange"
+                  isHalf
+                  emptyIcon={<FontAwesomeIcon icon={faStar} />}
+                  halfIcon={<FontAwesomeIcon icon={["fas", "star-half-alt"]} color="lightgray" />}
+                  filledIcon={<FontAwesomeIcon icon={["fas", "star"]} />}
+                  edit={false}
+                />
+              </Flex>
               <h1>Email Address:</h1>
               <p>{data.emailAddress}</p>
               <h1>Phone:</h1>
@@ -365,7 +390,7 @@ const CourseDetails = () => {
         </Grid>
       </Grid>
       <RateCourse
-      CourseId={id}
+        CourseId={id}
         comment={"I did't liked this course teacher is awfull!"}
         rate={1}
         title={"Write a Review for this course"}

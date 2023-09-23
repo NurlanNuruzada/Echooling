@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Styles from './Reviewmessage.module.css';
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Input, useDisclosure } from '@chakra-ui/react';
 import Stars from '../Starts/Stars';
 import jwt_decode from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
-import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faStar, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { DeleteComment } from '../../Services/CommentService';
+import { DeleteComment, UpdateReview } from '../../Services/CommentService';
 import { useFormik } from 'formik';
+import ReactStars from "react-rating-stars-component";
 import { useMutation, useQueryClient } from 'react-query';
 import {
     AlertDialog,
@@ -22,7 +23,12 @@ import {
 export default function Message({ point, Fullname, Comment, CreateDate, userId, CourseId, CommentId }) {
     const { token, userName, fullname } = useSelector((state) => state.auth);
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [IsEdit, setIsEdit] = useState(false)
+    const [Rate, setRate] = useState(null)
     const cancelRef = React.useRef()
+    useEffect(()=>{
+        updateFomik.setFieldValue("rate",Rate)
+    },[Rate])
     if (token != null) {
         var decodedToken = jwt_decode(token);
         var id =
@@ -33,12 +39,14 @@ export default function Message({ point, Fullname, Comment, CreateDate, userId, 
     const queryClient = useQueryClient();
     const initialvalues = {
         UserId: id,
-        reviewId: CommentId
+        reviewId: CommentId,
+        CourseId:CourseId
     };
     const [values, setValues] = useState(initialvalues);
     useEffect(() => {
         formik.setFieldValue("UserId", values.UserId)
         formik.setFieldValue("reviewId", values.reviewId)
+        updateFomik.setFieldValue("CourseId", values.CourseId)
     }, [values])
     const mutation = useMutation(
         (data) => DeleteComment(data.reviewId, data.UserId),
@@ -46,7 +54,22 @@ export default function Message({ point, Fullname, Comment, CreateDate, userId, 
             onSuccess: (resp) => {
                 console.log("Success", resp);
                 queryClient.invalidateQueries(['comments', CourseId]);
+                queryClient.invalidateQueries(['course', CourseId]);
                 onClose()
+            },
+            onError: (error) => {
+                console.log(error);
+            },
+        }
+    );
+    const Update = useMutation(
+        (data) => UpdateReview(values.reviewId, values.UserId, data),
+        {
+            onSuccess: (resp) => {
+                console.log("Success", resp);
+                queryClient.invalidateQueries(['comments', CourseId]);
+                queryClient.invalidateQueries(['course', CourseId]);
+                setIsEdit(false)
             },
             onError: (error) => {
                 console.log(error);
@@ -66,7 +89,17 @@ export default function Message({ point, Fullname, Comment, CreateDate, userId, 
         },
 
     });
+    const updateFomik = useFormik({
+        initialValues: {
+            comment: '',
+            rate: '',
+            CourseId:''
+        },
+        onSubmit: (values) => {
+             Update.mutate(values); 
+        },
 
+    });
     return (
         <div>
             <>
@@ -89,7 +122,7 @@ export default function Message({ point, Fullname, Comment, CreateDate, userId, 
                             <Button ref={cancelRef} onClick={onClose}>
                                 No
                             </Button>
-                            <Button  onClick={formik.handleSubmit} colorScheme='red' ml={3}>
+                            <Button onClick={formik.handleSubmit} colorScheme='red' ml={3}>
                                 Yes
                             </Button>
                         </AlertDialogFooter>
@@ -104,10 +137,25 @@ export default function Message({ point, Fullname, Comment, CreateDate, userId, 
                             <h1 className={Styles.bold}>{Fullname}</h1>
                             <h1 className={Styles.gray}>{CreateDate}</h1>
                         </Flex>
-                        <h1>{Comment}</h1>
+                        {IsEdit ?
+                            <Flex alignItems={'center'}>
+                                <Input name='comment' onChange={updateFomik.handleChange} />
+                                    <ReactStars size={20}
+                                    count={5}
+                                    name='rate' 
+                                    color="lightgray"
+                                    activeColor="orange"
+                                    isHalf
+                                    emptyIcon={<FontAwesomeIcon icon={faStar} />}
+                                    halfIcon={<FontAwesomeIcon icon={["fas", "star-half-alt"]} color="lightgray" />}
+                                    filledIcon={<FontAwesomeIcon icon={["fas", "star"]} />}
+                                    edit={true} onChange={(e) => setRate(e)} />
+                                <Button onClick={updateFomik.handleSubmit}>Submit</Button>
+                            </Flex> :
+                            <h1>{Comment}</h1>}
                     </div>
                     <div>
-                        {userId == id && <Flex gap={3}><FontAwesomeIcon color='#FF8A33' icon={faPenToSquare} /><FontAwesomeIcon onClick={onOpen} icon={faTrashCan} style={{ color: "#d23232", }} /></Flex>}
+                        {userId == id && <Flex gap={3}><FontAwesomeIcon cursor={"pointer"} onClick={() => setIsEdit(true)} color='#FF8A33' icon={faPenToSquare} /><FontAwesomeIcon cursor={"pointer"} onClick={onOpen} icon={faTrashCan} style={{ color: "#d23232", }} /></Flex>}
                     </div>
                 </Flex>
             </Flex>

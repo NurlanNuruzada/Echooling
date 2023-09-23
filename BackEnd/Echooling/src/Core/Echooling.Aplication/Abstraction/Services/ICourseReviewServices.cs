@@ -14,6 +14,6 @@ namespace Echooling.Aplication.Abstraction.Services
         Task <List<GetCourseReviewDto>> getReviewsOfCourseById(Guid CourseId);
         Task <GetCourseReviewDto> getbyId(Guid CourseId);
         Task  Delete(Guid ReviewId, Guid userId);
-        Task UpdateAsync(CreateCourseReviewDto review, Guid ReviewId,Guid userId);    
+        Task UpdateAsync(UpdateCourseReviewDto review, Guid ReviewId,Guid userId);    
     }
 }

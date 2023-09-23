@@ -42,6 +42,7 @@ const Courses = () => {
                 image={Data?.imageRoutue}
                 category = {Data?.subject}
                 Creatorname = {Data.instructor}
+                CourseRate = {Data.rate}
               />
             </GridItem>
           </Link>

@@ -1,9 +1,9 @@
 import React from "react";
-import Styles from "./CourseCard.module.css";
+import Styles from "./CourseCard.module.css";  
 import Stars from "../Starts/Stars";
 import ReactStars from "react-rating-stars-component";
 import userImage from '../../Images/user2.png'
-const CourseCard = ({ image, title, price,CreatorImage,category,Creatorname }) => {
+const CourseCard = ({ image, title, price,CreatorImage,category,Creatorname ,CourseRate}) => {
   const raiting = 3.5;
   const RaitedPersonNumber = 1200;
   function truncateTitle(title) {
@@ -31,7 +31,7 @@ console.log("image",image)
         <div>
           <Stars
             RaitingPerson={RaitedPersonNumber}
-            initialRating={raiting}
+            initialRating={CourseRate}
             isEditable={false}
           />
         </div>

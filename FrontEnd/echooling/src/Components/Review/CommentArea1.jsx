@@ -7,6 +7,7 @@ import { getallCommentOfCourse, AddCommnent } from '../../Services/CommentServic
 
 export default function CommentArea1({ id }) {
   const [CourseId, setCourseId] = useState(id);
+
   const queryClient = useQueryClient(); // Get the query client
 
   const { data: comment, isLoading, error } = useQuery(
