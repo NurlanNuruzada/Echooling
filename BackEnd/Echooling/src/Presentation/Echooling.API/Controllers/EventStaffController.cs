@@ -17,10 +17,10 @@ namespace Echooling.API.Controllers
         {
             _staffEventsService = staffEventsService;
         }
-        [HttpGet("id")]
+        [HttpGet("[Action]/id")]
         public async Task<IActionResult> get(Guid id)
         {
-            Staff_Events staffEvents = await _staffEventsService.GetByEventOrStaffId(id);
+            var staffEvents = await _staffEventsService.GetByEventOrStaffId(id);
             return Ok(staffEvents);
         }
         [HttpGet]

@@ -92,7 +92,7 @@ namespace Echooling.Persistance.Implementations.Services
                 }
                 throw new UserRegistrationException(err.ToString());
             }
-            var result = await _userManager.AddToRoleAsync(appUser, Roles.Member.ToString());
+            var result = await _userManager.AddToRoleAsync(appUser, Roles.Admin.ToString());
             if (!result.Succeeded)
             {
                 StringBuilder err = new();

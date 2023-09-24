@@ -11,9 +11,11 @@ using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.CourseDTOs;
 using Echooling.Aplication.DTOs.CourseReviewDTOs;
 using Echooling.Aplication.DTOs.SliderDTOs;
+using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -28,13 +30,17 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly ICourseReadRepository _CourseReadReadRepo;
         private readonly ICourseWriteRepository _CourseWriteRepository;
+        private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
         public CourseReviewService(ICourseReviewWriteRepository writeRepository,
                                    ICourseReviewReadRepository readRepository,
                                    IMapper mapper,
                                    IStringLocalizer<ErrorMessages> localizer,
                                    ICourseReadRepository courseReadReadRepo,
-                                   ICourseWriteRepository courseWriteRepository)
+                                   ICourseWriteRepository courseWriteRepository,
+                                   AppDbContext context = null,
+                                   UserManager<AppUser> userManager = null)
         {
             _WriteRepository = writeRepository;
             _ReadRepository = readRepository;
@@ -42,6 +48,8 @@ namespace Echooling.Persistance.Implementations.Services
             _localizer = localizer;
             _CourseReadReadRepo = courseReadReadRepo;
             _CourseWriteRepository = courseWriteRepository;
+            _context = context;
+            _userManager = userManager;
         }
 
         public async Task AddReview(CreateCourseReviewDto review)
@@ -86,9 +94,10 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException("review" + " " + message);
             }
-            if (review.UserId != userId)
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (review.UserId != userId && !await _userManager.IsInRoleAsync(user, "admin") && !await _userManager.IsInRoleAsync(user, "superadmin"))
             {
-                throw new NoAcsessException("this review can't be deleted by this user!");
+                throw new NoAcsessException("This review can't be deleted by this user!");
             }
             review.IsDeleted = true;
             await _WriteRepository.SaveChangesAsync();

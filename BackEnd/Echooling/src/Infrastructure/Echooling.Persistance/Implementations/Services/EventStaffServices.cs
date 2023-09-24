@@ -9,6 +9,7 @@ using Echooling.Aplication.Abstraction.Repository.EventsStaff;
 using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
 using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Services;
+using Echooling.Aplication.DTOs.StaffDTOs;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
@@ -80,9 +81,16 @@ namespace Echooling.Persistance.Implementations.Services
         {
             throw new NotImplementedException();
         }
-        public Task<Staff_Events> GetByEventOrStaffId(Guid id)
+        public async Task<GetStaffDto> GetByEventOrStaffId(Guid id)
         {
-            throw new NotImplementedException();
+            Staff_Events staffEvent = await _readRepository.GetByExpressionAsync(e=>e.eventsId == id);
+            if (staffEvent == null)
+            {
+                throw new notFoundException("Staff not found");
+            }
+            var staff =await _StaffreadRepository.GetByIdAsync(staffEvent.StaffId);
+            GetStaffDto FoundStaff = _mapper.Map<GetStaffDto>(staff);
+            return FoundStaff;
         }
         public Task UpdateAsync(Staff_Events StaffEvents, Guid id)
         {
