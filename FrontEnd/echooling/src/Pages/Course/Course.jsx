@@ -17,6 +17,7 @@ const Course = () => {
       />
       <Grid
          className={Styles.GridBox}
+         gap={3}
         templateColumns={{
           base: "repeat(1, 1fr)",
           sm: "repeat(2, 0fr)",

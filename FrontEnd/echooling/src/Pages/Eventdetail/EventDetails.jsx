@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "../../Pages/Eventdetail/EventDetail.module.css";
 import {
   faTicket,
@@ -20,7 +20,44 @@ import News from "../../Components/News/News";
 import ContactUs from "../../Components/ContactUs/ContactUsForm";
 import EventImage from "../../Images/UpcomingEvents.jpeg";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
+import { useParams } from "react-router";
+import { useQuery } from "react-query";
+import { GetEventId, getEventById, getUserByEventId } from "../../Services/EventService";
+import { GetUStaffUsers, getById } from "../../Services/StaffService";
 const EventDetails = () => {
+  const { id } = useParams();
+  const [Event, SetEvent] = useState([]);
+  const [User, SetUser] = useState([]);
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["Courses"],
+    queryFn: () => getEventById(id), // Pass the function itself
+    staleTime: 0,
+    onSuccess: (data) => {
+      SetEvent(data || []); // Use optional chaining to handle undefined data
+      console.log(data);
+    },
+  });
+  const { data: Staff } = useQuery({
+    queryKey: ["Staff"],
+    queryFn: () => getUserByEventId(id), // Pass the function itself
+    staleTime: 0,
+    onSuccess: (data) => {
+      console.log(data);
+      SetUser(data)
+    },
+  });
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+  // Format eventStartDate
+  const eventStartDate = new Date(data?.eventStartDate);
+  const StartDate = eventStartDate?.toLocaleDateString('en-US', options);
+
+  // Format eventFinishDate
+  const eventFinishDate = new Date(data?.eventFinishDate);
+  const EndDate = eventFinishDate?.toLocaleDateString('en-US', options);
+
+
   return (
     <div className={Styles.MainContainer}>
       <EffectImage
@@ -42,18 +79,11 @@ const EventDetails = () => {
       >
         <div className={Styles.right}>
           <div className={Styles.ImageConatainer}>
-            <img className={Styles.EventImage} src={image} alt="" />
+            <img className={Styles.EventImage} src={`/Uploads/Event/${data?.imageRoutue}`} alt="" />
             <div>
-              <h1 className={Styles.EventTitle}>Event title</h1>
+              <h1 className={Styles.EventTitle}>{Event?.eventTitle}</h1>
               <p>
-                I must explain to you how all this a mistaken idea of denouncing
-                great explorer of the rut the is lder of human happiness pcias
-                unde omnis iste natus error sit voluptatem accusantium
-                doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-                illo inventore veritatis et quasi architecto beatae vitae dicta
-                sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-                asnatur aut odit aut fugit, sed quia consequuntur magni dolores
-                eos qui
+                {Event.aboutEvent}
               </p>
             </div>
             <div className={Styles.AtendanceList}>
@@ -69,21 +99,22 @@ const EventDetails = () => {
                 }}
                 rowGap={5}
               >
-                <Atendee
-                  image={AtendeeImage}
-                  title={"Nurlan Nuruzada"}
-                  Profesion={"Student"}
-                />
-                <Atendee
-                  image={AtendeeImage}
-                  title={"Nurlan Nuruzada"}
-                  Profesion={"Student"}
-                />
-                <Atendee
-                  image={AtendeeImage}
-                  title={"Nurlan Nuruzada"}
-                  Profesion={"Student"}
-                />
+                {Staff?.map((staff, index) => (
+                  <Atendee
+                    key={index}
+                    image={AtendeeImage}
+                    title={staff.fullname}
+                    Profesion={staff.profession}
+                  />
+                ))}
+                {Staff?.map((staff, index) => (
+                  <Atendee
+                    key={index}
+                    image={AtendeeImage}
+                    title={staff.fullname}
+                    Profesion={staff.profession}
+                  />
+                ))}
               </Grid>
             </div>
           </div>
@@ -107,12 +138,12 @@ const EventDetails = () => {
               <Flex alignItems={"center"}>
                 <FontAwesomeIcon
                   className={Styles.Icon}
-                  icon={faBookmark}
+                  icon={faTicket}
                   style={{ color: "#000000" }}
                 />
                 <p>Const :</p>
               </Flex>
-              <h3>$72.00</h3>
+              <h3>{Event.cost}$</h3>
             </Flex>
             <Divider />
             <Flex
@@ -120,11 +151,38 @@ const EventDetails = () => {
               alignItems={"center"}
               justifyContent={"space-between"}
             >
-              <Flex alignItems={"center"}>
-                <FontAwesomeIcon className={Styles.Icon} icon={faUser} />
-                <p>organizer : </p>
+              {User[0] &&
+                <Flex alignItems={"center"}>
+                  <FontAwesomeIcon className={Styles.Icon} icon={faUser} />
+                  <p>organizer 1: </p>
+                </Flex>
+              }
+              <h4>{User[0]?.fullname}</h4>
+            </Flex>
+            {User[1] &&
+              <Flex
+                className={Styles.Icon}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+              >
+                <Flex alignItems={"center"}>
+                  <FontAwesomeIcon className={Styles.Icon} icon={faUser} />
+                  <p>organizer 2: </p>
+                </Flex>
+                <h4>{User[1]?.fullname}</h4>
               </Flex>
-              <h4>Penny Tool</h4>
+            }
+            <Divider />
+            <Flex
+              className={Styles.Icon}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <Flex alignItems={"center"}>
+                <FontAwesomeIcon className={Styles.Icon} icon={faBookmark} />
+                <p>Subject : </p>
+              </Flex>
+              <h4>{Event.categoryname}</h4>
             </Flex>
             <Divider />
             <Flex
@@ -136,7 +194,7 @@ const EventDetails = () => {
                 <FontAwesomeIcon className={Styles.Icon} icon={faPerson} />
                 <p>Total Slot :</p>
               </Flex>
-              <h4>250</h4>
+              <h4>{Event?.totalSlot}</h4>
             </Flex>
             <Divider />
             <Button className={Styles.Button}>
@@ -155,13 +213,17 @@ const EventDetails = () => {
           </div>
           <div className={Styles.DetatilsContainer}>
             <h1>date:</h1>
-            <p>15 January, 2022 - December 14, 2022</p>
+            <p>{StartDate} - {EndDate}</p>
             <h1>time:</h1>
-            <p>10:00 AM - 11:30PM</p>
+            <p>10:00 AM - 11:30PM bu qalib</p>
             <h1>loaction:</h1>
-            <p>IAC Building, New York</p>
-            <h1>Phone:</h1>
-            <p>+(624) 763 552 420</p>
+            <p>{Event?.location}</p>
+            <h1>Orginazer Phone 1:</h1>
+            {/* <p>{Staff[0]?.phoneNumber}</p> */}
+            <h1>Orginazer Phone 2:</h1>
+            {User[1] &&
+              <p>{User[1]?.phoneNumber}</p>
+            }
           </div>
           <div className={Styles.DetatilsContainer}>
             <Poster className={Styles.poster} />

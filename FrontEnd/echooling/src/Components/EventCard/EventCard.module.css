@@ -1,6 +1,23 @@
 .Down {
   display: flex;
 }
+.Category {
+    position: absolute;
+    top: 7%;
+    left: 80%;
+    transform: translate(-50%, -50%); /* Center the text */
+    background-color: #3270fc; /* Add a semi-transparent background */
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #3270fc;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.ImageContainer{
+  height: 179px;
+}
 .day {
   font-size: 29px;
   font-weight: 600;
@@ -11,14 +28,13 @@
   text-transform: uppercase;
 }
 .Up {
-  max-width: 100%;
+ width: 100%;
   height: 100%;
 }
 .EventCard {
   width: 276px ;
   height: max-content;
   transition: 300ms;
-  cursor: pointer;
   padding-top: 10px;
 }
 .EventCard:hover {
@@ -28,12 +44,13 @@
   max-width: 268px;
   height: max-content;
   transition: 300ms;
-  cursor: pointer;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .date {
   line-height: 25px;
+  color: #1751da;
 }
+
 .EventDetail {
   padding-left: 20px;
   font-weight: 500;

@@ -16,6 +16,7 @@ min-height: min-content;
     gap: 20px;
     justify-items: center;
     align-items: center;
+    color: white !important;
     grid-row-gap: 170px; /* Add this line to set padding between rows */
   }
   .GridItem {

@@ -6,22 +6,26 @@ import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router";
 
-const EventCard = ({ image, ColorTitle, ColorDetail, IsShadow }) => {
+const EventCard = ({ image, ColorTitle, ColorDetail, IsShadow ,Title,StartDate,EndTime,Location,Category,guId}) => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
   const handleNavigate = () => {
-    navigate("/EventDetail");
+    navigate(`/EventDetail/${guId}`);
   };
-  const date = new Date("2023-12-05T12:00:00.000Z"); // Correct the date format
-
-  const startTime = "00:00.000".slice(0, -4); // "00:00"
-  const endTime = "01:00.000".slice(0, -4);
-  const loaction = " New York, USA";
+  const date = new Date(StartDate); // Correct the date format
+  const startTime = StartDate?.slice(11,-3) 
+  const endTime = EndTime?.slice(11,-3)
+  const loaction = Location;
   const formatTime = (time) => {
-    const [hours, minutes] = time.split(":");
-    const parsedHours = parseInt(hours, 10);
-    const meridiem = parsedHours >= 12 ? "pm" : "am";
-    const formattedHours = parsedHours % 12 === 0 ? 12 : parsedHours % 12;
-    return `${formattedHours}:${minutes} ${meridiem}`;
+    if (time) {
+      const [hours, minutes] = time.split(":");
+      const parsedHours = parseInt(hours, 10);
+      const meridiem = parsedHours >= 12 ? "pm" : "am";
+      const formattedHours = parsedHours % 12 === 0 ? 12 : parsedHours % 12;
+      return `${formattedHours}:${minutes} ${meridiem}`;
+    }
+    else{
+      return "";
+    }
   };
 
   const day = String(date.getDate()).padStart(2, "0");
@@ -33,8 +37,9 @@ const EventCard = ({ image, ColorTitle, ColorDetail, IsShadow }) => {
         data-aos="fade-down"
         className={IsShadow ? Styles.Main : Styles.EventCard}
       >
-        <div className={Styles.Up}>
-          <img className={Styles.Up} src={image} alt="" />
+        <div className={Styles.ImageContainer}>
+          <img className={Styles.Up} src={`Uploads/Event/${image}`} alt="" />
+          <p className={Styles.Category}>{Category}</p>
         </div>
         <div className={Styles.DownCOntainer}>
           <div style={{ color: ColorTitle }} className={Styles.Down}>
@@ -44,8 +49,7 @@ const EventCard = ({ image, ColorTitle, ColorDetail, IsShadow }) => {
             </div>
             <div>
               <p className={Styles.EventDetail}>
-                A Better Alternative to Grading Student Science Competitions
-                2022.
+                {Title}
               </p>
             </div>
           </div>

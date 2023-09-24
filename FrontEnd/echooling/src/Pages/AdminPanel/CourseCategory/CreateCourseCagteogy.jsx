@@ -109,7 +109,7 @@ export default function CreateCourseCagteogy() {
                 {SentSuccess && (
                     <Done
                         firstTitle={'Success'}
-                        seccondTitle={'the Slider Created Succesfully'}
+                        seccondTitle={'the Course Created Succesfully'}
                     />
                 )}
                 <Box>

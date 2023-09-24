@@ -58,12 +58,17 @@ const CourseDetails = () => {
   const [LastestCourses, setLastestCourses] = useState(null);
   const [textToCopy, setTextToCopy] = useState('Text to be copied');
   const [isCopied, setIsCopied] = useState(false);
+  const [seed, setSeed] = useState(1);
   const [rate, setRate] = useState(course?.rate);
   const { id } = useParams();
 
   const queryClient = useQueryClient();
+  const reset = () => {
+    setSeed(Math.random());
+  }
   useEffect(() => {
     setRate(course?.rate);
+    reset()
   }, [course?.rate]);
   const currentURL = window.location.href;
   const { isLoading, isError } = useQuery(
@@ -132,6 +137,7 @@ const CourseDetails = () => {
     var inv = 1.0 / step;
     return Math.round(value * inv) / inv;
   }
+
   return (
     <div className={Styles.MainContainer}>
       <EffectImage
@@ -350,6 +356,7 @@ const CourseDetails = () => {
               <Flex alignItems={"center"}>
                 <h5 style={{ fontWeight: "600" }}>({rate})</h5>
                 <ReactStars
+                  key={seed}
                   value={round(rate)}
                   size={20}
                   count={5}

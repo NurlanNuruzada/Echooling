@@ -116,7 +116,7 @@ export default function CoursesList() {
   return (
     <div>
       <div>
-        <Button className={Styles.TableButon} m={10} onClick={() =>  handleNavigate("/ControlPanel/Course/Category")} color={'white '} borderColor={'white'} backgroundColor={"green"}>Create Category</Button>
+        <Button className={Styles.TableButon} m={10} onClick={() => handleNavigate("/ControlPanel/Course/Category")} color={'white '} borderColor={'white'} backgroundColor={"green"}>Create Category</Button>
         <Button className={Styles.TableButon} m={10} onClick={() => handleNavigate("/ControlPanel/CreateCourseContainer")} color={'white '} borderColor={'white'} backgroundColor={"blue"}>Create Course</Button>
       </div>
       <Flex className={Styles.Table}>
@@ -152,6 +152,7 @@ export default function CoursesList() {
                 <Td className={Styles.displayNone} >{Course.enrolled}</Td>
                 <Td className={Styles.TableButon2} ><Button className={Styles.TableButon} onClick={() => Delete(Course.guId)} color={'white '} borderColor={'white'} backgroundColor={"red"}>Delete</Button></Td>
                 <Td className={Styles.TableButon2} ><Button className={Styles.TableButon} onClick={() => handleNavigate(`/ControlPanel/Course/Update/${Course.guId}`)} color={'white '} borderColor={'white'} backgroundColor={'orange '}>Update</Button></Td>
+                <Td><Button className={Styles.TableButon} m={10} onClick={() => handleNavigate(`/ControlPanel/Course/GetReviews/${Course.guId}`)} color={'white '} borderColor={'white'} backgroundColor={"purple"}>Reveiws</Button></Td>
               </Tr>
             ))}
           </Tbody>

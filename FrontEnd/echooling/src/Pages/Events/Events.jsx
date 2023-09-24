@@ -23,8 +23,11 @@ import SearchInput from "../../Components/SeacthInput/SearchInput2";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import { Grid, GridItem, Link } from "@chakra-ui/react";
 import News from "../../Components/News/News";
+import { useState } from "react";
+import { useQueries, useQuery } from "react-query";
+import { getallEvents } from "../../Services/EventService";
 const Blog = () => {
-  
+
   const Categorylist = [
     "  CSS Engineering (10)",
     "Political Science (12)",
@@ -33,21 +36,16 @@ const Blog = () => {
     "Web Design (20)",
     "PHP (23)",
   ];
-  const SkillLevel = ["Beginner", "Intermediate", "Advanced"];
-  const images = [
-    image1,
-    image2,
-    image3,
-    image4,
-    image5,
-    image6,
-    image1,
-    image2,
-    image3,
-    image4,
-    image5,
-    image6,
-  ];
+  const [Events, SetEvent] = useState([]);
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["Courses"],
+    queryFn: getallEvents,
+    staleTime: 0,
+    onSuccess: (data) => {
+      SetEvent(data?.data || []); // Use optional chaining to handle undefined data
+      console.log(data)
+    },
+  });
   return (
     <div className={Styles.MainContainer}>
       <EffectImage
@@ -126,14 +124,20 @@ const Blog = () => {
                 }}
                 gap={5} // Adjust gap as needed
               >
-                {images.map((image, index) => (
+                {Events.map((queryResult, index) => (
                   <GridItem className={Styles.GridItemMain} key={index}>
-                      <EventCard
-                        IsShadow={true}
-                        ColorTitle={"#28292b"}
-                        ColorDetail={"gray"}
-                        image={image}
-                      />
+                    <EventCard
+                      IsShadow={true}
+                      ColorTitle={"#28292b"}
+                      ColorDetail={"gray"}
+                      image={queryResult?.imageRoutue} 
+                      Title={queryResult?.eventTitle}
+                      StartDate ={queryResult?.eventStartDate}
+                      EndTime ={queryResult?.eventFinishDate}
+                      Location ={queryResult?.location}
+                      Category={queryResult?.categoryname}
+                      guId = {queryResult.guId}
+                    />
                   </GridItem>
                 ))}
               </Grid>

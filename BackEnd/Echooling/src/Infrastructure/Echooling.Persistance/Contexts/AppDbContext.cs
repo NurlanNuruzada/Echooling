@@ -29,6 +29,10 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Video_Course> Video_Course { get; set; } = null!;
     public DbSet<VideoContent> VideoContent { get; set; } = null!;
     public DbSet<CourseReview> CourseReviews { get; set; } = null!;
+    public DbSet<Basket> Baskets { get; set; } = null!;
+    public DbSet<BasketProduct> BasketProduct { get; set; } = null!;
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.AddInterceptors(new DateModifiedInterseptors());

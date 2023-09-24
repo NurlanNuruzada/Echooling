@@ -11,7 +11,6 @@ library.add(faStar, faStarHalfAlt, farStar); // Add the icons to the library
 
 function Stars({ handleRate, size, isEditable, initialRating, RaitingPerson }) {
   const [rating, setRating] = useState(initialRating || 0);
-  console.log("bize veli", initialRating)
   const ratingExample = {
     size: size,
     count: 5,

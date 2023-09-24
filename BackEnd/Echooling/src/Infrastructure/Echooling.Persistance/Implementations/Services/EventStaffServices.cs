@@ -13,6 +13,7 @@ using Echooling.Aplication.DTOs.StaffDTOs;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
 namespace Echooling.Persistance.Implementations.Services
@@ -64,7 +65,7 @@ namespace Echooling.Persistance.Implementations.Services
 
             var staffEvent = new Staff_Events
             {
-                StaffId = staffId, 
+                StaffId = staffId,
                 eventsId = eventId,
                 events = _mapper.Map<events>(eventEntity),
                 staff = _mapper.Map<Staff>(Staff)
@@ -81,16 +82,18 @@ namespace Echooling.Persistance.Implementations.Services
         {
             throw new NotImplementedException();
         }
-        public async Task<GetStaffDto> GetByEventOrStaffId(Guid id)
+        public async Task<List<GetStaffDto>> GetByEventOrStaffId(Guid eventId)
         {
-            Staff_Events staffEvent = await _readRepository.GetByExpressionAsync(e=>e.eventsId == id);
-            if (staffEvent == null)
-            {
-                throw new notFoundException("Staff not found");
-            }
-            var staff =await _StaffreadRepository.GetByIdAsync(staffEvent.StaffId);
-            GetStaffDto FoundStaff = _mapper.Map<GetStaffDto>(staff);
-            return FoundStaff;
+            var staffEvents = await _readRepository.GetAll()
+              .Where(se => se.eventsId == eventId)
+              .Include(se => se.staff) // Include the related Staff entity
+              .ToListAsync();
+
+            List<GetStaffDto> staffList = staffEvents
+                .Select(se => _mapper.Map<GetStaffDto>(se.staff))
+                .ToList();
+
+            return staffList;
         }
         public Task UpdateAsync(Staff_Events StaffEvents, Guid id)
         {

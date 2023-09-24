@@ -13,7 +13,6 @@ const CourseCard = ({ image, title, price,CreatorImage,category,Creatorname ,Cou
     }
     return title;
   }  
-console.log("image",image)
   return (
     <div className={Styles.MainContainer}>
       <div className={Styles.ImageContainer}>

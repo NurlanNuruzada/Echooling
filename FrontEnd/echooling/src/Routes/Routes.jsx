@@ -37,6 +37,8 @@ import CoursesList from "../Pages/AdminPanel/CourseCrud/CoursesList";
 import UpdateCourse from "../Pages/AdminPanel/CourseCrud/UpdateCourse";
 import CreateCourseCagteogy from "../Pages/AdminPanel/CourseCategory/CreateCourseCagteogy";
 import CreateEventCagteogy from "../Pages/AdminPanel/EventCategory/EventCategory";
+import getCourseReviews from "../Pages/AdminPanel/CourseCrud/getCourseReviews";
+import GetCourseReviews from "../Pages/AdminPanel/CourseCrud/getCourseReviews";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -100,6 +102,10 @@ export default function Routes() {
           path: "/ControlPanel/Event/Category",
           element:  <CreateEventCagteogy />  
         },
+        {
+          path: "/ControlPanel/Course/GetReviews/:id",
+          element:  <GetCourseReviews />  
+        },
         
       ]
     },
@@ -152,7 +158,7 @@ export default function Routes() {
           element: <TeacherDetails />,
         },
         {
-          path: "/EventDetail",
+          path: "/EventDetail/:id",
           element: <EventDetails />,
         },
         {
