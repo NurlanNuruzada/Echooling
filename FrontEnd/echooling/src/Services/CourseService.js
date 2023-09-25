@@ -11,7 +11,7 @@ export const getallCourses = () => {
 export const getAllCourseByExpression = (title, category, rating) => {
     try {
         const params = new URLSearchParams();
-        
+
         if (title !== undefined) {
             params.append("courseName", title);
         }
@@ -21,12 +21,13 @@ export const getAllCourseByExpression = (title, category, rating) => {
         if (rating !== undefined) {
             params.append("rating", rating);
         }
-console.log(...params);
+        console.log(...params);
         return httpClient.get(`https://localhost:7222/api/Course/SearchCourse?${params.toString()}`);
     } catch (error) {
         throw error;
     }
 };
+
 
 export const DeleteCourse = async (Id) => {
     const response = await httpClient.delete(`/api/Course/id?id=${Id}`)

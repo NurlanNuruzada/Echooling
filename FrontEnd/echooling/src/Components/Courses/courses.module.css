@@ -6,10 +6,8 @@
     width: 100%;
   }
   .notFound{
-    color: #3270fc;
-    grid: 1;
-    width: 100% !important;
-    display: flex !important;
+    color: #020e2a;
+    font-weight: 500;
   }
   .Conatiner {
     padding: 20px 0;

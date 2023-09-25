@@ -10,5 +10,10 @@ namespace Echooling.Aplication.Abstraction.Services
         Task<List<EventGetDto>> GetAllAsync();
         Task UpdateAsync(EventCreateDto eventUpdate, Guid id);
         Task Remove(Guid id);
+        Task<List<EventGetDto>> GetAllSearchAsync(string? EventName,
+                                                         string? category,
+                                                         DateTime? StartDate,
+                                                         DateTime? EndDate,
+                                                         string? location);
     }
 }

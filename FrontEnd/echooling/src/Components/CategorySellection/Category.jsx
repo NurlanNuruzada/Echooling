@@ -4,7 +4,7 @@ import Stars from "../Starts/Stars";
 import Styles from "../CategorySellection/Category.module.css";
 import { useMutation, useQuery } from "react-query";
 import { getAllCourseategories } from "../../Services/CategoryService";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight, faArrowRight, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
 import image from '../../Images/logo2.png'
@@ -41,14 +41,29 @@ const Category = ({ SetFilterData }) => {
     },
   });
 
-  return (
+  return (  
     <div className={Styles.Container}>
       <div className={Styles.MainGridItem}>
         <div className={Styles.Rightside}>
-          <div ><img style={{ width: "100%" ,marin:"auto"}} src={image} /></div>
+          <div ><img style={{ width: "100%", marin: "auto" }} src={image} /></div>
           <div className={Styles.SeachArea}>
-            <h1 className={Styles.titleSeach}>Search</h1>
             <div className={Styles.Input}>
+              <Button
+                type="submit"
+                onClick={formik.handleSubmit}
+                bg={'#3270fc'}
+                mb={4}
+                w={'100%'}
+                color={"white"}
+                gap={2}
+              >
+                Apply Filter
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  style={{ color: "white" }}
+                />
+              </Button>
+              <h1 className={Styles.titleSeach}>Search</h1>
               <div className={Styles.SeacContainer}>
                 <input
                   placeholder={"search..."}
@@ -57,16 +72,6 @@ const Category = ({ SetFilterData }) => {
                   onChange={formik.handleChange}
                   value={formik.values.title}
                 />
-                <button
-                  className={Styles.SeacrhIcon}
-                  type="submit"
-                  onClick={formik.handleSubmit}
-                >
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    style={{ color: "white" }}
-                  />
-                </button>
               </div>
             </div>
           </div>

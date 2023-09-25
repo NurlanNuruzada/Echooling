@@ -186,7 +186,9 @@ public class CourseService : ICourseService
         return teacherDtos;
     }
 
-    public async Task<List<CourseGetDto>> GetAllSearchAsync(string? courseName, string? category, decimal? rating)
+    public async Task<List<CourseGetDto>> GetAllSearchAsync(string? courseName,
+                                                            string? category,
+                                                            decimal? rating)
     {
         var Course = _readRepository.GetAll().Where(e => e.IsDeleted == false);
         if (!string.IsNullOrEmpty(courseName))

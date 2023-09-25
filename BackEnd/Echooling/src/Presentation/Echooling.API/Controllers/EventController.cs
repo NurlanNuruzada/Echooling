@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Echooling.Aplication.DTOs.EventDTOs;
 using Ecooling.Domain.Entites.Common;
+using Echooling.Persistance.Implementations.Services;
 
 namespace Echooling.API.Controllers
 {
@@ -47,19 +48,29 @@ namespace Echooling.API.Controllers
 
 
         [HttpPost("[Action]/id")]
-        public async Task<IActionResult> Create([FromForm]EventCreateDto eventDto,Guid staffId)
+        public async Task<IActionResult> Create([FromForm] EventCreateDto eventDto, Guid staffId)
         {
             await _eventService.CreateAsync(eventDto, staffId);
             return StatusCode((int)HttpStatusCode.Created);
         }
-
-        [HttpPut("id")]
-        public async Task<IActionResult> update([FromForm] EventCreateDto eventDto, Guid id)
+        [HttpGet("SearchCourse")]
+        public async Task<IActionResult> SerarchEvent(string? EventName,
+                                                         string? category,
+                                                         DateTime? StartDate,
+                                                         DateTime? EndDate,
+                                                         string? location)
         {
-            await _eventService.UpdateAsync(eventDto, id);
-            return Ok(new { message = "Slider Updated successfully." + eventDto });
-        }
-
+            var List = await _eventService.GetAllSearchAsync(EventName, category, StartDate, EndDate, location);
+            return Ok(List);
     }
+
+    [HttpPut("id")]
+    public async Task<IActionResult> update([FromForm] EventCreateDto eventDto, Guid id)
+    {
+        await _eventService.UpdateAsync(eventDto, id);
+        return Ok(new { message = "Slider Updated successfully." + eventDto });
+    }
+
+}
 }
 

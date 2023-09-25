@@ -3,6 +3,7 @@ using Echooling.Aplication.Abstraction.Repository.EventRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs;
 using Echooling.Aplication.DTOs.CategoryDTOs;
+using Echooling.Aplication.DTOs.CourseDTOs;
 using Echooling.Aplication.DTOs.EventDTOs;
 using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Persistance.Exceptions;
@@ -88,6 +89,51 @@ namespace Echooling.Persistance.Implementations.Services
             }
             return List;
         }
+        public async Task<List<EventGetDto>> GetAllSearchAsync(
+      string? EventName,
+      string? category,
+      DateTime? StartDate,
+      DateTime? EndDate,
+      string? location)
+        {
+            var Event = _readRepository.GetAll().Where(e => e.IsDeleted == false);
+
+            if (!string.IsNullOrEmpty(EventName))
+            {
+                Event = Event.Where(x => x.EventTitle.ToLower().Contains(EventName.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                Event = Event.Where(x => x.Categoryname.ToLower() == category.ToLower());
+            }
+
+            if (!string.IsNullOrEmpty(location))
+            {
+                Event = Event.Where(x => x.Location.ToLower().Contains(location.ToLower()));
+            }
+
+            if (StartDate.HasValue)
+            {
+                Event = Event.Where(x => x.EventStartDate >= StartDate );
+            }  
+            if (EndDate.HasValue)
+            {
+                Event = Event.Where(x => x.EventFinishDate <= EndDate);
+            }
+
+            var queryList = await Event.ToListAsync();
+
+            List<EventGetDto> List = _mapper.Map<List<EventGetDto>>(queryList);
+
+            foreach (EventGetDto courseGetDto in List)
+            {
+                courseGetDto.ImageRoutue = $"{courseGetDto.ImageRoutue}";
+            }
+
+            return List;
+        }
+
         public async Task<EventGetDto> getById(Guid id)
         {
             var Event = await _readRepository.GetByIdAsync(id);
