@@ -29,6 +29,7 @@ namespace Echooling.API.Controllers
             await _CourseService.CreateAsync(Course, TeacherId);
             return StatusCode((int)HttpStatusCode.Created);
         }
+
         [HttpGet("[Action]/id")]
         public async Task<IActionResult> get(Guid id)
         {
@@ -54,12 +55,25 @@ namespace Echooling.API.Controllers
             List<CourseGetDto> List = await _CourseService.GetAllAsync();
             return Ok(List);
         } 
+
+
         [HttpGet("[Action]")]
         public async Task<IActionResult> GetLastestWithCount(int take, Guid? categoryId)
         {
             List<CourseGetDto> List = await _CourseService.GetLatestWithCategory(take, categoryId);
             return Ok(List);
         }
+
+
+        [HttpGet("SearchCourse")]
+        public async Task<IActionResult> GetLastestWithCount(string? courseName, string? category, decimal? rating)
+        {
+            var List = await _CourseService.GetAllSearchAsync(courseName, category, rating);
+            return Ok(List);
+        }
+
+
+
         [HttpDelete("id")]
         public async Task<IActionResult> delete(Guid id)
         {

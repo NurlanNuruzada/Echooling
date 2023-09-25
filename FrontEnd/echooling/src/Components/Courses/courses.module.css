@@ -2,12 +2,22 @@
   .GridBox {
     row-gap: 20px;
     gap: 15px;
-    justify-content: center;
     justify-items: center;
+    width: 100%;
   }
-  
+  .notFound{
+    color: #3270fc;
+    grid: 1;
+    width: 100% !important;
+    display: flex !important;
+  }
   .Conatiner {
     padding: 20px 0;
+    width: max-content;
+  }
+  .Conatiner2 {
+    padding: 20px 0;
+    width: 50%;
   }
   @media (max-width: 770px) {
     .GridBox {

@@ -135,6 +135,70 @@ namespace Echooling.Persistance.Migrations
                     b.ToTable("AppUserEvents");
                 });
 
+            modelBuilder.Entity("Ecooling.Domain.Entites.Basket", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("GuId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.BasketProduct", b =>
+                {
+                    b.Property<Guid>("GuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BasketId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("EventsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("GuId");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("EventsId");
+
+                    b.ToTable("BasketProduct");
+                });
+
             modelBuilder.Entity("Ecooling.Domain.Entites.Course", b =>
                 {
                     b.Property<Guid>("GuId")
@@ -483,10 +547,10 @@ namespace Echooling.Persistance.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("StaffId")
+                    b.Property<Guid>("StaffId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("eventsId")
+                    b.Property<Guid>("eventsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("GuId");
@@ -853,6 +917,40 @@ namespace Echooling.Persistance.Migrations
                     b.Navigation("events");
                 });
 
+            modelBuilder.Entity("Ecooling.Domain.Entites.Basket", b =>
+                {
+                    b.HasOne("Ecooling.Domain.Entites.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.BasketProduct", b =>
+                {
+                    b.HasOne("Ecooling.Domain.Entites.Basket", "Basket")
+                        .WithMany("BasketProducts")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecooling.Domain.Entites.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("Ecooling.Domain.Entites.events", "Events")
+                        .WithMany()
+                        .HasForeignKey("EventsId");
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Events");
+                });
+
             modelBuilder.Entity("Ecooling.Domain.Entites.Course", b =>
                 {
                     b.HasOne("Ecooling.Domain.Entites.CourseCategories", "CourseCategory")
@@ -889,12 +987,15 @@ namespace Echooling.Persistance.Migrations
                 {
                     b.HasOne("Ecooling.Domain.Entites.Staff", "staff")
                         .WithMany("StaffEvents")
-                        .HasForeignKey("StaffId");
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Ecooling.Domain.Entites.events", "events")
                         .WithMany("StaffEvents")
                         .HasForeignKey("eventsId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("events");
 
@@ -1005,6 +1106,11 @@ namespace Echooling.Persistance.Migrations
                     b.Navigation("AppUserEvents");
 
                     b.Navigation("CourseAppUser");
+                });
+
+            modelBuilder.Entity("Ecooling.Domain.Entites.Basket", b =>
+                {
+                    b.Navigation("BasketProducts");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.Course", b =>

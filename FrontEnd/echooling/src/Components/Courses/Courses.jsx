@@ -1,38 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "../Courses/courses.module.css";
 import CourseCard from "../CourseCard/CourseCard";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Flex, Grid, GridItem, styled } from "@chakra-ui/react";
 import image1 from "../../Images/Course1.jpg";
 import { Link } from "react-router-dom";
-import { getallCourses } from "../../Services/CourseService";
-import { useQuery } from "react-query";
-const Courses = () => {
+import { getAllCourseByExpression, getallCourses } from "../../Services/CourseService";
+import { useMutation, useQuery } from "react-query";
+const Courses = ({filterData}) => {
   const courseTitle =
     "C# .NET Core 7 with MS SQL Complete Beginner to Master 2023";
   const Price = "$60.99";
   const [Course, SetCourse] = useState([]);
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["Courses"],
-    queryFn: getallCourses,
-    staleTime: 0,
-    onSuccess: (data) => {
-      SetCourse(data?.data || []); // Use optional chaining to handle undefined data
-    },
-  });
+  const { mutate } = useMutation(
+    (Data) => getAllCourseByExpression(Data.title,Data.category,Data.rating),
+    {
+        onSuccess: (resp) => {
+          SetCourse(resp?.data || []); 
+        },
+        onError: (error) => {
+            console.error(error);
+        },
+    }
+);
+useEffect(()=>{
+  mutate(filterData)
+},[filterData])
+console.log("1",Course);
+  // console.log(filterData);
   return (
-    <div className={Styles.Conatiner}>
+<div className={Course.length <= 0 ? `${Styles.Conatiner2} ` : Styles.Conatiner}>
       <Grid
         className={Styles.GridBox}
         templateColumns={{
           base: "repeat(1, 1fr)",
-          sm: "repeat(1, 0fr)",
-          md: "repeat(2, 0fr)",
-          lg: "repeat(2, 0fr)",
-          xl: "repeat(3, 0fr)",
+          sm:  "repeat(1, 1fr)" ,
+          md:  "repeat(2, 1fr)",
+          lg:  "repeat(3, 1fr)",
+          xl:  "repeat(3, 1fr)",
         }}
         gap={5}
       >
-        {Course.map((Data, index) => (
+        {Course.length>0 ? Course.map((Data, index) => (
           <Link to={`/CourseDetails/${Data.guId}`} key={index}>
             <GridItem data-aos="zoom-in-down" data-aos-duration="800">
               <CourseCard
@@ -46,7 +54,7 @@ const Courses = () => {
               />
             </GridItem>
           </Link>
-        ))}
+        )) : <Flex style={{columnSpan:"4"}} ><h1  className={Styles.notFound}>Course not Found!</h1></Flex>}
       </Grid>
     </div>
   );

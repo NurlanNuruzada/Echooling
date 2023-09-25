@@ -1,39 +1,37 @@
-import React from "react";
+// Parent Course component
+import React, { useState } from "react";
 import Courses from "../../Components/Courses/Courses";
 import Category from "../../Components/CategorySellection/Category";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import News from '../../Components/News/News'
 import Styles from '../Course/course.module.css'
 import image from '../../Images/Courses.jpeg'
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
+
 const Course = () => {
+  const [filterData, setFilterData] = useState({
+    title: "",
+    category: "",
+    rating: ""
+  });
+
+  const handleFilterDataChange = (newData) => {
+    setFilterData({ ...newData });
+  };
+
   return (
     <div>
-     <EffectImage
+      <EffectImage
         showCenter={true}
         imageLink={image}
         pageName="Courses"
         to="/"
       />
-      <Grid
-         className={Styles.GridBox}
-         gap={3}
-        templateColumns={{
-          base: "repeat(1, 1fr)",
-          sm: "repeat(2, 0fr)",
-          lg: "repeat(2, 0fr)",
-          xl: "repeat(2, 0fr)",
-        }}
-      >
-        <GridItem className={Styles.GridItems}>
-          <Category />
-        </GridItem>
-        <GridItem className={Styles.GridItems}>
-          <Courses />
-        </GridItem>
-      </Grid>
-      <News/>
-
+      <Flex justifyContent={'center'} flexWrap={'wrap'} gap={4}>
+        <Category  SetFilterData={handleFilterDataChange} />
+        <Courses filterData={filterData} />
+      </Flex>
+      <News />
     </div>
   );
 };
