@@ -40,6 +40,7 @@ export default function StaffList() {
     const [filterRole, setFilterRole] = useState('');
     const queryClient = useQueryClient();
     const [registrationSuccess, setRegistrationSuccess] = useState(false);
+    const [currentAction, setCurrentAction] = useState(null);
     const handleFilterByRole = (role) => {
         setFilterRole(role);
     };
@@ -50,32 +51,55 @@ export default function StaffList() {
             'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
             ];
     }
-    const buttonsAndRoute = {
-        button1: {
-            navigate: "/ControlPanel/Staff",
-            name: "Return",
-            color: "gray",
-            isOpen: "false"
-        },
-    }
     const navigate = useNavigate();
     const handleNavigate = (route) => {
         navigate(route);
     };
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ['Staff'],
+        queryFn: GetUStaffUsers,
+        staleTime: 0,
+    });
 
-    const [currentAction, setCurrentAction] = useState(null);
-
-    const HandleDetlete = (Id) => {
-        formik.setValues({
+    //handleDetele
+    const HandleDeleteStaff = (Id) => {
+        FormikDelete.setValues({
             UserId: Id,
             AdminId: id,
         });
         setCurrentAction({
-            actionType: 'delete',
+            actionType: 'DeleteStaff',
             userId: Id,
         });
         onOpen();
     };
+    const HandleDeleteTeacher = (Id) => {
+        FormikDelete.setValues({
+            UserId: Id,
+            AdminId: id,
+        });
+        setCurrentAction({
+            actionType: 'DeleteTeacher',
+            userId: Id,
+        });
+        onOpen();
+    };
+    const FormikDelete = useFormik({
+        initialValues: {
+            UserId: '',
+            AdminId: '',
+        },
+        onSubmit: (values) => {
+            if (currentAction.actionType === 'DeleteStaff') {
+                mutate(values)
+            } else if (currentAction.actionType === 'DeleteTeacher') {
+                mutate(values)
+            }
+            onClose();
+            setRegistrationSuccess(true)
+        },
+    });
+//handleDeteleend
 
     const handleApprove = (Id) => {
         formik.setValues({
@@ -88,12 +112,6 @@ export default function StaffList() {
         });
         onOpen();
     };
-    const { data, isLoading, isError, error } = useQuery({
-        queryKey: ['Staff'],
-        queryFn: GetUStaffUsers,
-        staleTime: 0,
-    });
-
     const formik = useFormik({
         initialValues: {
             UserId: '',
@@ -219,7 +237,7 @@ export default function StaffList() {
                                         <Button
                                             className={Styles.TableButon}
                                             color={'white '}
-                                            onClick={() => HandleDetlete(data.guId)}
+                                            onClick={() => data.role == "Staff" ? HandleDeleteStaff(data.guId) : HandleDeleteTeacher(data.guId)}
                                             borderColor={'white'}
                                             backgroundColor={"red"}
                                         >

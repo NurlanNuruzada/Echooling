@@ -35,11 +35,11 @@ namespace Echooling.API.Controllers
             return Ok(Staff);
         }
         [HttpDelete("id")]
-        public async Task<IActionResult> delete(Guid id)
+        public async Task<IActionResult> delete(Guid id,Guid RemovedById)
         {
             try
             {
-                await _service.Remove(id);
+                await _service.Remove(id, RemovedById);
             }
             catch (notFoundException ex)
             {
