@@ -3,9 +3,12 @@ using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
 using Echooling.Aplication.Abstraction.Services;
+using Echooling.Aplication.DTOs.EmailDTOs;
+using Echooling.Aplication.DTOs;
 using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
 using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
+using Echooling.Persistance.Helper;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
 using Ecooling.Domain.Enums;
@@ -24,21 +27,28 @@ namespace Echooling.Persistance.Implementations.Services
         public readonly IMapper _mapper;
         public readonly IStringLocalizer<ErrorMessages> _stringLocalizer;
         private readonly UserManager<AppUser> _userManager;
-        public TeacherServices(ITeacherReadRepository readRepo,
+        private readonly ILoggerService _loggerService;
+        private readonly IEmailService _emailService;
+
+        public TeacherServices(AppDbContext context,
+                               ITeacherReadRepository readRepo,
                                ITeacherWriteRepository writeRepo,
+                               IStaffReadRepository staffService,
                                IMapper mapper,
                                IStringLocalizer<ErrorMessages> stringLocalizer,
-                               AppDbContext context,
                                UserManager<AppUser> userManager,
-                               IStaffReadRepository staffService)
+                               ILoggerService loggerService,
+                               IEmailService emailService)
         {
+            _context = context;
             _readRepo = readRepo;
             _writeRepo = writeRepo;
+            _staffService = staffService;
             _mapper = mapper;
             _stringLocalizer = stringLocalizer;
-            _context = context;
             _userManager = userManager;
-            _staffService = staffService;
+            _loggerService = loggerService;
+            _emailService = emailService;
         }
 
         public async Task CreateAsync(TeacherCreateDto teacherCreateDto, Guid UserId)
@@ -83,18 +93,44 @@ namespace Echooling.Persistance.Implementations.Services
             TeacherGetDto teacher = _mapper.Map<TeacherGetDto>(teachers);
             return teacher;
         }
-        public async Task ApproveTeacher(Guid teacherId)
+        public async Task ApproveTeacher(Guid TeacherId, Guid ApprovePersonId)
         {
-            var teachers = await _readRepo.GetByIdAsync(teacherId);
+
+            var Teacher = await _readRepo.GetByIdAsync(TeacherId);
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
-            if (teachers is null)
+            if (Teacher is null)
             {
-                throw new notFoundException(message);
+                throw new notFoundException("teacher" + message);
             }
-            teachers.IsApproved = true;
+            Teacher.IsApproved = true;
+
             await _writeRepo.SaveChangesAsync();
+            CreateLogDto logDto = new CreateLogDto();
+            logDto.ActionTime = DateTime.Now;
+            logDto.ActiondEntityName = "Approve";
+            logDto.UserId = ApprovePersonId;
+            logDto.ActiondEntityId = TeacherId;
+            _loggerService.CreateLog(logDto);
+
+            var FrontEndBase = "http://localhost:3000";
+            var userIp = EmailConfigurations.GetUserIP().ToString();
+            var confirmationUrl = $"{FrontEndBase}/";
+
+            SentEmailDto ConfirmLetter = new SentEmailDto
+            {
+                To = Teacher.emailAddress,
+                Subject = "Confirm Email Address",
+                body = $"<html><body>" +
+                $"<h1>Welcome , <span style='color: #3270fc;'>{Teacher.Fullname}</span></h1>" +
+                $"<h2>Confirm Your Email</h2>" +
+                $"<p>You Succesfully Approved you can Create Content form this link <a href='{confirmationUrl}'>here</a>. If it's not you, you can ignore this email.</p>" +
+                $"<br/>" +
+                $"<h3> we received this from {userIp}</h3>" +
+                $"</body></html>"
+            };
+            _emailService.SendEmail(ConfirmLetter);
         }
-        public async Task Remove(Guid UserId)
+        public async Task Remove(Guid UserId, Guid AppUserDeletedById)
         {
             var teachers = await _readRepo.GetByExpressionAsync(u => u.AppUserID == UserId);
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
@@ -102,7 +138,13 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException(message);
             }
-            _writeRepo.remove(teachers);
+            CreateLogDto logDto = new CreateLogDto();
+            logDto.ActionTime = DateTime.Now;
+            logDto.ActiondEntityName = "Remove";
+            logDto.UserId = AppUserDeletedById;
+            logDto.ActiondEntityId = UserId;
+            _loggerService.CreateLog(logDto);
+            teachers.IsDeleted = true;
             await _writeRepo.SaveChangesAsync();
         }
         public async Task UpdateAsync(TeacherUpdateDto updateDto, Guid UserId)
@@ -114,6 +156,7 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException("user" + " " + message);
             }
+
             _mapper.Map(updateDto, teacher);
             await _writeRepo.SaveChangesAsync();
         }

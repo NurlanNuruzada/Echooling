@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Styles from './StaffList.module.css';
 import {
     Table,
@@ -24,11 +24,13 @@ import {
     AlertDialogCloseButton,
 } from '@chakra-ui/react';
 import { GetUStaffUsers } from '../../../../Services/StaffService';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Navigate, useNavigate } from 'react-router';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import jwt_decode from 'jwt-decode';
+import Done from '../../../../Components/DoneModal/Done';
+import { ApprovedStaffId } from '../../../../Services/TeacherService';
 
 export default function StaffList() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,7 +38,8 @@ export default function StaffList() {
     const [IsEdit, setIsEdit] = useState(false);
     const { token, userName, fullname } = useSelector((state) => state.auth);
     const [filterRole, setFilterRole] = useState('');
-
+    const queryClient = useQueryClient();
+    const [registrationSuccess, setRegistrationSuccess] = useState(false);
     const handleFilterByRole = (role) => {
         setFilterRole(role);
     };
@@ -47,7 +50,14 @@ export default function StaffList() {
             'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
             ];
     }
-
+    const buttonsAndRoute = {
+        button1: {
+            navigate: "/ControlPanel/Staff",
+            name: "Return",
+            color: "gray",
+            isOpen: "false"
+        },
+    }
     const navigate = useNavigate();
     const handleNavigate = (route) => {
         navigate(route);
@@ -91,11 +101,12 @@ export default function StaffList() {
         },
         onSubmit: (values) => {
             if (currentAction.actionType === 'delete') {
-                console.log(values)
+                mutate(values)
             } else if (currentAction.actionType === 'approve') {
-                console.log(values)
+                mutate(values)
             }
             onClose();
+            setRegistrationSuccess(true)
         },
     });
     const handleRoleChange = (event) => {
@@ -106,25 +117,32 @@ export default function StaffList() {
         currentAction && currentAction.actionType === 'delete'
             ? 'Delete'
             : 'Approve';
-    // const Update = useMutation(
-    //     (data) => UpdateReview(values.reviewId, values.UserId, data),
-    //     {
-    //         onSuccess: (resp) => {
-    //             queryClient.invalidateQueries(['comments', CourseId]);
-    //             queryClient.invalidateQueries(['course', CourseId]);
-    //             setIsEdit(false)
-    //             reset()
-    //         },
-    //         onError: (error) => {
-    //             console.log(error);
-    //         },
-    //         validationSchema: UpdateRate,
-    //     }
-    // );
+    const { mutate } = useMutation(
+        (values) => ApprovedStaffId(values.UserId, values.AdminId),
+        {
+            onSuccess: (resp) => {
+                queryClient.invalidateQueries(['Staff',resp]);
+                onClose()
+            },
+            onError: (error) => {
+                console.log(error);
+            },
+        }
+    );
+    useEffect(() => {
+        if (registrationSuccess) {
+            const timer = setTimeout(() => {
+                setRegistrationSuccess(false); 
+            }, 4500);
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+    }, [registrationSuccess]);
     return (
         <div>
             <>
-
+            {registrationSuccess && <Done firstTitle={"Appy request is accepted"} seccondTitle={"send email about application"} />}
                 <AlertDialog
                     motionPreset='slideInBottom'
                     leastDestructiveRef={cancelRef}
@@ -152,16 +170,16 @@ export default function StaffList() {
                 </AlertDialog>
             </>
             <TableContainer borderRadius={10} m={10} border={"1px solid #CACFD2"}>
-            <Select
-                value={filterRole}
-                onChange={handleRoleChange}
-                size="md"
-                w={40} // Adjust select size as needed
-            >
-                <option value="">All</option> {/* To show all staff */}
-                <option value="Teacher">Teacher</option>
-                <option value="Staff">Staff</option>
-            </Select>
+                <Select
+                    value={filterRole}
+                    onChange={handleRoleChange}
+                    size="md"
+                    w={40} // Adjust select size as needed
+                >
+                    <option value="">All</option> {/* To show all staff */}
+                    <option value="Teacher">Teacher</option>
+                    <option value="Staff">Staff</option>
+                </Select>
                 <Table variant='striped' colorScheme='orange' >
                     <TableCaption>Staff list </TableCaption>
                     <Thead>
@@ -186,8 +204,10 @@ export default function StaffList() {
                                     <Td className={Styles.TableButon2} >
                                         <Button
                                             className={Styles.TableButon}
-                                            onClick={() =>{data.role == "Staff" ?  handleNavigate(`/ControlPanel/Staff/details/${data.guId}`) : 
-                                            handleNavigate(`/ControlPanel/Teacher/details/${data.guId}`)} }
+                                            onClick={() => {
+                                                data.role == "Staff" ? handleNavigate(`/ControlPanel/Staff/details/${data.guId}`) :
+                                                    handleNavigate(`/ControlPanel/Teacher/details/${data.guId}`)
+                                            }}
                                             color={'white '}
                                             borderColor={'white'}
                                             backgroundColor={'orange'}

@@ -10,12 +10,13 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import News from "../../Components/News/News";
-import Counter from "../../Components/Counter/Couter"; 
+import Counter from "../../Components/Counter/Couter";
 import { useMutation, useQuery } from "react-query";
 import { useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { getTeacherById } from "../../Services/TeacherService";
 const TeacherDetails = () => {
+
   const { id } = useParams();
   const [props, setProps] = useState()
   const { mutate, isLoading, error } = useMutation(
@@ -33,6 +34,7 @@ const TeacherDetails = () => {
   useEffect(() => {
     mutate(id);
   }, []);
+
   return (
     <div className={Styles.Container}>
       <div className={Styles.upContainer}>
@@ -58,7 +60,7 @@ const TeacherDetails = () => {
             <div>
               <h3>ABOUT ME</h3>
               <p>
-              {props?.data.aboutMe}
+                {props?.data.aboutMe}
               </p>
               <h2>DEGREE:</h2>
               <span> {props?.data.profession}</span>
@@ -97,25 +99,25 @@ const TeacherDetails = () => {
           </div>
           <div>
             <div className={Styles.down3}>
-            <Link to={`http://${props?.data.facebook}`}>
-              <FontAwesomeIcon className={Styles.icon} icon={faFacebook} />
+              <Link to={`http://${props?.data.facebook}`}>
+                <FontAwesomeIcon className={Styles.icon} icon={faFacebook} />
               </Link>
               <Link to={`http://${props?.data.twitter}`}>
-              <FontAwesomeIcon className={Styles.icon} icon={faTwitter} />
+                <FontAwesomeIcon className={Styles.icon} icon={faTwitter} />
               </Link>
               <Link to={`http://${props?.data.linkedin}`}>
-              <FontAwesomeIcon className={Styles.icon} icon={faLinkedin} />
+                <FontAwesomeIcon className={Styles.icon} icon={faLinkedin} />
               </Link>
               <Link to={`http://${props?.data.instagram}`}>
-              <FontAwesomeIcon className={Styles.icon} icon={faInstagram} />
+                <FontAwesomeIcon className={Styles.icon} icon={faInstagram} />
               </Link>
             </div>
           </div>
         </div>
         <div>
-        <Flex className={Styles.flex} gap={4} flexWrap={"wrap"}>
+          <Flex className={Styles.flex} gap={4} flexWrap={"wrap"}>
             <Counter MaxNumber={props?.data.totalExperianceHours} InlineText={"total Experiance hours"} />
-            <Counter MaxNumber={props?.data.totalStudentCount}  InlineText={"total Students"} />
+            <Counter MaxNumber={props?.data.totalStudentCount} InlineText={"total Students"} />
             <Counter MaxNumber={props?.data.totalOnlineCourseCount} InlineText={"total online Courses"} />
           </Flex>
         </div>

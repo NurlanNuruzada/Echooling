@@ -4,6 +4,7 @@ using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Implementations.Services;
+using Ecooling.Domain.Entites;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,11 +39,11 @@ namespace Echooling.API.Controllers
             return Ok(teacher);
         }
         [HttpDelete("id")]
-        public async Task<IActionResult> delete(Guid id)
+        public async Task<IActionResult> delete(Guid id,Guid DeletedById)
         {
             try
             {
-                await _service.Remove(id);
+                await _service.Remove(id, DeletedById);
             }
             catch (notFoundException ex)
             {
@@ -56,10 +57,10 @@ namespace Echooling.API.Controllers
             await _service.UpdateAsync(teacherUpdate, UserId);
             return Ok(new { message = "teacher Updated successfully." + teacherUpdate });
         }
-        [HttpPut("approve/id")] 
-        public async Task<IActionResult> ApproveTeacher(Guid teacherId)
+        [HttpPut("approveTeacher/id")] 
+        public async Task<IActionResult> ApproveTeacher(Guid teacherId ,Guid ApprovePersonId)
         {
-            await _service.ApproveTeacher(teacherId);
+            await _service.ApproveTeacher( teacherId, ApprovePersonId);
             return Ok(new { message = "Teacher approved successfully." });
         }
     }

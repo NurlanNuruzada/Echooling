@@ -54,6 +54,7 @@ export const getUserByEventId = async (Id) => {
     const response = await httpClient.get(`/api/EventStaff/get/id?id=${Id}`)
     return response.data;
 }
+
 export const getAllEventByExpression = (title, category, StartDate, EndDate, Location) => {
     try {
         const params = new URLSearchParams();

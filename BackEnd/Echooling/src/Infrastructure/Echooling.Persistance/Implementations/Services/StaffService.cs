@@ -1,10 +1,14 @@
-﻿using AutoMapper;
+﻿using System.Web;
+using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
 using Echooling.Aplication.Abstraction.Services;
+using Echooling.Aplication.DTOs;
+using Echooling.Aplication.DTOs.EmailDTOs;
 using Echooling.Aplication.DTOs.StaffDTOs;
 using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
+using Echooling.Persistance.Helper;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
 using Ecooling.Domain.Enums;
@@ -17,31 +21,40 @@ namespace Echooling.Persistance.Implementations.Services
 {
     public class StaffService : IStaffService
     {
+        public readonly AppDbContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly IStaffReadRepository _readRepository;
         private readonly IStaffWriteRepository _writeRepository;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public readonly ITeacherReadRepository _readRepo;
+        private readonly ITeacherReadRepository _readRepo;
+        private readonly  ILoggerService _loggerService;
+        private readonly IEmailService _emailService;
 
-        public StaffService(IMapper mapper,
+        public StaffService(AppDbContext context,
+                            IMapper mapper,
+                            UserManager<AppUser> userManager,
                             IStaffReadRepository readRepository,
                             IStaffWriteRepository writeRepository,
                             IStringLocalizer<ErrorMessages> localizer,
-                            UserManager<AppUser> userManager,
-                            AppDbContext context,
                             RoleManager<IdentityRole> roleManager,
-                            ITeacherReadRepository readRepo)
+                            ITeacherReadRepository readRepo,
+                            ILoggerService loggerService,
+                            IEmailService emailService)
         {
+            _context = context;
             _mapper = mapper;
+            _userManager = userManager;
             _readRepository = readRepository;
             _writeRepository = writeRepository;
             _localizer = localizer;
-            _userManager = userManager;
             _roleManager = roleManager;
             _readRepo = readRepo;
+            _loggerService = loggerService;
+            _emailService = emailService;
         }
+
         public async Task CreateAsync(CreateStaffDto createStaff, Guid UserId)
         {
             var user = await _userManager.FindByIdAsync(UserId.ToString());
@@ -90,7 +103,7 @@ namespace Echooling.Persistance.Implementations.Services
             GetStaffDto FoundStaff = _mapper.Map<GetStaffDto>(Staff);
             return FoundStaff;
         }
-        public async Task Remove(Guid UserId)
+        public async Task Remove(Guid UserId,Guid AppUserDeletedById)
         {
             var Staff = await _readRepository.GetByExpressionAsync(u => u.AppUserID == UserId);
             string message = _localizer.GetString("NotFoundExceptionMsg");
@@ -98,7 +111,13 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException(message);
             }
-            _writeRepository.remove(Staff);
+            CreateLogDto logDto = new CreateLogDto();
+            logDto.ActionTime = DateTime.Now;
+            logDto.ActiondEntityName = "Remove";
+            logDto.UserId = AppUserDeletedById;
+            logDto.ActiondEntityId = UserId;
+            _loggerService.CreateLog(logDto);
+            Staff.IsDeleted = true;
             await _writeRepository.SaveChangesAsync();
         }
         public async Task UpdateAsync(CreateStaffDto updateDto, Guid UserId)
@@ -114,8 +133,9 @@ namespace Echooling.Persistance.Implementations.Services
             await _writeRepository.SaveChangesAsync();
         }
 
-        public async Task ApproveStaff(Guid StaffId)
+        public async Task ApproveStaff(Guid StaffId,Guid ApprovePersonId)
         {
+
             var Staff = await _readRepository.GetByIdAsync(StaffId);
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (Staff is null)
@@ -123,7 +143,32 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new notFoundException("Staff" + message);
             }
             Staff.IsApproved = true;
+
             await _writeRepository.SaveChangesAsync();
+            CreateLogDto logDto = new CreateLogDto();
+            logDto.ActionTime = DateTime.Now;
+            logDto.ActiondEntityName = "Approve";
+            logDto.UserId = ApprovePersonId;
+            logDto.ActiondEntityId = StaffId;
+            _loggerService.CreateLog(logDto);
+            
+            var FrontEndBase = "http://localhost:3000";
+            var userIp = EmailConfigurations.GetUserIP().ToString();
+            var confirmationUrl = $"{FrontEndBase}/";
+
+            SentEmailDto ConfirmLetter = new SentEmailDto
+            {
+                To = Staff.emailAddress,
+                Subject = "Confirm Email Address",
+                body = $"<html><body>" +
+                $"<h1>Welcome , <span style='color: #3270fc;'>{Staff.Fullname}</span></h1>" +
+                $"<h2>Confirm Your Email</h2>" +
+                $"<p>You Succesfully Approved you can Create Content form this link <a href='{confirmationUrl}'>here</a>. If it's not you, you can ignore this email.</p>" +
+                $"<br/>" +
+                $"<h3> we received this from {userIp}</h3>" +
+                $"</body></html>"
+            };
+            _emailService.SendEmail(ConfirmLetter);
         }
     }
 }

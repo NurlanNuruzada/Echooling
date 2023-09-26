@@ -14,6 +14,6 @@ public interface IStaffService
     Task<GetStaffDto> getById(Guid id);
     Task<List<GetUserListDto>> GetAllAsync();
     Task UpdateAsync(CreateStaffDto StaffUpdateDto, Guid id);
-    Task Remove(Guid id);
-    Task ApproveStaff(Guid StaffId);
+    Task Remove(Guid UserId, Guid AppUserDeletedById);
+    Task ApproveStaff(Guid StaffId, Guid ApprovePersonId);
 }

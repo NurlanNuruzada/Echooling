@@ -4,7 +4,6 @@ using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Persistance.Exceptions;
-using Echooling.Persistance.Helper;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
 using Microsoft.AspNetCore.Hosting;

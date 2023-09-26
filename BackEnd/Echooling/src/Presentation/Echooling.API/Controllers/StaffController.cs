@@ -54,9 +54,9 @@ namespace Echooling.API.Controllers
             return Ok(new { message = "teacher Updated successfully." + staffDto });
         }
         [HttpPut("approve/id")]
-        public async Task<IActionResult> ApproveStaff(Guid StaffId)
+        public async Task<IActionResult> ApproveStaff(Guid StaffId,Guid ApprovedUserId)
         {
-            await _service.ApproveStaff(StaffId);
+            await _service.ApproveStaff(StaffId, ApprovedUserId);
             return Ok(new { message = "Staff approved successfully." });
         }
     }
