@@ -8,9 +8,9 @@ namespace Echooling.Aplication.DTOs
 {
     public class CreateLogDto
     {
-        public Guid DeletedById { get; set; }
-        public DateTime? DeleteTime { get; set; }
-        public string DeletedEntityName { get; set; }
-        public Guid DeletedEntityId { get; set; }
+        public Guid UserId { get; set; }
+        public DateTime? ActionTime { get; set; }
+        public string ActiondEntityName { get; set; } 
+        public Guid ActiondEntityId { get; set; }
     }
 }

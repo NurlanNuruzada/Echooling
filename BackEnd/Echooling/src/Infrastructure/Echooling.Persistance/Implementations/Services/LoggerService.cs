@@ -34,7 +34,7 @@ namespace Echooling.Persistance.Implementations.Services
 
         public async Task CreateLog(CreateLogDto log)
         {
-            log.DeleteTime = DateTime.Now;
+            log.ActionTime = DateTime.Now;
             var CreateLog = _mapper.Map<Logger>(log);
             await _writeRepository.addAsync(CreateLog);
             await _writeRepository.SaveChangesAsync();
