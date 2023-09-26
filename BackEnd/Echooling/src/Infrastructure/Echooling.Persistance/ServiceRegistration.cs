@@ -8,6 +8,7 @@ using Echooling.Aplication.Abstraction.Repository.Couse;
 using Echooling.Aplication.Abstraction.Repository.EventCategoryRepository;
 using Echooling.Aplication.Abstraction.Repository.EventRepositories;
 using Echooling.Aplication.Abstraction.Repository.EventsStaff;
+using Echooling.Aplication.Abstraction.Repository.LoggerRepositories;
 using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
 using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Repository.TeacherCourses;
@@ -26,6 +27,7 @@ using Echooling.Persistance.Implementations.Repositories.CourseRepositories;
 using Echooling.Persistance.Implementations.Repositories.CourseReviewRepositories;
 using Echooling.Persistance.Implementations.Repositories.EventCategoryRepsitory;
 using Echooling.Persistance.Implementations.Repositories.EventRepositories;
+using Echooling.Persistance.Implementations.Repositories.LoggerRepositories;
 using Echooling.Persistance.Implementations.Repositories.SliderRepositories;
 using Echooling.Persistance.Implementations.Repositories.StaffEventsRepositories;
 using Echooling.Persistance.Implementations.Repositories.StaffRepository;
@@ -82,6 +84,7 @@ public static class ServiceRegistration
         services.AddScoped<ICourseReviewServices,CourseReviewService>();
         services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<IBasketProductService, BasketProductService>();
+        services.AddScoped<ILoggerService, LoggerService>();
         //Idenitity
         services.AddIdentity<AppUser, IdentityRole>(options =>
         {
@@ -114,6 +117,7 @@ public static class ServiceRegistration
         services.AddScoped<ICourseReviewReadRepository,CourseReviewReadRepository>();
         services.AddScoped<IBasketProductReadRepository, BasketProductReadRepository>();
         services.AddScoped<IBasketReadRepository, BasketReadRepository>();
+        services.AddScoped<ILoggerReadRepository, LoggerReadRepository>();
 
     }
     private static void AddWriteRepositories(this IServiceCollection services)
@@ -133,5 +137,6 @@ public static class ServiceRegistration
         services.AddScoped<ICourseReviewWriteRepository, CourseReviewWriteRepository>();
         services.AddScoped<IBasketProductWriteRepository, BasketProductWriteRepository>();
         services.AddScoped<IBasketWriteRepository, BasketWriteRepository>();
+        services.AddScoped<ILoggerWriteRepository, ILoggerWriteRepository>();
     }
 }
