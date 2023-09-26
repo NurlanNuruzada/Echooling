@@ -5,6 +5,6 @@ namespace Echooling.Aplication.Abstraction.Services;
 
 public interface ILoggerService
 {
-    Task<List<Logger>> getAllAsyc();
+    Task<List<Logger>> getAllAsync();
     Task CreateLog(CreateLogDto log);
 }

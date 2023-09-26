@@ -39,7 +39,7 @@ namespace Echooling.Persistance.Implementations.Services
             await _writeRepository.addAsync(CreateLog);
             await _writeRepository.SaveChangesAsync();
         }
-        public async Task<List<Logger>> getAllAsyc()
+        public async Task<List<Logger>> getAllAsync()
         {
             var Logs =await _readRepository.GetAll().ToListAsync();
             return Logs;
