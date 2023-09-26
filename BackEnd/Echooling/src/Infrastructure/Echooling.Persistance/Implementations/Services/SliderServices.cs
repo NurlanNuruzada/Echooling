@@ -16,10 +16,10 @@ namespace Echooling.Persistance.Implementations.Services
 {
     public class SliderServices : ISliderService
     {
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly IMapper _mapper;
         private readonly ISliderReadRepository _readRepository;
         private readonly ISliderWriteRepository _writeRepository;
-        private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly IWebHostEnvironment _hostingEnvironment;
         public SliderServices(ISliderWriteRepository writeRepository, ISliderReadRepository readRepository, IMapper mapper, IStringLocalizer<ErrorMessages> localizer, IWebHostEnvironment hostingEnvironment)
         {

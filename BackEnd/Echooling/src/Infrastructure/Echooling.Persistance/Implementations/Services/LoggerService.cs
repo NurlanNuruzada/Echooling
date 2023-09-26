@@ -9,6 +9,7 @@ using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
 namespace Echooling.Persistance.Implementations.Services
@@ -31,13 +32,17 @@ namespace Echooling.Persistance.Implementations.Services
             _mapper = mapper;
         }
 
-        public Task CreateLog(CreateLogDto log)
+        public async Task CreateLog(CreateLogDto log)
         {
-            
+            var CreateLog = _mapper.Map<Logger>(log);
+            CreateLog.DateCreated = DateTime.UtcNow;
+            await _writeRepository.addAsync(CreateLog);
+            await _writeRepository.SaveChangesAsync();
         }
-        public Task<List<Logger>> getAllAsyc()
+        public async Task<List<Logger>> getAllAsyc()
         {
-            throw new NotImplementedException();
+            var Logs =await _readRepository.GetAll().ToListAsync();
+            return Logs;
         }
     }
 }

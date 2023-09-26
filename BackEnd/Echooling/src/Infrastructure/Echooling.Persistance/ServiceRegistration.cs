@@ -137,6 +137,6 @@ public static class ServiceRegistration
         services.AddScoped<ICourseReviewWriteRepository, CourseReviewWriteRepository>();
         services.AddScoped<IBasketProductWriteRepository, BasketProductWriteRepository>();
         services.AddScoped<IBasketWriteRepository, BasketWriteRepository>();
-        services.AddScoped<ILoggerWriteRepository, ILoggerWriteRepository>();
+        services.AddScoped<ILoggerWriteRepository, LoggerWriteRepository>();
     }
 }
