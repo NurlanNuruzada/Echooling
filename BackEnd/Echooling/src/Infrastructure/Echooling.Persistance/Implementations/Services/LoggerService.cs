@@ -34,15 +34,16 @@ namespace Echooling.Persistance.Implementations.Services
 
         public async Task CreateLog(CreateLogDto log)
         {
+            log.DeleteTime = DateTime.Now;
             var CreateLog = _mapper.Map<Logger>(log);
-            CreateLog.DateCreated = DateTime.UtcNow;
             await _writeRepository.addAsync(CreateLog);
             await _writeRepository.SaveChangesAsync();
         }
-        public async Task<List<Logger>> getAllAsync()
+        public async Task<List<CreateLogDto>> getAllAsync()
         {
             var Logs =await _readRepository.GetAll().ToListAsync();
-            return Logs;
+            var LogList = _mapper.Map<List<CreateLogDto>>(Logs);
+            return LogList;
         }
     }
 }

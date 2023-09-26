@@ -21,7 +21,7 @@ namespace Echooling.API.Controllers
         [HttpGet]
         public async Task<IActionResult> getAll()
         {
-            List<Logger> List = await _loggerService.getAllAsync();
+            List<CreateLogDto> List = await _loggerService.getAllAsync();
             return Ok(List);
         }
         [HttpPost("[Action]")]

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Echooling.Aplication.DTOs;
+using Ecooling.Domain.Entites;
 
 namespace Echooling.Persistance.MapperProfile
 {
@@ -12,7 +13,7 @@ namespace Echooling.Persistance.MapperProfile
     {
         public LoggerProfile()
         {
-            CreateMap<LoggerProfile,CreateLogDto>().ReverseMap();
+            CreateMap<Logger,CreateLogDto>().ReverseMap();
         }
     }
 }
