@@ -15,4 +15,5 @@ public interface IStaffService
     Task<List<GetUserListDto>> GetAllAsync();
     Task UpdateAsync(CreateStaffDto StaffUpdateDto, Guid id);
     Task Remove(Guid id);
+    Task ApproveStaff(Guid StaffId);
 }

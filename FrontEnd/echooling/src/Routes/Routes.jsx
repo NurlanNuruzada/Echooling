@@ -37,8 +37,10 @@ import CoursesList from "../Pages/AdminPanel/CourseCrud/CoursesList";
 import UpdateCourse from "../Pages/AdminPanel/CourseCrud/UpdateCourse";
 import CreateCourseCagteogy from "../Pages/AdminPanel/CourseCategory/CreateCourseCagteogy";
 import CreateEventCagteogy from "../Pages/AdminPanel/EventCategory/EventCategory";
-import getCourseReviews from "../Pages/AdminPanel/CourseCrud/getCourseReviews";
 import GetCourseReviews from "../Pages/AdminPanel/CourseCrud/getCourseReviews";
+import StaffList from "../Pages/AdminPanel/TeacherAndStaff/Staff/StaffList";
+import StaffDetails from "../Pages/AdminPanel/TeacherAndStaff/Staff/StaffDetails";
+import TeacherDetailsAdminPanel from "../Pages/AdminPanel/TeacherAndStaff/Staff/TeacherDetails";
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -105,6 +107,22 @@ export default function Routes() {
         {
           path: "/ControlPanel/Course/GetReviews/:id",
           element:  <GetCourseReviews />  
+        },
+        // {
+        //   path: "/ControlPanel/teacher",
+        //   element:  <teacherList />  
+        // },
+        {
+          path: "/ControlPanel/Staff",
+          element:  <StaffList />  
+        },
+        {
+          path: "/ControlPanel/Staff/details/:id",
+          element:  <StaffDetails />  
+        },
+        {
+          path: "/ControlPanel/teacher/details/:id",
+          element:  <TeacherDetailsAdminPanel />  
         },
         
       ]

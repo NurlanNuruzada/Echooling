@@ -25,6 +25,6 @@ namespace Echooling.Aplication.DTOs.TeacherDetailsDTOs
         public string? AboutMe { get; set; }
         public string? userKnowledge { get; set; }
         public string? UserName { get; set; }
-
+        public bool? IsApproved { get; set; }
     }
 }

@@ -26,6 +26,6 @@
         public string? StartExperiance { get; set; }
         public string? Follower { get; set; }
         public string? UserName { get; set; }
-
+        public bool? IsApproved { get; set; }
     }
 }

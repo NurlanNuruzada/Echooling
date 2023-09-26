@@ -31,6 +31,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<CourseReview> CourseReviews { get; set; } = null!;
     public DbSet<Basket> Baskets { get; set; } = null!;
     public DbSet<BasketProduct> BasketProduct { get; set; } = null!;
+    public DbSet<Logger> Logger { get; set; } = null!;
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

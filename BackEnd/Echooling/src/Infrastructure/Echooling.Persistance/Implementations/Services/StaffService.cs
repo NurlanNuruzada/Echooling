@@ -81,7 +81,11 @@ namespace Echooling.Persistance.Implementations.Services
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (Staff is null)
             {
-                throw new notFoundException("user" + " " + message);
+                Staff = await _readRepository.GetByIdAsync(UserId);
+                if (Staff is null)
+                {
+                    throw new notFoundException("user" + " " + message);
+                }
             }
             GetStaffDto FoundStaff = _mapper.Map<GetStaffDto>(Staff);
             return FoundStaff;
@@ -107,6 +111,18 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new notFoundException("user" + " " + message);
             }
             _mapper.Map(updateDto, Staff);
+            await _writeRepository.SaveChangesAsync();
+        }
+
+        public async Task ApproveStaff(Guid StaffId)
+        {
+            var Staff = await _readRepository.GetByIdAsync(StaffId);
+            string message = _localizer.GetString("NotFoundExceptionMsg");
+            if (Staff is null)
+            {
+                throw new notFoundException("Staff" + message);
+            }
+            Staff.IsApproved = true;
             await _writeRepository.SaveChangesAsync();
         }
     }

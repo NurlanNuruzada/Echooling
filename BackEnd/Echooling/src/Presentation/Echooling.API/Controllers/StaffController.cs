@@ -53,5 +53,11 @@ namespace Echooling.API.Controllers
             await _service.UpdateAsync(staffDto, UserId);
             return Ok(new { message = "teacher Updated successfully." + staffDto });
         }
+        [HttpPut("approve/id")]
+        public async Task<IActionResult> ApproveStaff(Guid StaffId)
+        {
+            await _service.ApproveStaff(StaffId);
+            return Ok(new { message = "Staff approved successfully." });
+        }
     }
 }

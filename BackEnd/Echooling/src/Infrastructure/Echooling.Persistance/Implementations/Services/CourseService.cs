@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.Couse;
+using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.CourseDTOs;
 using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
@@ -20,6 +21,7 @@ public class CourseService : ICourseService
     private readonly IMapper _mapper;
     private readonly IStringLocalizer<ErrorMessages> _localizer;
     public readonly ITeacherService _teacherService;
+    public readonly ITeacherReadRepository _teacherReadrepo;
     public readonly ITeacherCourses _TeacherCoursesCreateService;
     private readonly AppDbContext _context;
     public CourseService(ICourseWriteRepository writeRepository,
@@ -28,7 +30,8 @@ public class CourseService : ICourseService
                          IStringLocalizer<ErrorMessages> localizer,
                          ITeacherService teacherService,
                          ITeacherCourses teacherCoursesCreateService,
-                         AppDbContext context)
+                         AppDbContext context,
+                         ITeacherReadRepository teacherReadrepo)
     {
         _writeRepository = writeRepository;
         _readRepository = readRepository;
@@ -37,6 +40,7 @@ public class CourseService : ICourseService
         _teacherService = teacherService;
         _TeacherCoursesCreateService = teacherCoursesCreateService;
         _context = context;
+        _teacherReadrepo = teacherReadrepo;
     }
 
     public async Task CreateAsync(CourseCreateDto courseCreateDto, Guid TeacherId)
@@ -45,7 +49,11 @@ public class CourseService : ICourseService
         {
             throw new Exception("No image file provided.");
         }
-
+        var teacher =  await _teacherReadrepo.GetByIdAsync(TeacherId);
+        if(teacher is null || teacher.IsApproved ==false)
+        {
+            throw  new notFoundException("teacher not found!");
+        }
         Course course = _mapper.Map<Course>(courseCreateDto);
         string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Course";
         Directory.CreateDirectory(uploadsDirectory);

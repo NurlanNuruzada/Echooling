@@ -11,4 +11,5 @@ public record GetUserListDto(Guid AppUserID,
                              string? Role,
                              string? PhoneNumber,
                                 string? UserName,
-                             string? Fullname);
+                             string? Fullname,
+                              bool? IsApproved);

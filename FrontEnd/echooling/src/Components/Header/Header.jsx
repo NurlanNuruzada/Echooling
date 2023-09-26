@@ -68,7 +68,7 @@ const Header = () => {
   useEffect(() => {
     getStaff(id);
     Getteacher(id);
-  }, []);
+  }, [token]);
   if (token != null) {
     var decodedToken = jwt_decode(token);
     var userId =

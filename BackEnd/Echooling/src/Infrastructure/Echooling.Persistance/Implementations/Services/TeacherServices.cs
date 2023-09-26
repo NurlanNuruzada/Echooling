@@ -57,6 +57,7 @@ namespace Echooling.Persistance.Implementations.Services
             teacher.emailAddress = user.Email;
             teacher.UserName = user.UserName;
             teacher.Role = "Teacher";
+            teacher.IsApproved = false;
             await _writeRepo.addAsync(teacher);
             await _writeRepo.SaveChangesAsync();
         }
@@ -67,16 +68,31 @@ namespace Echooling.Persistance.Implementations.Services
             return List;
         }
 
-        public  async Task<TeacherGetDto> getById(Guid UserId)
+        public async Task<TeacherGetDto> getById(Guid UserId)
         {
-            var teachers = await _readRepo.GetByExpressionAsync(u=>u.AppUserID == UserId);
+            var teachers = await _readRepo.GetByIdAsync(UserId);
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
-            if (teachers is null )
+            if (teachers is null)
             {
-                throw new notFoundException("user" + " " + message);
+                teachers = await _readRepo.GetByExpressionAsync(u => u.AppUserID == UserId);
+                if (teachers is null)
+                {
+                    throw new notFoundException("user" + " " + message);
+                }
             }
             TeacherGetDto teacher = _mapper.Map<TeacherGetDto>(teachers);
             return teacher;
+        }
+        public async Task ApproveTeacher(Guid teacherId)
+        {
+            var teachers = await _readRepo.GetByIdAsync(teacherId);
+            string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
+            if (teachers is null)
+            {
+                throw new notFoundException(message);
+            }
+            teachers.IsApproved = true;
+            await _writeRepo.SaveChangesAsync();
         }
         public async Task Remove(Guid UserId)
         {
@@ -96,7 +112,7 @@ namespace Echooling.Persistance.Implementations.Services
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
             if (teacher is null)
             {
-                throw new notFoundException("user"+" "+message);
+                throw new notFoundException("user" + " " + message);
             }
             _mapper.Map(updateDto, teacher);
             await _writeRepo.SaveChangesAsync();

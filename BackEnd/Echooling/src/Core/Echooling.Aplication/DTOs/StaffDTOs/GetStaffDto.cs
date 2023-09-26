@@ -25,5 +25,6 @@ namespace Echooling.Aplication.DTOs.StaffDTOs
                               string? StartExperiance,
                               string? Follower,
                                string? UserName,
-                              Guid AppUserID);
+                              Guid AppUserID,
+                              bool? IsApproved);
 }
