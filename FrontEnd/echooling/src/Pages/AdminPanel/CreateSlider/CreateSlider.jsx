@@ -35,19 +35,13 @@ export default function CreateSlider({ onNext, formData, onPrevious }) {
         navigate(route);
     };
 
-
-    //get Slider start
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["sliders"],
         queryFn: getSliders,
         staleTime: 0,
 
     });
-    //get SLiders end
-
-
-
-    //Create Slider Funtion Start
+    
     const { mutate } = useMutation(
         (formData) => CreateSliderFunction(formData),
         {

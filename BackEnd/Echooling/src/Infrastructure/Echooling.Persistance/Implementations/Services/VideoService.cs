@@ -37,7 +37,7 @@ namespace Echooling.Persistance.Implementations.Services
             _courseReadRepo = courseReadRepo;
         }
 
-        public async Task CreateAsync(CreateVIdeoContentDto CreateDto,Guid CourseId)
+        public async Task CreateAsync(CreateVIdeoContentDto CreateDto, Guid CourseId)
         {
             if (CreateDto.Video == null)
             {
@@ -93,19 +93,11 @@ namespace Echooling.Persistance.Implementations.Services
             return List;
         }
 
-        public async Task<GetVideoContentDto> getById(Guid id)
+        public async Task<List<GetVideoContentDto>> getById(Guid id)
         {
-            string message = _localizer.GetString("NotFoundExceptionMsg");
-            var Video = await _readRepository.GetByIdAsync(id);
-            if (Video is null)
-            {
-                throw new notFoundException(message);
-            }
-            else
-            {
-            GetVideoContentDto VideoDto = _mapper.Map<GetVideoContentDto>(Video);
-                return VideoDto;
-            }
+            var Videos = await _readRepository.GetAll().Where(c => c.courseId == id).ToListAsync();
+            var VideoDto = _mapper.Map<List<GetVideoContentDto>>(Videos);
+            return VideoDto;
         }
 
         public async Task Remove(Guid id)

@@ -20,10 +20,10 @@ namespace Echooling.API.Controllers
             _videoContentService = videoContentService;
         }
         [HttpGet("id")]
-        public async Task<IActionResult> get(Guid id)
+        public async Task<List<GetVideoContentDto>> get(Guid id)
         {
-            GetVideoContentDto slider = await _videoContentService.getById(id);
-            return Ok(slider);
+            var Video = await _videoContentService.getById(id);
+            return Video;
         }
         [HttpGet("[Action]")]
         public async Task<IActionResult> getAll()
