@@ -26,7 +26,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<CourseCategories> CourseCategories { get; set; } = null!;
     public DbSet<EventCategoryies> EventCategoryies { get; set; } = null!;
     public DbSet<TeacherDetails_Courses> TeachersCourses { get; set; } = null!;
-    public DbSet<Video_Course> Video_Course { get; set; } = null!;
     public DbSet<VideoContent> VideoContent { get; set; } = null!;
     public DbSet<CourseReview> CourseReviews { get; set; } = null!;
     public DbSet<Basket> Baskets { get; set; } = null!;
@@ -77,12 +76,12 @@ public class AppDbContext : IdentityDbContext<AppUser>
           .OnDelete(DeleteBehavior.Cascade);
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<VideoContent>()
-       .HasMany<Video_Course>(e => e.VideoCourse)
-       .WithOne(cc => cc.VideoContent)
-       .HasForeignKey(e => e.VideoContentId)
-       .OnDelete(DeleteBehavior.Cascade);
-        base.OnModelCreating(modelBuilder);
+       // modelBuilder.Entity<VideoContent>()
+       //.HasMany<Video_Course>(e => e.VideoCourse)
+       //.WithOne(cc => cc.VideoContent)
+       //.HasForeignKey(e => e.VideoContentId)
+       //.OnDelete(DeleteBehavior.Cascade);
+       // base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<teacherDetails>()
        .HasMany<TeacherDetails_Courses>(e => e.TeacherDetailsCourses)

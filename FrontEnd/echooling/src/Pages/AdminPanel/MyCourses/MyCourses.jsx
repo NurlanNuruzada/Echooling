@@ -103,7 +103,8 @@ const { mutate: Delete } = useMutation(
                 <Td  >{Course.enrolled}</Td>
                 <Td  ><Button  onClick={() => Delete(Course.guId)} color={'white '} borderColor={'white'} backgroundColor={"red"}>Delete</Button></Td>
                 <Td  ><Button  onClick={() => handleNavigate(`/ControlPanel/Course/Update/${Course.guId}`)} color={'white '} borderColor={'white'} backgroundColor={'orange '}>Update</Button></Td>
-                <Td><Button    m={10} onClick={() => handleNavigate(`/ControlPanel/Course/GetReviews/${Course.guId}`)} color={'white '} borderColor={'white'} backgroundColor={"purple"}>Reveiws</Button></Td>
+                <Td><Button  m={10} onClick={() => handleNavigate(`/ControlPanel/Course/GetReviews/${Course.guId}`)} color={'white '} borderColor={'white'} backgroundColor={"purple"}>Reveiws</Button></Td>
+                <Td><Button  m={10} onClick={() => handleNavigate(`/ControlPanel/Courses/CourseVideos/${Course.guId}`)} color={'white '} borderColor={'white'} backgroundColor={"green"}>SeeAllVideos</Button></Td>
               </Tr>
             ))}
           </Tbody>

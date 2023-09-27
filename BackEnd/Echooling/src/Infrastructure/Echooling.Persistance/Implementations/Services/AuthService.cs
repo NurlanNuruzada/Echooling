@@ -49,7 +49,7 @@ namespace Echooling.Persistance.Implementations.Services
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
             var roles =  await _userManager.GetRolesAsync(user);
-            return roles;
+            return roles.ToArray();
         }
         public async Task<TokenResponseDto> Login(SignInDto signInDto)
         {
@@ -97,7 +97,7 @@ namespace Echooling.Persistance.Implementations.Services
                 }
                 throw new UserRegistrationException(err.ToString());
             }
-            var result = await _userManager.AddToRoleAsync(appUser, Roles.Admin.ToString());
+            var result = await _userManager.AddToRoleAsync(appUser, Roles.Member.ToString());
             if (!result.Succeeded)
             {
                 StringBuilder err = new();

@@ -117,7 +117,6 @@ public static class ServiceRegistration
         services.AddScoped<ITeacherCoursesReadRepository, TeacherCoursesReadRepository>();
         services.AddScoped<ICourseCategoryReadRepository, CategoryReadRepository>();
         services.AddScoped<ICourseReadRepository, CourseReadRepository>();
-        services.AddScoped<IVideoContent_CourseReadRepository, VideoContent_CourseReadRepository>();
         services.AddScoped<IVideoContentReadRepository, VideoContentReadRepository>();
         services.AddScoped<ICourseReviewReadRepository, CourseReviewReadRepository>();
         services.AddScoped<IBasketProductReadRepository, BasketProductReadRepository>();
@@ -137,7 +136,6 @@ public static class ServiceRegistration
         services.AddScoped<ICourseCategoryWriteRepository, CategoryWriteRepository>();
         services.AddScoped<ICourseWriteRepository, CourseWriteRepository>();
         services.AddScoped<ITeacherCoursesWriteRepository, TeacherCourseWriteRepository>();
-        services.AddScoped<IVideoContent_CourseWriteRepository, VideoContent_CourseWriteRepository>();
         services.AddScoped<IVideoContentWriteRepository, VideoContentWriteRepository>();
         services.AddScoped<ICourseReviewWriteRepository, CourseReviewWriteRepository>();
         services.AddScoped<IBasketProductWriteRepository, BasketProductWriteRepository>();

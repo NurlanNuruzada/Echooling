@@ -9,7 +9,6 @@ namespace Ecooling.Domain.Entites
     {
         public ICollection<Course_AppUser>? CourseAppUser { get; set; }
         public ICollection<TeacherDetails_Courses>? TeacherDetailsCourses { get; set; }
-        public ICollection<Video_Course>? VideoCourse { get; set; }
         public ICollection<CourseReview> CourseReviews { get; } = new List<CourseReview>();
         public string Title { get; set; } = null!;
         public string ImageRoutue { get; set; } = null!;

@@ -43,6 +43,7 @@ import StaffDetails from "../Pages/AdminPanel/TeacherAndStaff/Staff/StaffDetails
 import TeacherDetailsAdminPanel from "../Pages/AdminPanel/TeacherAndStaff/Staff/TeacherDetails";
 import Logs from "../Pages/AdminPanel/Logs/Logs";
 import MyCourses from "../Pages/AdminPanel/MyCourses/MyCourses";
+import CouseVideos from "../Pages/AdminPanel/MyCourses/CouseVideos";
 
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
@@ -134,6 +135,10 @@ export default function Routes() {
         {
           path: "/ControlPanel/logs",
           element:  <Logs />  
+        },
+        {
+          path: "/ControlPanel/Courses/CourseVideos/:id",
+          element:  <CouseVideos />  
         },
       ]
     },

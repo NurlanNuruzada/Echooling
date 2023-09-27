@@ -14,7 +14,7 @@ import { getUserRoles } from '../../Services/AuthService';
 
 export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsSmall, IsButtonClicked }) {
   const [isMouseOver, setIsMouseOver] = useState(false);
-  const [data, setdata] = useState();
+  const [data, setdata] = useState([]);
   const { token, userName, fullname } = useSelector((state) => state.auth); // Update the selector
   if (token != null) {
     var decodedToken = jwt_decode(token);
@@ -26,14 +26,15 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
   const { mutate } = useMutation(
     (values) => getUserRoles(id),
     {
-        onSuccess: (resp) => {
-          setdata(resp.data)
-        }
+      onSuccess: (resp) => {
+        setdata(resp.data)
+        console.log(resp.data)
+      }
     }
-);
-useEffect(()=>{
-  mutate(id)
-},[id])
+  );
+  useEffect(() => {
+    mutate(id)
+  }, [id])
 
   const handleMouseOver = () => {
     if (isSmall) {
@@ -60,7 +61,11 @@ useEffect(()=>{
         <div className={isSmall ? Styles.UserSecitonMini : Styles.UserSeciton}>
           <Avatar size='xl' name='Dan Abrahmov' color={"red"} src='https://bit.ly/dan-abramov' />
           <h1>{fullname}</h1>
-          <h2>Role</h2>
+          <h2>
+            {data?.map((item, index) => (
+              <span key={index}>{item},</span>
+            ))}
+          </h2>
         </div>
         <ul className={Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Main</h1>
@@ -119,7 +124,7 @@ useEffect(()=>{
             </Link>
           </li>
         </ul>}
-        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Teacher"))   &&  <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
+        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Teacher")) && <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Teacher</h1>
           <li  >
             <Link to={"/ControlPanel/CreateCourseContainer"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
@@ -134,7 +139,7 @@ useEffect(()=>{
             </Link>
           </li>
         </ul>}
-        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Staff"))   && <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
+        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Staff")) && <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Events</h1>
           {CreateStaff?.map((CreateStaff, index) => (
             <li key={index} >

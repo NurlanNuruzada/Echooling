@@ -56,18 +56,6 @@ export default function CoursesList() {
     }
   );
 
-  const fileUploadHandler = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      SetFile(selectedFile);
-      SetFileName(selectedFile.name);
-      formik.setFieldValue('image', selectedFile)
-    } else {
-      console.error("No file selected.");
-    }
-  };
-
-
   const formik = useFormik({
     initialValues: {
       image: File,
@@ -131,9 +119,7 @@ export default function CoursesList() {
               <Th>Title</Th>
               <Th className={Styles.displayNone}>price</Th>
               <Th className={Styles.displayNone}>rate</Th>
-              <Th className={Styles.displayNone}>Is Approved</Th>
               <Th className={Styles.displayNone}>category</Th>
-              <Th className={Styles.displayNone}>enrolled</Th>
               <Th></Th>
               <Th></Th>
               <Th></Th>
@@ -147,9 +133,7 @@ export default function CoursesList() {
                 <Td  >{Course.title.slice(0, 30)}...</Td>
                 <Td className={Styles.displayNone}>{Course.price}</Td>
                 <Td className={Styles.displayNone} >{Course.rate}</Td>
-                <Td className={Styles.displayNone} >{Course.approved.toString()}</Td>
                 <Td className={Styles.displayNone} >{Course.subject.toString()}</Td>
-                <Td className={Styles.displayNone} >{Course.enrolled}</Td>
                 <Td className={Styles.TableButon2} ><Button className={Styles.TableButon} onClick={() => Delete(Course.guId)} color={'white '} borderColor={'white'} backgroundColor={"red"}>Delete</Button></Td>
                 <Td className={Styles.TableButon2} ><Button className={Styles.TableButon} onClick={() => handleNavigate(`/ControlPanel/Course/Update/${Course.guId}`)} color={'white '} borderColor={'white'} backgroundColor={'orange '}>Update</Button></Td>
                 <Td><Button className={Styles.TableButon} m={10} onClick={() => handleNavigate(`/ControlPanel/Course/GetReviews/${Course.guId}`)} color={'white '} borderColor={'white'} backgroundColor={"purple"}>Reveiws</Button></Td>
