@@ -7,10 +7,19 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faPlus, faCalendarDays, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import jwt_decode from "jwt-decode";
 
 export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsSmall, IsButtonClicked }) {
   const [isMouseOver, setIsMouseOver] = useState(false);
-
+  const { token, userName,fullname } = useSelector((state) => state.auth); // Update the selector
+  if (token != null) {
+    var decodedToken = jwt_decode(token);
+    var id =
+      decodedToken[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      ];
+  }
   const handleMouseOver = () => {
     if (isSmall) {
       toggleIsSmall();
@@ -35,8 +44,8 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
         </div>
         <div className={isSmall ? Styles.UserSecitonMini : Styles.UserSeciton}>
           <Avatar size='xl' name='Dan Abrahmov' color={"red"} src='https://bit.ly/dan-abramov' />
-          <h1>Nurlan Nurzade</h1>
-          <h2>Programmer</h2>
+          <h1>{fullname}</h1>
+          <h2>Role</h2>
         </div>
         <ul className={Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Main</h1>

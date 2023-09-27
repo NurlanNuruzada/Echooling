@@ -63,13 +63,13 @@ export default function UpdateEvent() {
       const formData = new FormData();
       formData.append('image', values.image || ' ');
       formData.append('EventTitle', values.EventTitle ? values.EventTitle : PreviusData.eventTitle);
-      formData.append('aboutEvent', values.AboutEvent  ? values.AboutEvent : PreviusData.aboutEvent);
-      formData.append('cost', values.cost  ? values.cost : PreviusData.cost);
-      formData.append('EventFinishDate', values.EventFinishDate  ? values.EventFinishDate : PreviusData.eventFinishDate) ;
-      formData.append('EventStartDate', values.EventStartDate  ? values.EventStartDate : PreviusData.eventStartDate);
-      formData.append('Location', values.Location  ? values.Location : PreviusData.location) ;
-      formData.append('orginazer', values.orginazer  ? values.orginazer : PreviusData.orginazer);
-      formData.append('TotalSlot', values.TotalSlot  ? values.TotalSlot : PreviusData.totalSlot);
+      formData.append('aboutEvent', values.AboutEvent ? values.AboutEvent : PreviusData.aboutEvent);
+      formData.append('cost', values.cost ? values.cost : PreviusData.cost);
+      formData.append('EventFinishDate', values.EventFinishDate ? values.EventFinishDate : PreviusData.eventFinishDate);
+      formData.append('EventStartDate', values.EventStartDate ? values.EventStartDate : PreviusData.eventStartDate);
+      formData.append('Location', values.Location ? values.Location : PreviusData.location);
+      formData.append('orginazer', values.orginazer ? values.orginazer : PreviusData.orginazer);
+      formData.append('TotalSlot', values.TotalSlot ? values.TotalSlot : PreviusData.totalSlot);
       formData.append(
         'EventCategoryiesId',
         values.EventCategoryiesId || PreviusData.eventCategoryiesId
@@ -78,7 +78,6 @@ export default function UpdateEvent() {
         'Categoryname',
         values.Categoryname || PreviusData.categoryname
       );
-
       if (formData.get('image')) {
         try {
           await mutateAsync(formData);
@@ -96,21 +95,20 @@ export default function UpdateEvent() {
     validateOnChange: false,
   });
   const { mutateAsync } = useMutation((formData) =>
-  UpdateEventById(id, formData)
+    UpdateEventById(id, formData)
   );
   const { mutate: Previus } = useMutation((id) => GetEventId(id), {
     onSuccess: (resp) => {
-        SetPreviusData(resp);
+      SetPreviusData(resp);
     },
     onError: (error) => {
-        console.log(error);
+      console.log(error);
     },
-});
-console.log(PreviusData)
-  useEffect(()=>{
+  });
+  useEffect(() => {
     Previus(id)
-  },[])
-  console.log() 
+  }, [])
+
 
 
   const loadCategories = async () => {
@@ -127,15 +125,15 @@ console.log(PreviusData)
   }, []);
   useEffect(() => {
     if (success) {
-        const timer = setTimeout(() => {
-            setSuccess(false);
-            handleNavigate("/ControlPanel/Events")
-        }, 1500);
-        return () => {
-            clearTimeout(timer);
-        };
+      const timer = setTimeout(() => {
+        setSuccess(false);
+        handleNavigate("/ControlPanel/Events")
+      }, 1500);
+      return () => {
+        clearTimeout(timer);
+      };
     }
-}, [success]);
+  }, [success]);
   const currentDateTime = new Date().toISOString().slice(0, 16);
 
   return (
@@ -322,10 +320,19 @@ console.log(PreviusData)
           placeholder="Select Category"
           size="lg"
           onChange={(e) => {
-            setSelectedCategory(e.target.value);
-            formik.setFieldValue('EventCategoryiesId', e.target.value);
+            const selectedCategoryId = e.target.value;
+            setSelectedCategory(selectedCategoryId);
+
+            const selectedCategoryObject = categories.find(category => category.guId === selectedCategoryId);
+
+            if (selectedCategoryObject) {
+              const selectedCategoryName = selectedCategoryObject.category;
+              formik.setFieldValue('EventCategoryiesId', selectedCategoryId); // Set the selected category ID to form data
+              formik.setFieldValue('Categoryname', selectedCategoryName); // Set the selected category name to form data
+            }
           }}
-          value={selectedCategory || formik.values.EventCategoryiesId}
+          name='EventCategoryiesId'
+          value={selectedCategory} // Make sure to set the value prop to the selectedCategory state
         >
           {categories.map((category) => (
             <option key={category.guId} value={category.guId}>

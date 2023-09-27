@@ -45,6 +45,12 @@ namespace Echooling.Persistance.Implementations.Services
             _confirmEmail = confirmEmail;
             _securityStampOptions = securityStampOptions;
         }
+        public async Task<IList<string>> getUserRole(Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var roles =  await _userManager.GetRolesAsync(user);
+            return roles;
+        }
         public async Task<TokenResponseDto> Login(SignInDto signInDto)
         {
 
@@ -71,7 +77,6 @@ namespace Echooling.Persistance.Implementations.Services
             await _userManager.UpdateAsync(appUser);
             return tokenResponse;
         }
-
         public async Task Register(RegisterDto registerDto)
         {
             AppUser appUser = new()
@@ -130,7 +135,6 @@ namespace Echooling.Persistance.Implementations.Services
             }
 
         }
-
         public async Task ResetPassword(ResetPasswordDto resetPasswordDto)
         {
             var userId = resetPasswordDto.userId;
@@ -151,7 +155,6 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new CouldntResetPasswordException("someting went wrong in token,user or password!");
             }
         }
-
         public async Task ResetPasswordLetter(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
@@ -181,7 +184,6 @@ namespace Echooling.Persistance.Implementations.Services
             };
             _emailService.SendEmail(resetPasswordEmail);
         }
-
         public async Task ForgetPasswordLetter(string Identifier)
         {
             AppUser appUser = await _userManager.FindByEmailAsync(Identifier);
