@@ -26,6 +26,12 @@ namespace Echooling.API.Controllers
         {
             var response = await _authService.ValidateRefreshToken(token);
             return Ok(response);
+        }   
+        [HttpGet("[action]")]
+        public async Task<IList<string>> getUserRole(Guid userId)
+        {
+            var response = await _authService.getUserRole(userId);
+            return (response);
         }
         [HttpPost("[action]")]
         public async Task<IActionResult> Register(RegisterDto registerDto)

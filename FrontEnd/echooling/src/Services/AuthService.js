@@ -10,6 +10,12 @@ export const login = async (data) => {
   }
 };
 
+export const getUserRoles = async (Id) => {
+  const response = await httpClient.get(`/api/Auth/getUserRole?userId=${Id}`);
+  return response;
+};
+
+
 export const register = async (data) => {
   try {
     const response = await httpClient.post('api/Auth/Register', data);

@@ -102,7 +102,7 @@ export default function StaffList() {
         (values) => DeleteStaff(values.UserId, values.AdminId),
         {
             onSuccess: (resp) => {
-                queryClient.invalidateQueries(['Staff']);
+                queryClient.invalidateQueries(['Staff', resp]);
                 onClose()
             },
             onError: (error) => {

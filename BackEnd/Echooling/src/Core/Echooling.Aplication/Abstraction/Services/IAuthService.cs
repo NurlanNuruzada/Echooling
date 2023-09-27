@@ -12,5 +12,6 @@ namespace Echooling.Aplication.Abstraction.Services
         Task ResetPassword(ResetPasswordDto resetPasswordDto);
         Task ResetPasswordLetter(Guid id);
         Task ForgetPasswordLetter(string Identifier);
+        Task<IList<string>> getUserRole(Guid userId);   
     }
 }

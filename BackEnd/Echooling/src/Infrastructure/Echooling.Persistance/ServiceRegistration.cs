@@ -1,4 +1,5 @@
-﻿using Echooling.Aplication.Abstraction.Repository;
+﻿using System.Text.Json.Serialization;
+using Echooling.Aplication.Abstraction.Repository;
 using Echooling.Aplication.Abstraction.Repository.AppUserEventRepository;
 using Echooling.Aplication.Abstraction.Repository.Basket;
 using Echooling.Aplication.Abstraction.Repository.BasketProduct;
@@ -51,7 +52,11 @@ public static class ServiceRegistration
     {
         services.AddScoped<IAuthService, AuthService>();
         //fluet valudations
-        services.AddControllers();
+        services.AddControllers()
+          .AddJsonOptions(options =>
+          {
+              options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+          });
         services.AddFluentValidationAutoValidation();
         services.AddFluentValidationClientsideAdapters();
         services.AddValidatorsFromAssemblyContaining<SliderCreateDtoValudator>();

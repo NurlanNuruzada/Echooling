@@ -42,6 +42,7 @@ import StaffList from "../Pages/AdminPanel/TeacherAndStaff/Staff/StaffList";
 import StaffDetails from "../Pages/AdminPanel/TeacherAndStaff/Staff/StaffDetails";
 import TeacherDetailsAdminPanel from "../Pages/AdminPanel/TeacherAndStaff/Staff/TeacherDetails";
 import Logs from "../Pages/AdminPanel/Logs/Logs";
+import MyCourses from "../Pages/AdminPanel/MyCourses/MyCourses";
 
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
@@ -111,6 +112,10 @@ export default function Routes() {
           element:  <GetCourseReviews />  
         },
         {
+          path: "/ControlPanel/Course/MyCourses/:id",
+          element:  <MyCourses />  
+        },
+        {
           path: "/ControlPanel/teacher",
           element:  <teacherList />  
         },
@@ -130,7 +135,6 @@ export default function Routes() {
           path: "/ControlPanel/logs",
           element:  <Logs />  
         },
-        
       ]
     },
     {

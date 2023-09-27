@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.Couse;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
 using Echooling.Aplication.Abstraction.Services;
@@ -8,6 +9,7 @@ using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
@@ -24,6 +26,7 @@ public class CourseService : ICourseService
     public readonly ITeacherReadRepository _teacherReadrepo;
     public readonly ITeacherCourses _TeacherCoursesCreateService;
     private readonly AppDbContext _context;
+    private readonly IWebHostEnvironment _env;
     public CourseService(ICourseWriteRepository writeRepository,
                          ICourseReadRepository readRepository,
                          IMapper mapper,
@@ -31,7 +34,8 @@ public class CourseService : ICourseService
                          ITeacherService teacherService,
                          ITeacherCourses teacherCoursesCreateService,
                          AppDbContext context,
-                         ITeacherReadRepository teacherReadrepo)
+                         ITeacherReadRepository teacherReadrepo,
+                         IWebHostEnvironment env)
     {
         _writeRepository = writeRepository;
         _readRepository = readRepository;
@@ -41,38 +45,53 @@ public class CourseService : ICourseService
         _TeacherCoursesCreateService = teacherCoursesCreateService;
         _context = context;
         _teacherReadrepo = teacherReadrepo;
+        _env = env;
     }
-
+    public async Task<List<CourseGetDto>> GetCoursesByTeacherIdAsync(Guid teacherId)
+    {
+        var courses = await _context.Courses
+            .Include(c => c.TeacherDetailsCourses)
+            .Where(c => c.TeacherDetailsCourses.Any(tc => tc.teacherDetailsId == teacherId))
+            .ToListAsync();
+        var list = _mapper.Map<List<CourseGetDto>>(courses);
+        foreach (CourseGetDto courseGetDto in list)
+        {
+            courseGetDto.ImageRoutue = $"{courseGetDto.ImageRoutue}";
+        }
+        return list;
+    }
     public async Task CreateAsync(CourseCreateDto courseCreateDto, Guid TeacherId)
     {
         if (courseCreateDto.image == null)
         {
             throw new Exception("No image file provided.");
         }
-        var teacher =  await _teacherReadrepo.GetByIdAsync(TeacherId);
-        if(teacher is null || teacher.IsApproved ==false)
+
+        var teacher = await _teacherReadrepo.GetByIdAsync(TeacherId);
+        if (teacher is null || teacher.IsApproved == false)
         {
-            throw  new notFoundException("teacher not found!");
+            throw new notFoundException("Teacher not found!");
         }
+
         Course course = _mapper.Map<Course>(courseCreateDto);
-        string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Course";
-        Directory.CreateDirectory(uploadsDirectory);
+        string rootDirectory = Path.Combine(_env.WebRootPath, "Uploads", "Course"); 
+
+        Directory.CreateDirectory(rootDirectory);
         course.Approved = false;
 
         if (courseCreateDto.image is not null)
         {
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(courseCreateDto.image.FileName);
-            string filePath = Path.Combine(uploadsDirectory, fileName);
+            string filePath = Path.Combine(rootDirectory, fileName);
 
             using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
                 await courseCreateDto.image.CopyToAsync(fileStream);
             }
 
-            course.ImageRoutue = fileName;
+            course.ImageRoutue = fileName; 
         }
 
-        // Serialize the string arrays to JSON
         course.ThisCourseIncludes = JsonConvert.SerializeObject(courseCreateDto.ThisCourseIncludes);
         course.WhatWillLearn = JsonConvert.SerializeObject(courseCreateDto.WhatWillLearn);
 
@@ -81,7 +100,6 @@ public class CourseService : ICourseService
         await _TeacherCoursesCreateService.AddCourseToTeacherAsync(course.GuId, TeacherId);
         await _writeRepository.SaveChangesAsync();
     }
-
     public async Task<List<CourseGetDto>> GetAllAsync()
     {
         var Course = await _readRepository.GetAll().Where(e => e.IsDeleted == false).ToListAsync();
@@ -184,12 +202,6 @@ public class CourseService : ICourseService
         var teachersWithCourseId = await _context.TeacherDetails
             .Where(td => td.TeacherDetailsCourses.Any(tc => tc.CourseId == courseId))
             .ToListAsync();
-        if (teachersWithCourseId.Count == 0)
-        {
-            string message = _localizer.GetString("NotFoundExceptionMsg");
-            throw new notFoundException(message);
-        }
-
         List<TeacherGetDto> teacherDtos = _mapper.Map<List<TeacherGetDto>>(teachersWithCourseId);
         return teacherDtos;
     }

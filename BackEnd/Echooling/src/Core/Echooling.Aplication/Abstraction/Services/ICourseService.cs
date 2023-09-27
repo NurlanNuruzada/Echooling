@@ -14,5 +14,6 @@ namespace Echooling.Aplication.Abstraction.Services
         Task UpdateAsync(CourseCreateDto courseCreateDto, Guid CourseId);
         Task<List<CourseGetDto>> GetLatestWithCategory(int take, Guid? categoryId);
         Task Remove(Guid CourseId);
+        Task<List<CourseGetDto>> GetCoursesByTeacherIdAsync(Guid teacherId);
     }
 }

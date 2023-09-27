@@ -2,24 +2,39 @@ import React, { useEffect } from 'react';
 import image from '../../Images/logo2.png';
 import SmallLog from '../../Images/mainLogo.png'
 import Styles from './SideBarStyles.module.css';
-import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { Avatar, AvatarBadge, AvatarGroup, useQuery } from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faPlus, faCalendarDays, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import jwt_decode from "jwt-decode";
+import { getUserRoles } from '../../Services/AuthService';
+import { useMutation } from 'react-query';
 
 export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsSmall, IsButtonClicked }) {
   const [isMouseOver, setIsMouseOver] = useState(false);
-  const { token, userName,fullname } = useSelector((state) => state.auth); // Update the selector
+  const [data, setdata] = useState();
+  const { token, userName, fullname } = useSelector((state) => state.auth); // Update the selector
   if (token != null) {
     var decodedToken = jwt_decode(token);
     var id =
       decodedToken[
-        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
       ];
   }
+  const { mutate } = useMutation(
+    (values) => getUserRoles(id),
+    {
+        onSuccess: (resp) => {
+          setdata(resp.data)
+        }
+    }
+);
+useEffect(()=>{
+  mutate(id)
+},[id])
+
   const handleMouseOver = () => {
     if (isSmall) {
       toggleIsSmall();
@@ -68,7 +83,7 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
             </Link>
           </li>
         </ul>
-        <ul className={Styles.linkList}>
+        {data?.includes("SuperAdmin") && <ul className={Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Super Admin</h1>
           <li  >
             <Link to={"/ControlPanel/logs"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
@@ -76,8 +91,8 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Data Logs</h1>
             </Link>
           </li>
-        </ul>
-        <ul className={Styles.linkList}>
+        </ul>}
+        {(data?.includes("SuperAdmin") || data?.includes("Admin")) && <ul className={Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Admin</h1>
           <li  >
             <Link to={"/ControlPanel/CreateSlider"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
@@ -103,17 +118,23 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>teacher And Staff</h1>
             </Link>
           </li>
-        </ul>
-        <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
+        </ul>}
+        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Teacher"))   &&  <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Teacher</h1>
           <li  >
             <Link to={"/ControlPanel/CreateCourseContainer"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
               <FontAwesomeIcon icon={faChartLine} />
-              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Coruse</h1>
+              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Create Course</h1>
             </Link>
           </li>
-        </ul>
-        <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
+          <li  >
+            <Link to={`/ControlPanel/Course/MyCourses/${id}`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+              <FontAwesomeIcon icon={faChartLine} />
+              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>My Courses</h1>
+            </Link>
+          </li>
+        </ul>}
+        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Staff"))   && <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Events</h1>
           {CreateStaff?.map((CreateStaff, index) => (
             <li key={index} >
@@ -122,7 +143,7 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
               </Link>
             </li>
           ))}
-        </ul>
+        </ul>}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ using Microsoft.Extensions.Options;
 
 namespace Echooling.Persistance.Implementations.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService : IAuthService 
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;

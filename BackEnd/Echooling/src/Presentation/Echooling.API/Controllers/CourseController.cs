@@ -14,6 +14,7 @@ namespace Echooling.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class CourseController : ControllerBase
     {
         public readonly ICourseService _CourseService;
@@ -48,6 +49,12 @@ namespace Echooling.API.Controllers
         {
             List<TeacherGetDto> List = await _CourseService.GetTeachersByCourseId(CourseId);
             return Ok(List);
+        } 
+        [HttpGet("[Action]/id")]
+        public async Task<List<CourseGetDto>> GetCoursesByTeacherIdAsync(Guid teacherId)
+        {
+            List<CourseGetDto> List = await _CourseService.GetCoursesByTeacherIdAsync(teacherId);
+            return List;
         }
         [HttpGet("[Action]")]
         public async Task<IActionResult> getAll()
