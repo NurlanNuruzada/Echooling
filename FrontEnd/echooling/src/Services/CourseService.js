@@ -67,6 +67,12 @@ export const GetCourseId = async (Id, jwt) => {
   return response.data;
 };
 
+
+export const getCoursesByTeacherId = async (Id, jwt) => {
+  const response = await httpClient.get(`/api/Course/GetCoursesByTeacherId/id?teacherId=${Id}`, addJwtHeaders(jwt));
+  return response;
+};
+
 export const getCourseTeachers = async (CourseId, jwt) => {
   const response = await httpClient.get(`/api/Course/getCourseTeachers/id?CourseId=${CourseId}`, addJwtHeaders(jwt));
   return response.data;

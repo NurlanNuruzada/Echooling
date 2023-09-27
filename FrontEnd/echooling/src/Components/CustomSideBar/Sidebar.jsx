@@ -9,8 +9,8 @@ import { faChartLine, faPlus, faCalendarDays, faHeart } from '@fortawesome/free-
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import jwt_decode from "jwt-decode";
-import { getUserRoles } from '../../Services/AuthService';
 import { useMutation } from 'react-query';
+import { getUserRoles } from '../../Services/AuthService';
 
 export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsSmall, IsButtonClicked }) {
   const [isMouseOver, setIsMouseOver] = useState(false);
