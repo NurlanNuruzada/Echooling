@@ -12,8 +12,15 @@ import News from "../../Components/News/News";
 import { useNavigate } from "react-router";
 import TeacherCard from "../../Components/TeacherCard/TeacherCard";
 import SynchronizedSlider from "../../Components/CaruselSliderSlick/caruselSlider";
+import { GetUStaffUsers } from "../../Services/StaffService";
+import { useQuery } from "react-query";
 const About = () => {
   const navigator = useNavigate();
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ["getStaff"],
+    queryFn: GetUStaffUsers,
+    staleTime: 0,
+  });
   const handleNavigate = (link) => {
     navigator(link);
   };
@@ -91,44 +98,35 @@ const About = () => {
             <h1>MEET OUR TEACHERS</h1>
           </div>
           <div>
-            <Grid
-              className={Styles.TeacherContainer}
-              templateColumns={{
-                base: "repeat(1, 0fr)",
-                sm: "repeat(2, 0fr)",
-                md: "repeat(3,0fr)",
-                lg: "repeat(4, 0fr)",
-                xl: "repeat(5, 0fr)",
-              }}
-              rowGap={10}
-              columnGap={3}
-            >
-              <TeacherCard
-                Profession={"assosiate math professor"}
-                teacherName={"Andrew William"}
-                image={teacher1}
-              />
-              <TeacherCard
-                Profession={"assosiate math professor"}
-                teacherName={"Andrew William"}
-                image={teacher1}
-              />
-              <TeacherCard
-                Profession={"assosiate math professor"}
-                teacherName={"Andrew William"}
-                image={teacher1}
-              />
-              <TeacherCard
-                Profession={"assosiate math professor"}
-                teacherName={"Andrew William"}
-                image={teacher1}
-              />
-              <TeacherCard
-                Profession={"assosiate math professor"}
-                teacherName={"Andrew William"}
-                image={teacher1}
-              />
-            </Grid>
+          <Grid
+        className={Styles.teacherContainer}
+        templateColumns={{
+          base: "repeat(1, 1fr)",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(4, 1fr)",
+          xl: "repeat(5, 1fr)",
+        }}
+        rowGap={5}
+        >
+        {data?.data?.map((staff) => (
+            <TeacherCard
+            key={staff.appUserID}
+            Role = {staff.role}
+            image={teacher1}
+            userId={staff.appUserID}
+            socialMediaLinks={{
+              instagram: staff.instagram,
+              linkedin: staff.linkedin,
+              twitter: staff.twitter,
+              facebook: staff.facebook,
+          }} 
+            teacherName={staff?.fullname}
+            Profession={staff?.profession} 
+            fa-md="true" 
+            />
+          ))}
+      </Grid>
         </div>
       </div>
       <SynchronizedSlider />
