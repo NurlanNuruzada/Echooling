@@ -60,6 +60,15 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
           </li>
         </ul>
         <ul className={Styles.linkList}>
+          <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Super Admin</h1>
+          <li  >
+            <Link to={"/ControlPanel/logs"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+              <FontAwesomeIcon icon={faChartLine} />
+              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Data Logs</h1>
+            </Link>
+          </li>
+        </ul>
+        <ul className={Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Admin</h1>
           <li  >
             <Link to={"/ControlPanel/CreateSlider"} className={isSmall ? Styles.ButtonMini : Styles.Button}>

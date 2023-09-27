@@ -10,3 +10,8 @@ export const ApprovedStaffId = async (StaffId,ApprovedUserId) => {
         await httpClient.put(`/api/Teacher/approveTeacher/id?teacherId=${StaffId}&ApprovePersonId=${ApprovedUserId}`);
     }
 }
+
+export const DeleteTeacher = async (TeacherId,DeletedById) => {
+    const response = await httpClient.delete(`/api/Teacher/id?id=${TeacherId}&DeletedById=${DeletedById}`)
+    return response.data;
+}

@@ -9,7 +9,7 @@ export function App() {
     <div>
       <Routes />
       <MyFunctionalComponent />
-      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      <ReactQueryDevtools initialIsOpen="false" position="bottom-right" />
     </div>
   );
 }

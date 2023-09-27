@@ -13,3 +13,8 @@ export const ApplyForStaffForm = async (AppUserId, data) => {
     console.log('AppUserId:', AppUserId);
     return response.data;
   };
+
+  export const DeleteStaff = async (TeacherId,DeletedById) => {
+    const response = await httpClient.delete(`/api/Staff/id?id=${TeacherId}&RemovedById=${DeletedById}`)
+    return response.data;
+}

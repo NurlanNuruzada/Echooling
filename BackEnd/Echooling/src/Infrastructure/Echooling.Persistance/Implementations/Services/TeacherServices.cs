@@ -105,11 +105,12 @@ namespace Echooling.Persistance.Implementations.Services
             Teacher.IsApproved = true;
 
             await _writeRepo.SaveChangesAsync();
+            var Admin = await _userManager.FindByIdAsync(ApprovePersonId.ToString());
             CreateLogDto logDto = new CreateLogDto();
             logDto.ActionTime = DateTime.Now;
             logDto.ActiondEntityName = "Approve";
-            logDto.UserId = ApprovePersonId;
-            logDto.ActiondEntityId = TeacherId;
+            logDto.UserId = Admin.UserName;
+            logDto.ActiondEntityId = Teacher.UserName;
             _loggerService.CreateLog(logDto);
 
             var FrontEndBase = "http://localhost:3000";
@@ -132,20 +133,22 @@ namespace Echooling.Persistance.Implementations.Services
         }
         public async Task Remove(Guid UserId, Guid AppUserDeletedById)
         {
-            var teachers = await _readRepo.GetByExpressionAsync(u => u.AppUserID == UserId);
+            var teachers = await _readRepo.GetByIdAsync(UserId);
             string message = _stringLocalizer.GetString("NotFoundExceptionMsg");
             if (teachers is null)
             {
                 throw new notFoundException(message);
             }
+            teachers.IsDeleted = true;
+            await _writeRepo.SaveChangesAsync();
+
+            var Admin = await _userManager.FindByIdAsync(AppUserDeletedById.ToString());
             CreateLogDto logDto = new CreateLogDto();
             logDto.ActionTime = DateTime.Now;
             logDto.ActiondEntityName = "Remove";
-            logDto.UserId = AppUserDeletedById;
-            logDto.ActiondEntityId = UserId;
+            logDto.UserId = Admin.UserName;
+            logDto.ActiondEntityId = teachers.UserName;
             _loggerService.CreateLog(logDto);
-            teachers.IsDeleted = true;
-            await _writeRepo.SaveChangesAsync();
         }
         public async Task UpdateAsync(TeacherUpdateDto updateDto, Guid UserId)
         {

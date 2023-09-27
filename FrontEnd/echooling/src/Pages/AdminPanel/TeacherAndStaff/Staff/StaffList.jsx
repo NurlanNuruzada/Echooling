@@ -23,14 +23,14 @@ import {
     AlertDialogOverlay,
     AlertDialogCloseButton,
 } from '@chakra-ui/react';
-import { GetUStaffUsers } from '../../../../Services/StaffService';
+import { DeleteStaff, GetUStaffUsers } from '../../../../Services/StaffService';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Navigate, useNavigate } from 'react-router';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 import Done from '../../../../Components/DoneModal/Done';
-import { ApprovedStaffId } from '../../../../Services/TeacherService';
+import { ApprovedStaffId, DeleteTeacher } from '../../../../Services/TeacherService';
 
 export default function StaffList() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,7 +38,6 @@ export default function StaffList() {
     const [IsEdit, setIsEdit] = useState(false);
     const { token, userName, fullname } = useSelector((state) => state.auth);
     const [filterRole, setFilterRole] = useState('');
-    const queryClient = useQueryClient();
     const [registrationSuccess, setRegistrationSuccess] = useState(false);
     const [currentAction, setCurrentAction] = useState(null);
     const handleFilterByRole = (role) => {
@@ -47,10 +46,11 @@ export default function StaffList() {
     if (token != null) {
         var decodedToken = jwt_decode(token);
         var id =
-            decodedToken[
+        decodedToken[
             'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
-            ];
+        ];
     }
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
     const handleNavigate = (route) => {
         navigate(route);
@@ -63,26 +63,18 @@ export default function StaffList() {
 
     //handleDetele
     const HandleDeleteStaff = (Id) => {
-        FormikDelete.setValues({
+        FormikDeleteStaff.setValues({
             UserId: Id,
             AdminId: id,
         });
-        setCurrentAction({
-            actionType: 'DeleteStaff',
-            userId: Id,
-        });
-        onOpen();
+        FormikDeleteStaff.handleSubmit()
     };
     const HandleDeleteTeacher = (Id) => {
         FormikDelete.setValues({
             UserId: Id,
             AdminId: id,
         });
-        setCurrentAction({
-            actionType: 'DeleteTeacher',
-            userId: Id,
-        });
-        onOpen();
+        FormikDelete.handleSubmit()
     };
     const FormikDelete = useFormik({
         initialValues: {
@@ -90,25 +82,52 @@ export default function StaffList() {
             AdminId: '',
         },
         onSubmit: (values) => {
-            if (currentAction.actionType === 'DeleteStaff') {
-                mutate(values)
-            } else if (currentAction.actionType === 'DeleteTeacher') {
-                mutate(values)
-            }
+            deleteTeacher(values)
             onClose();
             setRegistrationSuccess(true)
         },
     });
-//handleDeteleend
+    const FormikDeleteStaff = useFormik({
+        initialValues: {
+            UserId: '',
+            AdminId: '',
+        },
+        onSubmit: (values) => {
+            deleteStaff(values)
+            onClose();
+            setRegistrationSuccess(true)
+        },
+    });
+    const { mutate: deleteStaff } = useMutation(
+        (values) => DeleteStaff(values.UserId, values.AdminId),
+        {
+            onSuccess: (resp) => {
+                queryClient.invalidateQueries(['Staff', resp]);
+                onClose()
+            },
+            onError: (error) => {
+                console.log(error);
+            },
+        }
+    );
+    const { mutate: deleteTeacher } = useMutation(
+        (values) => DeleteTeacher(values.UserId, values.AdminId),
+        {
+            onSuccess: (resp) => {
+                queryClient.invalidateQueries(['Staff']);
+                onClose()
+            },
+            onError: (error) => {
+                console.log(error);
+            },
+        }
+    );
 
+    //handleDeteleend
     const handleApprove = (Id) => {
         formik.setValues({
             UserId: Id,
             AdminId: id,
-        });
-        setCurrentAction({
-            actionType: 'approve',
-            userId: Id,
         });
         onOpen();
     };
@@ -118,11 +137,7 @@ export default function StaffList() {
             AdminId: '',
         },
         onSubmit: (values) => {
-            if (currentAction.actionType === 'delete') {
                 mutate(values)
-            } else if (currentAction.actionType === 'approve') {
-                mutate(values)
-            }
             onClose();
             setRegistrationSuccess(true)
         },
@@ -131,15 +146,11 @@ export default function StaffList() {
         setFilterRole(event.target.value);
     };
 
-    const actionLabel =
-        currentAction && currentAction.actionType === 'delete'
-            ? 'Delete'
-            : 'Approve';
     const { mutate } = useMutation(
         (values) => ApprovedStaffId(values.UserId, values.AdminId),
         {
             onSuccess: (resp) => {
-                queryClient.invalidateQueries(['Staff',resp]);
+                queryClient.invalidateQueries(['Staff']);
                 onClose()
             },
             onError: (error) => {
@@ -150,7 +161,8 @@ export default function StaffList() {
     useEffect(() => {
         if (registrationSuccess) {
             const timer = setTimeout(() => {
-                setRegistrationSuccess(false); 
+                setRegistrationSuccess(false);
+                queryClient.invalidateQueries(['Staff']);
             }, 4500);
             return () => {
                 clearTimeout(timer);
@@ -160,7 +172,7 @@ export default function StaffList() {
     return (
         <div>
             <>
-            {registrationSuccess && <Done firstTitle={"Appy request is accepted"} seccondTitle={"send email about application"} />}
+                {registrationSuccess && <Done firstTitle={"Appy request is accepted"} seccondTitle={"send email about application"} />}
                 <AlertDialog
                     motionPreset='slideInBottom'
                     leastDestructiveRef={cancelRef}
@@ -174,7 +186,7 @@ export default function StaffList() {
                         <AlertDialogHeader>Staff</AlertDialogHeader>
                         <AlertDialogCloseButton />
                         <AlertDialogBody>
-                            Are you sure you want to {actionLabel} this Staff?
+                            Are you sure you want to approve this Staff?
                         </AlertDialogBody>
                         <AlertDialogFooter>
                             <Button ref={cancelRef} onClick={onClose}>

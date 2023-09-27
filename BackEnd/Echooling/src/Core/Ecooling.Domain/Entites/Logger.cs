@@ -8,9 +8,9 @@ namespace Ecooling.Domain.Entites
 {
     public class Logger:BaseEntity
     {
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public DateTime? ActionTime { get; set; }
-        public string ActiondEntityName { get; set; } 
-        public Guid ActiondEntityId { get; set; }
+        public string ActiondEntityName { get; set; }
+        public string ActiondEntityId { get; set; }
     }
 }

@@ -41,6 +41,8 @@ import GetCourseReviews from "../Pages/AdminPanel/CourseCrud/getCourseReviews";
 import StaffList from "../Pages/AdminPanel/TeacherAndStaff/Staff/StaffList";
 import StaffDetails from "../Pages/AdminPanel/TeacherAndStaff/Staff/StaffDetails";
 import TeacherDetailsAdminPanel from "../Pages/AdminPanel/TeacherAndStaff/Staff/TeacherDetails";
+import Logs from "../Pages/AdminPanel/Logs/Logs";
+
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
   let routes = [
@@ -108,10 +110,10 @@ export default function Routes() {
           path: "/ControlPanel/Course/GetReviews/:id",
           element:  <GetCourseReviews />  
         },
-        // {
-        //   path: "/ControlPanel/teacher",
-        //   element:  <teacherList />  
-        // },
+        {
+          path: "/ControlPanel/teacher",
+          element:  <teacherList />  
+        },
         {
           path: "/ControlPanel/Staff",
           element:  <StaffList />  
@@ -123,6 +125,10 @@ export default function Routes() {
         {
           path: "/ControlPanel/teacher/details/:id",
           element:  <TeacherDetailsAdminPanel />  
+        },
+        {
+          path: "/ControlPanel/logs",
+          element:  <Logs />  
         },
         
       ]

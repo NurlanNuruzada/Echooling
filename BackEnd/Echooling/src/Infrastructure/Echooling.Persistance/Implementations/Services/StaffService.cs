@@ -31,7 +31,6 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly ITeacherReadRepository _readRepo;
         private readonly  ILoggerService _loggerService;
         private readonly IEmailService _emailService;
-
         public StaffService(AppDbContext context,
                             IMapper mapper,
                             UserManager<AppUser> userManager,
@@ -78,10 +77,10 @@ namespace Echooling.Persistance.Implementations.Services
 
         public async Task<List<GetUserListDto>> GetAllAsync()
         {
-            var staff = await _readRepository.GetAll().ToListAsync();
+            var staff = await _readRepository.GetAll().Where(u=>u.IsDeleted==false).ToListAsync();
             var staffDtos = _mapper.Map<List<GetUserListDto>>(staff);
 
-            var teachers = await _readRepo.GetAll().ToListAsync();
+            var teachers = await _readRepo.GetAll().Where(u => u.IsDeleted == false).ToListAsync();
             var teacherDtos = _mapper.Map<List<GetUserListDto>>(teachers);
 
             var combinedList = staffDtos.Concat(teacherDtos).ToList();
@@ -105,20 +104,21 @@ namespace Echooling.Persistance.Implementations.Services
         }
         public async Task Remove(Guid UserId,Guid AppUserDeletedById)
         {
-            var Staff = await _readRepository.GetByExpressionAsync(u => u.AppUserID == UserId);
+            var Staff = await _readRepository.GetByIdAsync(UserId);
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (Staff is null)
             {
                 throw new notFoundException(message);
             }
+            var Admin = await _userManager.FindByIdAsync(AppUserDeletedById.ToString());
+            Staff.IsDeleted = true;
+            await _writeRepository.SaveChangesAsync();
             CreateLogDto logDto = new CreateLogDto();
             logDto.ActionTime = DateTime.Now;
             logDto.ActiondEntityName = "Remove";
-            logDto.UserId = AppUserDeletedById;
-            logDto.ActiondEntityId = UserId;
+            logDto.UserId = Admin.UserName;
+            logDto.ActiondEntityId = Staff.UserName;
             _loggerService.CreateLog(logDto);
-            Staff.IsDeleted = true;
-            await _writeRepository.SaveChangesAsync();
         }
         public async Task UpdateAsync(CreateStaffDto updateDto, Guid UserId)
         {
@@ -145,13 +145,14 @@ namespace Echooling.Persistance.Implementations.Services
             Staff.IsApproved = true;
 
             await _writeRepository.SaveChangesAsync();
+            var Admin = await _userManager.FindByIdAsync(ApprovePersonId.ToString());
             CreateLogDto logDto = new CreateLogDto();
             logDto.ActionTime = DateTime.Now;
             logDto.ActiondEntityName = "Approve";
-            logDto.UserId = ApprovePersonId;
-            logDto.ActiondEntityId = StaffId;
+            logDto.UserId = Admin.UserName;
+            logDto.ActiondEntityId = Staff.UserName;
             _loggerService.CreateLog(logDto);
-            
+
             var FrontEndBase = "http://localhost:3000";
             var userIp = EmailConfigurations.GetUserIP().ToString();
             var confirmationUrl = $"{FrontEndBase}/";
