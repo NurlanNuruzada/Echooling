@@ -20,6 +20,7 @@ builder.Services.AddScoped<AppDbContextInitializer>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IConfirmEmail, ConfirmEmail>();
 builder.Services.AddScoped<INewsService, NewsServices>();
+builder.Services.AddSingleton<IWebHostEnvironment>(env => builder.Environment);
 builder.Services.AddLocalization();
 List<CultureInfo> cultures = new() {
     new CultureInfo("es-ES"),
@@ -98,6 +99,6 @@ app.UseCors(cors => cors
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+string webRootPath = app.Environment.WebRootPath;
 app.MapControllers();
 app.Run();

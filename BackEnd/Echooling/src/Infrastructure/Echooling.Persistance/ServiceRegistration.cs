@@ -74,19 +74,19 @@ public static class ServiceRegistration
 
         //services
         services.AddScoped<ISliderService, SliderServices>();
-        services.AddScoped<ITeacherService,TeacherServices>();
-        services.AddScoped<IStaffService,StaffService>();   
-        services.AddScoped<IEventService,EventService>();
-        services.AddScoped<IStaffEventsService,EventStaffServices>();
-        services.AddScoped<IEventsCategoryService,EventCategoryService>();
-        services.AddScoped<IAppUserEventService,AppuserEventService>();
-        services.AddScoped<ICourseCategoryService,CourseCAtegoryServices>();
-        services.AddScoped<ITeacherCourses,TeacherCoursesService>();
+        services.AddScoped<ITeacherService, TeacherServices>();
+        services.AddScoped<IStaffService, StaffService>();
+        services.AddScoped<IEventService, EventService>();
+        services.AddScoped<IStaffEventsService, EventStaffServices>();
+        services.AddScoped<IEventsCategoryService, EventCategoryService>();
+        services.AddScoped<IAppUserEventService, AppuserEventService>();
+        services.AddScoped<ICourseCategoryService, CourseCAtegoryServices>();
+        services.AddScoped<ITeacherCourses, TeacherCoursesService>();
         services.AddScoped<ICourseService, CourseService>();
-        services.AddScoped<IVideoContentService,VideoService>();
-        services.AddScoped<IVideoContentCourseService,VideoContent_CourseService>();
+        services.AddScoped<IVideoContentService, VideoService>();
+        services.AddScoped<IVideoContentCourseService, VideoContent_CourseService>();
         services.AddScoped<ICourseService, CourseService>();
-        services.AddScoped<ICourseReviewServices,CourseReviewService>();
+        services.AddScoped<ICourseReviewServices, CourseReviewService>();
         services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<IBasketProductService, BasketProductService>();
         services.AddScoped<ILoggerService, LoggerService>();
@@ -109,17 +109,17 @@ public static class ServiceRegistration
     {
         services.AddScoped<ISliderReadRepository, SliderReadRepository>();
         services.AddScoped<ITeacherReadRepository, TeacherReadRepository>();
-        services.AddScoped<IStaffReadRepository,StaffReadRepository>();
-        services.AddScoped<IEventReadRepository,EventReadRepository>();
+        services.AddScoped<IStaffReadRepository, StaffReadRepository>();
+        services.AddScoped<IEventReadRepository, EventReadRepository>();
         services.AddScoped<IEventStaffWriteRepository, StaffEventWriteRepository>();
         services.AddScoped<IEventCategoryReadRepository, EventCategoryReadReposiory>();
-        services.AddScoped<IAppuserEventReadRopository , AppUserEventsReadRepository>();
-        services.AddScoped<ITeacherCoursesReadRepository , TeacherCoursesReadRepository>();
+        services.AddScoped<IAppuserEventReadRopository, AppUserEventsReadRepository>();
+        services.AddScoped<ITeacherCoursesReadRepository, TeacherCoursesReadRepository>();
         services.AddScoped<ICourseCategoryReadRepository, CategoryReadRepository>();
         services.AddScoped<ICourseReadRepository, CourseReadRepository>();
-        services.AddScoped<IVideoContent_CourseReadRepository,VideoContent_CourseReadRepository>();
-        services.AddScoped<IVideoContentReadRepository,VideoContentReadRepository>();  
-        services.AddScoped<ICourseReviewReadRepository,CourseReviewReadRepository>();
+        services.AddScoped<IVideoContent_CourseReadRepository, VideoContent_CourseReadRepository>();
+        services.AddScoped<IVideoContentReadRepository, VideoContentReadRepository>();
+        services.AddScoped<ICourseReviewReadRepository, CourseReviewReadRepository>();
         services.AddScoped<IBasketProductReadRepository, BasketProductReadRepository>();
         services.AddScoped<IBasketReadRepository, BasketReadRepository>();
         services.AddScoped<ILoggerReadRepository, LoggerReadRepository>();
@@ -128,13 +128,13 @@ public static class ServiceRegistration
     private static void AddWriteRepositories(this IServiceCollection services)
     {
         services.AddScoped<ISliderWriteRepository, SliderWriteRepository>();
-        services.AddScoped<ITeacherWriteRepository,TeacherWriteRepositories>(); 
-        services.AddScoped<IStaffWriteRepository,StaffWriteRepository>();
-        services.AddScoped<IEventWriteRepository,EventWriteRepository>();
-        services.AddScoped<IEventStaffReadRepository,StaffEventsReadRepository>();
+        services.AddScoped<ITeacherWriteRepository, TeacherWriteRepositories>();
+        services.AddScoped<IStaffWriteRepository, StaffWriteRepository>();
+        services.AddScoped<IEventWriteRepository, EventWriteRepository>();
+        services.AddScoped<IEventStaffReadRepository, StaffEventsReadRepository>();
         services.AddScoped<IEventCategoryWriteRepository, EventCategoryWriteRepository>();
         services.AddScoped<IAppuserEventWriteRepository, AppUserEventWriteRepostitory>();
-        services.AddScoped<ICourseCategoryWriteRepository,CategoryWriteRepository>();
+        services.AddScoped<ICourseCategoryWriteRepository, CategoryWriteRepository>();
         services.AddScoped<ICourseWriteRepository, CourseWriteRepository>();
         services.AddScoped<ITeacherCoursesWriteRepository, TeacherCourseWriteRepository>();
         services.AddScoped<IVideoContent_CourseWriteRepository, VideoContent_CourseWriteRepository>();

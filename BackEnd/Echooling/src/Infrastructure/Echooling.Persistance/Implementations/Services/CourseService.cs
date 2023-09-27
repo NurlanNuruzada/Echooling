@@ -50,7 +50,6 @@ public class CourseService : ICourseService
     public async Task<List<CourseGetDto>> GetCoursesByTeacherIdAsync(Guid teacherId)
     {
         var courses = await _context.Courses
-            .Include(c => c.TeacherDetailsCourses)
             .Where(c => c.TeacherDetailsCourses.Any(tc => tc.teacherDetailsId == teacherId))
             .ToListAsync();
         var list = _mapper.Map<List<CourseGetDto>>(courses);
@@ -74,22 +73,29 @@ public class CourseService : ICourseService
         }
 
         Course course = _mapper.Map<Course>(courseCreateDto);
-        string rootDirectory = Path.Combine(_env.WebRootPath, "Uploads", "Course"); 
 
-        Directory.CreateDirectory(rootDirectory);
+        // Dynamically determine the root directory
+        string currentDirectory = Directory.GetCurrentDirectory();
+        int index = currentDirectory.IndexOf("FinalApp\\");
+        if (index >= 0)
+        {
+            currentDirectory = currentDirectory.Substring(0, index + 8); // +8 to include "FinalApp\"
+        }
+        string uploadsRootDirectory = Path.Combine(currentDirectory, "FrontEnd" , "echooling" , "public", "Uploads", "Course");
+        Directory.CreateDirectory(uploadsRootDirectory);
         course.Approved = false;
 
         if (courseCreateDto.image is not null)
         {
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(courseCreateDto.image.FileName);
-            string filePath = Path.Combine(rootDirectory, fileName);
+            string filePath = Path.Combine(uploadsRootDirectory, fileName);
 
             using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
                 await courseCreateDto.image.CopyToAsync(fileStream);
             }
 
-            course.ImageRoutue = fileName; 
+            course.ImageRoutue = fileName;
         }
 
         course.ThisCourseIncludes = JsonConvert.SerializeObject(courseCreateDto.ThisCourseIncludes);
@@ -100,6 +106,7 @@ public class CourseService : ICourseService
         await _TeacherCoursesCreateService.AddCourseToTeacherAsync(course.GuId, TeacherId);
         await _writeRepository.SaveChangesAsync();
     }
+
     public async Task<List<CourseGetDto>> GetAllAsync()
     {
         var Course = await _readRepository.GetAll().Where(e => e.IsDeleted == false).ToListAsync();
