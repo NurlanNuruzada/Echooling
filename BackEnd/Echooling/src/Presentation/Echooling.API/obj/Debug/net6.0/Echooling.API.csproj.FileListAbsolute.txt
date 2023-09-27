@@ -103,3 +103,4 @@ C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.AP
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\obj\Debug\net6.0\Echooling.API.pdb
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\obj\Debug\net6.0\Echooling.API.genruntimeconfig.cache
 C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\obj\Debug\net6.0\ref\Echooling.API.dll
+C:\Users\Nurlan\Desktop\FinalApp\BackEnd\Echooling\src\Presentation\Echooling.API\bin\Debug\net6.0\Xabe.FFmpeg.dll

@@ -70,12 +70,10 @@ export default function CourseVideos() {
     const handleNavigate = (route) => {
         navigate(route);
     };
-
     const handleDeleteVideo = (Id) => {
         formik.setFieldValue("VideoId", Id)
         onOpen();
     };
-
     const formik = useFormik({
         initialValues: {
             VideoId: "",
@@ -101,7 +99,6 @@ export default function CourseVideos() {
     const handleRoleChange = (event) => {
         setFilterRole(event.target.value);
     };
-
     const { mutate } = useMutation(
         (values) => UploadVideo(id, values),
         {

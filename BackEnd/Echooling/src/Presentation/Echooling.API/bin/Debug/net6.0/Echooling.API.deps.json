@@ -19,7 +19,8 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.21",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.21",
           "Newtonsoft.Json": "13.0.3",
-          "Swashbuckle.AspNetCore": "6.5.0"
+          "Swashbuckle.AspNetCore": "6.5.0",
+          "Xabe.FFmpeg": "5.2.6"
         },
         "runtime": {
           "Echooling.API.dll": {}
@@ -1410,6 +1411,17 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "Xabe.FFmpeg/5.2.6": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Xabe.FFmpeg.dll": {
+            "assemblyVersion": "5.2.6.0",
+            "fileVersion": "5.2.6.0"
+          }
+        }
+      },
       "Echooling.Aplication/1.0.0": {
         "dependencies": {
           "Ecooling.Domain": "1.0.0",
@@ -1445,7 +1457,8 @@
           "Microsoft.EntityFrameworkCore": "6.0.21",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
           "MimeKit": "4.1.0",
-          "Newtonsoft.Json": "13.0.3"
+          "Newtonsoft.Json": "13.0.3",
+          "Xabe.FFmpeg": "5.2.6"
         },
         "runtime": {
           "Echooling.Persistance.dll": {}
@@ -2472,6 +2485,13 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "Xabe.FFmpeg/5.2.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AFT06eHAZ4OV3s6H2dZWeRQ6kkdWkY1dGq76iFprlOG6quB7V7Nm8wWhEF63As1txsh/8kwAbybtffrgqfQ0dg==",
+      "path": "xabe.ffmpeg/5.2.6",
+      "hashPath": "xabe.ffmpeg.5.2.6.nupkg.sha512"
     },
     "Echooling.Aplication/1.0.0": {
       "type": "project",

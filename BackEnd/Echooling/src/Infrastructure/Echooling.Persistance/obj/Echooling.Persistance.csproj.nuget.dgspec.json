@@ -225,6 +225,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "Xabe.FFmpeg": {
+              "target": "Package",
+              "version": "[5.2.6, )"
             }
           },
           "imports": [

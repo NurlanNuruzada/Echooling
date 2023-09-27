@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pLrG8BjDPLbH07OpHdp9oXj/5q3KaG+EdiTdIeS1J29d8/s1AbKPJ4VgDAyXps+wZLzP6zw5WVvLfsjde/iSdQ==",
+  "dgSpecHash": "zdHcLMxlrngVwrojTz9ogdm6F/HhYyjS5dU9fn/dTai34AKw8GF6Bk6oXqEPJLLd27nTsuT2J9fX0LcY5ZMt7w==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nurlan\\Desktop\\FinalApp\\BackEnd\\Echooling\\src\\Presentation\\Echooling.API\\Echooling.API.csproj",
   "expectedPackageFiles": [
@@ -145,7 +145,8 @@
     "C:\\Users\\Nurlan\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\Nurlan\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\Nurlan\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\Nurlan\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\Nurlan\\.nuget\\packages\\xabe.ffmpeg\\5.2.6\\xabe.ffmpeg.5.2.6.nupkg.sha512"
   ],
   "logs": [
     {

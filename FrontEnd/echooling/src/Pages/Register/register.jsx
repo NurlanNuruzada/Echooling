@@ -47,20 +47,21 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [loginError, setLoginError] = useState(null);
   const buttonsAndRoute = {
-    button1:{
-        navigate:"/",
-        name:"Home",
-        color:"gray",
-        isOpen:"false"
+    button1: {
+      navigate: "/",
+      name: "Home",
+      color: "gray",
+      isOpen: "false"
     },
-    button2:{
-      navigate:"/auth/register",
-        name:"login",
-        color:"green"
+    button2: {
+      navigate: "/auth/register",
+      name: "login",
+      color: "green"
     },
-    title:"Succesfully registered!"
-}
+    title: "Succesfully registered!"
+  }
 
   const getErrorMessage = (fieldName) => {
     return formik.errors[fieldName] ? formik.errors[fieldName] : "";
@@ -72,15 +73,16 @@ const Register = () => {
     },
     onSubmit: (values) => LoginMutate(values),
   });
-  const { mutate: LoginMutate,isLoading: Loginloading, error: Loginerror,} =
-   useMutation((values) => login(values), {
-    onSuccess: (resp) => {
-      dispatch(loginAction(resp));
-    },
-    onError: (error) => {
-      console.log("error");
-    },
-  });
+  const { mutate: LoginMutate, isLoading: Loginloading, error: Loginerror } =
+    useMutation((values) => login(values), {
+      onSuccess: (resp) => {
+        dispatch(loginAction(resp));
+      },
+      onError: (error) => {
+        setLoginError("Invalid username or password."); // Set error message
+        console.log("error");
+      },
+    });
   const { mutate, isLoading, error } = useMutation(
     (values) => register(values),
     {
@@ -115,13 +117,13 @@ const Register = () => {
   return (
     <Box>
       <div className={Styles.MainContainer}>
-      {registrationSuccess  && (
+        {registrationSuccess && (
           <Done buttonsAndNagivage={buttonsAndRoute} />)}
         <div className={Styles.BackgrounImage}></div>
         <Flex className={Styles.MainFlex} flexDirection={"column"}>
           <div className={Styles.Main}>
             <Tabs isFitted variant="enclosed">
-              
+
               <TabList mb="1em">
                 <Tab>Register</Tab>
                 <Tab>Login</Tab>
@@ -309,7 +311,13 @@ const Register = () => {
                         </Button>
                       </InputRightElement>
                     </InputGroup>
-
+                    {loginError && (
+                      <Alert status="error" mt={4}>
+                        <AlertIcon />
+                        <AlertTitle mr={2}>Error:</AlertTitle>
+                        <AlertDescription>{loginError}</AlertDescription>
+                      </Alert>
+                    )}
                     <Button
                       className={Styles.Button}
                       backgroundColor={"#3270fc"}
@@ -319,7 +327,7 @@ const Register = () => {
                       SIGN IN
                     </Button>
                     <Link to={"/Auth/forgetPassword"} textAlign={"right"}>Forget Password?</Link>
-                    <Box  position="relative" padding="10">
+                    <Box position="relative" padding="10">
                       <Divider />
                       <AbsoluteCenter
                         fontWeight={500}
