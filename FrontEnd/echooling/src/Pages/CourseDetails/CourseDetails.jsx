@@ -7,6 +7,11 @@ import {
   OrderedList,
   UnorderedList,
   Link,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  ModalBody,
 } from "@chakra-ui/react";
 import {
   faTicket,
@@ -51,7 +56,18 @@ import ContactUsForm from "../../Components/ContactUs/ContactUsForm";
 import RateCourse from "../../Components/ContactUs/RateCourse";
 import CommentAreas1 from "../../Components/Review/CommentArea1";
 import ReactStars from "react-rating-stars-component";
-
+import { GetVideosByCourseId } from "../../Services/VideoServce";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react'
 
 const CourseDetails = () => {
   const [course, setCourse] = useState(null);
@@ -60,9 +76,18 @@ const CourseDetails = () => {
   const [isCopied, setIsCopied] = useState(false);
   const [seed, setSeed] = useState(1);
   const [rate, setRate] = useState(course?.rate);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const { id } = useParams();
-
+  const [Data, setData] = useState();
+  const [selectedVideoUrl, setSelectedVideoUrl] = useState(null);
+  const [clicked, setClicked] = useState(false); // State to track if it's clicked
   const queryClient = useQueryClient();
+  const [isVideoModalOpen, setVideoModalOpen] = useState(false);
+
+  const handleClikVideo = (videoName) => {
+    setSelectedVideo(videoName);
+    setVideoModalOpen(true);
+  };
   const reset = () => {
     setSeed(Math.random());
   }
@@ -70,6 +95,9 @@ const CourseDetails = () => {
     setRate(course?.rate);
     reset()
   }, [course?.rate]);
+  useEffect(() => {
+    GetAllVideo(id)
+  }, [id]);
   const currentURL = window.location.href;
   const { isLoading, isError } = useQuery(
     ['course', id],
@@ -96,7 +124,18 @@ const CourseDetails = () => {
       },
     }
   );
-
+  const { mutate: GetAllVideo } = useMutation(
+    (values) => GetVideosByCourseId(id),
+    {
+      onSuccess: (resp) => {
+        setData(resp.data)
+        console.log("video  ", resp)
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
   useEffect(() => {
     AllCourse()
     queryClient.invalidateQueries(['course', id]);
@@ -140,6 +179,7 @@ const CourseDetails = () => {
 
   return (
     <div className={Styles.MainContainer}>
+
       <EffectImage
         showCenter={false}
         imageLink={EventImage}
@@ -170,6 +210,7 @@ const CourseDetails = () => {
               <Tabs className={Styles.tabs} isManual variant="enclosed">
                 <TabList>
                   <Tab>Course reviews</Tab>
+                  <Tab>videos</Tab>
                   <Tab>Teacher</Tab>
                   <Tab>What you will learn</Tab>
                   <Tab>Course Content</Tab>
@@ -177,17 +218,43 @@ const CourseDetails = () => {
                 <TabPanels>
                   <TabPanel>
                     <CommentAreas1 id={id} />
-                    {/* {TeacherData?.map((data, index) => (
-                        <a href={`/StaffDetails/${data.appUserID}`}>
-                          <Atendee
-                            key={index} // Don't forget to add a unique key prop when mapping
-                            image={AtendeeImage}
-                            title={data.fullname}
-                            Profesion={data.profession}
+                  </TabPanel>
+                  <TabPanel>
+                    <TableContainer>
+                      <Table size='sm'>
+                        <Thead>
+                          <Tr>
+                            <Th>video Title</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
 
-                          />
-                        </a>
-                      ))} */}
+                          {Data?.map((data, index) => (
+                            <Tr
+                              key={data.guid}
+                              cursor={'pointer'}
+                              _hover={{ background: 'lightblue' }}
+                              onClick={() => handleClikVideo(`/Uploads/Course/Videos/${data.videoUniqueName}`)}
+                            >
+                              <Td>{data.videoTitle}</Td>
+                            </Tr>
+                          ))}
+                        </Tbody>
+                        <Modal isCentered isOpen={isVideoModalOpen} onClose={() => setVideoModalOpen(false)} size="xxl">
+                          <ModalOverlay />
+                          <ModalContent>
+                            <ModalCloseButton />
+                            <ModalBody>
+                              <video
+                                src={`${selectedVideo}`}
+                                controls
+                                style={{ display: "block", maxWidth: "100%", margin: "0 auto", boxShadow: "0 0 20px rgba(0, 0, 0, 0.3)" }}
+                              ></video>
+                            </ModalBody>
+                          </ModalContent>
+                        </Modal>
+                      </Table>
+                    </TableContainer>
                   </TabPanel>
                   <TabPanel>
                     <div className={Styles.AtendanceList}>
