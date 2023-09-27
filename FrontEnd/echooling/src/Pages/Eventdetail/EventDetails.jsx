@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "../../Pages/Eventdetail/EventDetail.module.css";
 import {
   faTicket,
@@ -21,23 +21,36 @@ import ContactUs from "../../Components/ContactUs/ContactUsForm";
 import EventImage from "../../Images/UpcomingEvents.jpeg";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import { useParams } from "react-router";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { GetEventId, getEventById, getUserByEventId, getallwithttake } from "../../Services/EventService";
 import { GetUStaffUsers, getById } from "../../Services/StaffService";
+import { Link } from "react-router-dom";
 const EventDetails = () => {
   const { id } = useParams();
   const [Event, SetEvent] = useState([]);
   const [User, SetUser] = useState([]);
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["Courses"],
-    queryFn: () => getEventById(id), // Pass the function itself
-    staleTime: 0,
-    onSuccess: (data) => {
-      SetEvent(data || []); // Use optional chaining to handle undefined data
-      console.log(data);
+
+  const { mutate: getCategory } = useMutation(() => getEventById(id), {
+    onSuccess: (resp) => {
+      SetEvent(resp || []);
     },
   });
+  useEffect(() => {
+    getCategory();
+    console.log(Event)
+  }, []);
+  useEffect(() => {
+    const handleClick = () => {
+      getCategory();
+    };
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+
   const { data: LastEvents } = useQuery({
     queryKey: ["last"],
     queryFn: () => getallwithttake(3), // Pass the function itself
@@ -59,11 +72,11 @@ const EventDetails = () => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
   // Format eventStartDate
-  const eventStartDate = new Date(data?.eventStartDate);
+  const eventStartDate = new Date(Event?.eventStartDate);
   const StartDate = eventStartDate?.toLocaleDateString('en-US', options);
 
   // Format eventFinishDate
-  const eventFinishDate = new Date(data?.eventFinishDate);
+  const eventFinishDate = new Date(Event?.eventFinishDate);
   const EndDate = eventFinishDate?.toLocaleDateString('en-US', options);
   function formatDateTime(dateTimeString) {
     const options = {
@@ -78,7 +91,7 @@ const EventDetails = () => {
     const ampm = date.getHours() >= 12 ? 'pm' : 'am';
     const hours = date.getHours() % 12 || 12;
     const minutes = date.getMinutes();
-  
+
     return `${formattedDate} ${hours}:${minutes.toString().padStart(2, '0')}${ampm}`;
   }
 
@@ -103,7 +116,7 @@ const EventDetails = () => {
       >
         <div className={Styles.right}>
           <div className={Styles.ImageConatainer}>
-            <img className={Styles.EventImage} src={`/Uploads/Event/${data?.imageRoutue}`} alt="" />
+            <img className={Styles.EventImage} src={`/Uploads/Event/${Event?.imageRoutue}`} alt="" />
             <div>
               <h1 className={Styles.EventTitle}>{Event?.eventTitle}</h1>
               <p>
@@ -111,7 +124,7 @@ const EventDetails = () => {
               </p>
             </div>
             <div className={Styles.AtendanceList}>
-              <h1 className={Styles.AtendanceHeader}>Atendances</h1>
+              <h1 className={Styles.AtendanceHeader}>Orginazer</h1>
               <Grid
                 className={Styles.AtendaceGrid}
                 templateColumns={{
@@ -123,14 +136,6 @@ const EventDetails = () => {
                 }}
                 rowGap={5}
               >
-                {Staff?.map((staff, index) => (
-                  <Atendee
-                    key={index}
-                    image={AtendeeImage}
-                    title={staff.fullname}
-                    Profesion={staff.profession}
-                  />
-                ))}
                 {Staff?.map((staff, index) => (
                   <Atendee
                     key={index}
@@ -167,7 +172,7 @@ const EventDetails = () => {
                 />
                 <p>Const :</p>
               </Flex>
-              <h3>{Event.cost}$</h3>
+              <h3>{Event?.cost}$</h3>
             </Flex>
             <Divider />
             <Flex
@@ -243,8 +248,8 @@ const EventDetails = () => {
             <h1>loaction:</h1>
             <p>{Event?.location}</p>
             <h1>Orginazer Phone 1:</h1>
-            {/* <p>{Staff[0]?.phoneNumber}</p> */}
-            <h1>Orginazer Phone 2:</h1>
+            <p>{User[0]?.phoneNumber}</p>
+            {User[1] && <h1>Orginazer Phone 2:</h1>}
             {User[1] &&
               <p>{User[1]?.phoneNumber}</p>
             }
@@ -254,16 +259,18 @@ const EventDetails = () => {
           </div>
           <div className={Styles.LastestEvents}>
             <h1>Lastest post</h1>
-              <Flex className={Styles.Contentitem1}>
-            {LastEvents?.data?.map((staff, index) => (
-                <Lastestpost
-                  image={`/Uploads/Event/${staff.imageRoutue}`}
-                  dateAndtime={`${staff.orginazer} / ${formatDateTime(staff.eventStartDate)}`}
-                  Title={"Lastest Events"}
-                  SecconTitle={`${staff.eventTitle}`}
-                />
+            <Flex className={Styles.Contentitem1}>
+              {LastEvents?.data?.map((staff, index) => (
+                <Link to={`/EventDetail/${staff.guId}`}>
+                  <Lastestpost
+                    image={`/Uploads/Event/${staff.imageRoutue}`}
+                    dateAndtime={`${staff.orginazer} / ${formatDateTime(staff.eventStartDate)}`}
+                    Title={"Lastest Events"}
+                    SecconTitle={`${staff.eventTitle}`}
+                  />
+                </Link>
               ))}
-              </Flex>
+            </Flex>
           </div>
         </Grid>
       </Grid>

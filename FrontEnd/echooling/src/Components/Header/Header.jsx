@@ -136,9 +136,6 @@ const Header = () => {
           <div className={Styles.signIn}>
             <p className={Styles.page}>{userGreeting}</p>
           </div>
-          <div className={Styles.icons}>
-            <SearchInputCom height={"20px"} placeholder={"Search"} />
-          </div>
           <div className={Styles.BurgerMenu}>
             <Menu isLazy>
               <MenuButton
