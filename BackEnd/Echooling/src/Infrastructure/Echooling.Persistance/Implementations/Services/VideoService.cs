@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Echooling.Aplication.Abstraction.Repository.Couse;
 using Echooling.Aplication.Abstraction.Repository.VideoRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.SliderDTOs;
@@ -19,34 +20,49 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly IVideoContentWriteRepository _writeRepository;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly ICourseReadRepository _courseReadRepo;
 
         public VideoService(IMapper mapper,
                             IVideoContentReadRepository readRepository,
                             IVideoContentWriteRepository writeRepository,
                             IStringLocalizer<ErrorMessages> localizer,
-                            IWebHostEnvironment hostingEnvironment)
+                            IWebHostEnvironment hostingEnvironment,
+                            ICourseReadRepository courseReadRepo)
         {
             _mapper = mapper;
             _readRepository = readRepository;
             _writeRepository = writeRepository;
             _localizer = localizer;
             _hostingEnvironment = hostingEnvironment;
+            _courseReadRepo = courseReadRepo;
         }
 
-        public async Task CreateAsync(CreateVIdeoContentDto CreateDto)
+        public async Task CreateAsync(CreateVIdeoContentDto CreateDto,Guid CourseId)
         {
             if (CreateDto.Video == null)
             {
-                throw new Exception("No image file provided.");
+                throw new notFoundException("No image file provided.");
             }
-
-            string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Course\Videos";
-            Directory.CreateDirectory(uploadsDirectory);
+            var course = _courseReadRepo.GetByIdAsync(CourseId);
+            if (course == null)
+            {
+                throw new notFoundException("Course not Found!");
+            }
+            // Dynamically determine the root directory
+            string currentDirectory = Directory.GetCurrentDirectory();
+            int index = currentDirectory.IndexOf("FinalApp\\");
+            if (index >= 0)
+            {
+                currentDirectory = currentDirectory.Substring(0, index + 8); // +8 to include "FinalApp\"
+            }
+            string uploadsRootDirectory = Path.Combine(currentDirectory, "FrontEnd", "echooling", "public", "Uploads", "Course", "Videos");
+            //end
+            Directory.CreateDirectory(uploadsRootDirectory);
             string message = _localizer.GetString("NotFoundExceptionMsg");
             if (CreateDto.Video is not null)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(CreateDto.Video.FileName);
-                string filePath = Path.Combine(uploadsDirectory, fileName);
+                string filePath = Path.Combine(uploadsRootDirectory, fileName);
 
                 using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
                 {
@@ -54,6 +70,7 @@ namespace Echooling.Persistance.Implementations.Services
                 }
 
                 var Video = _mapper.Map<VideoContent>(CreateDto);
+                Video.courseId = CourseId;
                 Video.VideoUniqueName = fileName;
                 await _writeRepository.addAsync(Video);
                 await _writeRepository.SaveChangesAsync();

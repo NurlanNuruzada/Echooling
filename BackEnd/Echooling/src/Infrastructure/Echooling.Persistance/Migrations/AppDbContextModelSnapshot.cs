@@ -721,36 +721,6 @@ namespace Echooling.Persistance.Migrations
                     b.ToTable("TeachersCourses");
                 });
 
-            modelBuilder.Entity("Ecooling.Domain.Entites.Video_Course", b =>
-                {
-                    b.Property<Guid>("GuId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CourseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("VideoContentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("GuId");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("VideoContentId");
-
-                    b.ToTable("Video_Course");
-                });
-
             modelBuilder.Entity("Ecooling.Domain.Entites.VideoContent", b =>
                 {
                     b.Property<Guid>("GuId")
@@ -772,7 +742,12 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("VideoUniqueName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("courseId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("GuId");
+
+                    b.HasIndex("courseId");
 
                     b.ToTable("VideoContent");
                 });
@@ -1060,20 +1035,15 @@ namespace Echooling.Persistance.Migrations
                     b.Navigation("teacherDetails");
                 });
 
-            modelBuilder.Entity("Ecooling.Domain.Entites.Video_Course", b =>
+            modelBuilder.Entity("Ecooling.Domain.Entites.VideoContent", b =>
                 {
                     b.HasOne("Ecooling.Domain.Entites.Course", "Course")
-                        .WithMany("VideoCourse")
-                        .HasForeignKey("CourseId");
-
-                    b.HasOne("Ecooling.Domain.Entites.VideoContent", "VideoContent")
-                        .WithMany("VideoCourse")
-                        .HasForeignKey("VideoContentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Videos")
+                        .HasForeignKey("courseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Course");
-
-                    b.Navigation("VideoContent");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entities.Course_AppUser", b =>
@@ -1162,7 +1132,7 @@ namespace Echooling.Persistance.Migrations
 
                     b.Navigation("TeacherDetailsCourses");
 
-                    b.Navigation("VideoCourse");
+                    b.Navigation("Videos");
                 });
 
             modelBuilder.Entity("Ecooling.Domain.Entites.CourseCategories", b =>
@@ -1190,11 +1160,6 @@ namespace Echooling.Persistance.Migrations
             modelBuilder.Entity("Ecooling.Domain.Entites.teacherDetails", b =>
                 {
                     b.Navigation("TeacherDetailsCourses");
-                });
-
-            modelBuilder.Entity("Ecooling.Domain.Entites.VideoContent", b =>
-                {
-                    b.Navigation("VideoCourse");
                 });
 #pragma warning restore 612, 618
         }

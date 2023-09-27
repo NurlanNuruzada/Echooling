@@ -14,7 +14,6 @@ using Echooling.Aplication.Abstraction.Repository.SliderRepositories;
 using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Repository.TeacherCourses;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
-using Echooling.Aplication.Abstraction.Repository.VideoContentCourseRepositories;
 using Echooling.Aplication.Abstraction.Repository.VideoRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.Valudators.SliderValudators;
@@ -34,7 +33,6 @@ using Echooling.Persistance.Implementations.Repositories.StaffEventsRepositories
 using Echooling.Persistance.Implementations.Repositories.StaffRepository;
 using Echooling.Persistance.Implementations.Repositories.TeaceherCoursesRepository;
 using Echooling.Persistance.Implementations.Repositories.TeacherRepositories;
-using Echooling.Persistance.Implementations.Repositories.VideoContent_CourseRepositories;
 using Echooling.Persistance.Implementations.Repositories.VideoContentRepositories;
 using Echooling.Persistance.Implementations.Services;
 using Echooling.Persistance.MapperProfile;
@@ -84,7 +82,6 @@ public static class ServiceRegistration
         services.AddScoped<ITeacherCourses, TeacherCoursesService>();
         services.AddScoped<ICourseService, CourseService>();
         services.AddScoped<IVideoContentService, VideoService>();
-        services.AddScoped<IVideoContentCourseService, VideoContent_CourseService>();
         services.AddScoped<ICourseService, CourseService>();
         services.AddScoped<ICourseReviewServices, CourseReviewService>();
         services.AddScoped<IBasketService, BasketService>();

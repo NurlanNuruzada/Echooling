@@ -10,6 +10,7 @@ namespace Ecooling.Domain.Entites
         public ICollection<Course_AppUser>? CourseAppUser { get; set; }
         public ICollection<TeacherDetails_Courses>? TeacherDetailsCourses { get; set; }
         public ICollection<CourseReview> CourseReviews { get; } = new List<CourseReview>();
+        public ICollection<VideoContent> Videos { get; set; } = new List<VideoContent>();
         public string Title { get; set; } = null!;
         public string ImageRoutue { get; set; } = null!;
         public decimal Rate { get; set; }
@@ -23,7 +24,7 @@ namespace Ecooling.Domain.Entites
         public string WhatWillLearn { get; set; } = null!;
         public string AboutCourse { get; set; } = null!;
         public Guid CourseCategoryId { get; set; }
-        public CourseCategories CourseCategory { get; set; } = null!;
+        public CourseCategories CourseCategory { get; set; } = null!;    
         public bool Approved { get; set; }
     }
 }

@@ -83,6 +83,7 @@ public class CourseService : ICourseService
         }
         string uploadsRootDirectory = Path.Combine(currentDirectory, "FrontEnd" , "echooling" , "public", "Uploads", "Course");
         Directory.CreateDirectory(uploadsRootDirectory);
+        //end
         course.Approved = false;
 
         if (courseCreateDto.image is not null)

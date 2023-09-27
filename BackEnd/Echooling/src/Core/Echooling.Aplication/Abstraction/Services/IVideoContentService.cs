@@ -10,7 +10,7 @@ namespace Echooling.Aplication.Abstraction.Services
 {
     public interface IVideoContentService
     {
-        Task CreateAsync(CreateVIdeoContentDto CreateDto);
+        Task CreateAsync(CreateVIdeoContentDto CreateDto, Guid CourseId);
         Task<GetVideoContentDto> getById(Guid id);
         Task<List<GetVideoContentDto>> GetAllAsync();
         Task UpdateAsync(CreateVIdeoContentDto UpdateDto, Guid id);

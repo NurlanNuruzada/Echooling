@@ -49,6 +49,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
         .HasForeignKey(e => e.CourseId)
         .OnDelete(DeleteBehavior.Cascade);
 
+
         modelBuilder.Entity<events>()
             .HasOne(e => e.EventCategoryies)
             .WithMany(ec => ec.Events)
@@ -75,13 +76,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
           .HasForeignKey(e => e.teacherDetailsId)
           .OnDelete(DeleteBehavior.Cascade);
         base.OnModelCreating(modelBuilder);
-
-       // modelBuilder.Entity<VideoContent>()
-       //.HasMany<Video_Course>(e => e.VideoCourse)
-       //.WithOne(cc => cc.VideoContent)
-       //.HasForeignKey(e => e.VideoContentId)
-       //.OnDelete(DeleteBehavior.Cascade);
-       // base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<teacherDetails>()
        .HasMany<TeacherDetails_Courses>(e => e.TeacherDetailsCourses)

@@ -45,9 +45,9 @@ namespace Echooling.API.Controllers
             return Ok(new { message = "Video deleted successfully." });
         }
         [HttpPost("[Action]")]
-        public async Task<IActionResult> Create([FromForm] CreateVIdeoContentDto VideoDto)
+        public async Task<IActionResult> Create([FromForm] CreateVIdeoContentDto VideoDto,Guid CourseId)
         {
-            await _videoContentService.CreateAsync(VideoDto);
+            await _videoContentService.CreateAsync(VideoDto, CourseId);
             return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpPut("id")]

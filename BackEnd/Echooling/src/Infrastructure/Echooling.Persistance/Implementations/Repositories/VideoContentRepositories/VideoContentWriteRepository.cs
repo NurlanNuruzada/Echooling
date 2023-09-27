@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Echooling.Aplication.Abstraction.Repository;
 using Echooling.Aplication.Abstraction.Repository.TeacherRepositories;
-using Echooling.Aplication.Abstraction.Repository.VideoContentCourseRepositories;
 using Echooling.Aplication.Abstraction.Repository.VideoRepositories;
 using Echooling.Persistance.Contexts;
 using Ecooling.Domain.Entites;

@@ -11,5 +11,7 @@ namespace Ecooling.Domain.Entites
     {
         public string? VideoTitle { get; set; }
         public string? VideoUniqueName { get; set; } = null!;
+        public Guid courseId { get; set; }
+        public Course Course { get; set; } = null!;
     }
 }
