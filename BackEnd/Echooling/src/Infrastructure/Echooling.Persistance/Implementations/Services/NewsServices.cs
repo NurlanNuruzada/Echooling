@@ -63,5 +63,33 @@ namespace Echooling.Persistance.Implementations.Services
             };
             _emailService.SendEmail(subscriptinon);
         }
+        public async Task ContactUs(ContactUsDto Contact)
+        {
+            var email = Contact.Email.ToString();
+            string Fullname = Contact.Surname + " " + Contact.Name;
+            if (email is null)
+            {
+                throw new notFoundException(" not found!");
+            }
+            var FrontEndBase = "http://localhost:3000";
+            var userIp = EmailConfigurations.GetUserIP().ToString();
+            var resetPasswordUrl = $"{FrontEndBase}";
+            DateTime datetimeNow = DateTime.Now;
+            SentEmailDto subscriptinon = new SentEmailDto
+            {
+                To = "nurlangn@code.edu.az",
+                Subject = Contact.Subject,
+                body = $"<html><body>" +
+            $"<h1  style='color: #3270fc;'>Hi, message from {Fullname}</h1>" +
+                           $"<h1>the message content:</h1>" +
+                           $"<p> {Contact.Message}\r\n</p>" +
+                           $"<br/>" +
+                           $"<h3>we received this from {userIp}</h3>" +
+                           $"</body></html>"
+                           + $"<h1  style='color: #3270fc;'>Email: {Contact.Email}</h1>"
+
+            };
+            _emailService.SendEmail(subscriptinon);
+        }
     }
 }

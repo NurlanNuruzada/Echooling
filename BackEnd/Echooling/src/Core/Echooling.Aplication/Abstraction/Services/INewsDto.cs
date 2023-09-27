@@ -10,5 +10,6 @@ namespace Echooling.Aplication.Abstraction.Services
     public interface INewsService
     {
         Task sentNews(NewsDto newsDto);
+        Task ContactUs(ContactUsDto Contact);
     }
 }

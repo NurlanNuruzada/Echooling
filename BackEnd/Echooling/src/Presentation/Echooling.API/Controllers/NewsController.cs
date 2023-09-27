@@ -22,5 +22,11 @@ namespace Echooling.API.Controllers
             await _newsService.sentNews(newsDto);
             return Ok("user registered!");
         } 
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ContactMessage(ContactUsDto message)
+        {
+            await _newsService.ContactUs(message);
+            return Ok("message sent!");
+        } 
     }
 }
