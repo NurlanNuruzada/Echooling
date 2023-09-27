@@ -29,11 +29,11 @@ import {
 } from '@chakra-ui/react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import jwt_decode from 'jwt-decode';
 import Done from '../../../Components/DoneModal/Done';
 import { GetUStaffUsers } from '../../../Services/StaffService';
-import { GetVideosByCourseId, UploadVideo } from '../../../Services/VideoServce';
+import { GetVideosByCourseId, UploadVideo, deleteVideo } from '../../../Services/VideoServce';
 
 export default function CourseVideos() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -72,12 +72,31 @@ export default function CourseVideos() {
     };
 
     const handleDeleteVideo = (Id) => {
-        FormikUpload.setValues({
-            UserId: Id,
-            AdminId: id,
-        });
+        formik.setFieldValue("VideoId", Id)
         onOpen();
     };
+
+    const formik = useFormik({
+        initialValues: {
+            VideoId: "",
+        },
+        onSubmit: async (values) => {
+            deleteVideos(values)
+        },
+        validateOnBlur: true,
+        validateOnChange: false,
+    });
+    const { mutate: deleteVideos } = useMutation(
+        (values) => deleteVideo(values.VideoId),
+        {
+            onSuccess: (resp) => {
+                GetAllVideo(id)
+                onClose();
+            },
+            onError: (error) => {
+            },
+        }
+    );
 
     const handleRoleChange = (event) => {
         setFilterRole(event.target.value);
@@ -89,6 +108,7 @@ export default function CourseVideos() {
             onSuccess: (resp) => {
                 queryClient.invalidateQueries(['Staff']);
                 setRegistrationSuccess(true);
+                GetAllVideo(id)
                 onClose();
             },
             onError: (error) => {
@@ -207,7 +227,7 @@ export default function CourseVideos() {
                             <Button ref={cancelRef} onClick={onClose}>
                                 No
                             </Button>
-                            <Button onClick={FormikUpload.handleSubmit} colorScheme='red' ml={3}>
+                            <Button onClick={formik.handleSubmit} colorScheme='red' ml={3}>
                                 Yes
                             </Button>
                         </AlertDialogFooter>
@@ -235,16 +255,14 @@ export default function CourseVideos() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {Data?.filter((staff) => !filterRole || staff.role === filterRole)
+                        {Data?.filter((Video) => !filterRole || Video.videoTitle === filterRole)
                             .map((data, index) => (
                                 <Tr key={data.guId}>
                                     <Td>{number += 1}</Td>
                                     <Td>{data.videoTitle}</Td>
-                                    <Td>{data.phoneNumber}</Td>
-                                    <Td>{data.phoneNumber}</Td>
-                                    <Td></Td>
+                                    <Td>{data.GuId}</Td>
                                     <Td  >
-                                    <Button
+                                        <Button
                                             bg={'green'}
                                             color={'white'}
                                             onClick={() => handleOpenVideo(data.videoUniqueName)}
@@ -253,17 +271,15 @@ export default function CourseVideos() {
                                         </Button>
                                     </Td>
                                     <Td>
-                                        {!data.isApproved && (
-                                            <Td >
-                                                <Button
-                                                    color={'white'}
-                                                    onClick={() => handleDeleteVideo(data.guId)}
-                                                    backgroundColor={"red"}
-                                                >
-                                                    Delete
-                                                </Button>
-                                            </Td>
-                                        )}
+                                        <Td >
+                                            <Button
+                                                color={'white'}
+                                                onClick={() => handleDeleteVideo(data   .guid)}
+                                                backgroundColor={"red"}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </Td>
                                     </Td>
                                 </Tr>
                             ))}
@@ -275,11 +291,11 @@ export default function CourseVideos() {
                     src={`/Uploads/Course/Videos/${selectedVideo}`}
                     controls
                     max-width="60%"
-                    style={{margin:"auto"}}
-                    
+                    style={{ margin: "auto" }}
+
                 ></video>
             )}
-            <Button  style={{margin:"20px"}} onClick={() => handleNavigate(`/ControlPanel/Course/MyCourses/${id}`)} color={'white'} bg={'#4586ff'}>get back</Button>
+            <Button style={{ margin: "20px" }} onClick={() => handleNavigate(`/ControlPanel/Course/MyCourses/${id}`)} color={'white'} bg={'#4586ff'}>get back</Button>
         </div>
     );
 }

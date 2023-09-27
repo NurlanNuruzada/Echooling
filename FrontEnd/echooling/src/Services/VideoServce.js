@@ -17,3 +17,11 @@ export const GetVideosByCourseId = (Id) => {
         throw error
     }
 }
+export const deleteVideo = (Id) => {
+    try {
+        return httpClient.delete(`/api/VideoContent/delete/id?id=${Id}`)
+    }
+    catch (error) {
+        throw error
+    }
+}
