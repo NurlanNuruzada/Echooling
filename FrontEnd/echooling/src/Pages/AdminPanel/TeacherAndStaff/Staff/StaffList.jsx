@@ -102,7 +102,7 @@ export default function StaffList() {
         (values) => DeleteStaff(values.UserId, values.AdminId),
         {
             onSuccess: (resp) => {
-                queryClient.invalidateQueries(['Staff', resp]);
+                queryClient.invalidateQueries(['Staff']);
                 onClose()
             },
             onError: (error) => {
@@ -123,11 +123,17 @@ export default function StaffList() {
         }
     );
 
+
     //handleDeteleend
+
     const handleApprove = (Id) => {
         formik.setValues({
             UserId: Id,
             AdminId: id,
+        });
+        setCurrentAction({
+            actionType: 'approve',
+            userId: Id,
         });
         onOpen();
     };
@@ -137,7 +143,11 @@ export default function StaffList() {
             AdminId: '',
         },
         onSubmit: (values) => {
+            if (currentAction.actionType === 'delete') {
                 mutate(values)
+            } else if (currentAction.actionType === 'approve') {
+                mutate(values)
+            }
             onClose();
             setRegistrationSuccess(true)
         },
@@ -146,6 +156,10 @@ export default function StaffList() {
         setFilterRole(event.target.value);
     };
 
+    const actionLabel =
+        currentAction && currentAction.actionType === 'delete'
+            ? 'Delete'
+            : 'Approve';
     const { mutate } = useMutation(
         (values) => ApprovedStaffId(values.UserId, values.AdminId),
         {
@@ -186,7 +200,7 @@ export default function StaffList() {
                         <AlertDialogHeader>Staff</AlertDialogHeader>
                         <AlertDialogCloseButton />
                         <AlertDialogBody>
-                            Are you sure you want to approve this Staff?
+                            Are you sure you want to {actionLabel} this Staff?
                         </AlertDialogBody>
                         <AlertDialogFooter>
                             <Button ref={cancelRef} onClick={onClose}>

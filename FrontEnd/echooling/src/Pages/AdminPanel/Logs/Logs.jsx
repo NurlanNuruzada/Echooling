@@ -11,11 +11,15 @@ import {
   TableCaption,
   TableContainer,
   Select,
-  Button,
+  Input,
+  Flex,
 } from '@chakra-ui/react';
 
 export default function Logs() {
   const [filterRole, setFilterRole] = useState('');
+  const [filterDoneBy, setFilterDoneBy] = useState('');
+  const [filterDoneTo, setFilterDoneTo] = useState('');
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['logs'],
     queryFn: GetAllLogs,
@@ -26,8 +30,29 @@ export default function Logs() {
     setFilterRole(event.target.value);
   };
 
+  const handleDoneByChange = (event) => {
+    setFilterDoneBy(event.target.value);
+  };
+
+  const handleDoneToChange = (event) => {
+    setFilterDoneTo(event.target.value);
+  };
+
+  const formatDate = (dateString) => {
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
+
   return (
     <TableContainer borderRadius={10} m={10} border={"1px solid #CACFD2"}>
+      <Flex>
+
       <Select
         value={filterRole}
         onChange={handleRoleChange}
@@ -38,8 +63,26 @@ export default function Logs() {
         <option value="Remove">Remove</option>
         <option value="Approve">Approve</option>
       </Select>
+      <Input
+        type="text"
+        placeholder="Filter DoneBy"
+        value={filterDoneBy}
+        onChange={handleDoneByChange}
+        size="md"
+        w={40} // Adjust input size as needed
+      />
+      <Input
+        type="text"
+        placeholder="Filter DoneTo"
+        value={filterDoneTo}
+        onChange={handleDoneToChange}
+        size="md"
+        w={40} // Adjust input size as needed
+      />
+      </Flex>
+
       <Table variant='striped' colorScheme='orange' >
-        <TableCaption>Staff list</TableCaption>
+        <TableCaption>log list</TableCaption>
         <Thead>
           <Tr>
             <Th p={4} fontSize={14}>№</Th>
@@ -52,18 +95,19 @@ export default function Logs() {
         <Tbody>
           {data?.data
             .filter((log) => {
-              if (filterRole === '') {
-                return true; // Show all data when no role filter is selected
-              }
-              return log.actiondEntityName === filterRole;
+              const filterRoleCondition = filterRole === '' || log.actiondEntityName === filterRole;
+              const filterDoneByCondition = filterDoneBy === '' || log.userId.includes(filterDoneBy);
+              const filterDoneToCondition = filterDoneTo === '' || log.actiondEntityId.includes(filterDoneTo);
+
+              return filterRoleCondition && filterDoneByCondition && filterDoneToCondition;
             })
             .map((log, index) => (
               <Tr key={log.guId}>
                 <Td>{index + 1}</Td>
-                <Td>{log.userId} <Button>Get info</Button></Td>
+                <Td>{log.userId} </Td>
                 <Td>{log.actiondEntityName}</Td>
                 <Td>{log.actiondEntityId}</Td>
-                <Td>{log.actionTime}</Td>
+                <Td>{formatDate(log.actionTime)}</Td>
               </Tr>
             ))}
         </Tbody>
