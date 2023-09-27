@@ -82,10 +82,6 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
               <FontAwesomeIcon icon={faPlus} style={{ color: "#ffffff" }} />
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Courses</h1>
             </Link>
-            <Link to={"/ControlPanel"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
-              <FontAwesomeIcon icon={faHeart} style={{ color: "#ffffff" }} />
-              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Wish List</h1>
-            </Link>
           </li>
         </ul>
         {data?.includes("SuperAdmin") && <ul className={Styles.linkList}>
@@ -139,18 +135,6 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
                 <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>My Courses</h1>
               </Link>
             </li>
-          </ul>
-        )}
-        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Staff")) && (
-          <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
-            <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Events</h1>
-            {CreateStaff?.map((CreateStaff, index) => (
-              <li key={index}>
-                <Link to={CreateStaff.link} className={isSmall ? Styles.ButtonMini : Styles.Button}>
-                  {CreateStaff.LinkName}
-                </Link>
-              </li>
-            ))}
           </ul>
         )}
       </div>

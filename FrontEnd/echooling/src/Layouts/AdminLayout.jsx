@@ -27,18 +27,6 @@ export function AdminLayout() {
     }
   ];
   const CreateStaff = [
-    {
-      LinkName: "Create Event",
-      link: "/ControlPanel/CreateEvent"
-    },
-    {
-      LinkName: "My Events",
-      link: "/ControlPanel/MyEvents"
-    },
-    {
-      LinkName: "Stats",
-      link: "/ControlPanel/Stats"
-    }
   ];
   const [isSmall, setIsSmall] = useState(false);
   const [IsButtonClicked, setIsButtonClicked] = useState(false);
