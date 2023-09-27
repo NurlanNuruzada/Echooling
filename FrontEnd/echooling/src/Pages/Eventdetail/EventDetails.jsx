@@ -22,7 +22,7 @@ import EventImage from "../../Images/UpcomingEvents.jpeg";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import { useParams } from "react-router";
 import { useQuery } from "react-query";
-import { GetEventId, getEventById, getUserByEventId } from "../../Services/EventService";
+import { GetEventId, getEventById, getUserByEventId, getallwithttake } from "../../Services/EventService";
 import { GetUStaffUsers, getById } from "../../Services/StaffService";
 const EventDetails = () => {
   const { id } = useParams();
@@ -32,6 +32,15 @@ const EventDetails = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["Courses"],
     queryFn: () => getEventById(id), // Pass the function itself
+    staleTime: 0,
+    onSuccess: (data) => {
+      SetEvent(data || []); // Use optional chaining to handle undefined data
+      console.log(data);
+    },
+  });
+  const { data: LastEvents } = useQuery({
+    queryKey: ["last"],
+    queryFn: () => getallwithttake(3), // Pass the function itself
     staleTime: 0,
     onSuccess: (data) => {
       SetEvent(data || []); // Use optional chaining to handle undefined data
@@ -56,7 +65,22 @@ const EventDetails = () => {
   // Format eventFinishDate
   const eventFinishDate = new Date(data?.eventFinishDate);
   const EndDate = eventFinishDate?.toLocaleDateString('en-US', options);
-
+  function formatDateTime(dateTimeString) {
+    const options = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+    const date = new Date(dateTimeString);
+    const formattedDate = date.toLocaleDateString(undefined, options);
+    const ampm = date.getHours() >= 12 ? 'pm' : 'am';
+    const hours = date.getHours() % 12 || 12;
+    const minutes = date.getMinutes();
+  
+    return `${formattedDate} ${hours}:${minutes.toString().padStart(2, '0')}${ampm}`;
+  }
 
   return (
     <div className={Styles.MainContainer}>
@@ -230,26 +254,16 @@ const EventDetails = () => {
           </div>
           <div className={Styles.LastestEvents}>
             <h1>Lastest post</h1>
-            <Flex className={Styles.Contentitem1}>
-              <Lastestpost
-                image={image}
-                dateAndtime={"By Alex / June 20, 2022"}
-                Title={"Lastest Events"}
-                SecconTitle={"Advance Web Design and Develop"}
-              />
-              <Lastestpost
-                image={image}
-                dateAndtime={"By Alex / June 20, 2022"}
-                Title={"Lastest Events"}
-                SecconTitle={"Advance Web Design and Develop"}
-              />
-              <Lastestpost
-                image={image}
-                dateAndtime={"By Alex / June 20, 2022"}
-                Title={"Lastest Events"}
-                SecconTitle={"Advance Web Design and Develop"}
-              />
-            </Flex>
+              <Flex className={Styles.Contentitem1}>
+            {LastEvents?.data?.map((staff, index) => (
+                <Lastestpost
+                  image={`/Uploads/Event/${staff.imageRoutue}`}
+                  dateAndtime={`${staff.orginazer} / ${formatDateTime(staff.eventStartDate)}`}
+                  Title={"Lastest Events"}
+                  SecconTitle={`${staff.eventTitle}`}
+                />
+              ))}
+              </Flex>
           </div>
         </Grid>
       </Grid>

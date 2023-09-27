@@ -31,6 +31,12 @@ namespace Echooling.API.Controllers
         {
             List<EventGetDto> List = await _eventService.GetAllAsync();
             return Ok(List);
+        }    
+        [HttpGet("[Action]")]
+        public async Task<List<EventGetDto>> GetAllAsyncTake(int take)
+        {
+            List<EventGetDto> List = await _eventService.GetAllAsyncTake(take);
+            return List;
         }
         [HttpDelete("id")]
         public async Task<IActionResult> delete(Guid id)

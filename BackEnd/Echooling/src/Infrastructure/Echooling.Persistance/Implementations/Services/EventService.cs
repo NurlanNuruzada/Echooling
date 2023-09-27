@@ -89,6 +89,16 @@ namespace Echooling.Persistance.Implementations.Services
             }
             return List;
         }
+        public async Task<List<EventGetDto>> GetAllAsyncTake(int take)
+        {
+            var Events = await _readRepository.GetAll().Take(take).Where(e => e.IsDeleted == false).ToListAsync();
+            List<EventGetDto> List = _mapper.Map<List<EventGetDto>>(Events);
+            foreach (EventGetDto sliderDto in List)
+            {
+                sliderDto.ImageRoutue = $"{sliderDto.ImageRoutue}";
+            }
+            return List;
+        }
         public async Task<List<EventGetDto>> GetAllSearchAsync(
       string? EventName,
       string? category,

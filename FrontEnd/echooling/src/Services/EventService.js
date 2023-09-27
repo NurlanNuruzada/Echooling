@@ -20,6 +20,13 @@ export const getallEvents = (jwt) => {
     throw error;
   }
 };
+export const getallwithttake = (take) => {
+  try {
+    return httpClient.get(`/api/Event/GetAllAsyncTake?take=${take}`);
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const DeleteEvents = async (Id, jwt) => {
   const response = await httpClient.delete(`/api/Event/id?id=${Id}`, addJwtHeaders(jwt));

@@ -124,31 +124,35 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
             </Link>
           </li>
         </ul>}
-        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Teacher")) && <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
-          <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Teacher</h1>
-          <li  >
-            <Link to={"/ControlPanel/CreateCourseContainer"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
-              <FontAwesomeIcon icon={faChartLine} />
-              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Create Course</h1>
-            </Link>
-          </li>
-          <li  >
-            <Link to={`/ControlPanel/Course/MyCourses/${id}`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
-              <FontAwesomeIcon icon={faChartLine} />
-              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>My Courses</h1>
-            </Link>
-          </li>
-        </ul>}
-        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Staff")) && <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
-          <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Events</h1>
-          {CreateStaff?.map((CreateStaff, index) => (
-            <li key={index} >
-              <Link to={CreateStaff.link} className={isSmall ? Styles.ButtonMini : Styles.Button}>
-                {CreateStaff.LinkName}
+        {(data?.includes("SuperAdmin") || data?.includes("Admin")) && data?.includes("Teacher") && (
+          <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
+            <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Teacher</h1>
+            <li>
+              <Link to={"/ControlPanel/CreateCourseContainer"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+                <FontAwesomeIcon icon={faChartLine} />
+                <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Create Course</h1>
               </Link>
             </li>
-          ))}
-        </ul>}
+            <li>
+              <Link to={`/ControlPanel/Course/MyCourses/${id}`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+                <FontAwesomeIcon icon={faChartLine} />
+                <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>My Courses</h1>
+              </Link>
+            </li>
+          </ul>
+        )}
+        {(data?.includes("SuperAdmin") || data?.includes("Admin") || data?.includes("Staff")) && (
+          <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
+            <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Events</h1>
+            {CreateStaff?.map((CreateStaff, index) => (
+              <li key={index}>
+                <Link to={CreateStaff.link} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+                  {CreateStaff.LinkName}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
