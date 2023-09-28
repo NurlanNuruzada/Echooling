@@ -9,6 +9,7 @@ using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
+using Ecooling.Domain.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -200,7 +201,7 @@ public class CourseService : ICourseService
 
             Course.ImageRoutue = fileName;
             Course.Approved = false;
-            Course.Enrolled = 0;
+            Course.Enrolled = 1;
         }
         await _writeRepository.SaveChangesAsync();
     }
@@ -213,6 +214,7 @@ public class CourseService : ICourseService
         List<TeacherGetDto> teacherDtos = _mapper.Map<List<TeacherGetDto>>(teachersWithCourseId);
         return teacherDtos;
     }
+
 
     public async Task<List<CourseGetDto>> GetAllSearchAsync(string? courseName,
                                                             string? category,
@@ -241,5 +243,32 @@ public class CourseService : ICourseService
         }
         return List;
     }
-
+    public async Task BuyCourse(Guid courseId, Guid appUserId)
+    {
+        var existingAssociation = await _context.CourseAppUsers
+            .FirstOrDefaultAsync(cau => cau.CourseId == courseId && cau.AppUserId == appUserId);
+        var course = await _readRepository.GetByIdAsync(courseId);
+        if (existingAssociation != null)
+        {
+            throw new DublicatedException("you already bouth this!");
+        }
+        var courseAppUser = new Course_AppUser
+        {
+            CourseId = courseId,
+            AppUserId = appUserId
+        };
+        _context.CourseAppUsers.Add(courseAppUser);
+        course.Enrolled += 1;
+        await _context.SaveChangesAsync();
+        await _writeRepository.SaveChangesAsync();
+    }
+    public async Task<List<getBouthCourseDto>> GetBouthCourses(Guid appUserId)
+    {
+        var userCourses = await _context.CourseAppUsers
+            .Where(cau => cau.AppUserId == appUserId)
+            .Select(cau => cau.Course)
+            .ToListAsync();
+        var list = _mapper.Map<List<getBouthCourseDto>>(userCourses);
+        return list;
+    }
 }

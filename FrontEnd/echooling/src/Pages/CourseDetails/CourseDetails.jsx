@@ -50,7 +50,7 @@ import { useParams } from "react-router";
 import { useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
-import { GetCourseId, getCourseTeachers, getLastestWithCount, getallCourses } from "../../Services/CourseService";
+import { BuyCourse, GetCourseId, getCourseTeachers, getLastestWithCount, getallCourses } from "../../Services/CourseService";
 import Stars from "../../Components/Starts/Stars";
 import ContactUsForm from "../../Components/ContactUs/ContactUsForm";
 import RateCourse from "../../Components/ContactUs/RateCourse";
@@ -68,6 +68,9 @@ import {
   TableCaption,
   TableContainer,
 } from '@chakra-ui/react'
+import { useSelector } from "react-redux";
+import jwt_decode from 'jwt-decode';
+import Done from "../../Components/DoneModal/Done";
 
 const CourseDetails = () => {
   const [course, setCourse] = useState(null);
@@ -83,7 +86,27 @@ const CourseDetails = () => {
   const [clicked, setClicked] = useState(false); // State to track if it's clicked
   const queryClient = useQueryClient();
   const [isVideoModalOpen, setVideoModalOpen] = useState(false);
+  const { token } = useSelector((state) => state.auth); // Update the selector
+  const [success, setSuccess] = useState(false);
+  const [buyError, SetBuyErorr] = useState('');
 
+  if (token != null) {
+    var decodedToken = jwt_decode(token);
+    var UserId =
+      decodedToken[
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+      ];
+  }
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        setSuccess(false); // Set it to false to hide the modal
+      }, 2500);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [success]);
   const handleClikVideo = (videoName) => {
     setSelectedVideo(videoName);
     setVideoModalOpen(true);
@@ -104,35 +127,51 @@ const CourseDetails = () => {
     () => GetCourseId(id),
     {
       onSuccess: (resp) => {
-        console.log(resp);
         setCourse(resp);
       },
       onError: (error) => {
-        console.error(error);
       },
     }
   );
   const { mutate: AllCourse } = useMutation(
-    () => getLastestWithCount(3, course.courseCategoryId),
+    () => getLastestWithCount(UserId, course.guId),
     {
       onSuccess: (resp) => {
-        console.log("Course", resp);
         setLastestCourses(resp)
       },
       onError: (error) => {
-        console.log(error);
       },
     }
   );
+  const { mutate: Buy, error } = useMutation(
+    () => BuyCourse(UserId, course.guId),
+    {
+      onSuccess: (resp) => {
+        console.log(resp);
+        setSuccess(true);
+      },
+      onError: (error) => {
+        // Check if the error object has a customMessage property
+        if (error.customMessage) {
+          SetBuyErorr(error.customMessage);
+        } else {
+          // If customMessage is not available, use a default error message
+          SetBuyErorr('you already bought this.');
+        }
+      },
+    }
+  );
+
+  const handeBuyCourse = () => {
+    Buy()
+  }
   const { mutate: GetAllVideo } = useMutation(
-    (values) => GetVideosByCourseId(id),
+    (values) => GetVideosByCourseId(id, 3),
     {
       onSuccess: (resp) => {
         setData(resp.data)
-        console.log("video  ", resp)
       },
       onError: (error) => {
-        console.log(error);
       },
     }
   );
@@ -179,7 +218,7 @@ const CourseDetails = () => {
 
   return (
     <div className={Styles.MainContainer}>
-
+      {success && <Done firstTitle={"Bought Succesfully"} seccondTitle={"you succesfully bouth this course! thanks!"} />}
       <EffectImage
         showCenter={false}
         imageLink={EventImage}
@@ -223,6 +262,7 @@ const CourseDetails = () => {
                     <TableContainer>
                       <Table size='sm'>
                         <Thead>
+                          <TableCaption>Course Preview</TableCaption>
                           <Tr>
                             <Th>video Title</Th>
                           </Tr>
@@ -398,10 +438,13 @@ const CourseDetails = () => {
             </Flex>
 
             <Divider />
-            <Button className={Styles.Button}>
+            <Button onClick={() => handeBuyCourse()} className={Styles.Button}>
               buy Now ! {" "}
               <FontAwesomeIcon className={Styles.arrow} icon={faArrowRight} />
             </Button>
+            <Flex color={'red'} justifyContent={'center'}>
+              {!success ? <h1>{buyError}</h1> : ""}
+            </Flex>
             <Flex
               className={Styles.share}
               justifyContent={"center"}

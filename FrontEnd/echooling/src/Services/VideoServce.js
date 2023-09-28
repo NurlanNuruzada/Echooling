@@ -9,14 +9,14 @@ export const UploadVideo = async (id,formData) => {
     });
     return response.data;
 }
-export const GetVideosByCourseId = (Id) => {
+export const GetVideosByCourseId = (CourseId, take = 0) => {
     try {
-        return httpClient.get(`/api/VideoContent/id?id=${Id}`)
-    }
-    catch (error) {
-        throw error
+        return httpClient.get(`/api/VideoContent/GetVideosByCourseIdid?CourseId=${CourseId}&take=${take}`);
+    } catch (error) {
+        throw error;
     }
 }
+
 export const deleteVideo = (Id) => {
     try {
         return httpClient.delete(`/api/VideoContent/delete/id?id=${Id}`)

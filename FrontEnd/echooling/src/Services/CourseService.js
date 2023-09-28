@@ -72,6 +72,14 @@ export const getCoursesByTeacherId = async (Id, jwt) => {
   const response = await httpClient.get(`/api/Course/GetCoursesByTeacherId/id?teacherId=${Id}`, addJwtHeaders(jwt));
   return response;
 };
+export const getAllBouthCourses = async (Id) => {
+  const response = await httpClient.get(`/api/Course/GetBouthCourses?appUserId=${Id}`);
+  return response.data  ;
+};
+// export const GetBouthVideos = async (AppUserId) => {
+//   const response = await httpClient.get(`/api/Course/GetBouthCourses?appUserId=${AppUserId}`);
+//   return response;
+// };
 
 export const getCourseTeachers = async (CourseId, jwt) => {
   const response = await httpClient.get(`/api/Course/getCourseTeachers/id?CourseId=${CourseId}`, addJwtHeaders(jwt));
@@ -80,5 +88,9 @@ export const getCourseTeachers = async (CourseId, jwt) => {
 
 export const getLastestWithCount = async (take, categoryId, jwt) => {
   const response = await httpClient.get(`/api/Course/GetLastestWithCount?take=${take}&categoryId=${categoryId}`, addJwtHeaders(jwt));
+  return response.data;
+};
+export const BuyCourse = async (userId, CourseId, jwt) => {
+  const response = await httpClient.post(`/api/Course/BuyCourse?courseId=${CourseId}&appUserId=${userId}`, addJwtHeaders(jwt));
   return response.data;
 };

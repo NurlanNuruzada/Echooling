@@ -15,6 +15,7 @@ namespace Echooling.Persistance.MapperProfile
         {
             CreateMap<Course,CourseCreateDto>().ReverseMap();
             CreateMap<Course,CourseGetDto>().ReverseMap();
+            CreateMap<Course,getBouthCourseDto>().ReverseMap();
         }
     }
 }

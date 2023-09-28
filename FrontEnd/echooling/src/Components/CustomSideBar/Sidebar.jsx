@@ -70,17 +70,17 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
         <ul className={Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Main</h1>
           <li  >
-            <Link to={"/ControlPanel"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+            <Link to={`/ControlPanel/BouthCours2es/${id}`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
               <FontAwesomeIcon icon={faChartLine} />
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Dashboard</h1>
             </Link>
-            <Link to={"/ControlPanel"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+            <Link to={`/ControlPanel/BouthCourse2s/${id}`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
               <FontAwesomeIcon icon={faCalendarDays} style={{ color: "#ffffff" }} />
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Events</h1>
             </Link>
-            <Link to={"/ControlPanel"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+            <Link to={`/ControlPanel/BouthCourses/List`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
               <FontAwesomeIcon icon={faPlus} style={{ color: "#ffffff" }} />
-              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Courses</h1>
+              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Added Courses</h1>
             </Link>
           </li>
         </ul>
@@ -120,7 +120,7 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
             </Link>
           </li>
         </ul>}
-        {(data?.includes("SuperAdmin") || data?.includes("Admin")) && data?.includes("Teacher") && (
+        {(data?.includes("SuperAdmin") || data?.includes("Admin")) || data?.includes("Teacher") && (
           <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
             <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Teacher</h1>
             <li>

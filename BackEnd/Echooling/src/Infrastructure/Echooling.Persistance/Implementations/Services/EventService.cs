@@ -6,10 +6,12 @@ using Echooling.Aplication.DTOs.CategoryDTOs;
 using Echooling.Aplication.DTOs.CourseDTOs;
 using Echooling.Aplication.DTOs.EventDTOs;
 using Echooling.Aplication.DTOs.SliderDTOs;
+using Echooling.Persistance.Contexts;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Helper;
 using Echooling.Persistance.Resources;
 using Ecooling.Domain.Entites;
+using Ecooling.Domain.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +31,7 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly IAppUserEventService _AppuserEventService;
         public readonly IAppUserEventService _appUserEventService;
         public IEventsCategoryService _eventsCategoryService;
+        private readonly AppDbContext _context;
 
         public EventService(IEventWriteRepository writeRepository,
                             IEventReadRepository readRepository,
@@ -38,7 +41,8 @@ namespace Echooling.Persistance.Implementations.Services
                             IAppUserEventService appuserEventService,
                             IAppUserEventService appUserEventService,
                             IWebHostEnvironment env,
-                            IEventsCategoryService eventsCategoryService)
+                            IEventsCategoryService eventsCategoryService,
+                            AppDbContext context)
         {
             _writeRepository = writeRepository;
             _readRepository = readRepository;
@@ -49,6 +53,7 @@ namespace Echooling.Persistance.Implementations.Services
             _appUserEventService = appUserEventService;
             _env = env;
             _eventsCategoryService = eventsCategoryService;
+            _context = context;
         }
 
         public async Task CreateAsync(EventCreateDto CreateEventDto, Guid UserId)
@@ -199,6 +204,34 @@ namespace Echooling.Persistance.Implementations.Services
                 Event.ImageRoutue = fileName;
             }
             await _writeRepository.SaveChangesAsync();
+        }
+        public async Task BuyEvent(Guid courseId, Guid appUserId)
+        {
+            var existingAssociation = await _context.AppUserEvents
+                .FirstOrDefaultAsync(cau => cau.eventsId == courseId && cau.AppUserId == appUserId);
+
+            if (existingAssociation != null)
+            {
+                throw new DublicatedException("you already bouth this!");
+            }
+            var AppuserEnvet = new AppUser_Events
+            {
+                eventsId = courseId,
+                AppUserId = appUserId
+            };
+
+            _context.AppUserEvents.Add(AppuserEnvet);
+            await _context.SaveChangesAsync();
+
+        }
+        public async Task<List<GetBouthEventDto>> GetBouthEvent(Guid appUserId)
+        {
+            var userCourses = await _context.AppUserEvents
+                .Where(cau => cau.AppUserId == appUserId)
+                .Select(cau => cau.events)
+                .ToListAsync();
+            var List = _mapper.Map<List<GetBouthEventDto>>(userCourses);
+            return List;
         }
     }
 

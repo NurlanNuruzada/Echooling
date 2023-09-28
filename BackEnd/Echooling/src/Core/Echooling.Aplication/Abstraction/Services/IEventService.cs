@@ -1,4 +1,5 @@
 ﻿using Echooling.Aplication.DTOs.EventDTOs;
+using Ecooling.Domain.Entites;
 using Microsoft.AspNetCore.Http;
 
 namespace Echooling.Aplication.Abstraction.Services
@@ -7,6 +8,8 @@ namespace Echooling.Aplication.Abstraction.Services
     {
         Task CreateAsync(EventCreateDto CreateStaffDto,Guid UsetId);
         Task<EventGetDto> getById(Guid id);
+        Task BuyEvent(Guid courseId, Guid appUserId);
+        Task<List<GetBouthEventDto>> GetBouthEvent(Guid appUserId);
         Task<List<EventGetDto>> GetAllAsync();
         Task<List<EventGetDto>> GetAllAsyncTake(int take);
         Task UpdateAsync(EventCreateDto eventUpdate, Guid id);

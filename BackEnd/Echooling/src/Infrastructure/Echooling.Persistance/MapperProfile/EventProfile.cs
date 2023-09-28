@@ -10,5 +10,6 @@ public class EventProfile:Profile
     {
         CreateMap<events,EventCreateDto>().ReverseMap();    
         CreateMap<events, EventGetDto>().ReverseMap();    
+        CreateMap<events, GetBouthEventDto>().ReverseMap();    
     }
 }

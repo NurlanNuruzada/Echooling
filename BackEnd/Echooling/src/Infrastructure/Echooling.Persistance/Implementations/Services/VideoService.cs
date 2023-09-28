@@ -93,9 +93,14 @@ namespace Echooling.Persistance.Implementations.Services
             return List;
         }
 
-        public async Task<List<GetVideoContentDto>> getById(Guid id)
+        public async Task<List<GetVideoContentDto>> GetVideosByCourseId(Guid courseId, int take)
         {
-            var Videos = await _readRepository.GetAll().Where(c => c.courseId == id).ToListAsync();
+            var Videos = await _readRepository.GetAll().Where(c => c.courseId == courseId).ToListAsync();
+
+            if (take > 0)
+            {
+                Videos = Videos.Take(take).ToList(); 
+            }
             var VideoDto = _mapper.Map<List<GetVideoContentDto>>(Videos);
             return VideoDto;
         }

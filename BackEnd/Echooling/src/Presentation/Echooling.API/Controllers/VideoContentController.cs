@@ -4,6 +4,7 @@ using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Aplication.DTOs.VideoDTOs;
 using Echooling.Persistance.Exceptions;
 using Echooling.Persistance.Implementations.Services;
+using Ecooling.Domain.Entites;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,10 +20,10 @@ namespace Echooling.API.Controllers
         {
             _videoContentService = videoContentService;
         }
-        [HttpGet("id")]
-        public async Task<List<GetVideoContentDto>> get(Guid id)
+        [HttpGet("[Action]id")]
+        public async Task<List<GetVideoContentDto>> GetVideosByCourseId(Guid CourseId,int take)
         {
-            var Video = await _videoContentService.getById(id);
+            var Video = await _videoContentService.GetVideosByCourseId(CourseId, take);
             return Video;
         }
         [HttpGet("[Action]")]

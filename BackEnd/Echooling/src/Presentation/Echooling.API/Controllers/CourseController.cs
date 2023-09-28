@@ -9,6 +9,7 @@ using Echooling.Aplication.DTOs.SliderDTOs;
 using Echooling.Persistance.Exceptions;
 using System.Collections.Generic;
 using Echooling.Aplication.DTOs.TeacherDetailsDTOs;
+using Ecooling.Domain.Entites;
 
 namespace Echooling.API.Controllers
 {
@@ -69,8 +70,20 @@ namespace Echooling.API.Controllers
         {
             List<CourseGetDto> List = await _CourseService.GetLatestWithCategory(take, categoryId);
             return Ok(List);
+        }   
+        
+        [HttpGet("[Action]")]
+        public async Task<List<getBouthCourseDto>> GetBouthCourses(Guid appUserId)
+        {
+            List<getBouthCourseDto> List = await _CourseService.GetBouthCourses(appUserId);
+            return List;
+        }  
+        [HttpPost("[Action]")]
+        public async Task<IActionResult> BuyCourse(Guid courseId, Guid appUserId)
+        {
+            await _CourseService.BuyCourse(courseId, appUserId);
+            return Ok("Succesfully bougth");
         }
-
 
         [HttpGet("SearchCourse")]
         public async Task<IActionResult> GetLastestWithCount(string? courseName, string? category, decimal? rating)
@@ -78,9 +91,6 @@ namespace Echooling.API.Controllers
             var List = await _CourseService.GetAllSearchAsync(courseName, category, rating);
             return Ok(List);
         }
-
-
-
         [HttpDelete("id")]
         public async Task<IActionResult> delete(Guid id)
         {

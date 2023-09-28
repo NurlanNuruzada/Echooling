@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Echooling.Aplication.DTOs.EventDTOs;
 using Ecooling.Domain.Entites.Common;
 using Echooling.Persistance.Implementations.Services;
+using Ecooling.Domain.Entites;
 
 namespace Echooling.API.Controllers
 {
@@ -50,6 +51,18 @@ namespace Echooling.API.Controllers
                 return StatusCode((int)HttpStatusCode.Conflict, new { message = ex.Message });
             }
             return Ok(new { message = "Category deleted successfully." });
+        }
+        [HttpPost("[Action]")]
+        public async Task<IActionResult> BuyEvent(Guid EventId, Guid appUserId)
+        {
+            await _eventService.BuyEvent(EventId, appUserId);
+            return Ok("Succesfully bougth");
+        }
+        [HttpGet("[Action]")]
+        public async Task<List<GetBouthEventDto>> GetBouthEvents(Guid appUserId)
+        {
+            List<GetBouthEventDto> List = await _eventService.GetBouthEvent(appUserId);
+            return List;
         }
 
 

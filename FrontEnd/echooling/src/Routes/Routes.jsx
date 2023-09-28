@@ -44,6 +44,8 @@ import TeacherDetailsAdminPanel from "../Pages/AdminPanel/TeacherAndStaff/Staff/
 import Logs from "../Pages/AdminPanel/Logs/Logs";
 import MyCourses from "../Pages/AdminPanel/MyCourses/MyCourses";
 import CouseVideos from "../Pages/AdminPanel/MyCourses/CouseVideos";
+import BouthCourse from "../Pages/BouthCourses/BouthCourse";
+import BouthCoueseVideos from "../Pages/BouthCourses/BouthCoueseVideos";
 
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
@@ -63,6 +65,14 @@ export default function Routes() {
         {
           path: "/ControlPanel/CreateSlider",
           element:  <CreateSlider />  
+        },
+        {
+          path: "/ControlPanel/BouthCourses/List",
+          element:  <BouthCourse />  
+        },
+        {
+          path: "/ControlPanel/BouthCourses/Videos/:id",
+          element:  <BouthCoueseVideos />  
         },
         {
           path: "/ControlPanel/UpdateSlider/:id",
