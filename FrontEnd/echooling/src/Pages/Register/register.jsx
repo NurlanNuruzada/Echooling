@@ -80,7 +80,6 @@ const Register = () => {
       },
       onError: (error) => {
         setLoginError("Invalid username or password."); // Set error message
-        console.log("error");
       },
     });
   const { mutate, isLoading, error } = useMutation(
@@ -92,7 +91,6 @@ const Register = () => {
       },
       onError: (error) => {
         setRegistrationSuccess(false);
-        console.log(error);
       },
     }
   );

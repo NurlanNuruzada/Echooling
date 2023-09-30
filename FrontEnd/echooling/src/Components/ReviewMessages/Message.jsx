@@ -77,7 +77,6 @@ export default function Message({ point, Fullname, Comment, CreateDate, userId, 
                 reset()
             },
             onError: (error) => {
-                console.log(error);
             },
             validationSchema: UpdateRate,
         }

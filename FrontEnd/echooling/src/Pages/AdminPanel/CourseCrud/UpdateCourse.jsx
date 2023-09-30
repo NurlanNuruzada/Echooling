@@ -51,7 +51,6 @@ export default function UpdateCourse() {
       onSuccess: (resp) => {
         Setsuccsess(true);
         queryClient.invalidateQueries("sliders");
-        console.log(resp);
       },
       onError: (error) => {
         console.error(error);
@@ -97,10 +96,8 @@ export default function UpdateCourse() {
   const { mutate: getCourseById } = useMutation((id) => GetCourseId(id), {
     onSuccess: (resp) => {
       SetCourseId(resp);
-      console.log(resp);
     },
     onError: (error) => {
-      console.log(error);
       Setsuccsess(false);
     },
   });
@@ -144,9 +141,7 @@ export default function UpdateCourse() {
       if (formData.get("image")) {
         mutate(formData);
       } else {
-        console.log("FormData is null");
       }
-      console.log(formData.getAll("subject"))
     },
   });
 
@@ -231,10 +226,8 @@ export default function UpdateCourse() {
       SetPreviusData(resp);
     },
     onError: (error) => {
-      console.log(error);
     },
   });
-  console.log(PreviusData)
   useEffect(() => {
     Previus(id)
   }, [])

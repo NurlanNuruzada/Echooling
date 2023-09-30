@@ -628,6 +628,9 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("Fullname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageRoutue")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("IsApproved")
                         .HasColumnType("bit");
 

@@ -28,7 +28,6 @@ export const getAllCourseByExpression = (title, category, rating, jwt) => {
     if (rating !== undefined) {
       params.append("rating", rating);
     }
-    console.log(...params);
     return httpClient.get(`https://localhost:7222/api/Course/SearchCourse?${params.toString()}`, addJwtHeaders(jwt));
   } catch (error) {
     throw error;
@@ -54,7 +53,6 @@ export const AddCourse = async (userId, data, jwt) => {
       ...addJwtHeaders(jwt),
       "Content-Type": "multipart/form-data; boundary=l3iPy71otz"
     });
-    console.log('Response:', response);
     return response.data;
   } catch (error) {
     console.error('Error:', error);

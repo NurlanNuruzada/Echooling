@@ -33,7 +33,6 @@ const buttonsAndRoute = {
   });
 
   useEffect(() => {
-    console.log(values);
     mutate(values);
   }, []); 
 

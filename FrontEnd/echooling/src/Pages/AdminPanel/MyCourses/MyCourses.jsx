@@ -54,7 +54,6 @@ export default function MyCourses() {
   );
 
   useEffect(() => {
-    console.log(data);
   }, [TeacherId]);
 var number = 0;
 const { mutate: Delete } = useMutation(

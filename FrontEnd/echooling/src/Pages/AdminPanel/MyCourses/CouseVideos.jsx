@@ -50,10 +50,8 @@ export default function CourseVideos() {
         {
             onSuccess: (resp) => {
                 setData(resp.data)
-                console.log(Data)
             },
             onError: (error) => {
-                console.log(error);
             },
         }
     );
@@ -108,9 +106,6 @@ export default function CourseVideos() {
                 GetAllVideo(id)
                 onClose();
             },
-            onError: (error) => {
-                console.log(error);
-            },
         }
     );
 
@@ -150,7 +145,6 @@ export default function CourseVideos() {
             if (formData.get("Video")) {
                 mutate(formData);
             } else {
-                console.log("FormData is null");
             }
         },
         validateOnBlur: true,

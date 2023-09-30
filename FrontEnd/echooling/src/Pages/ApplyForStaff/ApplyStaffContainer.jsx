@@ -21,9 +21,6 @@ const ApplyForStaffContainer = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  useEffect(() => {
-    console.log(formData); // Check if formData is updated correctly
-  }, [formData]);
 
   return (
     <div>

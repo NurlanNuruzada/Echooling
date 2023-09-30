@@ -40,7 +40,6 @@ export default function CoursesList() {
     staleTime: 0,
 
   });
-  console.log(data)
   //Create Slider Funtion Start
   const { mutate } = useMutation(
     (formData) => CreateSliderFunction(formData),
@@ -48,7 +47,6 @@ export default function CoursesList() {
       onSuccess: (resp) => {
         setSentSuccess(true);
         queryClient.invalidateQueries("Courses");
-        console.log(resp);
       },
       onError: (error) => {
         console.error(error);
@@ -71,10 +69,8 @@ export default function CoursesList() {
       formData.append("Description", values.Description);
 
       if (formData.get("image")) {
-        console.log("FormData before muration", formData)
         mutate(formData);
       } else {
-        console.log("FormData is null");
       }
     },
   });

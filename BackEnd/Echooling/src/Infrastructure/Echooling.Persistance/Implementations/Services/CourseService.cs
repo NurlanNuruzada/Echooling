@@ -186,13 +186,21 @@ public class CourseService : ICourseService
         {
             throw new notFoundException(message);
         }
-        string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Course";
-        Directory.CreateDirectory(uploadsDirectory);
+        // Dynamically determine the root directory
+        string currentDirectory = Directory.GetCurrentDirectory();
+        int index = currentDirectory.IndexOf("FinalApp\\");
+        if (index >= 0)
+        {
+            currentDirectory = currentDirectory.Substring(0, index + 8); // +8 to include "FinalApp\"
+        }
+        string uploadsRootDirectory = Path.Combine(currentDirectory, "FrontEnd", "echooling", "public", "Uploads", "Course");
+        Directory.CreateDirectory(uploadsRootDirectory);
+        //end
         _mapper.Map(courseCreateDto, Course);
         if (courseCreateDto.image is not null)
         {
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(courseCreateDto.image.FileName);
-            string filePath = Path.Combine(uploadsDirectory, fileName);
+            string filePath = Path.Combine(uploadsRootDirectory, fileName);
 
             using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {

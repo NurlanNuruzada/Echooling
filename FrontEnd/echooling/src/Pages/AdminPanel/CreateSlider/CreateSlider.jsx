@@ -48,7 +48,6 @@ export default function CreateSlider({ onNext, formData, onPrevious }) {
             onSuccess: (resp) => {
                 setSentSuccess(true);
                 queryClient.invalidateQueries("sliders");
-                console.log(resp);
             },
             onError: (error) => {
                 console.error(error);
@@ -83,10 +82,8 @@ export default function CreateSlider({ onNext, formData, onPrevious }) {
             formData.append("Description", values.Description);
 
             if (formData.get("image")) {
-                console.log("FormData before muration", formData)
                 mutate(formData);
             } else {
-                console.log("FormData is null");
             }
         },
         validationSchema: CreateSliderScema,
@@ -239,7 +236,7 @@ export default function CreateSlider({ onNext, formData, onPrevious }) {
                             {data?.data.map((slider) => (
                                 <Tr key={slider.id}>
                                     <Td  >{number += 1}.</Td>
-                                    <Td className={Styles.displayNone} ><img width={200} src={`/Uploads/${slider.imageRoutue}`} alt="" /></Td>
+                                    <Td className={Styles.displayNone} ><img width={200} src={`/Uploads/Sliders/${slider.imageRoutue}`} alt="" /></Td>
                                     <Td  >{slider.title}</Td>
                                     <Td className={Styles.displayNone}>{slider.seccondTile}</Td>
                                     <Td className={Styles.displayNone} >{slider.description + "..."}</Td>

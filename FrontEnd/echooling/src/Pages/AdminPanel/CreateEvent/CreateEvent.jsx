@@ -71,7 +71,6 @@ function CreateEvent({ onNext, formData, onPrevious }) {
         },
         onSubmit: (values) => {
           onNext({ step3Data: values });
-          console.log(values)
         },
         validationSchema: CreateEventScema,
       });
@@ -98,6 +97,7 @@ function CreateEvent({ onNext, formData, onPrevious }) {
                                 step={0.01}
                                 placeholder="Event Cost"
                                 name="Cost"
+                                type='number'
                                 style={{ width: '100%' }}
                             >
                             </Input>

@@ -69,10 +69,8 @@ export default function ApplyForTeacher() {
     useMutation((values) => ApplyAsTeacher(userId, values), {
       onSuccess: (resp) => {
         setSentSuccess(true)
-        console.log(resp);
       },
       onError: (error) => {
-        console.log("error");
       },
     });
   const getErrorMessage = (fieldName) => {

@@ -13,7 +13,19 @@ import {
   IconButton,
   Flex,
   Button,
+  useDisclosure,
+  FormLabel,
+  Input,
 } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
 import SearchInputCom from "../SeacthInput/SearchInput2.jsx";
 import { logoutAction } from "../../Redux/Slices/AuthSlice";
 import { useMutation } from "react-query";
@@ -43,6 +55,11 @@ const Header = () => {
         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
       ];
   }
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const initialRef = React.useRef(null)
+  const finalRef = React.useRef(null)
+
   const { mutate : getStaff} = useMutation(
     (id) => getTeacherById(id),
     {
@@ -82,7 +99,6 @@ const Header = () => {
   const { mutate } = useMutation((userId) => ResetPasswordSend(userId), {
     onSuccess: (resp) => {
       setSuccess(true);
-      console.log(resp);
     },
     onError: (error) => {
       setSuccess(false);
@@ -104,6 +120,7 @@ const Header = () => {
         <MenuItem  onClick={() => handleNavigate(`/ControlPanel`)}>Panel</MenuItem>
         <MenuItem onClick={handleSendReset}>ResetPassword</MenuItem>
         {Isteacher && <MenuItem onClick={() => handleNavigate(`/Applyteacher/teaching-experiance`)}>Apply For Teaching</MenuItem>}
+        {/* {Isteacher && <MenuItem onClick={() =>onOpen}>Change Image</MenuItem>} */}
         {IsStaff  &&<MenuItem onClick={() => handleNavigate(`/ApplyForStaffContainer`)}>Apply For Job</MenuItem>}
       </MenuList>
     </Menu>
@@ -117,6 +134,32 @@ const Header = () => {
   );
   return (
     <div className={Styles.MainContainer}>
+       <>
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Create your account</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+
+              <FormLabel>First name</FormLabel>
+              <Input ref={initialRef} placeholder='First name' />
+
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3}>
+              Save
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
       {success && <Done buttonsAndNagivage={buttonsAndRoute} />}
       <div className={Styles.LeftSideLogo}>
         <img src={MainLogo} alt="" />

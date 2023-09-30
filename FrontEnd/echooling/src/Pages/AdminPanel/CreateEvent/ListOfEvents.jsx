@@ -28,7 +28,6 @@ export default function ListOfEvents() {
         {
             onSuccess: (resp) => {
                 queryClient.invalidateQueries("Events");
-                console.log(resp);
             },
             onError: (error) => {
                 console.error(error);

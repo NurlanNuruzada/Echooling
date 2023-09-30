@@ -36,10 +36,8 @@ const ForgetPasswordEmail = () => {
       const { mutate:forgetPass } = useMutation((mail) => ForgetPasswordSend(mail), {
         onSuccess: (resp) => {
          Setsuccsess(true);
-          console.log(resp);
         },
         onError: (error) => {
-          console.log(error);
           Setsuccsess(false);
         },
       });

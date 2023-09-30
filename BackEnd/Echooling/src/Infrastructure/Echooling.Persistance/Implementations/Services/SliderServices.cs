@@ -37,13 +37,20 @@ namespace Echooling.Persistance.Implementations.Services
             }
 
             Slider newSlider = _mapper.Map<Slider>(categoryCreateDto);
-            string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads";
-            Directory.CreateDirectory(uploadsDirectory);
-
+            // Dynamically determine the root directory
+            string currentDirectory = Directory.GetCurrentDirectory();
+            int index = currentDirectory.IndexOf("FinalApp\\");
+            if (index >= 0)
+            {
+                currentDirectory = currentDirectory.Substring(0, index + 8); // +8 to include "FinalApp\"
+            }
+            string uploadsRootDirectory = Path.Combine(currentDirectory, "FrontEnd", "echooling", "public", "Uploads", "Sliders");
+            Directory.CreateDirectory(uploadsRootDirectory);
+            //end
             if (categoryCreateDto.image is not null)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(categoryCreateDto.image.FileName);
-                string filePath = Path.Combine(uploadsDirectory, fileName);
+                string filePath = Path.Combine(uploadsRootDirectory, fileName);
 
                 using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
                 {
@@ -106,13 +113,21 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException(message);
             }
-            string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads";
-            Directory.CreateDirectory(uploadsDirectory);
+            // Dynamically determine the root directory
+            string currentDirectory = Directory.GetCurrentDirectory();
+            int index = currentDirectory.IndexOf("FinalApp\\");
+            if (index >= 0)
+            {
+                currentDirectory = currentDirectory.Substring(0, index + 8); // +8 to include "FinalApp\"
+            }
+            string uploadsRootDirectory = Path.Combine(currentDirectory, "FrontEnd", "echooling", "public", "Uploads", "Sliders");
+            Directory.CreateDirectory(uploadsRootDirectory);
+            //end
             _mapper.Map(sldierUpdateDto, Slider);
             if (sldierUpdateDto.image is not null)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(sldierUpdateDto.image.FileName);
-                string filePath = Path.Combine(uploadsDirectory, fileName);
+                string filePath = Path.Combine(uploadsRootDirectory, fileName);
 
                 using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
                 {

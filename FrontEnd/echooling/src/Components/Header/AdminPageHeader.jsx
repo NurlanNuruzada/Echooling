@@ -74,7 +74,6 @@ function AdminPageHeader({ toggleIsSmall, isSmall, IsButtonClicked }) {
   const { mutate } = useMutation((id) => ResetPasswordSend(id), {
     onSuccess: (resp) => {
       setSentSuccess(true);
-      console.log(resp);
     },
     onError: (error) => {
       setSentSuccess(false);

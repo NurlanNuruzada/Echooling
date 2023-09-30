@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Styles from "../../../TeacherDetails/TeacherDetails.module.css"
-import image from "../../../../Images/teacher/teacher5.jpg";
+import image from "../../../../Images/teacher/teacher1.jpg";
 import { Grid, Flex, Button } from "@chakra-ui/react";
 import {
     faFacebook,
@@ -21,11 +21,7 @@ const TeacherDetailsAdminPanel = () => {
         (id) => getTeacherById(id),
         {
             onSuccess: (resp) => {
-                console.log(resp);
                 setProps(resp)
-            },
-            onError: (error) => {
-                console.log(error);
             },
         }
     );

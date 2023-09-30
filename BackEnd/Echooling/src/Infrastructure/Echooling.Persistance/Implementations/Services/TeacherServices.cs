@@ -15,6 +15,7 @@ using Ecooling.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Echooling.Aplication.DTOs.SliderDTOs;
 
 namespace Echooling.Persistance.Implementations.Services
 {
@@ -75,6 +76,10 @@ namespace Echooling.Persistance.Implementations.Services
         {
             var teachers = await _readRepo.GetAll().ToListAsync();
             List<TeacherGetDto> List = _mapper.Map<List<TeacherGetDto>>(teachers);
+            foreach (TeacherGetDto teacher in List)
+            {
+                teacher.ImageRoutue = $"{teacher.ImageRoutue}";
+            }
             return List;
         }
 
@@ -91,6 +96,7 @@ namespace Echooling.Persistance.Implementations.Services
                 }
             }
             TeacherGetDto teacher = _mapper.Map<TeacherGetDto>(teachers);
+            teacher.ImageRoutue = teachers.ImageRoutue;
             return teacher;
         }
         public async Task ApproveTeacher(Guid TeacherId, Guid ApprovePersonId)
@@ -159,7 +165,29 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException("user" + " " + message);
             }
+            // Dynamically determine the root directory
+            string currentDirectory = Directory.GetCurrentDirectory();
+            int index = currentDirectory.IndexOf("FinalApp\\");
+            if (index >= 0)
+            {
+                currentDirectory = currentDirectory.Substring(0, index + 8); // +8 to include "FinalApp\"
+            }
+            string uploadsRootDirectory = Path.Combine(currentDirectory, "FrontEnd", "echooling", "public", "Uploads", "TeacherImages");
+            Directory.CreateDirectory(uploadsRootDirectory);
+            //end
+            _mapper.Map(updateDto, teacher);
+            if (updateDto.image is not null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(updateDto.image.FileName);
+                string filePath = Path.Combine(uploadsRootDirectory, fileName);
 
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                {
+                    await updateDto.image.CopyToAsync(fileStream);
+                }
+
+                teacher.ImageRoutue = fileName;
+            }
             _mapper.Map(updateDto, teacher);
             await _writeRepo.SaveChangesAsync();
         }

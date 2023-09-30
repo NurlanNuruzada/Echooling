@@ -27,7 +27,6 @@ export const GetAllUsersWithRoles = async (jwt) => {
 
 export const AddRole = async (userId,Role ) => {
     try {
-        console.log(Role);
         const response = await httpClient.post(`/api/Auth/AddRole?userId=${userId}&Role=${Role}`)
         return response.data;
     } catch (error) {

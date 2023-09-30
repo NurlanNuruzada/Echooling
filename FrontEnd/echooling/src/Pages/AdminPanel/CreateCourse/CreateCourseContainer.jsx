@@ -29,7 +29,6 @@ export default function CreateCourseContainer() {
     //create event 
     
     useEffect(() => {
-        console.log(formData);
     }, [formData]);
     
     return (

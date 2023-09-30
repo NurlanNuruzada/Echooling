@@ -26,14 +26,12 @@ const News = () => {
       mail:""
     },
     onSubmit:(values)=>{
-      console.log(values)
       mutate(values)
     },
   })
   const { mutate,isLoading: Loginloading, error: Loginerror,} =
   useMutation((values) => sentNotification(values), {
    onSuccess: (resp) => {
-    console.log("sent reqquest");
    },
  });
   return (

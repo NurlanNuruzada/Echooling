@@ -124,7 +124,6 @@ function CreateCourse({ onNext, formData, onPrevious }) {
         onSubmit: (values) => {
             values.Subject = formData.step2Data[0].category
             values.CourseCategoryId = formData.step2Data[0].GuId
-            console.log(values);
             onNext({ step3Data: values });
 
         },

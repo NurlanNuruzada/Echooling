@@ -21,8 +21,6 @@ export const ApplyForStaffForm = async (AppUserId, data, jwt) => {
     ...addJwtHeaders(jwt),
     "Content-Type": "application/json" // Adjust the content type as needed
   });
-  console.log('Response:', response.data);
-  console.log('AppUserId:', AppUserId);
   return response.data;
 };
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Echooling.Aplication.DTOs.TeacherDetailsDTOs
 {
@@ -25,5 +26,6 @@ namespace Echooling.Aplication.DTOs.TeacherDetailsDTOs
         public string? userKnowledge { get; set; }
         public string? UserName { get; set; }
         public bool? IsApproved { get; set; }
+        public IFormFile? image { get; set; } = null!;
     }
 }

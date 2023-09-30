@@ -74,10 +74,6 @@ export default function ApplyForStaff({ onPrevious, formData }) {
     useMutation((values) => ApplyForStaffForm(userId, values), {
       onSuccess: (resp) => {
         setSentSuccess(true)
-        console.log(resp);
-      },
-      onError: (error) => {
-        console.log("error");
       },
     });
   const getErrorMessage = (fieldName) => {

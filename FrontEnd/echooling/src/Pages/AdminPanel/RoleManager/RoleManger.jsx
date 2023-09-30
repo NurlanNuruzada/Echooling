@@ -64,7 +64,6 @@ export default function RoleManager() {
         (formData) => AddRole(formData.userId, formData.role),
         {
             onSuccess: () => {
-                console.log('Add role mutation succeeded');
                 queryClient.invalidateQueries(logsQueryKey);
                 queryClient.invalidateQueries(rolesQueryKey);
                 handleCloseModal();
@@ -75,7 +74,6 @@ export default function RoleManager() {
         (formData) => RemoveRole(formData.userId, formData.role),
         {
             onSuccess: () => {
-                console.log('Remove role mutation succeeded');
                 queryClient.invalidateQueries(logsQueryKey);
                 queryClient.invalidateQueries(rolesQueryKey);
                 handleCloseModal();

@@ -54,7 +54,7 @@ const SliderCom = () => {
       <Slider ref={sliderRef} {...settings} className={Styles.CustomSlider}>
         {data?.data.map((slider, index) => (
           <div key={index} className={Styles.slideContainer}>
-            <img  className={Styles.customSlide}  alt={`slider - ${index}`} src={`/Uploads/${slider.imageRoutue}`}/>
+            <img  className={Styles.customSlide}  alt={`slider - ${index}`} src={`/Uploads/Sliders/${slider.imageRoutue}`}/>
             <div className={`${Styles.slideText} ${Styles.fadeInAnimation}`}>
               <h2>Slide {index + 1}</h2>
               <div

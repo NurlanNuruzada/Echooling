@@ -18,7 +18,6 @@ const SearchInputCom = ({ width, placeholder, height, onSearch }) => {
       mail: ""
     },
     onSubmit: (values) => {
-      console.log(values);
       if (isValidEmail(values.mail)) {
         mutate(values);
       } else {
@@ -46,7 +45,6 @@ const SearchInputCom = ({ width, placeholder, height, onSearch }) => {
         setSentSuccess(true);
       },
       onError: (error) => {
-        console.log("error");
       },
     });
 

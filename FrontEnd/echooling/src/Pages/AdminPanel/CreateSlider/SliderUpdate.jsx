@@ -37,7 +37,6 @@ export default function SliderUpdate() {
             onSuccess: (resp) => {
                 Setsuccsess(true);
                 queryClient.invalidateQueries("sliders");
-                console.log(resp);
             },
             onError: (error) => {
                 console.error(error);
@@ -70,10 +69,8 @@ export default function SliderUpdate() {
             formData.append("Description", values.Description ? values.Description : SliderId.description);
 
             if (formData.get("image")) {
-                console.log("FormData before muration", formData)
                 mutate(formData);
             } else {
-                console.log("FormData is null");
             }
         },
         validationSchema: UpdateSliderScema,
@@ -96,7 +93,6 @@ export default function SliderUpdate() {
             SetSliderId(resp);
         },
         onError: (error) => {
-            console.log(error);
             Setsuccsess(false);
         },
     });
@@ -116,7 +112,7 @@ export default function SliderUpdate() {
                     <Heading color={"#3270fc"} mb={4}>
                         Update Slider
                     </Heading>
-                    <img  src={`/Uploads/${SliderId?.imageRoutue}`} alt="" />
+                    <img  src={`/Uploads/Sliders/${SliderId?.imageRoutue}`} alt="" />
                     <h1 style={{ color: "#3270fc" }} >Title: </h1><span>{SliderId?.title}</span>
                     <h1 style={{ color: "#3270fc" }} >Second Title: </h1> <span>{SliderId?.seccondTile}</span>
                     <h1 style={{ color: "#3270fc" }} >Description:  </h1><span>{SliderId?.description}</span>

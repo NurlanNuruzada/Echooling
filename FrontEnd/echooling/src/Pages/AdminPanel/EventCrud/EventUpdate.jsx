@@ -87,7 +87,6 @@ export default function UpdateEvent() {
           console.error(error);
         }
       } else {
-        console.log('FormData is null');
       }
     },
     validationSchema: updateEventScema,
@@ -102,7 +101,6 @@ export default function UpdateEvent() {
       SetPreviusData(resp);
     },
     onError: (error) => {
-      console.log(error);
     },
   });
   useEffect(() => {

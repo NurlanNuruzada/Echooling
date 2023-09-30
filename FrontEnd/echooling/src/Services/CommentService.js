@@ -3,7 +3,6 @@ import { httpClient } from "../Utils/HttpClient";
 export const getallCommentOfCourse = (Id) => {
     try {
         const response =  httpClient.get(`/api/CourseReview/getReviewsOfCourseById2/id?CourseId=${Id.toString()}`)
-        console.log("the comments",response)
         return response
     }
     catch (error) {
@@ -37,7 +36,6 @@ export const AddCourse = async (userId, data) => {
                 "Content-Type": "multipart/form-data; boundary=l3iPy71otz",
             },
         });
-        console.log('Response:', response);
         return response.data;
     } catch (error) {
         console.error('Error:', error);

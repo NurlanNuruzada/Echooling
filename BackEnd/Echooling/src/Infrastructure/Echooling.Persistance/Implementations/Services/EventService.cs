@@ -68,13 +68,20 @@ namespace Echooling.Persistance.Implementations.Services
                 throw new Exception("No image file provided.");
             }
             events EntityEvent = _mapper.Map<events>(CreateEventDto);
-            string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Event";
-            Directory.CreateDirectory(uploadsDirectory);
-
+            // Dynamically determine the root directory
+            string currentDirectory = Directory.GetCurrentDirectory();
+            int index = currentDirectory.IndexOf("FinalApp\\");
+            if (index >= 0)
+            {
+                currentDirectory = currentDirectory.Substring(0, index + 8); // +8 to include "FinalApp\"
+            }
+            string uploadsRootDirectory = Path.Combine(currentDirectory, "FrontEnd", "echooling", "public", "Uploads", "Event");
+            Directory.CreateDirectory(uploadsRootDirectory);
+            //end
             if (CreateEventDto.image is not null)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(CreateEventDto.image.FileName);
-                string filePath = Path.Combine(uploadsDirectory, fileName);
+                string filePath = Path.Combine(uploadsRootDirectory, fileName);
 
                 using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
                 {
@@ -193,13 +200,21 @@ namespace Echooling.Persistance.Implementations.Services
             {
                 throw new notFoundException(message);
             }
-            string uploadsDirectory = @"C:\Users\Nurlan\Desktop\FinalApp\FrontEnd\echooling\public\Uploads\Event";
-            Directory.CreateDirectory(uploadsDirectory);
+            // Dynamically determine the root directory
+            string currentDirectory = Directory.GetCurrentDirectory();
+            int index = currentDirectory.IndexOf("FinalApp\\");
+            if (index >= 0)
+            {
+                currentDirectory = currentDirectory.Substring(0, index + 8); // +8 to include "FinalApp\"
+            }
+            string uploadsRootDirectory = Path.Combine(currentDirectory, "FrontEnd", "echooling", "public", "Uploads", "Event");
+            Directory.CreateDirectory(uploadsRootDirectory);
+            //end
             _mapper.Map(StaffUpdateDto, Event);
             if (StaffUpdateDto.image is not null)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(StaffUpdateDto.image.FileName);
-                string filePath = Path.Combine(uploadsDirectory, fileName);
+                string filePath = Path.Combine(uploadsRootDirectory, fileName);
 
                 using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
                 {

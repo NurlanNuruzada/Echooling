@@ -70,7 +70,6 @@ export default function StaffList() {
         {
             onSuccess: (resp) => {
                 SetRole(resp.data)
-                console.log(resp.data)
             }
         }
     );
@@ -124,7 +123,6 @@ export default function StaffList() {
                 onClose()
             },
             onError: (error) => {
-                console.log(error);
             },
         }
     );
@@ -136,7 +134,6 @@ export default function StaffList() {
                 onClose()
             },
             onError: (error) => {
-                console.log(error);
             },
         }
     );
@@ -186,7 +183,6 @@ export default function StaffList() {
                 onClose()
             },
             onError: (error) => {
-                console.log(error);
             },
         }
     );

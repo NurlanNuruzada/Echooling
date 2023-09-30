@@ -46,10 +46,8 @@ const ForgetPassword = () => {
           onSuccess: (resp) => {
             dispatch(logoutAction(resp.data));
             setPasswordChanged(true);
-            console.log(resp);
           },
           onError: (error) => {
-            console.log(error);
             setPasswordChanged(false);
           },
         }

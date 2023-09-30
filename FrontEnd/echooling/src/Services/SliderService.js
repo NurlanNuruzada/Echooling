@@ -31,7 +31,6 @@ export const GetSliderId = async (Id) => {
     return response.data;
 }
 export const CreateSliderFunction = async (formData) => {
-    console.log("formdata inside of the Service",formData)
     const response = await httpClient.post(`/api/Slider/Create`, formData, {
         headers: {
             "Content-Type": "multipart/form-data; boundary=l3iPy71otz",

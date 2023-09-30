@@ -45,7 +45,6 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
         }
     );
     useEffect(() => {
-        console.log(fullname)
         getId(id);
     }, []);
     useEffect(() => {
@@ -108,8 +107,6 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             if (formData.get("image")) {
                 mutate(formData)
             } else {
-                console.log("FormData is null");
-                console.log(formData);
             }
         },
     });
@@ -117,8 +114,6 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
         (data) => AddCourse(Id, data),
         {
             onSuccess: (resp) => {
-                console.log('success');
-                console.log(resp);
                 setSentSuccess(true);
             },
             onError: (error) => {

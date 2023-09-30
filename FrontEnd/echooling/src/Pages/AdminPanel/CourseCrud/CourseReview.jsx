@@ -54,13 +54,11 @@ export default function CourseReviewAdminPanel({ point, Fullname, Comment, Creat
         (data) => DeleteComment(data.reviewId, data.UserId),
         {
             onSuccess: (resp) => {
-                console.log("Success", resp);
                 queryClient.invalidateQueries(['comments', CourseId]);
                 queryClient.invalidateQueries(['course', CourseId]);
                 onClose()
             },
             onError: (error) => {
-                console.log(error);
             },
         }
     );
@@ -79,7 +77,6 @@ export default function CourseReviewAdminPanel({ point, Fullname, Comment, Creat
                 reset()
             },
             onError: (error) => {
-                console.log(error);
             },
             validationSchema: UpdateRate,
         }

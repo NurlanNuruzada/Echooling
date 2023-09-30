@@ -42,7 +42,6 @@ export default function CreateEventLast({ onNext, formData, onPrevious }) {
         }
     );
     useEffect(() => {
-        console.log(fullname)
         getId(id);
     }, []);
 
@@ -92,17 +91,13 @@ export default function CreateEventLast({ onNext, formData, onPrevious }) {
             if (formData.get("image")) {
                 mutate(formData);
             } else {
-                console.log("FormData is null");
             }
         },
     });
-    console.log(formData)
     const { mutate, isLoading, error } = useMutation(
         (data) => AddEvent(Id, data),
         {
             onSuccess: (resp) => {
-                console.log('success');
-                console.log(resp);
                 setSentSuccess(true);
             },
             onError: (error) => {

@@ -28,4 +28,5 @@ public class teacherDetails : BaseEntity
     public string? userKnowledge { get; set; }
     public string? UserName { get; set; }
     public bool? IsApproved { get; set; }
+    public string? ImageRoutue { get; set; }
 }

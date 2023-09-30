@@ -15,7 +15,6 @@ export default function CommentArea1({ id }) {
     () => getallCommentOfCourse(CourseId), 
     {
       onSuccess: (resp) => {
-        console.log('comment', resp);
       },
     }
   );

@@ -9,7 +9,6 @@ const addJwtHeaders = (jwt) => ({
 
 export const AddAppUserToEvent = async (data, jwt) => {
   const response = await httpClient.get('/api/AppuserEvent/AddUsertoEvent', data, addJwtHeaders(jwt));
-  console.log('Response:', response);
   return response.data;
 };
 
@@ -49,7 +48,6 @@ export const AddEvent = async (userId, data, jwt) => {
       ...addJwtHeaders(jwt),
       "Content-Type": "multipart/form-data; boundary=l3iPy71otz"
     });
-    console.log('Response:', response);
     return response.data;
   } catch (error) {
     console.error('Error:', error);

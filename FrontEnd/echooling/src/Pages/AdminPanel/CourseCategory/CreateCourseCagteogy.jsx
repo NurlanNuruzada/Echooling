@@ -54,7 +54,6 @@ export default function CreateCourseCagteogy() {
             onSuccess: (resp) => {
                 setSentSuccess(true);
                 queryClient.invalidateQueries("sliders");
-                console.log(resp);
             },
             onError: (error) => {
                 console.error(error);
@@ -95,7 +94,6 @@ export default function CreateCourseCagteogy() {
             onSuccess: (resp) => {
                 setSentSuccess(true);
                 queryClient.invalidateQueries("sliders");
-                console.log(resp);
             },
             onError: (error) => {
                 console.error(error);

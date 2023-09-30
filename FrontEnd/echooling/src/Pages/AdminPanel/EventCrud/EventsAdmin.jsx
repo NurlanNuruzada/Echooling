@@ -38,7 +38,6 @@ export default function EventsAdmin() {
     queryFn: getallEvents,
     staleTime: 0,
   });
-  console.log(data)
   //Create Slider Funtion Start
   const { mutate } = useMutation(
     (formData) => CreateSliderFunction(formData),
@@ -46,7 +45,6 @@ export default function EventsAdmin() {
       onSuccess: (resp) => {
         setSentSuccess(true);
         queryClient.invalidateQueries("sliders");
-        console.log(resp);
       },
       onError: (error) => {
         console.error(error);
@@ -81,10 +79,8 @@ export default function EventsAdmin() {
       formData.append("Description", values.Description);
 
       if (formData.get("image")) {
-        console.log("FormData before muration", formData)
         mutate(formData);
       } else {
-        console.log("FormData is null");
       }
     },
   });

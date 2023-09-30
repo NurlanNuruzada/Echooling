@@ -24,7 +24,6 @@ export default function CreateCourseSteptwo({ onNext }) {
   const { mutate } = useMutation(() => getAllCourseategories(), {
     onSuccess: (resp) => {
       setData(resp);
-      console.log(resp)
     },
     onError: (error) => {
       console.error(error);
@@ -43,7 +42,6 @@ export default function CreateCourseSteptwo({ onNext }) {
   }, [mutate]);
 
   const handleNext = () => {
-    console.log(step2Data)
     onNext({ step2Data });
   };
 

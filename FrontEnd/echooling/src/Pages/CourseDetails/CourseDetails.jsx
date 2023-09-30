@@ -147,7 +147,6 @@ const CourseDetails = () => {
     () => BuyCourse(UserId, course.guId),
     {
       onSuccess: (resp) => {
-        console.log(resp);
         setSuccess(true);
       },
       onError: (error) => {

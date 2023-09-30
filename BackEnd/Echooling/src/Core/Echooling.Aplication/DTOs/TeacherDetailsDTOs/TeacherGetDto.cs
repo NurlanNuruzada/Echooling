@@ -9,6 +9,7 @@ namespace Echooling.Aplication.DTOs.TeacherDetailsDTOs
 {
     public class TeacherGetDto
     {
+        public string ImageRoutue { get; set; }
         public Guid AppUserID { get; set; }
         public Guid GuId { get; set; }
         public string? hobbies { get; set; }
