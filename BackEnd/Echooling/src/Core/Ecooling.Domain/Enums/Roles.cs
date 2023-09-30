@@ -13,6 +13,5 @@ namespace Ecooling.Domain.Enums
         Admin,
         Teacher,
         Staff,
-        Student
     }
 }

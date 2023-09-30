@@ -16,6 +16,7 @@ namespace Echooling.Aplication.DTOs.EventDTOs
         public decimal? Cost { get; set; }
         public string? Orginazer { get; set; }
         public int? TotalSlot { get; set; }
+        public int Enrolled { get; set; } = 0;
         public string? Categoryname { get; set; }
         public Guid? EventCategoryiesId { get; set; }
         public string? Location { get; set; }

@@ -85,7 +85,6 @@ const Header = () => {
       console.log(resp);
     },
     onError: (error) => {
-      console.log(error);
       setSuccess(false);
     },
   });

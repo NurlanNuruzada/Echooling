@@ -6,7 +6,7 @@ const CreateEventScema = Yup.object({
     .max(266, "Cost too Long!")
     .required("Cost is requred!"),
     TotalSlot: Yup.string()
-    .min(3, "TotalSlot too short")
+    .min(0, "TotalSlot too short")
     .max(255, "TotalSlot too long")
     .required("TotalSlot is requred!"),
     EventTitle: Yup.string()

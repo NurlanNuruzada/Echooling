@@ -25,8 +25,6 @@ const Courses = ({filterData}) => {
 useEffect(()=>{
   mutate(filterData)
 },[filterData])
-console.log("1",Course);
-  // console.log(filterData);
   return (
 <div className={Course.length <= 0 ? `${Styles.Conatiner2} ` : Styles.Conatiner}>
       <Grid

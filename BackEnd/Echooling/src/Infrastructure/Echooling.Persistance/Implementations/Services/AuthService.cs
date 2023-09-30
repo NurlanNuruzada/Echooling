@@ -26,15 +26,17 @@ namespace Echooling.Persistance.Implementations.Services
         private readonly IEmailService _emailService;
         private readonly IConfirmEmail _confirmEmail;
         private readonly IOptions<SecurityStampValidatorOptions> _securityStampOptions;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
         public AuthService(UserManager<AppUser> userManager,
                            SignInManager<AppUser> signInManager,
-                           RoleManager<IdentityRole> roleManager,
                            IConfiguration configuration,
                            ITokenHandler tokenHandler,
                            AppDbContext context,
                            IEmailService emailService,
                            IConfirmEmail confirmEmail,
-                           IOptions<SecurityStampValidatorOptions> securityStampOptions)
+                           IOptions<SecurityStampValidatorOptions> securityStampOptions,
+                           RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -44,12 +46,50 @@ namespace Echooling.Persistance.Implementations.Services
             _emailService = emailService;
             _confirmEmail = confirmEmail;
             _securityStampOptions = securityStampOptions;
+            _roleManager = roleManager;
         }
+
         public async Task<IList<string>> getUserRole(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
             var roles =  await _userManager.GetRolesAsync(user);
             return roles.ToArray();
+        }
+        public async Task AddRole(Guid userId,string Role)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+             await _userManager.AddToRoleAsync(user, Role);
+        }   
+        public async Task RemoveRole(Guid userId,string Role)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+             await _userManager.RemoveFromRoleAsync(user, Role);
+        }
+        public async Task<IList<string>> GetAllRoles()
+        {
+            var roles = await _roleManager.Roles.Select(role => role.Name).ToListAsync();
+            return roles;
+        }
+        public async Task<IEnumerable<GetAllAppUsersDto>> GetAllUsersWithRolesAsync()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var usersWithRoles = new List<GetAllAppUsersDto>();
+
+            foreach (var user in users)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var userDto = new GetAllAppUsersDto
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Roles = userRoles.ToList() 
+                };
+
+                usersWithRoles.Add(userDto);
+            }
+
+            return usersWithRoles;
         }
         public async Task<TokenResponseDto> Login(SignInDto signInDto)
         {

@@ -1,5 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Echooling.Aplication.Abstraction.Repository.EventRepositories;
+using Echooling.Aplication.Abstraction.Repository.StaffRepositories;
 using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs;
 using Echooling.Aplication.DTOs.CategoryDTOs;
@@ -32,6 +34,7 @@ namespace Echooling.Persistance.Implementations.Services
         public readonly IAppUserEventService _appUserEventService;
         public IEventsCategoryService _eventsCategoryService;
         private readonly AppDbContext _context;
+        private readonly IStaffReadRepository _staffReadRepository;
 
         public EventService(IEventWriteRepository writeRepository,
                             IEventReadRepository readRepository,
@@ -42,7 +45,8 @@ namespace Echooling.Persistance.Implementations.Services
                             IAppUserEventService appUserEventService,
                             IWebHostEnvironment env,
                             IEventsCategoryService eventsCategoryService,
-                            AppDbContext context)
+                            AppDbContext context,
+                            IStaffReadRepository staffReadRepository)
         {
             _writeRepository = writeRepository;
             _readRepository = readRepository;
@@ -54,6 +58,7 @@ namespace Echooling.Persistance.Implementations.Services
             _env = env;
             _eventsCategoryService = eventsCategoryService;
             _context = context;
+            _staffReadRepository = staffReadRepository;
         }
 
         public async Task CreateAsync(EventCreateDto CreateEventDto, Guid UserId)
@@ -207,6 +212,11 @@ namespace Echooling.Persistance.Implementations.Services
         }
         public async Task BuyEvent(Guid courseId, Guid appUserId)
         {
+            var FoundEvent= await _readRepository.GetByIdAsync(courseId);
+            if (FoundEvent.TotalSlot <= FoundEvent.Enrolled) 
+            {
+                throw new NoAcsessException("no Space left!");
+            }
             var existingAssociation = await _context.AppUserEvents
                 .FirstOrDefaultAsync(cau => cau.eventsId == courseId && cau.AppUserId == appUserId);
 
@@ -219,19 +229,40 @@ namespace Echooling.Persistance.Implementations.Services
                 eventsId = courseId,
                 AppUserId = appUserId
             };
-
+            FoundEvent.Enrolled += 1;
+            await _writeRepository.SaveChangesAsync();
             _context.AppUserEvents.Add(AppuserEnvet);
             await _context.SaveChangesAsync();
 
         }
         public async Task<List<GetBouthEventDto>> GetBouthEvent(Guid appUserId)
         {
-            var userCourses = await _context.AppUserEvents
+            var userEvents = await _context.AppUserEvents
                 .Where(cau => cau.AppUserId == appUserId)
                 .Select(cau => cau.events)
                 .ToListAsync();
-            var List = _mapper.Map<List<GetBouthEventDto>>(userCourses);
+            var List = _mapper.Map<List<GetBouthEventDto>>(userEvents);
             return List;
+        }
+        public async Task<List<EventGetDto>> getEventsbyStaffId(Guid StaffId)
+        {
+            var userEvents = await _context.EventStaff
+                 .Where(cau => cau.StaffId == StaffId)
+                 .Select(cau => cau.events)
+                .Where(e => e.IsDeleted == false)
+                 .ToListAsync();
+            List<EventGetDto> EventList = _mapper.Map<List<EventGetDto>>(userEvents);
+            return EventList;
+        }
+        public async Task<List<EventGetDto>> GetBouthEvents(Guid appUserId)
+        {
+            var EventList = await _context.EventStaff
+                .Where(cau => cau.StaffId == appUserId)
+                .Select(cau => cau.events)
+                .Where(e=>e.IsDeleted == false)
+                .ToListAsync();
+            var list = _mapper.Map<List<EventGetDto>>(EventList);
+            return list;
         }
     }
 

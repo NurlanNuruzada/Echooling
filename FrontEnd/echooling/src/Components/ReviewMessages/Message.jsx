@@ -56,13 +56,9 @@ export default function Message({ point, Fullname, Comment, CreateDate, userId, 
         (data) => DeleteComment(data.reviewId, data.UserId),
         {
             onSuccess: (resp) => {
-                console.log("Success", resp);
                 queryClient.invalidateQueries(['comments', CourseId]);
                 queryClient.invalidateQueries(['course', CourseId]);
                 onClose()
-            },
-            onError: (error) => {
-                console.log(error);
             },
         }
     );
@@ -90,7 +86,6 @@ export default function Message({ point, Fullname, Comment, CreateDate, userId, 
     const reset = () => {
         setSeed(Math.random());
     }
-    console.log("userId prop:", userId); // Log the userId prop to see its value
 
     const formik = useFormik({
         initialValues: {

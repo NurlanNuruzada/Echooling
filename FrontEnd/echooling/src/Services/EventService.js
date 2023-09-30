@@ -19,7 +19,17 @@ export const getallEvents = (jwt) => {
   } catch (error) {
     throw error;
   }
+}; 
+export const GetEventWithUserId = async (userId, jwt) => {
+  const response = await httpClient.get(`/api/Event/GetBouthEvents?appUserId=${userId}`, addJwtHeaders(jwt));
+  return response.data;
 };
+
+export const BuyEvent = async (userId, eventId, jwt) => {
+  const response = await httpClient.post(`/api/Event/BuyEvent?EventId=${eventId}&appUserId=${userId}`, addJwtHeaders(jwt));
+  return response.data;
+};
+
 export const getallwithttake = (take) => {
   try {
     return httpClient.get(`/api/Event/GetAllAsyncTake?take=${take}`);
@@ -62,6 +72,15 @@ export const GetEventId = async (Id, jwt) => {
 
 export const getEventById = async (Id, jwt) => {
   const response = await httpClient.get(`/api/Event/id?id=${Id}`, addJwtHeaders(jwt));
+  return response.data;
+};
+
+export const getStaffsCreatedEvents = async (Id, jwt) => {
+  const response = await httpClient.get(`/api/Event/getEventsbyStaffId/id?StaffId=${Id}`, addJwtHeaders(jwt));
+  return response.data;
+};
+export const getBouthEvents = async (Id, jwt) => {
+  const response = await httpClient.get(`/api/Event/GetBouthEvents?appUserId=${Id}`, addJwtHeaders(jwt));
   return response.data;
 };
 

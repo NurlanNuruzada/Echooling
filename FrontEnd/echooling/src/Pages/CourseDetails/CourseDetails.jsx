@@ -86,10 +86,10 @@ const CourseDetails = () => {
   const [clicked, setClicked] = useState(false); // State to track if it's clicked
   const queryClient = useQueryClient();
   const [isVideoModalOpen, setVideoModalOpen] = useState(false);
-  const { token } = useSelector((state) => state.auth); // Update the selector
-  const [success, setSuccess] = useState(false);
   const [buyError, SetBuyErorr] = useState('');
-
+  const [success, setSuccess] = useState(false);
+  
+  const { token } = useSelector((state) => state.auth); // Update the selector
   if (token != null) {
     var decodedToken = jwt_decode(token);
     var UserId =
@@ -385,19 +385,7 @@ const CourseDetails = () => {
               </Flex>
               <h4>{course?.instructor}</h4>
             </Flex>
-            <Divider />
 
-            <Flex
-              className={Styles.Icon}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-            >
-              <Flex alignItems={"center"}>
-                <FontAwesomeIcon icon={faClock} />
-                <p>Duration : </p>
-              </Flex>
-              <h4>{course?.duration}</h4>
-            </Flex>
             <Divider />
             <Flex
               className={Styles.Icon}

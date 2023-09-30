@@ -20,7 +20,7 @@ namespace Echooling.Aplication.DTOs.CourseDTOs
         public string Duration { get; set; } = null!;
         public string Languge { get; set; } = null!;
         public string Subject { get; set; } = null!;
-        public int? Enrolled { get; set; }
+        public int Enrolled { get; set; }
         public string ThisCourseIncludes { get; set; } = null!;
         public string AboutCourse { get; set; } = null!;
         public string WhatWillLearn { get; set; } = null!;

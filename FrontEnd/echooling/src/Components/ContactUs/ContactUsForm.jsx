@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./Contactus.module.css";
 import {
   Grid,
@@ -16,6 +16,7 @@ import image3 from "../../Images/FormImage3.png";
 import { useFormik } from "formik";
 import { useMutation } from "react-query";
 import { ContactUs } from "../../Services/ContactUs";
+import Done from "../DoneModal/Done";
 const ContactUsForm = ({
   title,
   secondTitle,
@@ -24,10 +25,22 @@ const ContactUsForm = ({
   Mobile,
   Mail,
 }) => {
+  const [success, setSuccess] = useState(false);
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        setSuccess(false); // Set it to false to hide the modal
+      }, 2500);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [success]);
   const { mutate } = useMutation(
     (values) => ContactUs(values),
     {
       onSuccess: (resp) => {
+        setSuccess(true);
       },
       onError: (error) => {
       },
@@ -91,6 +104,7 @@ const ContactUsForm = ({
   };
   return (
     <div className={Styles.mainContainer}>
+      {success && <Done firstTitle={"Message Succesfully sent"} seccondTitle={"We will be keep in touch with you soon!"} />}
       <Grid
         templateColumns={{
           base: "repeat(1, 1fr)",

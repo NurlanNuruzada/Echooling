@@ -16,5 +16,6 @@
         public Guid? EventCategoryiesId { get; set; }
         public EventCategoryies? EventCategoryies{ get; set; }
         public string? ImageRoutue { get; set; }
+        public int Enrolled { get; set; } = 0;
     }
 }

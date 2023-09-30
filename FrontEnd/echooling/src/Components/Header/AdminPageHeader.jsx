@@ -77,7 +77,6 @@ function AdminPageHeader({ toggleIsSmall, isSmall, IsButtonClicked }) {
       console.log(resp);
     },
     onError: (error) => {
-      console.log(error);
       setSentSuccess(false);
     },
   });

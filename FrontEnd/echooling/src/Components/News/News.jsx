@@ -35,9 +35,6 @@ const News = () => {
    onSuccess: (resp) => {
     console.log("sent reqquest");
    },
-   onError: (error) => {
-     console.log("error");
-   },
  });
   return (
     <div className={Styles.VideoContainer}>

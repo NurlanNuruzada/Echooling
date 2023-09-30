@@ -28,7 +28,6 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
     {
       onSuccess: (resp) => {
         setdata(resp.data)
-        console.log(resp.data)
       }
     }
   );
@@ -70,11 +69,7 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
         <ul className={Styles.linkList}>
           <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Main</h1>
           <li  >
-            <Link to={`/ControlPanel/BouthCours2es/${id}`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
-              <FontAwesomeIcon icon={faChartLine} />
-              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Dashboard</h1>
-            </Link>
-            <Link to={`/ControlPanel/BouthCourse2s/${id}`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+            <Link to={`/ControlPanel/BoughtEvents`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
               <FontAwesomeIcon icon={faCalendarDays} style={{ color: "#ffffff" }} />
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Events</h1>
             </Link>
@@ -90,6 +85,12 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
             <Link to={"/ControlPanel/logs"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
               <FontAwesomeIcon icon={faChartLine} />
               <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Data Logs</h1>
+            </Link>
+          </li>
+          <li  >
+            <Link to={"/ControlPanel/RoleManager"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+              <FontAwesomeIcon icon={faChartLine} />
+              <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Role Manager</h1>
             </Link>
           </li>
         </ul>}
@@ -120,12 +121,12 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
             </Link>
           </li>
         </ul>}
-        {(data?.includes("SuperAdmin") || data?.includes("Admin")) || data?.includes("Teacher") && (
+        {(data?.includes("Teacher") || data?.includes("Admin") || data?.includes("SuperAdmin")) && (
           <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
             <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Teacher</h1>
             <li>
               <Link to={"/ControlPanel/CreateCourseContainer"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
-                <FontAwesomeIcon icon={faChartLine} />
+                <FontAwesomeIcon icon={faPlus} />
                 <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Create Course</h1>
               </Link>
             </li>
@@ -133,6 +134,23 @@ export default function Sidebar({ CreateTeacher, CreateStaff, isSmall, toggleIsS
               <Link to={`/ControlPanel/Course/MyCourses/${id}`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
                 <FontAwesomeIcon icon={faChartLine} />
                 <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>My Courses</h1>
+              </Link>
+            </li>
+          </ul>
+        )}
+        {(data?.includes("Staff") || data?.includes("Admin") || data?.includes("SuperAdmin")) && (
+          <ul className={isSmall ? Styles.linkListMini : Styles.linkList}>
+            <h1 className={isSmall ? Styles.MainListMini : Styles.MainList}>Staff</h1>
+            <li>
+              <Link to={"/ControlPanel/CreateEvent"} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+                <FontAwesomeIcon icon={faPlus} />
+                <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>Create Event</h1>
+              </Link>
+            </li>
+            <li>
+              <Link to={`/ControlPanel/MyEvents`} className={isSmall ? Styles.ButtonMini : Styles.Button}>
+                <FontAwesomeIcon icon={faChartLine} />
+                <h1 className={isSmall ? Styles.SelectionMini : Styles.Selection}>My Event</h1>
               </Link>
             </li>
           </ul>

@@ -224,7 +224,7 @@ namespace Echooling.Persistance.Migrations
                     b.Property<string>("Duration")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Enrolled")
+                    b.Property<int>("Enrolled")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageRoutue")
@@ -381,6 +381,9 @@ namespace Echooling.Persistance.Migrations
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Enrolled")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("EventCategoryiesId")
                         .HasColumnType("uniqueidentifier");

@@ -46,10 +46,8 @@ const Header = () => {
   const { mutate } = useMutation((userId) => ResetPasswordSend(userId), {
     onSuccess: (resp) => {
       setSuccess(true);
-      console.log(resp);
     },
     onError: (error) => {
-      console.log(error);
       setSuccess(false);
     },
   });

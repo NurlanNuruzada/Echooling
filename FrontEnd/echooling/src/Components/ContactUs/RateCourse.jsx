@@ -43,12 +43,7 @@ const RateCourse = ({
         (data) => AddCommnent(data),
         {
             onSuccess: (resp) => {
-                console.log("Success", resp);
-                // Invalidate the comments query after success
                 queryClient.invalidateQueries(['comments', CourseId]);
-            },
-            onError: (error) => {
-                console.log(error);
             },
         }
     );

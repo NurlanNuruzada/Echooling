@@ -1,6 +1,8 @@
 ﻿using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.AuthDTOs;
 using Echooling.Aplication.DTOs.EmailDTOs;
+using Ecooling.Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Echooling.API.Controllers
@@ -39,6 +41,34 @@ namespace Echooling.API.Controllers
             await _authService.Register(registerDto);
             return Ok("User registered successfully");
         }
+
+        [HttpPost("AddRole")]
+        public async Task<IActionResult> AddRole(Guid userId, string Role)
+        {
+            await _authService.AddRole(userId, Role);
+            return Ok();
+        }
+
+        [HttpPost("RemoveRole")]
+        public async Task<IActionResult> RemoveRole(Guid userId, string Role)
+        {
+            await _authService.RemoveRole(userId, Role);
+            return Ok();
+        }
+
+        [HttpGet("GetAllRoles")]
+        public async Task<IActionResult> GetAllRoles()
+        {
+            var roles = await _authService.GetAllRoles();
+            return Ok(roles);
+        }
+        [HttpGet("[Action]")]
+        public async Task<IActionResult> GetAllUsersAsync()
+        {
+            var usersWithRoles = await _authService.GetAllUsersWithRolesAsync();
+            return Ok(usersWithRoles);
+        }
+
         [HttpPost("[action]/{id}")]
         public async Task<IActionResult> ResetPasswordLetter(Guid id)
         {

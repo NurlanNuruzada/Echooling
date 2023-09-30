@@ -31,6 +31,7 @@ import { useSelector } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 import Done from '../../../../Components/DoneModal/Done';
 import { ApprovedStaffId, DeleteTeacher } from '../../../../Services/TeacherService';
+import { getUserRoles } from '../../../../Services/AuthService';
 
 export default function StaffList() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,12 +44,13 @@ export default function StaffList() {
     const handleFilterByRole = (role) => {
         setFilterRole(role);
     };
+    const [Role, SetRole] = useState([]);
     if (token != null) {
         var decodedToken = jwt_decode(token);
         var id =
-        decodedToken[
+            decodedToken[
             'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
-        ];
+            ];
     }
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -60,6 +62,22 @@ export default function StaffList() {
         queryFn: GetUStaffUsers,
         staleTime: 0,
     });
+    //hande get roles 
+
+    
+    const { mutate: getRole } = useMutation(
+        (values) => getUserRoles(id),
+        {
+            onSuccess: (resp) => {
+                SetRole(resp.data)
+                console.log(resp.data)
+            }
+        }
+    );
+    useEffect(() => {
+        getRole(id)
+    }, [id])
+
 
     //handleDetele
     const HandleDeleteStaff = (Id) => {
@@ -236,56 +254,57 @@ export default function StaffList() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {data?.data
-                            .filter((staff) => !filterRole || staff.role === filterRole)
-                            .map((data, index) => (
-                                <Tr key={data.guId}>
-                                    <Td>{index + 1}</Td>
-                                    <Td>{data.fullname}</Td>
-                                    <Td>{data.isApproved ? "Yes" : "No"}</Td>
-                                    <Td>{data.phoneNumber}</Td>
-                                    <Td>{data.role}</Td>
-                                    <Td className={Styles.TableButon2} >
-                                        <Button
-                                            className={Styles.TableButon}
-                                            onClick={() => {
-                                                data.role == "Staff" ? handleNavigate(`/ControlPanel/Staff/details/${data.guId}`) :
-                                                    handleNavigate(`/ControlPanel/Teacher/details/${data.guId}`)
-                                            }}
-                                            color={'white '}
-                                            borderColor={'white'}
-                                            backgroundColor={'orange'}
-                                        >
-                                            Go To details
-                                        </Button>
-                                    </Td>
-                                    <Td className={Styles.TableButon2} >
-                                        <Button
-                                            className={Styles.TableButon}
-                                            color={'white '}
-                                            onClick={() => data.role == "Staff" ? HandleDeleteStaff(data.guId) : HandleDeleteTeacher(data.guId)}
-                                            borderColor={'white'}
-                                            backgroundColor={"red"}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </Td>
-                                    <Td>
-                                        {!data.isApproved && (
-                                            <Td className={Styles.TableButon2}>
-                                                <Button
-                                                    className={Styles.TableButon}
-                                                    color={'white'}
-                                                    onClick={() => handleApprove(data.guId)}
-                                                    backgroundColor={"purple"}
-                                                >
-                                                    Approve
-                                                </Button>
-                                            </Td>
-                                        )}
-                                    </Td>
-                                </Tr>
-                            ))}
+                        {data?.data &&
+                            data.data
+                                .filter((staff) => !filterRole || staff.role === filterRole)
+                                .map((data, index) => (
+                                    <Tr key={data.guId}>
+                                        <Td>{index + 1}</Td>
+                                        <Td>{data.fullname}</Td>
+                                        <Td>{data.isApproved ? "Yes" : "No"}</Td>
+                                        <Td>{data.phoneNumber}</Td>
+                                        <Td>{data.role}</Td>
+                                        <Td className={Styles.TableButon2} >
+                                            <Button
+                                                className={Styles.TableButon}
+                                                onClick={() => {
+                                                    data.role == "Staff" ? handleNavigate(`/ControlPanel/Staff/details/${data.guId}`) :
+                                                        handleNavigate(`/ControlPanel/Teacher/details/${data.guId}`)
+                                                }}
+                                                color={'white '}
+                                                borderColor={'white'}
+                                                backgroundColor={'orange'}
+                                            >
+                                                Go To details
+                                            </Button>
+                                        </Td>
+                                        <Td className={Styles.TableButon2} >
+                                            <Button
+                                                className={Styles.TableButon}
+                                                color={'white '}
+                                                onClick={() => data.role == "Staff" ? HandleDeleteStaff(data.guId) : HandleDeleteTeacher(data.guId)}
+                                                borderColor={'white'}
+                                                backgroundColor={"red"}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </Td>
+                                        <Td>
+                                            {!data.isApproved && (
+                                                <Td className={Styles.TableButon2}>
+                                                    <Button
+                                                        className={Styles.TableButon}
+                                                        color={'white'}
+                                                        onClick={() => handleApprove(data.guId)}
+                                                        backgroundColor={"purple"}
+                                                    >
+                                                        Approve
+                                                    </Button>
+                                                </Td>
+                                            )}
+                                        </Td>
+                                    </Tr>
+                                ))}
                     </Tbody>
                 </Table>
             </TableContainer>

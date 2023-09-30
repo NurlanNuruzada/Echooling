@@ -32,7 +32,6 @@ export default function CommentArea1({ id }) {
       // Invalidate the query to refetch the comments
       queryClient.invalidateQueries(['comments', CourseId]);
     } catch (error) {
-      console.log(error);
     }
   };
 

@@ -18,8 +18,8 @@ export default function CreateEventLast({ onNext, formData, onPrevious }) {
     const [Id, setId] = useState('');
     const [File, SetFile] = useState(null); // Declare File in the outer scope
     const [FileName, SetFileName] = useState('');
- 
-     const { token, userName ,fullname} = useSelector((state) => state.auth); // Update the selector
+
+    const { token, userName, fullname } = useSelector((state) => state.auth); // Update the selector
     if (token != null) {
         var decodedToken = jwt_decode(token);
         var id =
@@ -72,7 +72,7 @@ export default function CreateEventLast({ onNext, formData, onPrevious }) {
             eventTitle: formData.step3Data.EventTitle,
             aboutEvent: formData.step3Data.AboutEvent,
             EventCategoryiesId: formData.step2Data[0].GuId,
-            Categoryname:formData.step2Data[0].category,
+            Categoryname: formData.step2Data[0].category,
             image: null,
         },
         onSubmit: async (values) => {
@@ -81,7 +81,7 @@ export default function CreateEventLast({ onNext, formData, onPrevious }) {
             formData.append("EventStartDate", values.eventFinishDate);
             formData.append("EventFinishDate", values.eventStartDate);
             formData.append("Cost", values.cost);
-            formData.append("orginazer", values.orginazer); 
+            formData.append("orginazer", values.orginazer);
             formData.append("TotalSlot", values.totalSlot);
             formData.append("Location", values.location);
             formData.append("orginazer", values.orginazer);
@@ -90,13 +90,13 @@ export default function CreateEventLast({ onNext, formData, onPrevious }) {
             formData.append("EventCategoryiesId", values.EventCategoryiesId);
             formData.append("Categoryname", values.Categoryname);
             if (formData.get("image")) {
-                 mutate(formData);
+                mutate(formData);
             } else {
                 console.log("FormData is null");
             }
         },
     });
-console.log(formData)
+    console.log(formData)
     const { mutate, isLoading, error } = useMutation(
         (data) => AddEvent(Id, data),
         {
@@ -134,21 +134,25 @@ console.log(formData)
                 />
             )}
             CreateEventLast
-            <Flex gap={5}>
+            <Flex ml={2} gap={5}>
                 <form onSubmit={formik.handleSubmit}>
-                <input
+                    <input
                         name="image"
                         type="file"
+                        accept="image/*"
                         onChange={(e) => fileUploadHandler(e)}
                     />
-                    <button className={Styles.Button} onClick={handlePreviousClick}>
-                        PREVIOUS
-                    </button>
-                    {true && (
-                        <button className={Styles.Button} type="submit">
-                            NEXT
+                    <Flex gap={10} mt={20}>
+
+                        <button className={Styles.Button} onClick={handlePreviousClick}>
+                            PREVIOUS
                         </button>
-                    )}
+                        {true && (
+                            <button className={Styles.Button} type="submit">
+                                NEXT
+                            </button>
+                        )}
+                    </Flex>
                 </form>
             </Flex>
         </div>

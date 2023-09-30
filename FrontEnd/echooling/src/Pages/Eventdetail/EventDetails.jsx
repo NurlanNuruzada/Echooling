@@ -22,25 +22,64 @@ import EventImage from "../../Images/UpcomingEvents.jpeg";
 import EffectImage from "../../Components/TransparantEffect/EffectImage";
 import { useParams } from "react-router";
 import { useMutation, useQuery } from "react-query";
-import { GetEventId, getEventById, getUserByEventId, getallwithttake } from "../../Services/EventService";
+import { BuyEvent, GetEventId, getEventById, getUserByEventId, getallwithttake } from "../../Services/EventService";
 import { GetUStaffUsers, getById } from "../../Services/StaffService";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import jwt_decode from 'jwt-decode';
+import Done from "../../Components/DoneModal/Done";
+
+
 const EventDetails = () => {
+  const [success, setSuccess] = useState(false);
   const { id } = useParams();
   const [Event, SetEvent] = useState([]);
+  const [buyError, SetBuyErorr] = useState('');
   const [User, SetUser] = useState([]);
 
+  const { token } = useSelector((state) => state.auth); // Update the selector
+  if (token != null) {
+    var decodedToken = jwt_decode(token);
+    var UserId =
+      decodedToken[
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+      ];
+  }
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        setSuccess(false); // Set it to false to hide the modal
+      }, 2500);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [success]);
 
   const { mutate: getCategory } = useMutation(() => getEventById(id), {
     onSuccess: (resp) => {
       SetEvent(resp || []);
     },
   });
+  const { mutate: Buy } = useMutation(() => BuyEvent(UserId, id), {
+    onSuccess: (resp) => {
+      setSuccess(true)
+    },
+    onError: (error) => {
+      // Check if the error object has a customMessage property
+      if (error.customMessage) {
+        SetBuyErorr(error.customMessage);
+      } else {
+        // If customMessage is not available, use a default error message
+        SetBuyErorr('you already bought this.');
+      }
+    },
+  });
+  const handeBuyCourse = () => {
+    Buy()
+  }
   useEffect(() => {
     getCategory();
-    console.log(Event)
-  }, []);
-  useEffect(() => {
     const handleClick = () => {
       getCategory();
     };
@@ -56,16 +95,14 @@ const EventDetails = () => {
     queryFn: () => getallwithttake(3), // Pass the function itself
     staleTime: 0,
     onSuccess: (data) => {
-      SetEvent(data || []); // Use optional chaining to handle undefined data
-      console.log(data);
+      SetEvent(data || []);
     },
   });
   const { data: Staff } = useQuery({
     queryKey: ["Staff"],
-    queryFn: () => getUserByEventId(id), // Pass the function itself
+    queryFn: () => getUserByEventId(id),
     staleTime: 0,
     onSuccess: (data) => {
-      console.log(data);
       SetUser(data)
     },
   });
@@ -97,6 +134,7 @@ const EventDetails = () => {
 
   return (
     <div className={Styles.MainContainer}>
+      {success && <Done firstTitle={"Bought Succesfully"} seccondTitle={"you succesfully bouth this Event! thanks!"} />}
       <EffectImage
         showCenter={false}
         imageLink={EventImage}
@@ -225,11 +263,25 @@ const EventDetails = () => {
               </Flex>
               <h4>{Event?.totalSlot}</h4>
             </Flex>
+            <Flex
+              className={Styles.Icon}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <Flex alignItems={"center"}>
+                <FontAwesomeIcon className={Styles.Icon} icon={faPerson} />
+                <p>Enrolled :</p>
+              </Flex>
+              <h4>{Event?.enrolled}</h4>
+            </Flex>
             <Divider />
-            <Button className={Styles.Button}>
+            <Button onClick={() => handeBuyCourse()} className={Styles.Button}>
               Join Now!{" "}
               <FontAwesomeIcon className={Styles.arrow} icon={faArrowRight} />
             </Button>
+            <Flex color={'red'} justifyContent={'center'}>
+              {!success ? <h1>{buyError}</h1> : ""}
+            </Flex>
             <Flex
               className={Styles.share}
               justifyContent={"center"}

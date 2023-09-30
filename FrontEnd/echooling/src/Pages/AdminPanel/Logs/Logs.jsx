@@ -53,32 +53,32 @@ export default function Logs() {
     <TableContainer borderRadius={10} m={10} border={"1px solid #CACFD2"}>
       <Flex>
 
-      <Select
-        value={filterRole}
-        onChange={handleRoleChange}
-        size="md"
-        w={40} // Adjust select size as needed
-      >
-        <option value="">All</option>
-        <option value="Remove">Remove</option>
-        <option value="Approve">Approve</option>
-      </Select>
-      <Input
-        type="text"
-        placeholder="Filter DoneBy"
-        value={filterDoneBy}
-        onChange={handleDoneByChange}
-        size="md"
-        w={40} // Adjust input size as needed
-      />
-      <Input
-        type="text"
-        placeholder="Filter DoneTo"
-        value={filterDoneTo}
-        onChange={handleDoneToChange}
-        size="md"
-        w={40} // Adjust input size as needed
-      />
+        <Select
+          value={filterRole}
+          onChange={handleRoleChange}
+          size="md"
+          w={40} // Adjust select size as needed
+        >
+          <option value="">All</option>
+          <option value="Remove">Remove</option>
+          <option value="Approve">Approve</option>
+        </Select>
+        <Input
+          type="text"
+          placeholder="Filter DoneBy"
+          value={filterDoneBy}
+          onChange={handleDoneByChange}
+          size="md"
+          w={40} // Adjust input size as needed
+        />
+        <Input
+          type="text"
+          placeholder="Filter DoneTo"
+          value={filterDoneTo}
+          onChange={handleDoneToChange}
+          size="md"
+          w={40} // Adjust input size as needed
+        />
       </Flex>
 
       <Table variant='striped' colorScheme='orange' >
@@ -93,23 +93,24 @@ export default function Logs() {
           </Tr>
         </Thead>
         <Tbody>
-          {data?.data
-            .filter((log) => {
-              const filterRoleCondition = filterRole === '' || log.actiondEntityName === filterRole;
-              const filterDoneByCondition = filterDoneBy === '' || log.userId.includes(filterDoneBy);
-              const filterDoneToCondition = filterDoneTo === '' || log.actiondEntityId.includes(filterDoneTo);
+          {data?.data &&
+            data.data
+              .filter((log) => {
+                const filterRoleCondition = filterRole === '' || log.actiondEntityName === filterRole;
+                const filterDoneByCondition = filterDoneBy === '' || log.userId.includes(filterDoneBy);
+                const filterDoneToCondition = filterDoneTo === '' || log.actiondEntityId.includes(filterDoneTo);
 
-              return filterRoleCondition && filterDoneByCondition && filterDoneToCondition;
-            })
-            .map((log, index) => (
-              <Tr key={log.guId}>
-                <Td>{index + 1}</Td>
-                <Td>{log.userId} </Td>
-                <Td>{log.actiondEntityName}</Td>
-                <Td>{log.actiondEntityId}</Td>
-                <Td>{formatDate(log.actionTime)}</Td>
-              </Tr>
-            ))}
+                return filterRoleCondition && filterDoneByCondition && filterDoneToCondition;
+              })
+              .map((log, index) => (
+                <Tr key={log.guId}>
+                  <Td>{index + 1}</Td>
+                  <Td>{log.userId} </Td>
+                  <Td>{log.actiondEntityName}</Td>
+                  <Td>{log.actiondEntityId}</Td>
+                  <Td>{formatDate(log.actionTime)}</Td>
+                </Tr>
+              ))}
         </Tbody>
       </Table>
     </TableContainer>

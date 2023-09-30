@@ -8,6 +8,7 @@ using Echooling.Aplication.DTOs.EventDTOs;
 using Ecooling.Domain.Entites.Common;
 using Echooling.Persistance.Implementations.Services;
 using Ecooling.Domain.Entites;
+using Echooling.Aplication.DTOs.CourseDTOs;
 
 namespace Echooling.API.Controllers
 {
@@ -32,7 +33,7 @@ namespace Echooling.API.Controllers
         {
             List<EventGetDto> List = await _eventService.GetAllAsync();
             return Ok(List);
-        }    
+        }
         [HttpGet("[Action]")]
         public async Task<List<EventGetDto>> GetAllAsyncTake(int take)
         {
@@ -58,12 +59,7 @@ namespace Echooling.API.Controllers
             await _eventService.BuyEvent(EventId, appUserId);
             return Ok("Succesfully bougth");
         }
-        [HttpGet("[Action]")]
-        public async Task<List<GetBouthEventDto>> GetBouthEvents(Guid appUserId)
-        {
-            List<GetBouthEventDto> List = await _eventService.GetBouthEvent(appUserId);
-            return List;
-        }
+   
 
 
         [HttpPost("[Action]/id")]
@@ -81,15 +77,27 @@ namespace Echooling.API.Controllers
         {
             var List = await _eventService.GetAllSearchAsync(EventName, category, StartDate, EndDate, location);
             return Ok(List);
+        }
+
+        [HttpPut("id")]
+        public async Task<IActionResult> update([FromForm] EventCreateDto eventDto, Guid id)
+        {
+            await _eventService.UpdateAsync(eventDto, id);
+            return Ok(new { message = "Slider Updated successfully." + eventDto });
+        }
+        [HttpGet("[Action]/id")]
+        public async Task<List<EventGetDto>> getEventsbyStaffId(Guid StaffId)
+        {
+            var List = await _eventService.getEventsbyStaffId(StaffId);
+            return List;
+        }
+        [HttpGet("[Action]")]
+        public async Task<List<GetBouthEventDto>> GetBouthEvents(Guid appUserId)
+        {
+            List<GetBouthEventDto> List = await _eventService.GetBouthEvent(appUserId);
+            return List;
+        }
     }
 
-    [HttpPut("id")]
-    public async Task<IActionResult> update([FromForm] EventCreateDto eventDto, Guid id)
-    {
-        await _eventService.UpdateAsync(eventDto, id);
-        return Ok(new { message = "Slider Updated successfully." + eventDto });
-    }
-
-}
 }
 

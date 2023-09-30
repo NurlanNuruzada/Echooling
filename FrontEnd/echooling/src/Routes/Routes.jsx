@@ -46,6 +46,9 @@ import MyCourses from "../Pages/AdminPanel/MyCourses/MyCourses";
 import CouseVideos from "../Pages/AdminPanel/MyCourses/CouseVideos";
 import BouthCourse from "../Pages/BouthCourses/BouthCourse";
 import BouthCoueseVideos from "../Pages/BouthCourses/BouthCoueseVideos";
+import MyEvents from "../Pages/AdminPanel/MyEvents/MyEvents";
+import BoughtEvent from "../Pages/AdminPanel/BoughtEvents/BoughtEvents";
+import RoleManger from "../Pages/AdminPanel/RoleManager/RoleManger";
 
 export default function Routes() {
   const { token } = useSelector((x) => x.auth);
@@ -89,6 +92,14 @@ export default function Routes() {
         {
           path: "/ControlPanel/CourseList",
            element:  <CoursesList />  
+        },
+        {
+          path: "/ControlPanel/MyEvents",
+           element:  <MyEvents />  
+        },
+        {
+          path: "/ControlPanel/BoughtEvents",
+           element:  <BoughtEvent />  
         },
         {
           path: "/ControlPanel/Course/Update/:id",
@@ -149,6 +160,10 @@ export default function Routes() {
         {
           path: "/ControlPanel/Courses/CourseVideos/:id",
           element:  <CouseVideos />  
+        },
+        {
+          path: "/ControlPanel/RoleManager",
+          element:  <RoleManger />  
         },
       ]
     },

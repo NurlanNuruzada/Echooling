@@ -13,6 +13,7 @@ namespace Echooling.Aplication.DTOs.EventDTOs
         public string? EventTitle { get; set; }
         public string? Categoryname { get; set; }
         public string? Location { get; set; }
+
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventFinishDate { get; set; }
     }
