@@ -15,7 +15,7 @@ const CreateEventScema = Yup.object({
     .required("EventTitle is requred!"),
     AboutEvent: Yup.string()
     .min(3, "AboutEvent too short")
-    .max(255, "AboutEvent too long"),
+    .max(755, "AboutEvent too long"),
     EventFinishDate: Yup.string()
     .required("EventFinishDate is requred!"),
     EventStartDate: Yup.string()

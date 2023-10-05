@@ -9,7 +9,7 @@ const CourseCard = ({ image, title, price,CreatorImage,category,Creatorname ,Cou
   function truncateTitle(title) {
     const maxLength = 55;
     if (title.length > maxLength) {
-      return title.slice(0, maxLength) + "...";
+      return title.slice(0, maxLength) + "..";
     }
     return title;
   }  
@@ -20,7 +20,7 @@ const CourseCard = ({ image, title, price,CreatorImage,category,Creatorname ,Cou
         <div className={Styles.Category}>{category}</div>
       </div>
       <div className={Styles.down}>
-        <div className={Styles.title}>
+        <div className={Styles?.title}>
           <p className={Styles.text}>{truncateTitle(title)}</p>
           <div className={Styles.CreateContainer}>
             <img className={Styles.image} src={ CreatorImage  ? `/Uploads/Course/${CreatorImage}` : userImage} alt="user" />

@@ -49,7 +49,7 @@ const EventCard = ({ image, ColorTitle, ColorDetail, IsShadow ,Title,StartDate,E
             </div>
             <div>
               <p className={Styles.EventDetail}>
-                {Title}
+                {Title.slice(0, 50)}...
               </p>
             </div>
           </div>

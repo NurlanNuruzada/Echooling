@@ -14,6 +14,7 @@ import TeacherCard from "../../Components/TeacherCard/TeacherCard";
 import SynchronizedSlider from "../../Components/CaruselSliderSlick/caruselSlider";
 import { GetUStaffUsers } from "../../Services/StaffService";
 import { useQuery } from "react-query";
+import { GetInfo } from "../../Services/Info";
 const About = () => {
   const navigator = useNavigate();
   const { data, isError, isLoading } = useQuery({
@@ -21,14 +22,19 @@ const About = () => {
     queryFn: GetUStaffUsers,
     staleTime: 0,
   });
+  const { data:Information } = useQuery({
+    queryKey: ["info"],
+    queryFn: GetInfo,
+    staleTime: 0,
+  });
   const handleNavigate = (link) => {
     navigator(link);
   };
   const info = [
-    { number: 1643, Text: "STUDENTS" },
-    { number: 4573, Text: "COURSES" },
-    { number: 1346, Text: "TEACHERS ONLINE" },
-    { number: 200, Text: "COUNTRIES" },
+    { number: Information?.data?.totalStudentCount, Text: "TOTAL STUDENTS" },
+    { number: Information?.data?.totalCoursesCount, Text: "TOTAL COURSES" },
+    { number: Information?.data?.totalTeachersCount, Text: "TOTAL TEACHERS" },
+    { number: Information?.data?.totalEventsCount, Text: "TOTAL EVENTS" },
   ];
   return (
     <>

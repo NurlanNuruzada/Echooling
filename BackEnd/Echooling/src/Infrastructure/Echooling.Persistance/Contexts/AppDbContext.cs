@@ -89,7 +89,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
        .WithOne(cc => cc.Course)
        .HasForeignKey(e => e.CourseId)
        .OnDelete(DeleteBehavior.Cascade);
-        base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(modelBuilder);  
     }
 }
 

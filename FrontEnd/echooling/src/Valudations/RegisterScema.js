@@ -39,9 +39,9 @@
       .min(10, "email too short")
       .max(255, "email too long")
       .required("email field is requred!"),
-    phoneNumber: Yup.string()
-      .min(10, "phone number too short")
-      .max(255, "phone number too long"),
+      phoneNumber: Yup.string()
+      .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits')
+      .max(255, 'Phone number too long'),
   });
 
   export default RegisterScema;

@@ -298,7 +298,7 @@ const CourseDetails = () => {
                   <TabPanel>
                     <div className={Styles.AtendanceList}>
                       {TeacherData?.map((data, index) => (
-                        <a href={`/StaffDetails/${data.appUserID}`}>
+                        <a href={`/TeacherDetails/${data.appUserID}`}>
                           <Atendee
                             key={index} // Don't forget to add a unique key prop when mapping
                             image={AtendeeImage}

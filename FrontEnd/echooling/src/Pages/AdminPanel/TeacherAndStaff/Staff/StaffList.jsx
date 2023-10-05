@@ -191,7 +191,7 @@ export default function StaffList() {
             const timer = setTimeout(() => {
                 setRegistrationSuccess(false);
                 queryClient.invalidateQueries(['Staff']);
-            }, 4500);
+            }, 3500);
             return () => {
                 clearTimeout(timer);
             };

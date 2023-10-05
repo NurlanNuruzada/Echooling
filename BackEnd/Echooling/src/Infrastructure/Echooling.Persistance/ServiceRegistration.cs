@@ -87,6 +87,7 @@ public static class ServiceRegistration
         services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<IBasketProductService, BasketProductService>();
         services.AddScoped<ILoggerService, LoggerService>();
+        services.AddScoped<IInfoService, InfoService>();
         //Idenitity
         services.AddIdentity<AppUser, IdentityRole>(options =>
         {

@@ -109,7 +109,7 @@ const Header = () => {
     navigate(route);
   };
   const dispatch = useDispatch();
-  const Routes = ["Home", "About", "Courses", "contact", "Events", "staff"];
+  const Routes = ["Home", "About", "Courses", "Contact", "Events", "Staff"];
   const userGreeting = userName ? (
     <Menu>
       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -121,7 +121,7 @@ const Header = () => {
         <MenuItem onClick={handleSendReset}>ResetPassword</MenuItem>
         {Isteacher && <MenuItem onClick={() => handleNavigate(`/Applyteacher/teaching-experiance`)}>Apply For Teaching</MenuItem>}
         {/* {Isteacher && <MenuItem onClick={() =>onOpen}>Change Image</MenuItem>} */}
-        {IsStaff  &&<MenuItem onClick={() => handleNavigate(`/ApplyForStaffContainer`)}>Apply For Job</MenuItem>}
+        {IsStaff  &&<MenuItem onClick={() => handleNavigate(`/ApplyForStaffContainer`)}>Apply For Event job</MenuItem>}
       </MenuList>
     </Menu>
   ) : (

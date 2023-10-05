@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { QueryClient, useMutation } from 'react-query';
-import { Flex, Progress } from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Flex, Progress } from '@chakra-ui/react';
 import Styles from './CreateCourseLast.module.css';
 import Done from '../../../Components/DoneModal/Done';
 import Steps from '../../../Components/Steps/Steps';
@@ -22,6 +22,7 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
     const [FileName, SetFileName] = useState('');
     const { token, userName, fullname } = useSelector((state) => state.auth); // Update the selector
     const [MainData, SetMainData] = useState('');
+    const [loginError, setLoginError] = useState(null);
     if (token != null) {
         var decodedToken = jwt_decode(token);
         var id =
@@ -110,15 +111,15 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
             }
         },
     });
-    const { mutate, isLoading, error } = useMutation(
+    const { mutate, isLoading, error: Loginerror  } = useMutation(
         (data) => AddCourse(Id, data),
         {
             onSuccess: (resp) => {
                 setSentSuccess(true);
             },
             onError: (error) => {
-                console.error(error);
-            },
+                setLoginError("you are not allowed to create content u must apply for teacher also to be approved!"); // Set error message
+              },
         }
     );
 
@@ -163,6 +164,13 @@ export default function CreateCourseLast({ onNext, formData, onPrevious }) {
                     )}
                 </form>
             </Flex>
+            {loginError && (
+                      <Alert status="error" mt={4}>
+                        <AlertIcon />
+                        <AlertTitle mr={2}>Error: </AlertTitle>
+                        <AlertDescription>{loginError}</AlertDescription>
+                      </Alert>
+                    )}
         </div>
     );
 }

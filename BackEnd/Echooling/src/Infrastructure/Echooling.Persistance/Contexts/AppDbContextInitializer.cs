@@ -44,6 +44,7 @@ public class AppDbContextInitializer
             UserName = _configuration["SuperAdminSetting:username"],
             Email = _configuration["SuperAdminSetting:email"],
             PhoneNumber = _configuration["SuperAdminSetting:PhoneNumber"],
+            Fullname = _configuration["SuperAdminSetting:Fullname"],
             isActive = true
         };
         await _userManager.CreateAsync(user, _configuration["SuperAdminSetting:password"]);

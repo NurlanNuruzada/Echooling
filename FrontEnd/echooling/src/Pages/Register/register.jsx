@@ -48,21 +48,6 @@ const Register = () => {
   const dispatch = useDispatch();
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [loginError, setLoginError] = useState(null);
-  const buttonsAndRoute = {
-    button1: {
-      navigate: "/",
-      name: "Home",
-      color: "gray",
-      isOpen: "false"
-    },
-    button2: {
-      navigate: "/auth/register",
-      name: "login",
-      color: "green"
-    },
-    title: "Succesfully registered!"
-  }
-
   const getErrorMessage = (fieldName) => {
     return formik.errors[fieldName] ? formik.errors[fieldName] : "";
   };
@@ -110,13 +95,23 @@ const Register = () => {
     },
     validationSchema: RegisterScema,
   });
+  useEffect(() => {
+    if (registrationSuccess) {
+        const timer = setTimeout(() => {
+            setRegistrationSuccess(false);
+        }, 3500);
+        return () => {
+            clearTimeout(timer);
+            navigate('/')
+        };
+    }
+}, [registrationSuccess]);
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   return (
     <Box>
       <div className={Styles.MainContainer}>
-        {registrationSuccess && (
-          <Done buttonsAndNagivage={buttonsAndRoute} />)}
+        {registrationSuccess && <Done firstTitle={"Appy request is accepted"} seccondTitle={"send email about application"} />}
         <div className={Styles.BackgrounImage}></div>
         <Flex className={Styles.MainFlex} flexDirection={"column"}>
           <div className={Styles.Main}>
@@ -259,10 +254,9 @@ const Register = () => {
                         bg="white"
                         px="4"
                       >
-                        OR
                       </AbsoluteCenter>
+                      
                     </Box>
-                    <FontAwesomeIcon className={Styles.Icon} icon={faGoogle} />
                   </Flex>
                 </TabPanel>
                 <TabPanel>
@@ -274,7 +268,7 @@ const Register = () => {
                       </InputLeftElement>
                       <Input
                         type="text"
-                        placeholder="mail or phonenumber"
+                        placeholder="mail or username"
                         name="emailOrUsername"
                         onChange={LoginFormik.handleChange}
                         value={LoginFormik.values.emailOrUsername}

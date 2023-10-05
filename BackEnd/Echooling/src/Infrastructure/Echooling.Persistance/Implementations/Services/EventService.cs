@@ -16,6 +16,7 @@ using Ecooling.Domain.Entites;
 using Ecooling.Domain.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -250,15 +251,33 @@ namespace Echooling.Persistance.Implementations.Services
             await _context.SaveChangesAsync();
 
         }
-        public async Task<List<GetBouthEventDto>> GetBouthEvent(Guid appUserId)
-        {
-            var userEvents = await _context.AppUserEvents
-                .Where(cau => cau.AppUserId == appUserId)
-                .Select(cau => cau.events)
-                .ToListAsync();
-            var List = _mapper.Map<List<GetBouthEventDto>>(userEvents);
-            return List;
-        }
+        //[HttpGet("[Action]")]
+        //public async Task<IActionResult> QrCode(Guid appUserId)
+        //{
+            //List<GetBouthEventDto> events = await _eventService.GetBouthEvent(appUserId);
+            //string qrCodeContent = "Your QR Code Content Here";
+
+            //var barcodeWriter = new BarcodeWriterPixelData
+            //{
+            //    Format = BarcodeFormat.QR_CODE,
+            //    Options = new QrCodeEncodingOptions
+            //    {
+            //        Width = 200,  
+            //        Height = 200,
+            //    }
+            //};
+
+            //var pixelData = barcodeWriter.Write(qrCodeContent);
+            //var imageStream = new MemoryStream(pixelData.Pixels);
+            //string base64Image = Convert.ToBase64String(imageStream.ToArray());
+            //var response = new
+            //{
+            //    Events = events,
+            //    QRCodeImageBase64 = base64Image
+            //};
+
+        //    return 
+        //}
         public async Task<List<EventGetDto>> getEventsbyStaffId(Guid StaffId)
         {
             var userEvents = await _context.EventStaff
@@ -277,6 +296,17 @@ namespace Echooling.Persistance.Implementations.Services
                 .Where(e=>e.IsDeleted == false)
                 .ToListAsync();
             var list = _mapper.Map<List<EventGetDto>>(EventList);
+            return list;
+        }
+
+        public async Task<List<GetBouthEventDto>> GetBouthEvent(Guid appUserId)
+        {
+            var EventList = await _context.EventStaff
+             .Where(cau => cau.StaffId == appUserId)
+             .Select(cau => cau.events)
+             .Where(e => e.IsDeleted == false)
+             .ToListAsync();
+            var list = _mapper.Map<List<GetBouthEventDto>>(EventList);
             return list;
         }
     }

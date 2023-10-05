@@ -1,15 +1,9 @@
-﻿using Echooling.Aplication.Abstraction.Services;
-using Echooling.Aplication.DTOs.SliderDTOs;
-using Echooling.Persistance.Exceptions;
-using System.Net;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Echooling.Aplication.Abstraction.Services;
 using Echooling.Aplication.DTOs.EventDTOs;
-using Ecooling.Domain.Entites.Common;
-using Echooling.Persistance.Implementations.Services;
-using Ecooling.Domain.Entites;
-using Echooling.Aplication.DTOs.CourseDTOs;
-
+using Echooling.Persistance.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+using System.IO;
 namespace Echooling.API.Controllers
 {
     [Route("api/[controller]")]
@@ -59,7 +53,7 @@ namespace Echooling.API.Controllers
             await _eventService.BuyEvent(EventId, appUserId);
             return Ok("Succesfully bougth");
         }
-   
+
 
 
         [HttpPost("[Action]/id")]
@@ -97,6 +91,7 @@ namespace Echooling.API.Controllers
             List<GetBouthEventDto> List = await _eventService.GetBouthEvent(appUserId);
             return List;
         }
+
     }
 
 }

@@ -27,7 +27,7 @@ const CreateCourseScema = Yup.object({
     ),
     AboutCourse: Yup.string()
     .min(20, "AboutEvent too short")
-    .max(455, "AboutEvent too long")
+    .max(755, "AboutEvent too long")
     .required("AboutEvent is required!"),
 });
 export default CreateCourseScema;

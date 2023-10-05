@@ -15,6 +15,24 @@
     opacity: 0.86;
     
 }
+.ListHeader{
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 700;
+    margin-bottom: 31px;
+}
+.ListItems{
+    list-style: none;
+    color: #aeb2c2;
+    font-size: 15px;
+    line-height: 25px;
+    font-weight: 400;
+    transition: all 200ms linear;
+    transition-delay: 0.1s;
+    text-decoration: none;
+    padding-top: 10px;
+}
 .FooterContainer::before {
     content: '';
     top: 0;

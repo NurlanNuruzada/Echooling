@@ -17,7 +17,7 @@ const Category = ({ SetFilterData }) => {
     "Web Design (20)",
     "PHP (23)",
   ];
-  const ratings = [1, 2, 3, 4.5];
+  const ratings = [0,1, 2, 3, 4.5];
   const [selectedCategory, setSelectedCategory] = useState("");
   const [category, setCategory] = useState([]);
 

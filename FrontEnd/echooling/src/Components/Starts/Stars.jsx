@@ -48,7 +48,7 @@ function Stars({ handleRate, size, isEditable, initialRating, RaitingPerson }) {
           <div>
             <ReactStars {...ratingExample} edit={false} />
           </div>
-          <p className={Styles.RaitingByNum}>{formatRating(RaitingPerson)}</p>
+          <p className={Styles.RaitingByNum}></p>
         </Flex>
       </div>
     );
